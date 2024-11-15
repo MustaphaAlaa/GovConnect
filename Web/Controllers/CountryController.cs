@@ -38,7 +38,7 @@ public class CountryController : ControllerBase
     public async Task<IActionResult> GetCountry([FromRoute] int Id)
 
     {
-        var c = await _getCountry.GetByAsync(c => c.CountryId == Id);
+        var c = await _getCountry.GetByAsync(c => c.Id == Id);
 
         if (c == null)
             return NotFound();

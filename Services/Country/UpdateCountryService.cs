@@ -43,7 +43,7 @@ public class UpdateCountryService : IUpdateCountry
             throw new InvalidOperationException("Id Is out of boundry");
 
 
-        var country = await _getRepository.GetAsync(country => country.CountryId == request.Id);
+        var country = await _getRepository.GetAsync(country => country.Id == request.Id);
 
         if (country is null)
             throw new InvalidOperationException("Country isn't exist in db");

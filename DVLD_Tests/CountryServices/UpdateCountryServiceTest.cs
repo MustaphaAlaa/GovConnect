@@ -110,7 +110,7 @@ namespace DVLD_Tests.CountryServices
             //Arrange 
             UpdateCountryRequest updateCountryRequest = new UpdateCountryRequest() { Id = 19975, Name = "test" };
 
-            Expression<Func<Country, bool>> expression = c => c.CountryId == updateCountryRequest.Id;
+            Expression<Func<Country, bool>> expression = c => c.Id == updateCountryRequest.Id;
 
             _getRepositoryMock.Setup(temp => temp.GetAsync(expression)).ThrowsAsync(new InvalidOperationException());
 
@@ -131,13 +131,13 @@ namespace DVLD_Tests.CountryServices
             _updateRepositoryMock.Setup(temp => temp.UpdateAsync(It.IsAny<Country>())).ReturnsAsync(country);
 
             _mapper.Setup(m => m.Map<CountryDTO>(It.IsAny<Country>()))
-                     .Returns((Country countrySource) => new CountryDTO() { Id = countrySource.CountryId, CountryName = countrySource.CountryName });
+                     .Returns((Country countrySource) => new CountryDTO() { Id = countrySource.Id, CountryName = countrySource.CountryName });
 
-            UpdateCountryRequest updateCountryRequest = new UpdateCountryRequest() { Id = country.CountryId, Name = $"update test {country.CountryName}" };
+            UpdateCountryRequest updateCountryRequest = new UpdateCountryRequest() { Id = country.Id, Name = $"update test {country.CountryName}" };
 
             CountryDTO expected = new CountryDTO()
             {
-                Id = country.CountryId,
+                Id = country.Id,
                 CountryName = updateCountryRequest.Name,
             };
 

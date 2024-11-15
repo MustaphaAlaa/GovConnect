@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ModelDTO;
+using ModelDTO.User;
 using Models.Types;
 using Models.Users;
 
@@ -10,6 +11,8 @@ public class DVLDMapperConfig : Profile
     public DVLDMapperConfig()
     {
         CreateMap<User, UserDTO>().ReverseMap();
+        CreateMap<User, RegisterDTO>().ReverseMap();
+
 
         //@@Country
         CreateMap<CountryDTO, Country>().ReverseMap();

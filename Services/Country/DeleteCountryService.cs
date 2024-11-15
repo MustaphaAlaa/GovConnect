@@ -24,6 +24,6 @@ public class DeleteCountryService : IDeleteCountry
 
         //I didn't write get country because DeleteAsync will check if country exist or not
 
-        return await _deleteRepository.DeleteAsync(country => country.CountryId == id) > 0;
+        return await _deleteRepository.DeleteAsync(country => country.Id == id) > 0;
     }
 }

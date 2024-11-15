@@ -90,7 +90,7 @@ namespace DVLD_Tests.CountryServices
             CreateCountryRequest countryRequest = _fixture.Create<CreateCountryRequest>();
             countryRequest.Name = countryRequest.Name.ToLower();
 
-            var newCountry = new Country() { CountryId = 1973, CountryName = countryRequest.Name };
+            var newCountry = new Country() { Id = 1973, CountryName = countryRequest.Name };
 
 
             _getRepositoryMock
@@ -114,10 +114,10 @@ namespace DVLD_Tests.CountryServices
             CreateCountryRequest countryRequest = new() { Name = "Qahera" };
             countryRequest.Name = countryRequest.Name.ToLower();
 
-            Country newCountry = new Country() { CountryId = 1998, CountryName = countryRequest.Name };
+            Country newCountry = new Country() { Id = 1998, CountryName = countryRequest.Name };
 
             _createRepositoryMock.Setup(temp => temp.CreateAsync(It.IsAny<Country>())).ReturnsAsync(newCountry);
-            _getRepositoryMock.Setup(temp => temp.GetAsync(c => c.CountryId == 1998)).ReturnsAsync(newCountry);
+            _getRepositoryMock.Setup(temp => temp.GetAsync(c => c.Id == 1998)).ReturnsAsync(newCountry);
 
             //Act
             var result = await _createCountry.CreateAsync(countryRequest);

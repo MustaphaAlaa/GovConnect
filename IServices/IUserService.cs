@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using ModelDTO;
+using ModelDTO.User;
 using Models.Users;
 
 namespace IServices;
