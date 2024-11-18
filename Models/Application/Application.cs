@@ -18,13 +18,12 @@ public class Application
 
     public decimal PaidFees { get; set; }
 
-    [Required]
-    [ForeignKey("ApplicationType")]
-    public int ApplicationTypeId { get; set; }
+    [Required] public int ApplicationTypeId { get; set; }
+    [Required] public int ApplicationForId { get; set; }
 
     [ForeignKey("Employee")] public Guid CreatedByEmployeeId { get; set; }
 
     public User User { get; set; }
-    public ApplicationType ApplicationType { get; set; }
+    public  ApplicationFees  ApplicationFees { get; set; }
     public Employee Employee { get; set; }
 }

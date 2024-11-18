@@ -11,6 +11,7 @@ public class DVLDMapperConfig : Profile
     public DVLDMapperConfig()
     {
         CreateMap<User, UserDTO>().ReverseMap();
+        CreateMap<UpdateUserDTO, UserDTO>().ReverseMap();
         CreateMap<User, RegisterDTO>().ReverseMap();
 
 

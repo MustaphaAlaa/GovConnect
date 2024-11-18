@@ -139,6 +139,9 @@ namespace DataConfigurations.Migrations
                     b.Property<DateTime>("ApplicationDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("ApplicationForId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ApplicationStatus")
                         .HasColumnType("int");
 
@@ -158,9 +161,9 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("ApplicantUserId");
 
-                    b.HasIndex("ApplicationTypeId");
-
                     b.HasIndex("CreatedByEmployeeId");
+
+                    b.HasIndex("ApplicationTypeId", "ApplicationForId");
 
                     b.ToTable("Applications");
                 });
@@ -173,7 +176,7 @@ namespace DataConfigurations.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ApplicationTypeId")
+                    b.Property<int>("ApplicationId")
                         .HasColumnType("int");
 
                     b.Property<int>("LicenseClassId")
@@ -181,29 +184,61 @@ namespace DataConfigurations.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationTypeId");
+                    b.HasIndex("ApplicationId");
 
                     b.HasIndex("LicenseClassId");
 
                     b.ToTable("LocalDrivingLicenseApplications");
                 });
 
-            modelBuilder.Entity("Models.ApplicationType", b =>
+            modelBuilder.Entity("Models.ApplicationFees", b =>
                 {
                     b.Property<int>("ApplicationTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ApplicationForId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Fees")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("ApplicationTypeId", "ApplicationForId");
+
+                    b.HasIndex("ApplicationForId");
+
+                    b.ToTable("ApplicationsFees");
+                });
+
+            modelBuilder.Entity("Models.ApplicationFor", b =>
+                {
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ApplicationTypeId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("ApplicationFees")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ApplicationTitle")
+                    b.Property<string>("For")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ApplicationTypeId");
+                    b.HasKey("Id");
+
+                    b.ToTable("ApplicationFor");
+                });
+
+            modelBuilder.Entity("Models.ApplicationType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("ApplicationTypes");
                 });
@@ -424,28 +459,6 @@ namespace DataConfigurations.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Countries");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CountryName = "Egypt"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CountryName = "Turkey"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CountryName = "Saudi Arabia"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CountryName = "Sudan"
-                        });
                 });
 
             modelBuilder.Entity("Models.Types.EmployeeType", b =>
@@ -542,15 +555,6 @@ namespace DataConfigurations.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Admins");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("5c358f65-9bbe-46bc-b572-e0c95de43c3f"),
-                            CreatedAt = new DateTime(2024, 11, 15, 6, 49, 27, 490, DateTimeKind.Local).AddTicks(6104),
-                            IsEmployee = true,
-                            UserId = new Guid("6b5dce0f-f9bc-46bd-9f20-2f4426463238")
-                        });
                 });
 
             modelBuilder.Entity("Models.Users.Driver", b =>
@@ -583,7 +587,7 @@ namespace DataConfigurations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("EmployeeTypeId")
+                    b.Property<int?>("EmployeeTypeId")
                         .HasColumnType("int");
 
                     b.Property<Guid>("HiredByAdmin")
@@ -701,29 +705,6 @@ namespace DataConfigurations.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("6b5dce0f-f9bc-46bd-9f20-2f4426463238"),
-                            AccessFailedCount = 0,
-                            Address = "somewhere on th earth",
-                            BirthDate = new DateTime(1998, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "9cb3ed3f-bb13-44a5-8066-e15f5f7dc8b0",
-                            CountryId = 2,
-                            Email = "test@gmail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Mostafa",
-                            Gender = 0,
-                            ImagePath = "unkown",
-                            LastName = "Alaa",
-                            LockoutEnabled = false,
-                            NationalNo = "12345678910111213",
-                            PhoneNumber = "22222222222",
-                            PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false,
-                            UserName = "Mostafa Alaa"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -785,19 +766,19 @@ namespace DataConfigurations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.ApplicationType", "ApplicationType")
-                        .WithMany()
-                        .HasForeignKey("ApplicationTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Models.Users.Employee", "Employee")
                         .WithMany()
                         .HasForeignKey("CreatedByEmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ApplicationType");
+                    b.HasOne("Models.ApplicationFees", "ApplicationFees")
+                        .WithMany("Applications")
+                        .HasForeignKey("ApplicationTypeId", "ApplicationForId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationFees");
 
                     b.Navigation("Employee");
 
@@ -806,9 +787,9 @@ namespace DataConfigurations.Migrations
 
             modelBuilder.Entity("Models.App.LocalDrivingLicenseApplication", b =>
                 {
-                    b.HasOne("Models.ApplicationType", "ApplicationType")
+                    b.HasOne("Models.App.Application", "Application")
                         .WithMany()
-                        .HasForeignKey("ApplicationTypeId")
+                        .HasForeignKey("ApplicationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -818,9 +799,28 @@ namespace DataConfigurations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ApplicationType");
+                    b.Navigation("Application");
 
                     b.Navigation("LicenseClass");
+                });
+
+            modelBuilder.Entity("Models.ApplicationFees", b =>
+                {
+                    b.HasOne("Models.ApplicationFor", "ApplicationFor")
+                        .WithMany()
+                        .HasForeignKey("ApplicationForId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.ApplicationType", "ApplicationType")
+                        .WithMany()
+                        .HasForeignKey("ApplicationTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationFor");
+
+                    b.Navigation("ApplicationType");
                 });
 
             modelBuilder.Entity("Models.License.DetainedLicense", b =>
@@ -983,11 +983,9 @@ namespace DataConfigurations.Migrations
 
             modelBuilder.Entity("Models.Users.Employee", b =>
                 {
-                    b.HasOne("Models.Types.EmployeeType", "EmpType")
+                    b.HasOne("Models.Types.EmployeeType", null)
                         .WithMany("Employee")
-                        .HasForeignKey("EmployeeTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmployeeTypeId");
 
                     b.HasOne("Models.Users.Admin", "Admin")
                         .WithMany()
@@ -1003,8 +1001,6 @@ namespace DataConfigurations.Migrations
 
                     b.Navigation("Admin");
 
-                    b.Navigation("EmpType");
-
                     b.Navigation("user");
                 });
 
@@ -1017,6 +1013,11 @@ namespace DataConfigurations.Migrations
                         .IsRequired();
 
                     b.Navigation("Country");
+                });
+
+            modelBuilder.Entity("Models.ApplicationFees", b =>
+                {
+                    b.Navigation("Applications");
                 });
 
             modelBuilder.Entity("Models.Test.TestType", b =>

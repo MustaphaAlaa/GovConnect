@@ -19,11 +19,14 @@ public partial  class DVLDDbContext : IdentityDbContext<User,UserRoles,Guid>
 
     //@@Types
     public DbSet<EmployeeType> EmployeeTypes { get; set; }
-    public DbSet<ApplicationType> ApplicationTypes { get; set; }
     public DbSet<Country> Countries { get; set; }
     public DbSet<TestType> TestTypes { get; set; }
-
     public DbSet<LicenseClass> LicenseClasses { get; set; }
+
+    //@@Application
+    public DbSet<ApplicationType> ApplicationTypes { get; set; }
+    public DbSet<ApplicationFor> ApplicationFor { get; set; }
+    public DbSet<ApplicationFees> ApplicationsFees { get; set; }
 
     //@@Test
     public DbSet<Test> Tests { get; set; }

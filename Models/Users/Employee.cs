@@ -14,10 +14,10 @@ public class Employee
 
     public DateTime HiredDate { get; set; }
 
-    [ForeignKey("EmpType")] public int EmployeeTypeId { get; set; }
+    /*[ForeignKey("EmpType")] public int EmployeeTypeId { get; set; }*/
 
 
     public User user { get; set; }
     public Admin Admin { get; set; }
-    public EmployeeType EmpType { get; set; }
+    /*public EmployeeType EmpType { get; set; }*/
 }

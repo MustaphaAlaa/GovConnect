@@ -1,20 +1,26 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Models.Drivers;
 
 namespace ModelDTO.User;
 
-public class UserDTO
+public class UpdateUserDTO
 {
+
+
+    public Guid Id { get; set; }
     [Required] public string FirstName { get; set; }
     [Required] public string LastName { get; set; }
-    [Required] public string Username { get; set; }
-    [Required] public enGender Gender { get; set; }
+
+    public string Username { get; set; }
+
+    public string Address { get; set; }
 
     public string ImagePath { get; set; }
 
     [Required] public string Email { get; set; }
+    public string ConfirmEmail { get; set; }
 
     public string PhoneNumber { get; set; }
 
-    [Required] public int CountryId { get; set; }
+    [Required] public string Password { get; set; }
+    public string ConfirmPassword { get; set; }
 }

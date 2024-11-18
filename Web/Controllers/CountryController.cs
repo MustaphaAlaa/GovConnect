@@ -5,15 +5,16 @@ using Microsoft.AspNetCore.Mvc;
 using ModelDTO;
 
 namespace Web.Controllers;
-
+ 
 [Route("Country")]
 [ApiController]
-// [Authorize(Roles = "admin")]
 public class CountryController : ControllerBase
 {
     private readonly ICreateCountry _createCountry;
     private readonly IGetCountry _getCountry;
     private readonly IGetAllCountries _getAllCountries;
+
+   
 
     public CountryController(ICreateCountry createCountry, IGetCountry getCountry, IGetAllCountries getAllCountries)
     {
@@ -22,7 +23,7 @@ public class CountryController : ControllerBase
         _getAllCountries = getAllCountries;
     }
 
-
+    [Authorize(Roles = "admin")]
     [HttpPost("add")]
     public async Task<IActionResult> AddCountry(CreateCountryRequest request)
     {
@@ -41,10 +42,7 @@ public class CountryController : ControllerBase
         var c = await _getCountry.GetByAsync(c => c.Id == Id);
 
         if (c == null)
-            return NotFound();
-
-
-
+            return NotFound(); 
         return Ok();
     }
 }

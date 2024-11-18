@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataConfigurations.Migrations
 {
     [DbContext(typeof(DVLDDbContext))]
-    [Migration("20241110201853_initDatabase")]
-    partial class initDatabase
+    [Migration("20241118031308_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -191,22 +191,54 @@ namespace DataConfigurations.Migrations
                     b.ToTable("LocalDrivingLicenseApplications");
                 });
 
-            modelBuilder.Entity("Models.ApplicationType", b =>
+            modelBuilder.Entity("Models.ApplicationFees", b =>
                 {
                     b.Property<int>("ApplicationTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ApplicationForId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Fees")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("ApplicationTypeId", "ApplicationForId");
+
+                    b.HasIndex("ApplicationForId");
+
+                    b.ToTable("ApplicationsFees");
+                });
+
+            modelBuilder.Entity("Models.ApplicationFor", b =>
+                {
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ApplicationTypeId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("ApplicationFees")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ApplicationTitle")
+                    b.Property<string>("For")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ApplicationTypeId");
+                    b.HasKey("Id");
+
+                    b.ToTable("ApplicationFor");
+                });
+
+            modelBuilder.Entity("Models.ApplicationType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("ApplicationTypes");
                 });
@@ -414,17 +446,17 @@ namespace DataConfigurations.Migrations
 
             modelBuilder.Entity("Models.Types.Country", b =>
                 {
-                    b.Property<int>("CountryId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CountryId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CountryName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CountryId");
+                    b.HasKey("Id");
 
                     b.ToTable("Countries");
                 });
@@ -555,7 +587,7 @@ namespace DataConfigurations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("EmployeeTypeId")
+                    b.Property<int?>("EmployeeTypeId")
                         .HasColumnType("int");
 
                     b.Property<Guid>("HiredByAdmin")
@@ -772,6 +804,25 @@ namespace DataConfigurations.Migrations
                     b.Navigation("LicenseClass");
                 });
 
+            modelBuilder.Entity("Models.ApplicationFees", b =>
+                {
+                    b.HasOne("Models.ApplicationFor", "ApplicationFor")
+                        .WithMany()
+                        .HasForeignKey("ApplicationForId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.ApplicationType", "ApplicationType")
+                        .WithMany()
+                        .HasForeignKey("ApplicationTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationFor");
+
+                    b.Navigation("ApplicationType");
+                });
+
             modelBuilder.Entity("Models.License.DetainedLicense", b =>
                 {
                     b.HasOne("Models.Users.Employee", "CreatedBy")
@@ -932,11 +983,9 @@ namespace DataConfigurations.Migrations
 
             modelBuilder.Entity("Models.Users.Employee", b =>
                 {
-                    b.HasOne("Models.Types.EmployeeType", "EmpType")
+                    b.HasOne("Models.Types.EmployeeType", null)
                         .WithMany("Employee")
-                        .HasForeignKey("EmployeeTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmployeeTypeId");
 
                     b.HasOne("Models.Users.Admin", "Admin")
                         .WithMany()
@@ -951,8 +1000,6 @@ namespace DataConfigurations.Migrations
                         .IsRequired();
 
                     b.Navigation("Admin");
-
-                    b.Navigation("EmpType");
 
                     b.Navigation("user");
                 });

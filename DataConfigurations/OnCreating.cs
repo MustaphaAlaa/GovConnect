@@ -5,6 +5,7 @@ using Models.Drivers;
 using Models.Types;
 using Models.Users;
 using System.Runtime.InteropServices.Marshalling;
+using Models.App;
 
 namespace DataConfigurations;
 
@@ -21,8 +22,19 @@ public partial class DVLDDbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        
+        
+        
+        modelBuilder.Entity<ApplicationFees>()
+            .HasKey(appFees=> new {appFees.ApplicationTypeId, appFees.ApplicationForId });
 
-        var UserGuidId = Guid.NewGuid();
+        modelBuilder.Entity<Application>().HasOne(app => app.ApplicationFees)
+            .WithMany(fees => fees.Applications)
+            .HasForeignKey(appFees =>  new {appFees.ApplicationTypeId, appFees.ApplicationForId});
+
+
+
+        /*var UserGuidId = Guid.NewGuid();
         modelBuilder.Entity<Country>().HasData(new Country[]
         {
             new Country() {Id=1 ,CountryName = "Egypt"},
@@ -56,7 +68,7 @@ public partial class DVLDDbContext
                 IsEmployee=true,
                 CreatedAt = DateTime.Now,
             }
-        });
+        });*/
 
     }
 }

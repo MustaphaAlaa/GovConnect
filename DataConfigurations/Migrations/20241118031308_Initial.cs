@@ -6,23 +6,35 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataConfigurations.Migrations
 {
     /// <inheritdoc />
-    public partial class initDatabase : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ApplicationTypes",
+                name: "ApplicationFor",
                 columns: table => new
                 {
-                    ApplicationTypeId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ApplicationTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ApplicationFees = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    For = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ApplicationTypes", x => x.ApplicationTypeId);
+                    table.PrimaryKey("PK_ApplicationFor", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ApplicationTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -43,13 +55,13 @@ namespace DataConfigurations.Migrations
                 name: "Countries",
                 columns: table => new
                 {
-                    CountryId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CountryName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Countries", x => x.CountryId);
+                    table.PrimaryKey("PK_Countries", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -95,6 +107,31 @@ namespace DataConfigurations.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TestTypes", x => x.TestTypeId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ApplicationsFees",
+                columns: table => new
+                {
+                    ApplicationTypeId = table.Column<int>(type: "int", nullable: false),
+                    ApplicationForId = table.Column<int>(type: "int", nullable: false),
+                    Fees = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationsFees", x => new { x.ApplicationTypeId, x.ApplicationForId });
+                    table.ForeignKey(
+                        name: "FK_ApplicationsFees_ApplicationFor_ApplicationForId",
+                        column: x => x.ApplicationForId,
+                        principalTable: "ApplicationFor",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ApplicationsFees_ApplicationTypes_ApplicationTypeId",
+                        column: x => x.ApplicationTypeId,
+                        principalTable: "ApplicationTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -153,8 +190,8 @@ namespace DataConfigurations.Migrations
                         name: "FK_AspNetUsers_Countries_CountryId",
                         column: x => x.CountryId,
                         principalTable: "Countries",
-                        principalColumn: "CountryId",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -173,14 +210,14 @@ namespace DataConfigurations.Migrations
                         name: "FK_LocalDrivingLicenseApplications_ApplicationTypes_ApplicationTypeId",
                         column: x => x.ApplicationTypeId,
                         principalTable: "ApplicationTypes",
-                        principalColumn: "ApplicationTypeId",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_LocalDrivingLicenseApplications_LicenseClasses_LicenseClassId",
                         column: x => x.LicenseClassId,
                         principalTable: "LicenseClasses",
                         principalColumn: "LicenseClassId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -200,7 +237,7 @@ namespace DataConfigurations.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -221,7 +258,7 @@ namespace DataConfigurations.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -241,7 +278,7 @@ namespace DataConfigurations.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -259,13 +296,13 @@ namespace DataConfigurations.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -285,7 +322,7 @@ namespace DataConfigurations.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -296,7 +333,7 @@ namespace DataConfigurations.Migrations
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     HiredByAdmin = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     HiredDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EmployeeTypeId = table.Column<int>(type: "int", nullable: false)
+                    EmployeeTypeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -306,7 +343,7 @@ namespace DataConfigurations.Migrations
                         column: x => x.HiredByAdmin,
                         principalTable: "Admins",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Employees_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -317,8 +354,7 @@ namespace DataConfigurations.Migrations
                         name: "FK_Employees_EmployeeTypes_EmployeeTypeId",
                         column: x => x.EmployeeTypeId,
                         principalTable: "EmployeeTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -342,14 +378,14 @@ namespace DataConfigurations.Migrations
                         name: "FK_Applications_ApplicationTypes_ApplicationTypeId",
                         column: x => x.ApplicationTypeId,
                         principalTable: "ApplicationTypes",
-                        principalColumn: "ApplicationTypeId",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Applications_AspNetUsers_ApplicantUserId",
                         column: x => x.ApplicantUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Applications_Employees_CreatedByEmployeeId",
                         column: x => x.CreatedByEmployeeId,
@@ -375,7 +411,7 @@ namespace DataConfigurations.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Drivers_Employees_CreatedByEmployee",
                         column: x => x.CreatedByEmployee,
@@ -406,7 +442,7 @@ namespace DataConfigurations.Migrations
                         column: x => x.RetakeTestApplicationId,
                         principalTable: "Applications",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TestAppointments_Employees_CreatedByEmployeeId",
                         column: x => x.CreatedByEmployeeId,
@@ -424,7 +460,7 @@ namespace DataConfigurations.Migrations
                         column: x => x.TestTypeId,
                         principalTable: "TestTypes",
                         principalColumn: "TestTypeId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -452,7 +488,7 @@ namespace DataConfigurations.Migrations
                         column: x => x.ApplicationId,
                         principalTable: "Applications",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Licenses_Drivers_DriverId",
                         column: x => x.DriverId,
@@ -470,7 +506,7 @@ namespace DataConfigurations.Migrations
                         column: x => x.LicenseClassId,
                         principalTable: "LicenseClasses",
                         principalColumn: "LicenseClassId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -494,7 +530,7 @@ namespace DataConfigurations.Migrations
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Tests_TestAppointments_TestAppointmentId",
                         column: x => x.TestAppointmentId,
@@ -531,7 +567,7 @@ namespace DataConfigurations.Migrations
                         column: x => x.ReleaseApplicationId,
                         principalTable: "Applications",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_DetainedLicenses_Employees_CreatedByEmployee",
                         column: x => x.CreatedByEmployee,
@@ -571,6 +607,11 @@ namespace DataConfigurations.Migrations
                 name: "IX_Applications_CreatedByEmployeeId",
                 table: "Applications",
                 column: "CreatedByEmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ApplicationsFees_ApplicationForId",
+                table: "ApplicationsFees",
+                column: "ApplicationForId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -731,6 +772,9 @@ namespace DataConfigurations.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ApplicationsFees");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -750,6 +794,9 @@ namespace DataConfigurations.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tests");
+
+            migrationBuilder.DropTable(
+                name: "ApplicationFor");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
