@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using ModelDTO;
+using ModelDTO.Application.For;
+using ModelDTO.Application.Type;
 using ModelDTO.User;
+using Models.Applications;
 using Models.Types;
 using Models.Users;
 
@@ -20,5 +23,14 @@ public class DVLDMapperConfig : Profile
         CreateMap<UpdateCountryRequest, Country>().ReverseMap();
         CreateMap<CreateCountryRequest, Country>();
         CreateMap<Country, CreateCountryRequest>();
+        
+        //@@ApplicationType
+        CreateMap<ApplicationTypeDTO, ApplicationType>().ReverseMap();
+        CreateMap<CreateApplicationTypeRequest, ApplicationType>().ReverseMap();
+        
+        //@@ApplicationFor
+        CreateMap<ApplicationForDTO, ApplicationFor>().ReverseMap();
+        CreateMap<CreateApplicationForRequest, ApplicationFor>().ReverseMap();
+        
     }
 }

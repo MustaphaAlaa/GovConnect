@@ -5,7 +5,7 @@ using Models.Drivers;
 using Models.Types;
 using Models.Users;
 using System.Runtime.InteropServices.Marshalling;
-using Models.App;
+using Models.Applications;
 
 namespace DataConfigurations;
 

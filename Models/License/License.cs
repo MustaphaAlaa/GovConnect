@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection.Emit;
 using Models.Types;
 using Models.Users;
-using Models.App;
+using Models.Applications;
 
 namespace Models.License;
 
@@ -37,6 +37,6 @@ public class License
     
     public Employee Employee { get; set; }
     public Driver Driver { get; set; }
-    public App.Application application { get; set; }
+    public Applications.Application application { get; set; }
     public LicenseClass LicenseClass { get; set; } 
 }

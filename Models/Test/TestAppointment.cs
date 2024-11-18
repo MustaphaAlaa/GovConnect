@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Models.App;
+using Models.Applications;
 using Models.Test;
 using Models.Users;
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Models;
-using Models.App;
+using Models.Applications;
 using Models.License;
 using Models.Test;
 using Models.Types;

@@ -2,13 +2,13 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Models.Users;
 
-namespace Models.App;
+namespace Models.Applications;
 
 public class Application
 {
     [Key] public int Id { get; set; }
 
-    [Required] [ForeignKey("User")] public Guid ApplicantUserId { get; set; }
+    [Required][ForeignKey("User")] public Guid ApplicantUserId { get; set; }
 
     public int ApplicationStatus { get; set; }
 
@@ -24,6 +24,6 @@ public class Application
     [ForeignKey("Employee")] public Guid CreatedByEmployeeId { get; set; }
 
     public User User { get; set; }
-    public  ApplicationFees  ApplicationFees { get; set; }
+    public ApplicationFees ApplicationFees { get; set; }
     public Employee Employee { get; set; }
 }

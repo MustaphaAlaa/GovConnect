@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using DataConfigurations;
 using IRepository;
+using IServices.Application.Type;
 using IServices.Country;
 using IServices.ICountryServices;
 using Microsoft.AspNetCore.Identity;
@@ -9,6 +10,7 @@ using ModelDTO;
 using Models;
 using Models.Users;
 using Repositorties;
+using Services.Application.Type;
 using Services.CountryServices;
 using Web.Mapper;
 
@@ -32,6 +34,10 @@ public class Program
         builder.Services.AddScoped<ICreateCountry, CreateCountryService>();
         builder.Services.AddScoped<IGetCountry, GetCountryService>();
         builder.Services.AddScoped<IGetAllCountries, GetAllCountriesService>();
+
+        builder.Services.AddScoped<ICreateApplicationType, CreateApplicationTypeService>();
+
+        
         /*services.AddScoped<IUpdateCountry, UpdateCountryService>();
         services.AddScoped<IDeleteCountry, DeleteCountryService>();*/
 

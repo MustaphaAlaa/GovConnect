@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Models.App;
+using Models.Applications;
 
-namespace Models;
+namespace Models.Applications;
 
 public class ApplicationFees
 {
