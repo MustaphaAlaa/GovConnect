@@ -1,17 +1,13 @@
 using AutoFixture;
 using AutoMapper;
-using DataConfigurations;
 using FluentAssertions;
 using IRepository;
 using IServices.Country;
 using IServices.ICountryServices;
-using Microsoft.EntityFrameworkCore;
 using ModelDTO;
 using Models.Types;
 using Moq;
-using Repositorties;
 using Services.CountryServices;
-using System.Diagnostics.Metrics;
 using System.Linq.Expressions;
 using Web.Mapper;
 namespace DVLD_Tests.CountryServices
@@ -32,8 +28,7 @@ namespace DVLD_Tests.CountryServices
         public CreateCountrySeviceTest()
         {
             _fixture = new Fixture();
-            //MockRepo -- new Service
-            var dbContextMock = new Mock<DataConfigurations.DVLDDbContext>();
+
             var mapperCfg = new MapperConfiguration(cfg => cfg.AddProfile(typeof(DVLDMapperConfig)));
 
 

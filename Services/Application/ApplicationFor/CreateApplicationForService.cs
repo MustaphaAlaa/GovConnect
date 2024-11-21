@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using IRepository;
 using IServices.Application.For;
-using ModelDTO.Application.For; 
+using ModelDTO.Application.For;
 using Models.Applications;
 
 
@@ -29,20 +29,27 @@ public class CreateApplicationForService : ICreateApplicationFor
 
         if (string.IsNullOrEmpty(entity.For))
             throw new ArgumentException($"Application for cannot by null.");
- 
-        entity.For = entity.For?.Trim().ToLower();
- 
-        var type = await _getRepository.GetAsync(at => at.For == entity.For);
 
-        if (type != null)
+        entity.For = entity.For?.Trim().ToLower();
+
+        var appfor = await _getRepository.GetAsync(at => at.For == entity.For);
+
+        if (appfor != null)
             throw new InvalidOperationException("This application for is already exist, cant duplicate types.");
 
         var reqDtoToModel = _mapper.Map<ApplicationFor>(entity);
+
+        if (reqDtoToModel == null)
+            throw new AutoMapperMappingException($"failure mapping from '{entity.GetType().Name}' To 'ApplicationFor'");
 
         var applicationType =
             await _createRepository.CreateAsync(reqDtoToModel);
 
         var dto = _mapper.Map<ApplicationForDTO>(applicationType);
+
+        if (dto == null)
+            throw new AutoMapperMappingException($"failure mapping from '{entity.GetType().Name}' To 'ApplicationFor'");
+
 
         return dto;
     }

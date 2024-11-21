@@ -4,6 +4,7 @@ using IServices.Application.Type;
 using ModelDTO.Application.Type;
 using Models.Applications;
 using Models.Users;
+using System.Reflection;
 
 namespace Services.Application.Type;
 
@@ -26,23 +27,28 @@ public class UpdateApplicationTypeService : IUpdateApplicationType
         if (updateRequest == null)
             throw new ArgumentNullException(nameof(updateRequest));
 
-        if (String.IsNullOrEmpty(updateRequest.Type))
-            throw new ArgumentException($"{nameof(updateRequest.Type)} cannot be null or empty");
+        if (String.IsNullOrWhiteSpace(updateRequest.Type))
+            throw new ArgumentException($"Type cannot be null or empty", nameof(updateRequest.Type));
 
         if (updateRequest.Id <= 0)
-            throw new ArgumentException($"{nameof(updateRequest)}.{nameof(updateRequest.Type)} must be greater than 0");
+            throw new ArgumentException($"Id must be greater than 0");
 
         var type = await _getRepository.GetAsync(type => type.Id == updateRequest.Id);
-
         if (type == null)
-            throw new ArgumentException($"{nameof(updateRequest.Type)} Doesn't exist");
+            throw new Exception($"ApplicationType With ID {updateRequest.Id} Doesn't exist");
 
         type.Type = updateRequest.Type;
 
         ApplicationType updatedType = await _updateRepository.UpdateAsync(type);
 
-        ApplicationTypeDTO updatedDto = _mapper.Map<ApplicationTypeDTO>(updatedType);
-    
-        return updatedDto;
+        if (updatedType == null)
+            throw new Exception($"Failed to update");
+
+        var updatedDTO = _mapper.Map<ApplicationTypeDTO>(updatedType);
+
+        if (updatedDTO == null)
+            throw new AutoMapperMappingException($"Mapping from {nameof(ApplicationType)} to {nameof(ApplicationTypeDTO)} failed.");
+
+        return updatedDTO;
     }
 }

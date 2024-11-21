@@ -39,13 +39,22 @@ public class CreateApplicationTypeService : ICreateApplicationType
         if (type != null)
             throw new InvalidOperationException("This application type is already exist, cant duplicate types.");
 
+
         var reqDtoToModel = _mapper.Map<ApplicationType>(entity);
+
+        if (reqDtoToModel == null)
+            throw new AutoMapperMappingException($"failure mapping from '{entity.GetType().Name}' To 'ApplicationType'");
+
 
         var applicationType =
             await _createApplicationTypeRepository.CreateAsync(reqDtoToModel);
 
         var dto = _mapper.Map<ApplicationTypeDTO>(applicationType);
 
+        if (dto == null)
+            throw new AutoMapperMappingException($"failure mapping from '{reqDtoToModel.GetType().Name}' To 'ApplicationTypeDTO'");
+
         return dto;
+
     }
 }

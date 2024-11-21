@@ -33,10 +33,6 @@ namespace DVLD_Tests.CountryServices
             _mapper = new Mock<IMapper>();
 
             var dbContextMock = new Mock<DataConfigurations.DVLDDbContext>();
-            var mapperCfg = new MapperConfiguration(cfg => cfg.AddProfile(typeof(DVLDMapperConfig)));
-
-
-
 
             _getAllRepositoryMock = new Mock<IGetAllRepository<Country>>();
 
@@ -57,16 +53,25 @@ namespace DVLD_Tests.CountryServices
 
             };
 
+            List<CountryDTO> countryDTOs = countries
+                              .Select(c => new CountryDTO { Id = c.Id, CountryName = c.CountryName })
+                              .ToList();
+
             _getAllRepositoryMock.Setup(temp => temp.GetAllAsync()).ReturnsAsync(countries);
 
-            List<CountryDTO> Expected = countries.Select(c => _mapper.Object.Map<CountryDTO>(c)).ToList();
+            _mapper.Setup(temp => temp.Map<CountryDTO>(It.IsAny<Country>()))
+                   .Returns((Country source) => new CountryDTO
+                   {
+                       CountryName = source.CountryName,
+                       Id = source.Id
+                   });
 
 
             //Act
             var result = await _getCountries.GetAllAsync();
 
             //Assert
-            result.Should().BeEquivalentTo(Expected);
+            result.Should().BeEquivalentTo(countryDTOs);
         }
 
 

@@ -2,8 +2,9 @@
 using IRepository;
 using IServices.Application.For;
 using ModelDTO.Application.For;
+using ModelDTO.Application.Type;
 using Models.Applications;
- 
+
 namespace Services.Application.For;
 
 public class UpdateApplicationForService : IUpdateApplicationFor
@@ -40,8 +41,14 @@ public class UpdateApplicationForService : IUpdateApplicationFor
 
         ApplicationFor updatedFor = await _updateRepository.UpdateAsync(applicationFor);
 
+        if (updatedFor == null)
+            throw new Exception($"Failed to update");
+
         ApplicationForDTO updatedDto = _mapper.Map<ApplicationForDTO>(updatedFor);
-    
+
+        if (updatedDto == null)
+            throw new AutoMapperMappingException($"Mapping from {nameof(ApplicationFor)} to {nameof(ApplicationForDTO)} failed.");
+
         return updatedDto;
     }
 }
