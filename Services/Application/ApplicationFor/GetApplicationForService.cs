@@ -9,7 +9,7 @@ using Models.Applications;
 
 namespace Services.Application.For;
 
-public class GetApplicationForService : IGetApplicationFor
+public class GetApplicationForService : IGetApplicationFees
 {
     private readonly IGetRepository<ApplicationFor> _getRepository;
     private IMapper _mapper;
