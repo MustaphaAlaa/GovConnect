@@ -1,9 +1,9 @@
-﻿ 
+﻿
 using Models.Applications;
 
 namespace IServices.Application.For;
 
-public interface IGetApplicationFees :  IGetByService<  ApplicationFor >
+public interface IGetApplicationFor : IGetByService<ApplicationFor>
 {
-    
+
 }

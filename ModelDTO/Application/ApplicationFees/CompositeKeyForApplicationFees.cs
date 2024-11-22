@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModelDTO.Application.ApplicationFees
+namespace ModelDTO.Application.Fees
 {
     public class CompositeKeyForApplicationFees
     {

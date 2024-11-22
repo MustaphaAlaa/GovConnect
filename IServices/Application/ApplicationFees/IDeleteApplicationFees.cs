@@ -1,6 +1,6 @@
-﻿using ModelDTO.Application.ApplicationFees;
+﻿using ModelDTO.Application.Fees;
 
-namespace IServices.Application;
+namespace IServices.Application.Fees;
 
 public interface IDeleteApplicationFees : IDeleteService<CompositeKeyForApplicationFees>
 {

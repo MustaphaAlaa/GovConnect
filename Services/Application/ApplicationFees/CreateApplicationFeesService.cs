@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using IRepository;
 using IServices.Application;
+using IServices.Application.Fees;
 using ModelDTO.Application.Fees;
 using Models.Applications;
 using System;

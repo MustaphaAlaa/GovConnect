@@ -34,7 +34,7 @@ public class DVLDMapperConfig : Profile
         CreateMap<CreateApplicationForRequest, ApplicationFor>().ReverseMap();
 
         //@@ApplicationFees
-        CreateMap<ApplicationFeesDTO, ApplicationFees>().ReverseMap();
+        CreateMap<ApplicationFeesDTO, ApplicationFor>().ReverseMap();
 
     }
 }

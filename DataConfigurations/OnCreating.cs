@@ -22,15 +22,15 @@ public partial class DVLDDbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        
-        
-        
+
+
+
         modelBuilder.Entity<ApplicationFees>()
-            .HasKey(appFees=> new {appFees.ApplicationTypeId, appFees.ApplicationForId });
+            .HasKey(appFees => new { appFees.ApplicationTypeId, appFees.ApplicationForId });
 
         modelBuilder.Entity<Application>().HasOne(app => app.ApplicationFees)
             .WithMany(fees => fees.Applications)
-            .HasForeignKey(appFees =>  new {appFees.ApplicationTypeId, appFees.ApplicationForId});
+            .HasForeignKey(appFees => new { appFees.ApplicationTypeId, appFees.ApplicationForId });
 
 
 

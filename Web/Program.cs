@@ -14,6 +14,9 @@ using Services.Application.Type;
 using Services.CountryServices;
 using Web.Mapper;
 
+using IServices.Application.Fees;
+using Services.Application;
+
 
 namespace Web;
 
@@ -35,11 +38,27 @@ public class Program
         builder.Services.AddScoped<IGetCountry, GetCountryService>();
         builder.Services.AddScoped<IGetAllCountries, GetAllCountriesService>();
 
+        //@@ApplicationType
         builder.Services.AddScoped<ICreateApplicationType, CreateApplicationTypeService>();
+        builder.Services.AddScoped<IGetApplicationType, GetApplicationTypeService>();
+        builder.Services.AddScoped<IGetAllApplicationTypes, GetAllApplicationTypesService>();
+        builder.Services.AddScoped<IUpdateApplicationType, UpdateApplicationTypeService>();
+        builder.Services.AddScoped<IDeleteApplicationType, DeleteApplicationTypeService>();
 
-        
-        /*services.AddScoped<IUpdateCountry, UpdateCountryService>();
-        services.AddScoped<IDeleteCountry, DeleteCountryService>();*/
+        //@@ApplicationFor
+        builder.Services.AddScoped<ICreateApplicationType, CreateApplicationTypeService>();
+        builder.Services.AddScoped<IGetApplicationType, GetApplicationTypeService>();
+        builder.Services.AddScoped<IGetAllApplicationTypes, GetAllApplicationTypesService>();
+        builder.Services.AddScoped<IUpdateApplicationType, UpdateApplicationTypeService>();
+        builder.Services.AddScoped<IDeleteApplicationType, DeleteApplicationTypeService>();
+
+        //@@ApplicationFees
+        //builder.Services.AddScoped<ICreateApplicationFees, CreateApplicationFeesService>();
+        //builder.Services.AddScoped<IGetApplicationFees, GetApplicationFeesService>();
+
+
+        builder.Services.AddScoped<IUpdateCountry, UpdateCountryService>();
+        builder.Services.AddScoped<IDeleteCountry, DeleteCountryService>();
 
         // Add services to the container.
         /*builder.Services.AddAuthorization();

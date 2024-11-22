@@ -2,14 +2,13 @@
 using AutoMapper;
 using IRepository;
 using IServices.Application.For;
-using IServices.Application.For;
-using ModelDTO.Application.For;
 using Models.Applications;
+
 
 
 namespace Services.Application.For;
 
-public class GetApplicationForService : IGetApplicationFees
+public class GetApplicationForService : IGetApplicationFor
 {
     private readonly IGetRepository<ApplicationFor> _getRepository;
     private IMapper _mapper;
@@ -25,5 +24,6 @@ public class GetApplicationForService : IGetApplicationFees
     {
         var appFor = await _getRepository.GetAsync(predicate);
         return appFor;
+
     }
 }

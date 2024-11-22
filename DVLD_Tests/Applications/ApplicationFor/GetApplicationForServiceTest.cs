@@ -17,7 +17,7 @@ namespace DVLD_Tests.Applications
 {
     public class GetApplicationForServiceTest
     {
-        private readonly IGetApplicationFees _getApplicationForServices;
+        private readonly IGetApplicationFor _getApplicationForServices;
         private readonly IGetRepository<ApplicationFor> _getRepository;
         private readonly Mock<IGetRepository<ApplicationFor>> _getRepositoryMock;
         private readonly Mock<IMapper> _mapper;

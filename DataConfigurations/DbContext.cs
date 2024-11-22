@@ -26,7 +26,7 @@ public partial  class DVLDDbContext : IdentityDbContext<User,UserRoles,Guid>
     //@@Application
     public DbSet<ApplicationType> ApplicationTypes { get; set; }
     public DbSet<ApplicationFor> ApplicationFor { get; set; }
-    public DbSet<ApplicationFees> ApplicationsFees { get; set; }
+    public DbSet<ApplicationFor> ApplicationsFees { get; set; }
 
     //@@Test
     public DbSet<Test> Tests { get; set; }

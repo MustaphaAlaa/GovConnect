@@ -2,17 +2,12 @@
 using AutoMapper;
 using FluentAssertions;
 using IRepository;
-using IServices.Application;
+using IServices.Application.Fees;
 using ModelDTO.Application.Fees;
 using Models.Applications;
 using Moq;
 using Services.Application;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DVLD_Tests.Applications;
 
