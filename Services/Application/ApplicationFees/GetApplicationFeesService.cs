@@ -20,9 +20,10 @@ namespace Services.Application
             _mapper = mapper;
         }
 
-        public Task<ApplicationFeesDTO> GetByAsync(Expression<Func<ApplicationFeesDTO, bool>> predicate)
+        public async Task<ApplicationFees> GetByAsync(Expression<Func<ApplicationFees, bool>> predicate)
         {
-            throw new NotImplementedException();
+            var appFees = await _getRepository.GetAsync(predicate);
+            return appFees;
         }
     }
 }
