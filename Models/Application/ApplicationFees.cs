@@ -16,6 +16,8 @@ public class ApplicationFees
 
     [Required] public decimal Fees { get; set; }
 
+    [Required] public DateTime LastUpdate { get; set; }
+
     public ApplicationType ApplicationType { get; set; }
     public ApplicationFor ApplicationFor { get; set; }
     public ICollection<Application> Applications { get; set; }

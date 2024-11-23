@@ -177,6 +177,7 @@ public class CreateApplicationFeesServiceTest
             ApplicationForId = createReq.ApplicationForId,
             ApplicationTypeId = createReq.ApplicationTypeId,
             Fees = createReq.Fees,
+            LastUpdate = createReq.LastUdpate
         };
 
         _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
@@ -209,7 +210,8 @@ public class CreateApplicationFeesServiceTest
         {
             ApplicationForId = createReq.ApplicationForId,
             ApplicationTypeId = createReq.ApplicationTypeId,
-            Fees = createReq.Fees
+            Fees = createReq.Fees,
+            LastUpdate = createReq.LastUdpate
         };
 
         _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
@@ -227,7 +229,8 @@ public class CreateApplicationFeesServiceTest
            {
                ApplicationForId = source.ApplicationForId,
                ApplicationTypeId = source.ApplicationTypeId,
-               Fees = source.Fees
+               Fees = source.Fees,
+               LastUdpate = source.LastUpdate
            });
 
 

@@ -48,6 +48,8 @@ public class CreateApplicationFeesService : ICreateApplicationFees
         ApplicationFees createReq = _mapper.Map<ApplicationFees>(entity)
              ?? throw new AutoMapperMappingException();
 
+
+
         var createdAppFees = await _createRepository.CreateAsync(createReq);
 
         if (createdAppFees is null)

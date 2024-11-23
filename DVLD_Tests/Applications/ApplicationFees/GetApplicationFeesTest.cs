@@ -48,6 +48,7 @@ public class GetApplicationFeesTest
             ApplicationForId = 1,
             ApplicationTypeId = 2,
             Fees = 100,
+            LastUpdate = DateTime.Now,
         };
 
         _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))

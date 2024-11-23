@@ -48,10 +48,10 @@ namespace DVLD_Tests.Applications
             //Arrange
             List<ApplicationFees> applicationFeesList = new()
             {
-                new ApplicationFees() { ApplicationTypeId = 1,  ApplicationForId = 2, Fees = 200},
-                new ApplicationFees() { ApplicationTypeId = 1,  ApplicationForId = 1, Fees = 300},
-                new ApplicationFees() { ApplicationTypeId = 3,  ApplicationForId = 2, Fees = 100},
-                new ApplicationFees() { ApplicationTypeId = 1,  ApplicationForId = 3, Fees = 500},
+                new ApplicationFees() { ApplicationTypeId = 1,  ApplicationForId = 2, Fees = 200, LastUpdate = DateTime.Now},
+                new ApplicationFees() { ApplicationTypeId = 1,  ApplicationForId = 1, Fees = 300, LastUpdate = DateTime.Now},
+                new ApplicationFees() { ApplicationTypeId = 3,  ApplicationForId = 2, Fees = 100, LastUpdate = DateTime.Now},
+                new ApplicationFees() { ApplicationTypeId = 1,  ApplicationForId = 3, Fees = 500, LastUpdate = DateTime.Now},
             };
 
             List<ApplicationFeesDTO> applicationFeesDTOs = applicationFeesList
@@ -59,7 +59,8 @@ namespace DVLD_Tests.Applications
                 {
                     ApplicationForId = appFees.ApplicationForId,
                     ApplicationTypeId = appFees.ApplicationTypeId,
-                    Fees = appFees.Fees
+                    Fees = appFees.Fees,
+                    LastUdpate = appFees.LastUpdate
                 }).ToList();
 
             _getAllRepository.Setup(temp => temp.GetAllAsync()).ReturnsAsync(applicationFeesList);
@@ -70,7 +71,8 @@ namespace DVLD_Tests.Applications
                 {
                     ApplicationForId = source.ApplicationForId,
                     ApplicationTypeId = source.ApplicationTypeId,
-                    Fees = source.Fees
+                    Fees = source.Fees,
+                    LastUdpate = source.LastUpdate
                 });
 
             //Act
@@ -103,10 +105,10 @@ namespace DVLD_Tests.Applications
             //Arrange
             IQueryable<ApplicationFees> applicationFeesQueryable = new List<ApplicationFees>()
             {
-                new ApplicationFees() { ApplicationTypeId = 1,  ApplicationForId = 2, Fees = 200},
-                new ApplicationFees() { ApplicationTypeId = 1,  ApplicationForId = 1, Fees = 300},
-                new ApplicationFees() { ApplicationTypeId = 3,  ApplicationForId = 2, Fees = 100},
-                new ApplicationFees() { ApplicationTypeId = 1,  ApplicationForId = 3, Fees = 500},
+                new ApplicationFees() { ApplicationTypeId = 1,  ApplicationForId = 2, Fees = 200, LastUpdate = DateTime.Now},
+                new ApplicationFees() { ApplicationTypeId = 1,  ApplicationForId = 1, Fees = 300, LastUpdate = DateTime.Now},
+                new ApplicationFees() { ApplicationTypeId = 3,  ApplicationForId = 2, Fees = 100, LastUpdate = DateTime.Now},
+                new ApplicationFees() { ApplicationTypeId = 1,  ApplicationForId = 3, Fees = 500, LastUpdate = DateTime.Now},
             }.AsQueryable();
 
 
@@ -116,6 +118,7 @@ namespace DVLD_Tests.Applications
                     ApplicationForId = appFees.ApplicationForId,
                     ApplicationTypeId = appFees.ApplicationTypeId,
                     Fees = appFees.Fees,
+                    LastUdpate = appFees.LastUpdate
                 }).AsQueryable();
 
             _mapper.Setup(temp => temp.Map<ApplicationFeesDTO>(It.IsAny<ApplicationFees>()))
@@ -124,6 +127,7 @@ namespace DVLD_Tests.Applications
                     ApplicationForId = source.ApplicationForId,
                     ApplicationTypeId = source.ApplicationTypeId,
                     Fees = source.Fees,
+                    LastUdpate = source.LastUpdate
 
                 });
 
