@@ -26,6 +26,10 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.Services.AddDbContext<DVLDDbContext>(options =>
+     options.UseSqlServer(builder.Configuration.GetConnectionString("default")));
+ 
+        
         /*builder.Services.AddConfigurationServices(builder.Configuration);*/
         //@@Repository
         builder.Services.AddScoped(typeof(IGetRepository<>), typeof(GetRepository<>));
@@ -66,8 +70,7 @@ public class Program
         builder.Services.AddControllers();
 
 
-        builder.Services.AddDbContext<DVLDDbContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("default")));
+
 
         builder.Services.AddIdentity<User, UserRoles>()
             .AddEntityFrameworkStores<DVLDDbContext>()

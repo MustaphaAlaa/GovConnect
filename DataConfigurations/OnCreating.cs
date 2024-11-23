@@ -6,16 +6,21 @@ using Models.Types;
 using Models.Users;
 using System.Runtime.InteropServices.Marshalling;
 using Models.Applications;
+using Microsoft.Extensions.Configuration;
 
 namespace DataConfigurations;
 
-public partial class DVLDDbContext
+public partial class DVLDDbContext : IdentityDbContext<User, UserRoles, Guid>
 {
-    private readonly Guid userID;
-
-    public DVLDDbContext(DbContextOptions options) : base(options)
+ 
+    public DVLDDbContext(DbContextOptions<DVLDDbContext> options ) : base(options)
     {
-        /*userID = Guid.NewGuid();*/
+        
+    }
+
+    public DVLDDbContext()
+    {
+
     }
 
 
@@ -23,52 +28,20 @@ public partial class DVLDDbContext
     {
         base.OnModelCreating(modelBuilder);
 
-
-
         modelBuilder.Entity<ApplicationFees>()
             .HasKey(appFees => new { appFees.ApplicationTypeId, appFees.ApplicationForId });
 
         modelBuilder.Entity<Application>().HasOne(app => app.ApplicationFees)
             .WithMany(fees => fees.Applications)
             .HasForeignKey(appFees => new { appFees.ApplicationTypeId, appFees.ApplicationForId });
+    }
 
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        base.OnConfiguring(optionsBuilder);
 
-        /*var UserGuidId = Guid.NewGuid();
-        modelBuilder.Entity<Country>().HasData(new Country[]
-        {
-            new Country() {Id=1 ,CountryName = "Egypt"},
-            new Country() {Id=2 ,CountryName = "Turkey"},
-            new Country() {Id=3 ,CountryName = "Saudi Arabia"},
-            new Country() {Id=4 ,CountryName = "Sudan"},
-        });
-
-
-        modelBuilder.Entity<User>().HasData(new User[] {
-            new User(){FirstName="Mostafa",
-                Id = UserGuidId,
-                LastName="Alaa",
-                UserName = "Mostafa Alaa",
-                Gender = enGender.male,
-                Email="test@gmail.com",
-                PhoneNumber = "22222222222",
-                NationalNo = "12345678910111213",
-                CountryId=2,
-                BirthDate=new DateTime(1998,11,30),
-                Address = "somewhere on th earth",
-                ImagePath = "unkown",
-            }
-        });
-
-
-        modelBuilder.Entity<Admin>().HasData(new Admin[] {
-            new Admin() {
-                Id = Guid.NewGuid(),
-                UserId =  UserGuidId,
-                IsEmployee=true,
-                CreatedAt = DateTime.Now,
-            }
-        });*/
+        optionsBuilder.UseSqlServer("Data Source=MOSTAFA-ALAA\\MMMSERVER;database=DVLD;Integrated Security=True;Trust Server Certificate=True" );
 
     }
 }

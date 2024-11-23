@@ -9,7 +9,7 @@ using Models.Users;
 
 namespace DataConfigurations;
 
-public partial  class DVLDDbContext : IdentityDbContext<User,UserRoles,Guid>
+public partial class DVLDDbContext : IdentityDbContext<User, UserRoles, Guid>
 {
     //@@Users
     public DbSet<Employee> Employees { get; set; }
@@ -26,7 +26,7 @@ public partial  class DVLDDbContext : IdentityDbContext<User,UserRoles,Guid>
     //@@Application
     public DbSet<ApplicationType> ApplicationTypes { get; set; }
     public DbSet<ApplicationFor> ApplicationFor { get; set; }
-    public DbSet<ApplicationFor> ApplicationsFees { get; set; }
+    public DbSet<ApplicationFees> ApplicationsFees { get; set; }
 
     //@@Test
     public DbSet<Test> Tests { get; set; }
@@ -41,8 +41,7 @@ public partial  class DVLDDbContext : IdentityDbContext<User,UserRoles,Guid>
     //@@Application
     public DbSet<Application> Applications { get; set; }
     public DbSet<LocalDrivingLicenseApplication> LocalDrivingLicenseApplications { get; set; }
-    
-    
+
+
 }
 
- 
