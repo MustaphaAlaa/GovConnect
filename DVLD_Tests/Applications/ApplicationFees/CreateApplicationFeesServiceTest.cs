@@ -7,6 +7,7 @@ using ModelDTO.Application.Fees;
 using Models.Applications;
 using Moq;
 using Services.Application;
+using Services.Application.Fees;
 using System.Linq.Expressions;
 
 namespace DVLD_Tests.Applications;
