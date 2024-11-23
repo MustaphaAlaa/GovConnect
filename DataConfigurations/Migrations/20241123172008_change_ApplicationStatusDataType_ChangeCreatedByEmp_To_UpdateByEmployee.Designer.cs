@@ -4,6 +4,7 @@ using DataConfigurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataConfigurations.Migrations
 {
     [DbContext(typeof(DVLDDbContext))]
-    partial class DVLDDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241123172008_change_ApplicationStatusDataType_ChangeCreatedByEmp_To_UpdateByEmployee")]
+    partial class change_ApplicationStatusDataType_ChangeCreatedByEmp_To_UpdateByEmployee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -10,7 +10,7 @@ public class Application
 
     [Required][ForeignKey("User")] public Guid ApplicantUserId { get; set; }
 
-    public int ApplicationStatus { get; set; }
+    public byte ApplicationStatus { get; set; }
 
     public DateTime ApplicationDate { get; set; }
 
@@ -21,7 +21,7 @@ public class Application
     [Required] public int ApplicationTypeId { get; set; }
     [Required] public int ApplicationForId { get; set; }
 
-    [ForeignKey("Employee")] public Guid CreatedByEmployeeId { get; set; }
+    [ForeignKey("Employee")] public Guid UpdatedByEmployeeId { get; set; }
 
     public User User { get; set; }
     public ApplicationFees ApplicationFees { get; set; }
