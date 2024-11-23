@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelDTO.Application.Fees
 {
-    public class CompositeKeyForApplicationFees
+    public record CompositeKeyForApplicationFees
     {
         public int ApplicationTypeId { get; set; }
         public int ApplicationForId { get; set; }
