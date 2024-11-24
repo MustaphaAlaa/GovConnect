@@ -4,7 +4,7 @@ using IRepository;
 using IServices.Application.Type;
 using IServices.Country;
 using ModelDTO.Application.Type;
-using Models.Applications;
+using Models.ApplicationModels;
 
 namespace Services.Application.Type;
 

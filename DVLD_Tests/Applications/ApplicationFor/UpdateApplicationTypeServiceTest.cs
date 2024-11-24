@@ -5,7 +5,7 @@ using IRepository;
 using IServices.Application.For;
 using Microsoft.Extensions.Configuration;
 using ModelDTO.Application.For;
-using Models.Applications;
+using Models.ApplicationModels;
 using Moq;
 using Services.Application.For;
 using System;

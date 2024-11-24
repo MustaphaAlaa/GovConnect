@@ -4,7 +4,7 @@ using FluentAssertions;
 using IRepository;
 using IServices.Application.Fees;
 using ModelDTO.Application.Fees;
-using Models.Applications;
+using Models.ApplicationModels;
 using Moq;
 using Services.Application;
 using Services.Application.Fees;

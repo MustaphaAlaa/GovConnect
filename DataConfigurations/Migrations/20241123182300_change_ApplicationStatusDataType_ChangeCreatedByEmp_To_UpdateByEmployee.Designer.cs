@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataConfigurations.Migrations
 {
     [DbContext(typeof(DVLDDbContext))]
-    [Migration("20241123172008_change_ApplicationStatusDataType_ChangeCreatedByEmp_To_UpdateByEmployee")]
+    [Migration("20241123182300_change_ApplicationStatusDataType_ChangeCreatedByEmp_To_UpdateByEmployee")]
     partial class change_ApplicationStatusDataType_ChangeCreatedByEmp_To_UpdateByEmployee
     {
         /// <inheritdoc />
@@ -157,7 +157,7 @@ namespace DataConfigurations.Migrations
                     b.Property<decimal>("PaidFees")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("UpdatedByEmployeeId")
+                    b.Property<Guid?>("UpdatedByEmployeeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -774,9 +774,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasOne("Models.Users.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("UpdatedByEmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UpdatedByEmployeeId");
 
                     b.HasOne("Models.Applications.ApplicationFees", "ApplicationFees")
                         .WithMany("Applications")

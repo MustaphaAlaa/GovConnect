@@ -4,7 +4,7 @@ using ModelDTO.Application.Fees;
 using ModelDTO.Application.For;
 using ModelDTO.Application.Type;
 using ModelDTO.User;
-using Models.Applications;
+using Models.ApplicationModels;
 using Models.Types;
 using Models.Users;
 

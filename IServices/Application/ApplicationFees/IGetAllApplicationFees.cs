@@ -1,6 +1,6 @@
 ﻿
 using ModelDTO.Application.Fees;
-using Models.Applications;
+using Models.ApplicationModels;
 
 namespace IServices.Application.Fees;
 

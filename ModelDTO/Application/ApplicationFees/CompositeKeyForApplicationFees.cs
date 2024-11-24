@@ -8,7 +8,7 @@ namespace ModelDTO.Application.Fees
 {
     public record CompositeKeyForApplicationFees
     {
-        public int ApplicationTypeId { get; set; }
-        public int ApplicationForId { get; set; }
+        public byte ApplicationTypeId { get; set; }
+        public short ApplicationForId { get; set; }
     }
 }

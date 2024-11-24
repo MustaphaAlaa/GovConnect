@@ -58,7 +58,7 @@ namespace DataConfigurations.Migrations
                 column: "ApplicationId",
                 principalTable: "Applications",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
         }
 
         /// <inheritdoc />
@@ -101,7 +101,7 @@ namespace DataConfigurations.Migrations
                 column: "ApplicationTypeId",
                 principalTable: "ApplicationTypes",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_LocalDrivingLicenseApplications_ApplicationTypes_ApplicationTypeId",
@@ -109,7 +109,7 @@ namespace DataConfigurations.Migrations
                 column: "ApplicationTypeId",
                 principalTable: "ApplicationTypes",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
         }
     }
 }

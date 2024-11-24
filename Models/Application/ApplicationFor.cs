@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Models.Applications;
+namespace Models.ApplicationModels;
 
 public class ApplicationFor
 {
-    public int Id { get; set; }
+    [Key] public short Id { get; set; }
     [Required] public string For { get; set; }
 }

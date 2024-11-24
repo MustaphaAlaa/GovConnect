@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.InteropServices.JavaScript;
-using Models.Applications;
+using Models.ApplicationModels;
 using Models.Users;
 
 namespace Models.License;

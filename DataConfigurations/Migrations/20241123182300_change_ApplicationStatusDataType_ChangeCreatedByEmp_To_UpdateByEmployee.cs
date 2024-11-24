@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -14,15 +15,13 @@ namespace DataConfigurations.Migrations
                 name: "FK_Applications_Employees_CreatedByEmployeeId",
                 table: "Applications");
 
-            migrationBuilder.RenameColumn(
-                name: "CreatedByEmployeeId",
-                table: "Applications",
-                newName: "UpdatedByEmployeeId");
-
-            migrationBuilder.RenameIndex(
+            migrationBuilder.DropIndex(
                 name: "IX_Applications_CreatedByEmployeeId",
-                table: "Applications",
-                newName: "IX_Applications_UpdatedByEmployeeId");
+                table: "Applications");
+
+            migrationBuilder.DropColumn(
+                name: "CreatedByEmployeeId",
+                table: "Applications");
 
             migrationBuilder.AlterColumn<byte>(
                 name: "ApplicationStatus",
@@ -32,32 +31,39 @@ namespace DataConfigurations.Migrations
                 oldClrType: typeof(int),
                 oldType: "int");
 
+            migrationBuilder.AddColumn<Guid>(
+                name: "UpdatedByEmployeeId",
+                table: "Applications",
+                type: "uniqueidentifier",
+                nullable: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Applications_UpdatedByEmployeeId",
+                table: "Applications",
+                column: "UpdatedByEmployeeId");
+
             migrationBuilder.AddForeignKey(
                 name: "FK_Applications_Employees_UpdatedByEmployeeId",
                 table: "Applications",
                 column: "UpdatedByEmployeeId",
                 principalTable: "Employees",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.NoAction);
+                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-
             migrationBuilder.DropForeignKey(
                 name: "FK_Applications_Employees_UpdatedByEmployeeId",
                 table: "Applications");
 
-            migrationBuilder.RenameColumn(
-                name: "UpdatedByEmployeeId",
-                table: "Applications",
-                newName: "CreatedByEmployeeId");
-
-            migrationBuilder.RenameIndex(
+            migrationBuilder.DropIndex(
                 name: "IX_Applications_UpdatedByEmployeeId",
-                table: "Applications",
-                newName: "IX_Applications_CreatedByEmployeeId");
+                table: "Applications");
+
+            migrationBuilder.DropColumn(
+                name: "UpdatedByEmployeeId",
+                table: "Applications");
 
             migrationBuilder.AlterColumn<int>(
                 name: "ApplicationStatus",
@@ -67,6 +73,18 @@ namespace DataConfigurations.Migrations
                 oldClrType: typeof(byte),
                 oldType: "tinyint");
 
+            migrationBuilder.AddColumn<Guid>(
+                name: "CreatedByEmployeeId",
+                table: "Applications",
+                type: "uniqueidentifier",
+                nullable: false,
+                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Applications_CreatedByEmployeeId",
+                table: "Applications",
+                column: "CreatedByEmployeeId");
+
             migrationBuilder.AddForeignKey(
                 name: "FK_Applications_Employees_CreatedByEmployeeId",
                 table: "Applications",
@@ -74,7 +92,6 @@ namespace DataConfigurations.Migrations
                 principalTable: "Employees",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
-
         }
     }
 }

@@ -1,9 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Models.Applications;
+namespace Models.ApplicationModels;
 
 public class ApplicationType
 {
-    public int Id { get; set; }
+    public byte Id { get; set; }
     [Required] public string Type { get; set; }
+}
+
+public enum enApplicationType
+{
+    New, Renew, Replacement, Release, RetakeTest
 }

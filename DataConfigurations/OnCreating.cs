@@ -5,17 +5,17 @@ using Models.Drivers;
 using Models.Types;
 using Models.Users;
 using System.Runtime.InteropServices.Marshalling;
-using Models.Applications;
+using Models.ApplicationModels;
 using Microsoft.Extensions.Configuration;
 
 namespace DataConfigurations;
 
 public partial class DVLDDbContext : IdentityDbContext<User, UserRoles, Guid>
 {
- 
-    public DVLDDbContext(DbContextOptions<DVLDDbContext> options ) : base(options)
+
+    public DVLDDbContext(DbContextOptions<DVLDDbContext> options) : base(options)
     {
-        
+
     }
 
     public DVLDDbContext()
@@ -27,6 +27,14 @@ public partial class DVLDDbContext : IdentityDbContext<User, UserRoles, Guid>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<ApplicationFor>()
+            .HasKey(app => app.Id);
+
+        modelBuilder.Entity<ApplicationFor>()
+            .Property(app => app.Id)
+            .HasColumnType("smallint")
+            .ValueGeneratedOnAdd();
 
         modelBuilder.Entity<ApplicationFees>()
             .HasKey(appFees => new { appFees.ApplicationTypeId, appFees.ApplicationForId });
@@ -41,7 +49,7 @@ public partial class DVLDDbContext : IdentityDbContext<User, UserRoles, Guid>
     {
         base.OnConfiguring(optionsBuilder);
 
-        optionsBuilder.UseSqlServer("Data Source=MOSTAFA-ALAA\\MMMSERVER;database=DVLD;Integrated Security=True;Trust Server Certificate=True" );
+        optionsBuilder.UseSqlServer("Data Source=MOSTAFA-ALAA\\MMMSERVER;database=DVLD;Integrated Security=True;Trust Server Certificate=True");
 
     }
 }

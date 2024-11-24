@@ -3,7 +3,7 @@ using IRepository;
 using IServices.Application.For;
 using ModelDTO.Application.For;
 using ModelDTO.Application.Type;
-using Models.Applications;
+using Models.ApplicationModels;
 
 namespace Services.Application.For;
 

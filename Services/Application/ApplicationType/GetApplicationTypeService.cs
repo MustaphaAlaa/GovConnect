@@ -3,7 +3,7 @@ using AutoMapper;
 using IRepository;
 using IServices.Application.Type;
 using ModelDTO.Application.Type;
-using Models.Applications;
+using Models.ApplicationModels;
 using Models.Types;
 
 namespace Services.Application.Type;

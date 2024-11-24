@@ -3,7 +3,7 @@ using FluentAssertions;
 using IRepository;
 using IServices.Application.For;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
-using Models.Applications;
+using Models.ApplicationModels;
 using Moq;
 using Services.Application.For;
 using System;

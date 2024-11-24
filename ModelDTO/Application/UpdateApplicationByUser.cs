@@ -14,6 +14,6 @@ public class UpdateApplicationByUser
 
     [Required] public Guid ApplicantUserId { get; set; }
 
-    [Required] public int ApplicationTypeId { get; set; }
-    [Required] public int ApplicationForId { get; set; }
+    [Required] public byte ApplicationTypeId { get; set; }
+    [Required] public short ApplicationForId { get; set; }
 }

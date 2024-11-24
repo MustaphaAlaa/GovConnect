@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Models.Types;
 
-namespace Models.Applications;
+namespace Models.ApplicationModels;
 
 public class LocalDrivingLicenseApplication
 {

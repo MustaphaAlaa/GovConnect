@@ -154,7 +154,7 @@ namespace DataConfigurations.Migrations
                     b.Property<decimal>("PaidFees")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("UpdatedByEmployeeId")
+                    b.Property<Guid?>("UpdatedByEmployeeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -165,7 +165,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("ApplicationTypeId", "ApplicationForId");
 
-                    b.ToTable("Applications");
+                    b.ToTable("Applications", (string)null);
                 });
 
             modelBuilder.Entity("Models.Applications.ApplicationFees", b =>
@@ -186,7 +186,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("ApplicationForId");
 
-                    b.ToTable("ApplicationsFees");
+                    b.ToTable("ApplicationsFees", (string)null);
                 });
 
             modelBuilder.Entity("Models.Applications.ApplicationFor", b =>
@@ -203,7 +203,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ApplicationFor");
+                    b.ToTable("ApplicationFor", (string)null);
                 });
 
             modelBuilder.Entity("Models.Applications.ApplicationType", b =>
@@ -220,7 +220,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ApplicationTypes");
+                    b.ToTable("ApplicationTypes", (string)null);
                 });
 
             modelBuilder.Entity("Models.Applications.LocalDrivingLicenseApplication", b =>
@@ -243,7 +243,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("LicenseClassId");
 
-                    b.ToTable("LocalDrivingLicenseApplications");
+                    b.ToTable("LocalDrivingLicenseApplications", (string)null);
                 });
 
             modelBuilder.Entity("Models.License.DetainedLicense", b =>
@@ -288,7 +288,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("ReleasedByEmployee");
 
-                    b.ToTable("DetainedLicenses");
+                    b.ToTable("DetainedLicenses", (string)null);
                 });
 
             modelBuilder.Entity("Models.License.License", b =>
@@ -340,7 +340,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("LicenseClassId");
 
-                    b.ToTable("Licenses");
+                    b.ToTable("Licenses", (string)null);
                 });
 
             modelBuilder.Entity("Models.Test.Test", b =>
@@ -378,7 +378,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("TestTypeId");
 
-                    b.ToTable("Tests");
+                    b.ToTable("Tests", (string)null);
                 });
 
             modelBuilder.Entity("Models.Test.TestAppointment", b =>
@@ -420,7 +420,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("TestTypeId");
 
-                    b.ToTable("TestAppointments");
+                    b.ToTable("TestAppointments", (string)null);
                 });
 
             modelBuilder.Entity("Models.Test.TestType", b =>
@@ -444,7 +444,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasKey("TestTypeId");
 
-                    b.ToTable("TestTypes");
+                    b.ToTable("TestTypes", (string)null);
                 });
 
             modelBuilder.Entity("Models.Types.Country", b =>
@@ -461,7 +461,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries");
+                    b.ToTable("Countries", (string)null);
                 });
 
             modelBuilder.Entity("Models.Types.EmployeeType", b =>
@@ -477,7 +477,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EmployeeTypes");
+                    b.ToTable("EmployeeTypes", (string)null);
                 });
 
             modelBuilder.Entity("Models.Types.LicenseClass", b =>
@@ -507,7 +507,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasKey("LicenseClassId");
 
-                    b.ToTable("LicenseClasses");
+                    b.ToTable("LicenseClasses", (string)null);
                 });
 
             modelBuilder.Entity("Models.UserRoles", b =>
@@ -557,7 +557,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Admins");
+                    b.ToTable("Admins", (string)null);
                 });
 
             modelBuilder.Entity("Models.Users.Driver", b =>
@@ -581,7 +581,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Drivers");
+                    b.ToTable("Drivers", (string)null);
                 });
 
             modelBuilder.Entity("Models.Users.Employee", b =>
@@ -610,7 +610,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("Models.Users.User", b =>
@@ -771,9 +771,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasOne("Models.Users.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("UpdatedByEmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UpdatedByEmployeeId");
 
                     b.HasOne("Models.Applications.ApplicationFees", "ApplicationFees")
                         .WithMany("Applications")

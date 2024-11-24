@@ -1,18 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Models.Applications;
+using Models.ApplicationModels;
 
-namespace Models.Applications;
+namespace Models.ApplicationModels;
 
 public class ApplicationFees
 {
     [ForeignKey("ApplicationType")]
     [Required]
-    public int ApplicationTypeId { get; set; }
+    public byte ApplicationTypeId { get; set; }
 
     [ForeignKey("ApplicationFor")]
     [Required]
-    public int ApplicationForId { get; set; }
+    public short ApplicationForId { get; set; }
 
     [Required] public decimal Fees { get; set; }
 

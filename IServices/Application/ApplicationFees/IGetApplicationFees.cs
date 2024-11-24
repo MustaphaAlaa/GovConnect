@@ -1,5 +1,5 @@
 ﻿
-using Models.Applications;
+using Models.ApplicationModels;
 
 namespace IServices.Application.Fees;
 

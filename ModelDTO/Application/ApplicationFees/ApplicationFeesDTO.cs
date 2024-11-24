@@ -7,9 +7,9 @@ namespace ModelDTO.Application.Fees;
 
 public class ApplicationFeesDTO
 {
-    [Required] public int ApplicationTypeId { get; set; }
+    [Required] public byte ApplicationTypeId { get; set; }
 
-    [Required] public int ApplicationForId { get; set; }
+    [Required] public short ApplicationForId { get; set; }
 
     public decimal Fees { get; set; }
 

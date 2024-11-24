@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Models.Users;
 
-namespace Models.Applications;
+namespace Models.ApplicationModels;
 
 public class Application
 {
@@ -18,10 +18,10 @@ public class Application
 
     public decimal PaidFees { get; set; }
 
-    [Required] public int ApplicationTypeId { get; set; }
-    [Required] public int ApplicationForId { get; set; }
+    [Required] public byte ApplicationTypeId { get; set; }
+    [Required] public short ApplicationForId { get; set; }
 
-    [ForeignKey("Employee")] public Guid UpdatedByEmployeeId { get; set; }
+    [ForeignKey("Employee")] public Guid? UpdatedByEmployeeId { get; set; }
 
     public User User { get; set; }
     public ApplicationFees ApplicationFees { get; set; }

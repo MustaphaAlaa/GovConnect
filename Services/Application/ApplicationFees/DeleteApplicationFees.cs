@@ -1,7 +1,7 @@
 ﻿using IRepository;
 using IServices.Application.Fees;
 using ModelDTO.Application.Fees;
-using Models.Applications;
+using Models.ApplicationModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

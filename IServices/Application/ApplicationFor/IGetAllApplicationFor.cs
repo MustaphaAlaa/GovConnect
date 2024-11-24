@@ -1,6 +1,6 @@
 ﻿ 
 using ModelDTO.Application.For;
-using Models.Applications;
+using Models.ApplicationModels;
 
 namespace IServices.Application.For;
 

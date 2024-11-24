@@ -1,5 +1,5 @@
 ﻿using ModelDTO.Application.Type;
-using Models.Applications;
+using Models.ApplicationModels;
 
 namespace IServices.Application.Type;
 
