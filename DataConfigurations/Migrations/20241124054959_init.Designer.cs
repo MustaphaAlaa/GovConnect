@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataConfigurations.Migrations
 {
     [DbContext(typeof(DVLDDbContext))]
-    [Migration("20241118031308_Initial")]
-    partial class Initial
+    [Migration("20241124054959_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -128,7 +128,7 @@ namespace DataConfigurations.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Models.App.Application", b =>
+            modelBuilder.Entity("Models.ApplicationModels.Application", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -142,14 +142,14 @@ namespace DataConfigurations.Migrations
                     b.Property<DateTime>("ApplicationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ApplicationStatus")
-                        .HasColumnType("int");
+                    b.Property<short>("ApplicationForId")
+                        .HasColumnType("smallint");
 
-                    b.Property<int>("ApplicationTypeId")
-                        .HasColumnType("int");
+                    b.Property<byte>("ApplicationStatus")
+                        .HasColumnType("tinyint");
 
-                    b.Property<Guid>("CreatedByEmployeeId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<byte>("ApplicationTypeId")
+                        .HasColumnType("tinyint");
 
                     b.Property<DateTime>("LastStatusDate")
                         .HasColumnType("datetime2");
@@ -157,50 +157,33 @@ namespace DataConfigurations.Migrations
                     b.Property<decimal>("PaidFees")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<Guid?>("UpdatedByEmployeeId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicantUserId");
 
-                    b.HasIndex("ApplicationTypeId");
+                    b.HasIndex("UpdatedByEmployeeId");
 
-                    b.HasIndex("CreatedByEmployeeId");
+                    b.HasIndex("ApplicationTypeId", "ApplicationForId");
 
                     b.ToTable("Applications");
                 });
 
-            modelBuilder.Entity("Models.App.LocalDrivingLicenseApplication", b =>
+            modelBuilder.Entity("Models.ApplicationModels.ApplicationFees", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<byte>("ApplicationTypeId")
+                        .HasColumnType("tinyint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ApplicationTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LicenseClassId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationTypeId");
-
-                    b.HasIndex("LicenseClassId");
-
-                    b.ToTable("LocalDrivingLicenseApplications");
-                });
-
-            modelBuilder.Entity("Models.ApplicationFees", b =>
-                {
-                    b.Property<int>("ApplicationTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ApplicationForId")
-                        .HasColumnType("int");
+                    b.Property<short>("ApplicationForId")
+                        .HasColumnType("smallint");
 
                     b.Property<decimal>("Fees")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("LastUpdate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("ApplicationTypeId", "ApplicationForId");
 
@@ -209,13 +192,13 @@ namespace DataConfigurations.Migrations
                     b.ToTable("ApplicationsFees");
                 });
 
-            modelBuilder.Entity("Models.ApplicationFor", b =>
+            modelBuilder.Entity("Models.ApplicationModels.ApplicationFor", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<short>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("smallint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("Id"));
 
                     b.Property<string>("For")
                         .IsRequired()
@@ -226,13 +209,10 @@ namespace DataConfigurations.Migrations
                     b.ToTable("ApplicationFor");
                 });
 
-            modelBuilder.Entity("Models.ApplicationType", b =>
+            modelBuilder.Entity("Models.ApplicationModels.ApplicationType", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<byte>("Id")
+                        .HasColumnType("tinyint");
 
                     b.Property<string>("Type")
                         .IsRequired()
@@ -241,6 +221,29 @@ namespace DataConfigurations.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ApplicationTypes");
+                });
+
+            modelBuilder.Entity("Models.ApplicationModels.LocalDrivingLicenseApplication", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ApplicationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LicenseClassId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.HasIndex("LicenseClassId");
+
+                    b.ToTable("LocalDrivingLicenseApplications");
                 });
 
             modelBuilder.Entity("Models.License.DetainedLicense", b =>
@@ -758,7 +761,7 @@ namespace DataConfigurations.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Models.App.Application", b =>
+            modelBuilder.Entity("Models.ApplicationModels.Application", b =>
                 {
                     b.HasOne("Models.Users.User", "User")
                         .WithMany()
@@ -766,30 +769,47 @@ namespace DataConfigurations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.ApplicationType", "ApplicationType")
-                        .WithMany()
-                        .HasForeignKey("ApplicationTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Models.Users.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("CreatedByEmployeeId")
+                        .HasForeignKey("UpdatedByEmployeeId");
+
+                    b.HasOne("Models.ApplicationModels.ApplicationFees", "ApplicationFees")
+                        .WithMany("Applications")
+                        .HasForeignKey("ApplicationTypeId", "ApplicationForId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ApplicationType");
+                    b.Navigation("ApplicationFees");
 
                     b.Navigation("Employee");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Models.App.LocalDrivingLicenseApplication", b =>
+            modelBuilder.Entity("Models.ApplicationModels.ApplicationFees", b =>
                 {
-                    b.HasOne("Models.ApplicationType", "ApplicationType")
+                    b.HasOne("Models.ApplicationModels.ApplicationFor", "ApplicationFor")
+                        .WithMany()
+                        .HasForeignKey("ApplicationForId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.ApplicationModels.ApplicationType", "ApplicationType")
                         .WithMany()
                         .HasForeignKey("ApplicationTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationFor");
+
+                    b.Navigation("ApplicationType");
+                });
+
+            modelBuilder.Entity("Models.ApplicationModels.LocalDrivingLicenseApplication", b =>
+                {
+                    b.HasOne("Models.ApplicationModels.Application", "Application")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -799,28 +819,9 @@ namespace DataConfigurations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ApplicationType");
+                    b.Navigation("Application");
 
                     b.Navigation("LicenseClass");
-                });
-
-            modelBuilder.Entity("Models.ApplicationFees", b =>
-                {
-                    b.HasOne("Models.ApplicationFor", "ApplicationFor")
-                        .WithMany()
-                        .HasForeignKey("ApplicationForId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.ApplicationType", "ApplicationType")
-                        .WithMany()
-                        .HasForeignKey("ApplicationTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationFor");
-
-                    b.Navigation("ApplicationType");
                 });
 
             modelBuilder.Entity("Models.License.DetainedLicense", b =>
@@ -837,7 +838,7 @@ namespace DataConfigurations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.App.Application", "Application")
+                    b.HasOne("Models.ApplicationModels.Application", "Application")
                         .WithMany()
                         .HasForeignKey("ReleaseApplicationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -860,7 +861,7 @@ namespace DataConfigurations.Migrations
 
             modelBuilder.Entity("Models.License.License", b =>
                 {
-                    b.HasOne("Models.App.Application", "application")
+                    b.HasOne("Models.ApplicationModels.Application", "application")
                         .WithMany()
                         .HasForeignKey("ApplicationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -924,13 +925,13 @@ namespace DataConfigurations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.App.LocalDrivingLicenseApplication", "LocalDrivingLicenseApplication")
+                    b.HasOne("Models.ApplicationModels.LocalDrivingLicenseApplication", "LocalDrivingLicenseApplication")
                         .WithMany()
                         .HasForeignKey("LocalDrivingLicenseApplicationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.App.Application", "Application")
+                    b.HasOne("Models.ApplicationModels.Application", "Application")
                         .WithMany()
                         .HasForeignKey("RetakeTestApplicationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1013,6 +1014,11 @@ namespace DataConfigurations.Migrations
                         .IsRequired();
 
                     b.Navigation("Country");
+                });
+
+            modelBuilder.Entity("Models.ApplicationModels.ApplicationFees", b =>
+                {
+                    b.Navigation("Applications");
                 });
 
             modelBuilder.Entity("Models.Test.TestType", b =>

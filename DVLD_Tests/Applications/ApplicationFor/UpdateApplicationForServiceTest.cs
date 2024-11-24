@@ -74,7 +74,7 @@ public class UpdateApplicationForServiceTest
     [Theory]
     [InlineData(-1)]
     [InlineData(0)]
-    public async Task UpdateAsync_InvalidId_ThrowsArgumentException(int id)
+    public async Task UpdateAsync_InvalidId_ThrowsArgumentException(short id)
     {
         //Arrange
         ApplicationForDTO applicationDTO = new()

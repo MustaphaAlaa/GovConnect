@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataConfigurations.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,7 @@ namespace DataConfigurations.Migrations
                 name: "ApplicationFor",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<short>(type: "smallint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     For = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -28,8 +28,7 @@ namespace DataConfigurations.Migrations
                 name: "ApplicationTypes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<byte>(type: "tinyint", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -113,9 +112,10 @@ namespace DataConfigurations.Migrations
                 name: "ApplicationsFees",
                 columns: table => new
                 {
-                    ApplicationTypeId = table.Column<int>(type: "int", nullable: false),
-                    ApplicationForId = table.Column<int>(type: "int", nullable: false),
-                    Fees = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    ApplicationTypeId = table.Column<byte>(type: "tinyint", nullable: false),
+                    ApplicationForId = table.Column<short>(type: "smallint", nullable: false),
+                    Fees = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    LastUpdate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -125,13 +125,13 @@ namespace DataConfigurations.Migrations
                         column: x => x.ApplicationForId,
                         principalTable: "ApplicationFor",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_ApplicationsFees_ApplicationTypes_ApplicationTypeId",
                         column: x => x.ApplicationTypeId,
                         principalTable: "ApplicationTypes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -191,33 +191,7 @@ namespace DataConfigurations.Migrations
                         column: x => x.CountryId,
                         principalTable: "Countries",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "LocalDrivingLicenseApplications",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ApplicationTypeId = table.Column<int>(type: "int", nullable: false),
-                    LicenseClassId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_LocalDrivingLicenseApplications", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_LocalDrivingLicenseApplications_ApplicationTypes_ApplicationTypeId",
-                        column: x => x.ApplicationTypeId,
-                        principalTable: "ApplicationTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_LocalDrivingLicenseApplications_LicenseClasses_LicenseClassId",
-                        column: x => x.LicenseClassId,
-                        principalTable: "LicenseClasses",
-                        principalColumn: "LicenseClassId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -237,7 +211,7 @@ namespace DataConfigurations.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -343,7 +317,7 @@ namespace DataConfigurations.Migrations
                         column: x => x.HiredByAdmin,
                         principalTable: "Admins",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Employees_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -364,22 +338,23 @@ namespace DataConfigurations.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ApplicantUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ApplicationStatus = table.Column<int>(type: "int", nullable: false),
+                    ApplicationStatus = table.Column<byte>(type: "tinyint", nullable: false),
                     ApplicationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastStatusDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PaidFees = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ApplicationTypeId = table.Column<int>(type: "int", nullable: false),
-                    CreatedByEmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ApplicationTypeId = table.Column<byte>(type: "tinyint", nullable: false),
+                    ApplicationForId = table.Column<short>(type: "smallint", nullable: false),
+                    UpdatedByEmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Applications", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Applications_ApplicationTypes_ApplicationTypeId",
-                        column: x => x.ApplicationTypeId,
-                        principalTable: "ApplicationTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Applications_ApplicationsFees_ApplicationTypeId_ApplicationForId",
+                        columns: x => new { x.ApplicationTypeId, x.ApplicationForId },
+                        principalTable: "ApplicationsFees",
+                        principalColumns: new[] { "ApplicationTypeId", "ApplicationForId" },
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Applications_AspNetUsers_ApplicantUserId",
                         column: x => x.ApplicantUserId,
@@ -387,11 +362,10 @@ namespace DataConfigurations.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Applications_Employees_CreatedByEmployeeId",
-                        column: x => x.CreatedByEmployeeId,
+                        name: "FK_Applications_Employees_UpdatedByEmployeeId",
+                        column: x => x.UpdatedByEmployeeId,
                         principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -411,56 +385,39 @@ namespace DataConfigurations.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Drivers_Employees_CreatedByEmployee",
                         column: x => x.CreatedByEmployee,
                         principalTable: "Employees",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "TestAppointments",
+                name: "LocalDrivingLicenseApplications",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TestTypeId = table.Column<int>(type: "int", nullable: false),
-                    LocalDrivingLicenseApplicationId = table.Column<int>(type: "int", nullable: false),
-                    AppointmentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PaidFees = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    IsLocked = table.Column<bool>(type: "bit", nullable: false),
-                    RetakeTestApplicationId = table.Column<int>(type: "int", nullable: false),
-                    CreatedByEmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ApplicationId = table.Column<int>(type: "int", nullable: false),
+                    LicenseClassId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TestAppointments", x => x.Id);
+                    table.PrimaryKey("PK_LocalDrivingLicenseApplications", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TestAppointments_Applications_RetakeTestApplicationId",
-                        column: x => x.RetakeTestApplicationId,
+                        name: "FK_LocalDrivingLicenseApplications_Applications_ApplicationId",
+                        column: x => x.ApplicationId,
                         principalTable: "Applications",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TestAppointments_Employees_CreatedByEmployeeId",
-                        column: x => x.CreatedByEmployeeId,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_TestAppointments_LocalDrivingLicenseApplications_LocalDrivingLicenseApplicationId",
-                        column: x => x.LocalDrivingLicenseApplicationId,
-                        principalTable: "LocalDrivingLicenseApplications",
-                        principalColumn: "Id",
+                        name: "FK_LocalDrivingLicenseApplications_LicenseClasses_LicenseClassId",
+                        column: x => x.LicenseClassId,
+                        principalTable: "LicenseClasses",
+                        principalColumn: "LicenseClassId",
                         onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_TestAppointments_TestTypes_TestTypeId",
-                        column: x => x.TestTypeId,
-                        principalTable: "TestTypes",
-                        principalColumn: "TestTypeId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -488,7 +445,7 @@ namespace DataConfigurations.Migrations
                         column: x => x.ApplicationId,
                         principalTable: "Applications",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Licenses_Drivers_DriverId",
                         column: x => x.DriverId,
@@ -506,7 +463,94 @@ namespace DataConfigurations.Migrations
                         column: x => x.LicenseClassId,
                         principalTable: "LicenseClasses",
                         principalColumn: "LicenseClassId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TestAppointments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TestTypeId = table.Column<int>(type: "int", nullable: false),
+                    LocalDrivingLicenseApplicationId = table.Column<int>(type: "int", nullable: false),
+                    AppointmentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PaidFees = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    IsLocked = table.Column<bool>(type: "bit", nullable: false),
+                    RetakeTestApplicationId = table.Column<int>(type: "int", nullable: false),
+                    CreatedByEmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TestAppointments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TestAppointments_Applications_RetakeTestApplicationId",
+                        column: x => x.RetakeTestApplicationId,
+                        principalTable: "Applications",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_TestAppointments_Employees_CreatedByEmployeeId",
+                        column: x => x.CreatedByEmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_TestAppointments_LocalDrivingLicenseApplications_LocalDrivingLicenseApplicationId",
+                        column: x => x.LocalDrivingLicenseApplicationId,
+                        principalTable: "LocalDrivingLicenseApplications",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_TestAppointments_TestTypes_TestTypeId",
+                        column: x => x.TestTypeId,
+                        principalTable: "TestTypes",
+                        principalColumn: "TestTypeId",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DetainedLicenses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LicenseId = table.Column<int>(type: "int", nullable: false),
+                    DetainDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FineFees = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CreatedByEmployee = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IsReleased = table.Column<bool>(type: "bit", nullable: false),
+                    ReleasedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ReleasedByEmployee = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ReleaseApplicationId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DetainedLicenses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DetainedLicenses_Applications_ReleaseApplicationId",
+                        column: x => x.ReleaseApplicationId,
+                        principalTable: "Applications",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_DetainedLicenses_Employees_CreatedByEmployee",
+                        column: x => x.CreatedByEmployee,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_DetainedLicenses_Employees_ReleasedByEmployee",
+                        column: x => x.ReleasedByEmployee,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_DetainedLicenses_Licenses_LicenseId",
+                        column: x => x.LicenseId,
+                        principalTable: "Licenses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -536,56 +580,12 @@ namespace DataConfigurations.Migrations
                         column: x => x.TestAppointmentId,
                         principalTable: "TestAppointments",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Tests_TestTypes_TestTypeId",
                         column: x => x.TestTypeId,
                         principalTable: "TestTypes",
                         principalColumn: "TestTypeId");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DetainedLicenses",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    LicenseId = table.Column<int>(type: "int", nullable: false),
-                    DetainDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FineFees = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CreatedByEmployee = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IsReleased = table.Column<bool>(type: "bit", nullable: false),
-                    ReleasedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ReleasedByEmployee = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ReleaseApplicationId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DetainedLicenses", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DetainedLicenses_Applications_ReleaseApplicationId",
-                        column: x => x.ReleaseApplicationId,
-                        principalTable: "Applications",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DetainedLicenses_Employees_CreatedByEmployee",
-                        column: x => x.CreatedByEmployee,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_DetainedLicenses_Employees_ReleasedByEmployee",
-                        column: x => x.ReleasedByEmployee,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_DetainedLicenses_Licenses_LicenseId",
-                        column: x => x.LicenseId,
-                        principalTable: "Licenses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(
@@ -599,14 +599,14 @@ namespace DataConfigurations.Migrations
                 column: "ApplicantUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Applications_ApplicationTypeId",
+                name: "IX_Applications_ApplicationTypeId_ApplicationForId",
                 table: "Applications",
-                column: "ApplicationTypeId");
+                columns: new[] { "ApplicationTypeId", "ApplicationForId" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Applications_CreatedByEmployeeId",
+                name: "IX_Applications_UpdatedByEmployeeId",
                 table: "Applications",
-                column: "CreatedByEmployeeId");
+                column: "UpdatedByEmployeeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ApplicationsFees_ApplicationForId",
@@ -723,9 +723,9 @@ namespace DataConfigurations.Migrations
                 column: "LicenseClassId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LocalDrivingLicenseApplications_ApplicationTypeId",
+                name: "IX_LocalDrivingLicenseApplications_ApplicationId",
                 table: "LocalDrivingLicenseApplications",
-                column: "ApplicationTypeId");
+                column: "ApplicationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LocalDrivingLicenseApplications_LicenseClassId",
@@ -772,9 +772,6 @@ namespace DataConfigurations.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ApplicationsFees");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -796,9 +793,6 @@ namespace DataConfigurations.Migrations
                 name: "Tests");
 
             migrationBuilder.DropTable(
-                name: "ApplicationFor");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -811,22 +805,28 @@ namespace DataConfigurations.Migrations
                 name: "Drivers");
 
             migrationBuilder.DropTable(
-                name: "Applications");
-
-            migrationBuilder.DropTable(
                 name: "LocalDrivingLicenseApplications");
 
             migrationBuilder.DropTable(
                 name: "TestTypes");
 
             migrationBuilder.DropTable(
-                name: "Employees");
-
-            migrationBuilder.DropTable(
-                name: "ApplicationTypes");
+                name: "Applications");
 
             migrationBuilder.DropTable(
                 name: "LicenseClasses");
+
+            migrationBuilder.DropTable(
+                name: "ApplicationsFees");
+
+            migrationBuilder.DropTable(
+                name: "Employees");
+
+            migrationBuilder.DropTable(
+                name: "ApplicationFor");
+
+            migrationBuilder.DropTable(
+                name: "ApplicationTypes");
 
             migrationBuilder.DropTable(
                 name: "Admins");

@@ -84,7 +84,7 @@ namespace DVLD_Tests.Applications
             //Arrange
             CreateApplicationTypeRequest createRequest = new() { Type = "New" };
 
-            ApplicationType applicationType = new() { Id = 1973, Type = "New" };
+            ApplicationType applicationType = new() { Id = 73, Type = "New" };
 
             _MockGetRepository.Setup(temp =>
                                      temp.GetAsync(It.IsAny<Expression<Func<ApplicationType, bool>>>()))
@@ -158,7 +158,7 @@ namespace DVLD_Tests.Applications
 
             ApplicationType applicationType = new ApplicationType()
             {
-                Id = 1888,
+                Id = 13,
                 Type = createRequest.Type.Trim().ToLower()
             };
 
@@ -193,7 +193,7 @@ namespace DVLD_Tests.Applications
                                      temp.GetAsync(It.IsAny<Expression<Func<ApplicationType, bool>>>()))
                                     .ReturnsAsync(null as ApplicationType);
 
-            ApplicationType applicationType = new() { Id = 1973, Type = createRequest.Type };
+            ApplicationType applicationType = new() { Id = 73, Type = createRequest.Type };
 
             _MockcreateRepository.Setup(temp => temp.CreateAsync(It.IsAny<ApplicationType>())).ReturnsAsync(applicationType);
 
