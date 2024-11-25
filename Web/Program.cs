@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using DataConfigurations;
 using IRepository;
-using IServices.Application.Type;
+using IServices.IApplicationServices.Type;
 using IServices.Country;
 using IServices.ICountryServices;
 using Microsoft.AspNetCore.Identity;
@@ -10,12 +10,12 @@ using ModelDTO;
 using Models;
 using Models.Users;
 using Repositorties;
-using Services.Application.Type;
+using Services.ApplicationServices.Type;
 using Services.CountryServices;
 using Web.Mapper;
 
-using IServices.Application.Fees;
-using Services.Application;
+using IServices.IApplicationServices.Fees;
+using Services.ApplicationServices;
 
 
 namespace Web;
@@ -28,8 +28,8 @@ public class Program
 
         builder.Services.AddDbContext<DVLDDbContext>(options =>
      options.UseSqlServer(builder.Configuration.GetConnectionString("default")));
- 
-        
+
+
         /*builder.Services.AddConfigurationServices(builder.Configuration);*/
         //@@Repository
         builder.Services.AddScoped(typeof(IGetRepository<>), typeof(GetRepository<>));

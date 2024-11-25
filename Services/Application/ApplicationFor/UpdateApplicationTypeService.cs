@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using IRepository;
-using IServices.Application.For;
-using ModelDTO.Application.For;
-using ModelDTO.Application.Type;
+using IServices.IApplicationServices.For;
+using ModelDTO.ApplicationDTOs.For;
+using ModelDTO.ApplicationDTOs.Type;
 using Models.ApplicationModels;
 
-namespace Services.Application.For;
+namespace Services.ApplicationServices.For;
 
 public class UpdateApplicationForService : IUpdateApplicationFor
 {

@@ -1,7 +1,7 @@
 ﻿
 using Models.ApplicationModels;
 
-namespace IServices.Application.Fees;
+namespace IServices.IApplicationServices.Fees;
 
 public interface IGetApplicationFees : IGetByService<ApplicationFees>
 {

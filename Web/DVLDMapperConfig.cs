@@ -1,13 +1,15 @@
 ﻿using AutoMapper;
 using ModelDTO;
-using ModelDTO.Application;
-using ModelDTO.Application.Fees;
-using ModelDTO.Application.For;
-using ModelDTO.Application.Type;
+using ModelDTO.ApplicationDTOs.User;
+using ModelDTO.ApplicationDTOs;
+using ModelDTO.ApplicationDTOs.Fees;
+using ModelDTO.ApplicationDTOs.For;
+using ModelDTO.ApplicationDTOs.Type;
 using ModelDTO.User;
 using Models.ApplicationModels;
 using Models.Types;
 using Models.Users;
+using ModelDTO.ApplicationDTOs.Employee;
 
 namespace Web.Mapper;
 

@@ -1,7 +1,7 @@
 ﻿ 
-using ModelDTO.Application.Type;
+using ModelDTO.ApplicationDTOs.Type;
 
-namespace IServices.Application.Type;
+namespace IServices.IApplicationServices.Type;
 
 public interface ICreateApplicationType :  ICreateService<CreateApplicationTypeRequest, ApplicationTypeDTO>
 {

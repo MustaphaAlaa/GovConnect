@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using IRepository;
-using IServices.Application;
-using IServices.Application.Fees;
-using ModelDTO.Application.Fees;
+using IServices.IApplicationServices;
+using IServices.IApplicationServices.Fees;
+using ModelDTO.ApplicationDTOs.Fees;
 using Models.ApplicationModels;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Application.Fees;
+namespace Services.ApplicationServices.Fees;
 
 public class CreateApplicationFeesService : ICreateApplicationFees
 {

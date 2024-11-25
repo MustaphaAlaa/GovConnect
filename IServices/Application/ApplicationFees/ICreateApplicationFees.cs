@@ -1,6 +1,6 @@
-﻿using ModelDTO.Application.Fees;
+﻿using ModelDTO.ApplicationDTOs.Fees;
 
-namespace IServices.Application.Fees;
+namespace IServices.IApplicationServices.Fees;
 
 public interface ICreateApplicationFees : ICreateService<ApplicationFeesDTO, ApplicationFeesDTO>
 {

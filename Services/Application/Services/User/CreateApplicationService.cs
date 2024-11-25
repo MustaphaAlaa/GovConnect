@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using IRepository;
-using IServices.Application.User;
-using ModelDTO.Application;
+using IServices.IApplicationServices.User;
+using ModelDTO.ApplicationDTOs.User;
 using Models.ApplicationModels;
 using Services.Execptions;
 using System;
@@ -11,19 +11,18 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Application.Services.User
+namespace Services.ApplicationServices.Services.User
 {
     public class CreateApplicationService : ICreateApplication
     {
 
-
-        private readonly ICreateRepository<Models.ApplicationModels.Application> _createRepository;
-        private readonly IGetRepository<Models.ApplicationModels.Application> _getRepository;
+        private readonly ICreateRepository<Application> _createRepository;
+        private readonly IGetRepository<Application> _getRepository;
         private readonly IGetRepository<ApplicationFees> _getApplicationFeesRepository;
         private readonly IMapper _mapper;
 
-        public CreateApplicationService(ICreateRepository<Models.ApplicationModels.Application> createRepository,
-               IGetRepository<Models.ApplicationModels.Application> getRepository,
+        public CreateApplicationService(ICreateRepository<Application> createRepository,
+               IGetRepository<Application> getRepository,
                IGetRepository<Models.ApplicationModels.ApplicationFees> getFeesRepository,
                IMapper mapper)
         {
@@ -52,10 +51,7 @@ namespace Services.Application.Services.User
                                     && appFees.ApplicationForId == entity.ApplicationForId);
 
             var applicationFees = await _getApplicationFeesRepository.GetAsync(expression)
-                ?? throw new InvalidOperationException("ApplicationFees Doesn't Exist");
-
-            //var applicationFees = await _getApplicationFeesRepository.GetAsync(expression);
-            //if (applicationFees is null) throw new InvalidOperationException("ApplicationFees Doesn't Exist");
+                ?? throw new DoseNotExistException("ApplicationFees Doesn't Exist");
 
             var existenceApplication = await _getRepository.GetAsync(app => app.ApplicantUserId == entity.ApplicantUserId
                                                                         && app.ApplicationTypeId == entity.ApplicationTypeId
@@ -66,10 +62,10 @@ namespace Services.Application.Services.User
                 case (byte)ApplicationStatus.Finalized:
                 case (byte)ApplicationStatus.InProgress:
                 case (byte)ApplicationStatus.Pending:
-                    throw new Exception();
+                    throw new InvalidOperationException();
             }
 
-            var newApplication = _mapper.Map<Models.ApplicationModels.Application>(entity)
+            var newApplication = _mapper.Map<Application>(entity)
                                     ?? throw new AutoMapperMappingException();
 
             newApplication.ApplicationDate = DateTime.Now;

@@ -1,7 +1,7 @@
 ﻿
-using ModelDTO.Application.Fees;
+using ModelDTO.ApplicationDTOs.Fees;
 
-namespace IServices.Application.Fees;
+namespace IServices.IApplicationServices.Fees;
 
 public interface IUpdateApplicationFees : IUpdateService<ApplicationFeesDTO, ApplicationFeesDTO>
 {

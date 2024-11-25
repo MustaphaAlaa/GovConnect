@@ -1,13 +1,14 @@
-﻿using ModelDTO.Application;
+﻿using ModelDTO.ApplicationDTOs.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IServices.Application.User;
+namespace IServices.IApplicationServices.User;
 
 public interface IUpdateApplicationByUser : IUpdateService<ApplicationDTOForUser, UpdateApplicationByUser>
 {
 
 }
+

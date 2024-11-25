@@ -1,8 +1,8 @@
 ﻿ 
-using ModelDTO.Application.For;
+using ModelDTO.ApplicationDTOs.For;
  
 
-namespace IServices.Application.For;
+namespace IServices.IApplicationServices.For;
 
 public interface IUpdateApplicationFor :  IUpdateService<ApplicationForDTO , ApplicationForDTO >
 {

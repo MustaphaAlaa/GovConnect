@@ -1,7 +1,8 @@
-﻿using ModelDTO.Application;
+﻿using ModelDTO.ApplicationDTOs;
+using ModelDTO.ApplicationDTOs.Employee;
 
 
-namespace IServices.Application.Employee;
+namespace IServices.IApplicationServices.Employee;
 
 public interface IUpdateApplicationByEmployee : IUpdateService<ApplicationDTOForEmployee, UpdateApplicationByEmployee>
 {

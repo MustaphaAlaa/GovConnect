@@ -1,7 +1,7 @@
 ﻿
 using Models.ApplicationModels;
 
-namespace IServices.Application.For;
+namespace IServices.IApplicationServices.For;
 
 public interface IGetApplicationFor : IGetByService<ApplicationFor>
 {

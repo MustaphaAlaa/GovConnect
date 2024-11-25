@@ -1,8 +1,8 @@
 ﻿
-using ModelDTO.Application.Fees;
+using ModelDTO.ApplicationDTOs.Fees;
 using Models.ApplicationModels;
 
-namespace IServices.Application.Fees;
+namespace IServices.IApplicationServices.Fees;
 
 public interface IGetAllApplicationFees : IGetAllService<ApplicationFeesDTO, ApplicationFees>
 {

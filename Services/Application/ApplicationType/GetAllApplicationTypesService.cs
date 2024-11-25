@@ -1,12 +1,12 @@
 ﻿using System.Linq.Expressions;
 using AutoMapper;
 using IRepository;
-using IServices.Application.Type;
+using IServices.IApplicationServices.Type;
 using IServices.Country;
-using ModelDTO.Application.Type;
+using ModelDTO.ApplicationDTOs.Type;
 using Models.ApplicationModels;
 
-namespace Services.Application.Type;
+namespace Services.ApplicationServices.Type;
 
 public class GetAllApplicationTypesService : IGetAllApplicationTypes
 {

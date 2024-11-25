@@ -1,4 +1,5 @@
-﻿using ModelDTO.Application;
+﻿using ModelDTO.ApplicationDTOs;
+using ModelDTO.ApplicationDTOs.Employee;
 using Models.ApplicationModels;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IServices.Application.Employee;
+namespace IServices.IApplicationServices.Employee;
 
 public interface IGetAllApplicationsEmp : IGetAllService<ApplicationDTOForEmployee, Models.ApplicationModels.Application>
 {

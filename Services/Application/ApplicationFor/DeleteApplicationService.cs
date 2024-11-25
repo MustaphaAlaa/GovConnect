@@ -1,8 +1,8 @@
 ﻿using IRepository;
-using IServices.Application.For;
+using IServices.IApplicationServices.For;
 using Models.ApplicationModels;
 
-namespace Services.Application.For;
+namespace Services.ApplicationServices.For;
 
 public class DeleteApplicationForService : IDeleteApplicationFor
 {

@@ -1,12 +1,12 @@
 ﻿using System.Linq.Expressions;
 using AutoMapper;
 using IRepository;
-using IServices.Application.Type;
-using ModelDTO.Application.Type;
+using IServices.IApplicationServices.Type;
+using ModelDTO.ApplicationDTOs.Type;
 using Models.ApplicationModels;
 using Models.Types;
 
-namespace Services.Application.Type;
+namespace Services.ApplicationServices.Type;
 
 public class GetApplicationTypeService: IGetApplicationType
 {

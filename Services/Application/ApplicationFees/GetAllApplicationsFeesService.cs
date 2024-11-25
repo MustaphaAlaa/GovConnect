@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using IRepository;
-using IServices.Application.Fees;
-using ModelDTO.Application.Fees;
+using IServices.IApplicationServices.Fees;
+using ModelDTO.ApplicationDTOs.Fees;
 using Models.ApplicationModels;
 using System.Linq.Expressions;
 
 
-namespace Services.Application.Fees;
+namespace Services.ApplicationServices.Fees;
 
 public class GetAllApplicationsFeesService : IGetAllApplicationFees
 {

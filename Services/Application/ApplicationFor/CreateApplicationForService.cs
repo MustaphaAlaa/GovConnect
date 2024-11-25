@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using IRepository;
-using IServices.Application.For;
-using ModelDTO.Application.For;
+using IServices.IApplicationServices.For;
+using ModelDTO.ApplicationDTOs.For;
 using Models.ApplicationModels;
 
 
-namespace Services.Application.For;
+namespace Services.ApplicationServices.For;
 
 public class CreateApplicationForService : ICreateApplicationFor
 {

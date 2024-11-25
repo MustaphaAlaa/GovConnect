@@ -1,7 +1,7 @@
-﻿using ModelDTO.Application.Type;
+﻿using ModelDTO.ApplicationDTOs.Type;
 using Models.ApplicationModels;
 
-namespace IServices.Application.Type;
+namespace IServices.IApplicationServices.Type;
 
 public interface IGetAllApplicationTypes :   IGetAllService< ApplicationTypeDTO, ApplicationType >
 {
