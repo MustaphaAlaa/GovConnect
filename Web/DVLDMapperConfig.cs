@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ModelDTO;
+using ModelDTO.Application;
 using ModelDTO.Application.Fees;
 using ModelDTO.Application.For;
 using ModelDTO.Application.Type;
@@ -35,6 +36,15 @@ public class DVLDMapperConfig : Profile
 
         //@@ApplicationFees
         CreateMap<ApplicationFeesDTO, ApplicationFor>().ReverseMap();
+
+        //@@Application
+        //@@User
+        CreateMap<Application, CreateApplicationRequest>().ReverseMap();
+        CreateMap<Application, ApplicationDTOForUser>().ReverseMap();
+        CreateMap<Application, UpdateApplicationByUser>().ReverseMap();
+        //@@Employees
+        CreateMap<Application, ApplicationDTOForEmployee>().ReverseMap();
+        CreateMap<Application, UpdateApplicationByEmployee>().ReverseMap();
 
     }
 }
