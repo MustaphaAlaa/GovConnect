@@ -2,7 +2,7 @@
 
 namespace IServices;
 
-public interface IGetByService<TResult> 
+public interface IGetByService<TResult>
 {
-    Task<TResult> GetByAsync (Expression<Func<TResult, bool>> predicate);
+    Task<TResult> GetByAsync(Expression<Func<TResult, bool>> predicate);
 }
