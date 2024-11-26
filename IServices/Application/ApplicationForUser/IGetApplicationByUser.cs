@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 namespace IServices.IApplicationServices.User;
 
 
-public interface IGetApplicationByUser : IGetByService<Application>
+
+public interface IGetApplicationByUser : IGetByService<GetApplicationByUser, Application?>
+
 {
+
 }

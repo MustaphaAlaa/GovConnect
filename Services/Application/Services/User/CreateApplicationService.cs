@@ -11,7 +11,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.ApplicationServices.Services.User
+namespace Services.ApplicationServices.Services.UserAppServices
 {
     public class CreateApplicationService : ICreateApplication
     {
@@ -51,7 +51,7 @@ namespace Services.ApplicationServices.Services.User
                                     && appFees.ApplicationForId == entity.ApplicationForId);
 
             var applicationFees = await _getApplicationFeesRepository.GetAsync(expression)
-                ?? throw new DoseNotExistException("ApplicationFees Doesn't Exist");
+                ?? throw new DoesNotExistException("ApplicationFees Doesn't Exist");
 
             var existenceApplication = await _getRepository.GetAsync(app => app.ApplicantUserId == entity.ApplicantUserId
                                                                         && app.ApplicationTypeId == entity.ApplicationTypeId

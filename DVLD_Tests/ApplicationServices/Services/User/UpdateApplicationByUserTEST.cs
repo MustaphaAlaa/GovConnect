@@ -8,11 +8,11 @@ using ModelDTO.ApplicationDTOs.User;
 using Models.ApplicationModels;
 using Models.Users;
 using Moq;
-using Services.ApplicationServices.Services.User;
+using Services.ApplicationServices.Services.UserAppServices;
 using Services.Execptions;
 using System.Linq.Expressions;
 
-namespace DVLD_Tests.ApplicationServices.Services.User;
+namespace DVLD_Tests.ApplicationServices.Services.UserTests;
 
 public class UpdateApplicationByUserTEST
 {
@@ -124,7 +124,7 @@ public class UpdateApplicationByUserTEST
         Func<Task> action = async () => await _updateApplicationByUser.UpdateAsync(updateRequest);
 
         //Assert
-        await action.Should().ThrowAsync<DoseNotExistException>();
+        await action.Should().ThrowAsync<DoesNotExistException>();
     }
 
 

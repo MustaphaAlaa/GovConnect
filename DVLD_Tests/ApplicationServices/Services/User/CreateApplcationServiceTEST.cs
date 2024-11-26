@@ -7,11 +7,11 @@ using ModelDTO.ApplicationDTOs.User;
 using Models.ApplicationModels;
 using Models.Users;
 using Moq;
-using Services.ApplicationServices.Services.User;
+using Services.ApplicationServices.Services.UserAppServices;
 using Services.Execptions;
 using System.Linq.Expressions;
 
-namespace DVLD_Tests.ApplicationServices.Services.User;
+namespace DVLD_Tests.ApplicationServices.Services.UserTests;
 
 public class CreateApplcationServiceTEST
 {
@@ -114,7 +114,7 @@ public class CreateApplcationServiceTEST
         Func<Task> action = async () => await _createApplication.CreateAsync(createRequest);
 
         //Asert
-        await action.Should().ThrowAsync<DoseNotExistException>();
+        await action.Should().ThrowAsync<DoesNotExistException>();
     }
 
     [Theory]

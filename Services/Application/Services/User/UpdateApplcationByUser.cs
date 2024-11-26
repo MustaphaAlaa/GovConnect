@@ -7,7 +7,7 @@ using Models.ApplicationModels;
 using Services.Execptions;
 
 
-namespace Services.ApplicationServices.Services.User;
+namespace Services.ApplicationServices.Services.UserAppServices;
 
 public class UpdateApplcationByUserService : IUpdateApplicationByUser
 {
@@ -42,7 +42,7 @@ public class UpdateApplcationByUserService : IUpdateApplicationByUser
             throw new ArgumentOutOfRangeException();
 
         var existsApplication = await _getRepository.GetAsync(app => app.Id == updateRequest.Id)
-            ?? throw new DoseNotExistException();
+            ?? throw new DoesNotExistException();
 
         existsApplication.ApplicationForId = updateRequest.ApplicationForId;
         existsApplication.ApplicationTypeId = updateRequest.ApplicationTypeId;
