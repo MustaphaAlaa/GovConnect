@@ -3,7 +3,7 @@ using Models.ApplicationModels;
 
 namespace IServices.IApplicationServices.Type;
 
-public interface IGetApplicationType :  IGetByService<  ApplicationType >
+public interface IGetApplicationType :  IGeWhenService<  ApplicationType >
 {
     
 }

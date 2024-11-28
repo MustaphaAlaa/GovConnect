@@ -42,5 +42,7 @@ namespace Services.ApplicationServices.Services.UserAppServices
                                     app.Id == getApplicationByUser.ApplicationId
                                     && app.ApplicantUserId == getApplicationByUser.userId);
         }
+
+
     }
 }
