@@ -16,4 +16,5 @@ public class GetRepository<Entity> : RepositoryDbContext, IGetRepository<Entity>
     {
         return _entities.AsNoTracking().FirstOrDefaultAsync(predicate);
     }
+
 }
