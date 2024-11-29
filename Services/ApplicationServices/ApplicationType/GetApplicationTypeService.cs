@@ -2,15 +2,13 @@
 using AutoMapper;
 using IRepository;
 using IServices.IApplicationServices.Type;
-using ModelDTO.ApplicationDTOs.Type;
 using Models.ApplicationModels;
-using Models.Types;
 
 namespace Services.ApplicationServices.Type;
 
-public class GetApplicationTypeService: IGetApplicationType
+public class GetApplicationTypeService : IGetApplicationType
 {
-    
+
     private readonly IGetRepository<ApplicationType> _getApplicationType;
     private IMapper _mapper;
 
@@ -21,7 +19,7 @@ public class GetApplicationTypeService: IGetApplicationType
     }
 
 
-    public async Task<ApplicationType > GetByAsync(Expression<Func<ApplicationType  , bool>> predicate)
+    public async Task<ApplicationType> GetByAsync(Expression<Func<ApplicationType, bool>> predicate)
     {
         var type = await _getApplicationType.GetAsync(predicate);
         return type;

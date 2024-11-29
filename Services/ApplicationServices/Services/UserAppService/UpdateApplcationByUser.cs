@@ -49,10 +49,10 @@ public class UpdateApplcationByUserService : IUpdateApplicationByUser
         existsApplication.ApplicationDate = DateTime.Now;
 
         var updatedApplication = await _updateRepository.UpdateAsync(existsApplication)
-            ?? throw new FailedToUpdateException();
+               ?? throw new FailedToUpdateException();
 
         var updatedApplicationForUser = _mapper.Map<ApplicationDTOForUser>(existsApplication)
-            ?? throw new AutoMapperMappingException();
+               ?? throw new AutoMapperMappingException();
 
         return updatedApplicationForUser;
     }

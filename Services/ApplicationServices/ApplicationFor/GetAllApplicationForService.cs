@@ -2,9 +2,7 @@
 using AutoMapper;
 using IRepository;
 using IServices.IApplicationServices.For;
-using IServices.IApplicationServices.Type;
 using ModelDTO.ApplicationDTOs.For;
-using ModelDTO.ApplicationDTOs.Type;
 using Models.ApplicationModels;
 
 namespace Services.ApplicationServices.For;

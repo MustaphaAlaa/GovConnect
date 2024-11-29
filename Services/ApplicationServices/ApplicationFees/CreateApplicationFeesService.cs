@@ -1,15 +1,9 @@
 ﻿using AutoMapper;
 using IRepository;
-using IServices.IApplicationServices;
 using IServices.IApplicationServices.Fees;
 using ModelDTO.ApplicationDTOs.Fees;
 using Models.ApplicationModels;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Services.ApplicationServices.Fees;
 
@@ -38,6 +32,10 @@ public class CreateApplicationFeesService : ICreateApplicationFees
 
         if (entity.ApplicationForId <= 0)
             throw new ArgumentOutOfRangeException("For id must be greater than 0");
+
+        if (entity.Fees < 0)
+            throw new ArgumentOutOfRangeException("For id must be greater than 0");
+
 
         var applicationFees = await _getRepository.GetAsync(appFees =>
               appFees.ApplicationTypeId == entity.ApplicationTypeId && appFees.ApplicationForId == entity.ApplicationTypeId);

@@ -4,12 +4,7 @@ using IServices.IApplicationServices.User;
 using ModelDTO.ApplicationDTOs.User;
 using Models.ApplicationModels;
 using Services.Execptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.ApplicationServices.Services.UserAppServices
 {
@@ -23,7 +18,7 @@ namespace Services.ApplicationServices.Services.UserAppServices
 
         public CreateApplicationService(ICreateRepository<Application> createRepository,
                IGetRepository<Application> getRepository,
-               IGetRepository<Models.ApplicationModels.ApplicationFees> getFeesRepository,
+               IGetRepository<ApplicationFees> getFeesRepository,
                IMapper mapper)
         {
             _getApplicationFeesRepository = getFeesRepository;

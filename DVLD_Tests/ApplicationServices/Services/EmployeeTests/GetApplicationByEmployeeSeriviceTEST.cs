@@ -24,7 +24,6 @@ public class GetApplicationByEmployeeSeriviceTEST
     {
         _mapper = new Mock<IMapper>();
         _getRepository = new Mock<IGetRepository<Application>>();
-
         _getApplication = new GetApplicationByEmployeeService(_getRepository.Object,
                                                              _mapper.Object);
     }
