@@ -7,6 +7,7 @@ using Models.Users;
 using System.Runtime.InteropServices.Marshalling;
 using Models.ApplicationModels;
 using Microsoft.Extensions.Configuration;
+using Models.LicenseModels;
 
 namespace DataConfigurations;
 
@@ -42,6 +43,25 @@ public partial class DVLDDbContext : IdentityDbContext<User, UserRoles, Guid>
         modelBuilder.Entity<Application>().HasOne(app => app.ApplicationFees)
             .WithMany(fees => fees.Applications)
             .HasForeignKey(appFees => new { appFees.ApplicationTypeId, appFees.ApplicationForId });
+
+        modelBuilder.Entity<LicenseType>()
+            .HasKey(license => license.Id);
+
+        modelBuilder.Entity<LicenseType>()
+            .HasData(
+                new LicenseType()
+                {
+                    Id = (byte)enLicenseType.International,
+                    Title = enLicenseType.International.ToString(),
+                    Fees = 100
+                },
+                new LicenseType()
+                {
+                    Id = (byte)enLicenseType.Local,
+                    Title = enLicenseType.Local.ToString(),
+                    Fees = 20
+                }
+             );
     }
 
 
@@ -49,7 +69,7 @@ public partial class DVLDDbContext : IdentityDbContext<User, UserRoles, Guid>
     {
         base.OnConfiguring(optionsBuilder);
 
-        optionsBuilder.UseSqlServer("Data Source=MOSTAFA-ALAA\\MMMSERVER;database=DVLD;Integrated Security=True;Trust Server Certificate=True");
+        optionsBuilder.UseSqlServer("Data Source=MOSTAFA-ALAA\\MMMSERVER;database=LicenseHubDB;Integrated Security=True;Trust Server Certificate=True");
 
     }
 }

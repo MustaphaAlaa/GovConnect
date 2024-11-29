@@ -4,7 +4,7 @@ using System.Runtime.InteropServices.JavaScript;
 using Models.ApplicationModels;
 using Models.Users;
 
-namespace Models.License;
+namespace Models.LicenseModels;
 
 public class DetainedLicense
 {

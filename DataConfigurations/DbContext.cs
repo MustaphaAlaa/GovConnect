@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Models;
 using Models.ApplicationModels;
-using Models.License;
+using Models.LicenseModels;
 using Models.Test;
 using Models.Types;
 using Models.Users;
@@ -35,7 +35,7 @@ public partial class DVLDDbContext : IdentityDbContext<User, UserRoles, Guid>
 
     //@@License
     public DbSet<License> Licenses { get; set; }
-
+    public DbSet<LicenseType> LicenseTypes { get; set; }
     public DbSet<DetainedLicense> DetainedLicenses { get; set; }
 
     //@@Application
