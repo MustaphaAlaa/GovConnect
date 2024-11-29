@@ -9,7 +9,7 @@ namespace Services.ApplicationServices.Fees;
 
 public class CreateApplicationFeesService : ICreateApplicationFees
 {
-    private readonly IMapper _mapper;
+    private readonly IMapper _mapper; //
     private readonly IGetRepository<ApplicationFees> _getRepository;
     private readonly ICreateRepository<ApplicationFees> _createRepository;
 
