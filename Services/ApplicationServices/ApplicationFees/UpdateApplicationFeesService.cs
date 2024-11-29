@@ -3,11 +3,6 @@ using IRepository;
 using IServices.IApplicationServices.Fees;
 using ModelDTO.ApplicationDTOs.Fees;
 using Models.ApplicationModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.ApplicationServices.Fees
 {
@@ -46,7 +41,7 @@ namespace Services.ApplicationServices.Fees
             if (applicationFees == null)
                 throw new Exception("ApplicationFees doesn't exist.");
 
-            if (updateRequest.LastUdpate < applicationFees.LastUpdate )
+            if (updateRequest.LastUdpate < applicationFees.LastUpdate)
                 throw new ArgumentOutOfRangeException("Invalid Date Range");
 
             ApplicationFees toUpdateObject = _mapper.Map<ApplicationFees>(updateRequest)

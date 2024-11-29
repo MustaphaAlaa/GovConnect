@@ -1,7 +1,5 @@
 ﻿using IRepository;
-using IServices;
 using IServices.IApplicationServices.Type;
-using ModelDTO.ApplicationDTOs.Type;
 using Models.ApplicationModels;
 
 namespace Services.ApplicationServices.Type;

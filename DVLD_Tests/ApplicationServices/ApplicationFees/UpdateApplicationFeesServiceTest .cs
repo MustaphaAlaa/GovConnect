@@ -11,7 +11,7 @@ using System.Linq.Expressions;
 
 namespace DVLD_Tests.ApplicationServices;
 
-public class UpdateeApplicationFeesServiceTest
+public class UpdateeApplicationFeesServiceTEST
 {
     private readonly IFixture _fixture;
     private readonly Mock<IMapper> _mapper;
@@ -21,7 +21,7 @@ public class UpdateeApplicationFeesServiceTest
 
     private readonly IUpdateApplicationFees _updateApplicationFees;
 
-    public UpdateeApplicationFeesServiceTest()
+    public UpdateeApplicationFeesServiceTEST()
     {
         _fixture = new Fixture();
         _mapper = new Mock<IMapper>();

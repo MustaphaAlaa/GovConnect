@@ -1,16 +1,9 @@
-﻿using AutoMapper;
-using IRepository;
+﻿using IRepository;
 using IServices.IApplicationServices.User;
 using ModelDTO.ApplicationDTOs.User;
 using Models.ApplicationModels;
 using Models.Users;
 using Services.Execptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.ApplicationServices.Services.UserAppServices
 {

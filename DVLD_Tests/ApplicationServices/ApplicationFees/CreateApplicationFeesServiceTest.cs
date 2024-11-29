@@ -34,7 +34,7 @@ public class CreateApplicationFeesServiceTest
     }
 
     [Fact]
-    public async Task CreateApplictaionFees_ReqObjIsNull_ThrowsArgumentException()
+    public async Task CreateApplictaionFees_WhenCreateRequestObjIsNull_ThrowsArgumentException()
     {
         //Arrange && Act
         Func<Task> action = async () => await _createApplicationFees.CreateAsync(null);
@@ -48,7 +48,7 @@ public class CreateApplicationFeesServiceTest
     [Theory]
     [InlineData(0)]
 
-    public async Task CreateApplicationFees_TypeIdIsInvalid_ThrowsArgumentOutOfRangeException(byte id)
+    public async Task CreateApplicationFees_WhenTypeIdIsInvalid_ThrowsArgumentOutOfRangeException(byte id)
     {
         //Arrange
         ApplicationFeesDTO createReq = _fixture.Build<ApplicationFeesDTO>()
@@ -66,7 +66,7 @@ public class CreateApplicationFeesServiceTest
     [Theory]
     [InlineData(0)]
     [InlineData(-1)]
-    public async Task CreateApplicationFees_ForIdIsInvalid_ThrowsArgumentOutOfRangeException(int id)
+    public async Task CreateApplicationFees_WhenForIdIsInvalid_ThrowsArgumentOutOfRangeException(int id)
     {
         //Arrange
         ApplicationFeesDTO createReq = _fixture.Build<ApplicationFeesDTO>()
@@ -81,11 +81,11 @@ public class CreateApplicationFeesServiceTest
     }
 
     [Fact]
-    public async Task CreateApplicationFees_FeesValueIsInvalid_ThrowsArgumentOutOfRangeException()
+    public async Task CreateApplicationFees_WhenFeesValueIsInvalid_ThrowsArgumentOutOfRangeException()
     {
         //Arrange
         ApplicationFeesDTO createReq = _fixture.Build<ApplicationFeesDTO>()
-               .With(app => app.ApplicationForId, -4)
+               .With(app => app.Fees, -4)
                .Create();
 
         //Act
@@ -97,7 +97,7 @@ public class CreateApplicationFeesServiceTest
 
 
     [Fact]
-    public async Task CreateApplicationFees_ApplicationFeesIsAlreadyExists_ThrowsException()
+    public async Task CreateApplicationFees_WhenApplicationFeesIsAlreadyExists_ThrowsException()
     {
         //Arrange
         ApplicationFeesDTO createReq = _fixture.Create<ApplicationFeesDTO>();
@@ -120,7 +120,7 @@ public class CreateApplicationFeesServiceTest
 
 
     [Fact]
-    public async Task CreateApplicationFees_FailureToMappingFromDtoToModel_AutoMapperMappingException()
+    public async Task CreateApplicationFees_WhenFailedToMappingFromDtoToModel_AutoMapperMappingException()
     {
         //Arrange
         ApplicationFeesDTO createReq = _fixture.Create<ApplicationFeesDTO>();
@@ -139,7 +139,7 @@ public class CreateApplicationFeesServiceTest
     }
 
     [Fact]
-    public async Task CreateApplicationFees_FailureToCreateNewApplicationFees_ThrowsException()
+    public async Task CreateApplicationFees_WhenFailedToCreateNewApplicationFees_ThrowsException()
     {
         //Arrange
         ApplicationFeesDTO createReq = _fixture.Create<ApplicationFeesDTO>();
@@ -168,7 +168,7 @@ public class CreateApplicationFeesServiceTest
 
 
     [Fact]
-    public async Task CreateApplicationFees_FailureToMappingFromModelToDTO_AutoMapperMappingException()
+    public async Task CreateApplicationFees_WhenFailedToMappingFromModelToDTO_AutoMapperMappingException()
     {
         //Arrange
         ApplicationFeesDTO createReq = _fixture.Create<ApplicationFeesDTO>();
@@ -201,7 +201,7 @@ public class CreateApplicationFeesServiceTest
 
 
     [Fact]
-    public async Task CreateApplicationFees_CreateNewApplicationFees_ReturnApplicationDTO()
+    public async Task CreateApplicationFees_WhenSuccessfullyCreateNewApplicationFees_ReturnApplicationDTO()
     {
         //Arrange
         ApplicationFeesDTO createReq = _fixture.Create<ApplicationFeesDTO>();
