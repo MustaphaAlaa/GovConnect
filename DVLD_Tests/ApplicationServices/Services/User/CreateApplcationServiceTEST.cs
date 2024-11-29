@@ -189,8 +189,9 @@ public class CreateApplcationServiceTEST
         Application application = _fixture.Build<Application>()
              .With(app => app.ApplicantUserId, createRequest.ApplicantUserId)
              .With(app => app.Employee, null as Employee)
-             .With(app => app.User, null as Models.Users.User)
+             .With(app => app.User, null as User)
              .With(app => app.ApplicationFees, null as ApplicationFees)
+             .With(app => app.ApplicationStatus, (byte)ApplicationStatus.Approved)
              .Create();
 
         _getApplicationRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
