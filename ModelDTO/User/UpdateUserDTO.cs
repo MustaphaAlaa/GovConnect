@@ -8,7 +8,9 @@ public class UpdateUserDTO
 
     public Guid Id { get; set; }
     [Required] public string FirstName { get; set; }
-    [Required] public string LastName { get; set; }
+    [Required] public string SecondName { get; set; }
+    public string ThirdName { get; set; }
+    public string FourthName { get; set; }
 
     public string Username { get; set; }
 

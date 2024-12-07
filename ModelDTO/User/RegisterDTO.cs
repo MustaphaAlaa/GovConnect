@@ -9,7 +9,9 @@ namespace ModelDTO.User;
 public class RegisterDTO
 {
     [Required] public string FirstName { get; set; }
-    [Required] public string LastName { get; set; }
+    [Required] public string SecondName { get; set; }
+    public string ThirdName { get; set; }
+    public string FourthName { get; set; }
     [Required] public string Username { get; set; }
 
     [Required] public string NationalNo { get; set; }

@@ -90,7 +90,9 @@ public class ProfileController : Controller
 
 
         user.FirstName = updateUserRequest.FirstName;
-        user.LastName = updateUserRequest.LastName;
+        user.SecondName = updateUserRequest.SecondName;
+        user.ThirdName = updateUserRequest.ThirdName;
+        user.FourthName = updateUserRequest.FourthName;
         user.UserName = updateUserRequest.Username;
         user.Email = updateUserRequest.Email;
         user.NormalizedEmail = updateUserRequest.Email.ToUpper();
