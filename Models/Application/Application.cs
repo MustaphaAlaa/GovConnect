@@ -4,6 +4,28 @@ using Models.Users;
 
 namespace Models.ApplicationModels;
 
+
+
+/*
+ 
+##Will Require Check Service and Uint testing and update it whenever needing
+    Upcoming update
+
+    @@Add @@
+    public decimal LicenseTypeFees { get; set; }
+
+    @@from PaidFees@@
+    public decimal ApplicationFees { get; set; } 
+
+    public decimal TotalPaidFees { get; set; }
+
+    @@renaming from ApplicationFees to AppFees@@ 
+    public ApplicationFees ApplicationFees { get; set; }
+
+  
+     public LicenseType LicenseType  { get; set; }
+    
+ */
 public class Application
 {
     [Key] public int Id { get; set; }

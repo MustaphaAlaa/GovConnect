@@ -2,5 +2,10 @@
 
 public enum enApplicationType
 {
-    New = 1, Renew, Replacement, Release, RetakeTest
+    New = 1,
+    Renew,
+    ReplacementForDamge,
+    ReplacementForLost,
+    Release,
+    RetakeTest
 }
