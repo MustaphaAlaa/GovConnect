@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositorties", "Repositort
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataConfigurations", "DataConfigurations\DataConfigurations.csproj", "{E2A5B125-6DC4-4BD0-A1C3-5624321BD3A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DVLD_Tests", "DVLD_Tests\DVLD_Tests.csproj", "{59939444-33C5-4F6D-B4FD-320EF0E30452}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GovConnect_Tests", "GovConnect_Tests\GovConnect_Tests.csproj", "{59939444-33C5-4F6D-B4FD-320EF0E30452}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
