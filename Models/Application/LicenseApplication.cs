@@ -26,7 +26,7 @@ namespace Models.ApplicationModels;
      public LicenseType LicenseType  { get; set; }
     
  */
-public class Application
+public class LicenseApplication
 {
     [Key] public int Id { get; set; }
 

@@ -3,7 +3,7 @@
 namespace Web.Controllers.Admin;
 
 [ApiController]
-[Route("Admin/Application")]
+[Route("Admin/LicenseApplication")]
 public class AdminApplicationController : ControllerBase
 {
     public IActionResult AddApplicationType(string applicationType)

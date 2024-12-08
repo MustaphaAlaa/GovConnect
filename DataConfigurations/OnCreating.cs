@@ -40,7 +40,7 @@ public partial class DVLDDbContext : IdentityDbContext<User, UserRoles, Guid>
         modelBuilder.Entity<ApplicationFees>()
             .HasKey(appFees => new { appFees.ApplicationTypeId, appFees.ApplicationForId });
 
-        modelBuilder.Entity<Application>().HasOne(app => app.ApplicationFees)
+        modelBuilder.Entity<LicenseApplication>().HasOne(app => app.ApplicationFees)
             .WithMany(fees => fees.Applications)
             .HasForeignKey(appFees => new { appFees.ApplicationTypeId, appFees.ApplicationForId });
 

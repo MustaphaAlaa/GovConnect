@@ -14,7 +14,7 @@ namespace GovConnect_Tests.ApplicationServices.Services.EmployeeTests;
 public class GetApplicationByEmployeeSeriviceTEST
 {
 
-    private readonly Mock<IGetRepository<Application>> _getRepository;
+    private readonly Mock<IGetRepository<LicenseApplication>> _getRepository;
 
     private readonly GetApplicationByEmployeeService _getApplication;
 
@@ -23,7 +23,7 @@ public class GetApplicationByEmployeeSeriviceTEST
     public GetApplicationByEmployeeSeriviceTEST()
     {
         _mapper = new Mock<IMapper>();
-        _getRepository = new Mock<IGetRepository<Application>>();
+        _getRepository = new Mock<IGetRepository<LicenseApplication>>();
         _getApplication = new GetApplicationByEmployeeService(_getRepository.Object,
                                                              _mapper.Object);
     }
@@ -34,10 +34,10 @@ public class GetApplicationByEmployeeSeriviceTEST
     public async Task GetAsync_WhenApplicationDoesNotExist_RetunsNull()
     {
         //Arrange
-        var expression = It.IsAny<Expression<Func<Application, bool>>>();
+        var expression = It.IsAny<Expression<Func<LicenseApplication, bool>>>();
 
         _getRepository.Setup(temp => temp.GetAsync(expression))
-           .ReturnsAsync(null as Application);
+           .ReturnsAsync(null as LicenseApplication);
 
         //ACT
         var result = await _getApplication.GetByAsync(expression);
@@ -50,7 +50,7 @@ public class GetApplicationByEmployeeSeriviceTEST
     public async Task GetAsync_WhenApplicationExists_RetunsApplicationObj()
     {
 
-        Application application = new Application()
+        LicenseApplication licenseApplication = new LicenseApplication()
         {
             Id = 23,
             ApplicantUserId = Guid.NewGuid(),
@@ -63,13 +63,13 @@ public class GetApplicationByEmployeeSeriviceTEST
             UpdatedByEmployeeId = Guid.NewGuid()
         };
 
-        var expression = It.IsAny<Expression<Func<Application, bool>>>();
+        var expression = It.IsAny<Expression<Func<LicenseApplication, bool>>>();
 
         _getRepository.Setup(temp => temp.GetAsync(expression))
-            .ReturnsAsync(application);
+            .ReturnsAsync(licenseApplication);
 
-        _mapper.Setup(temp => temp.Map<ApplicationDTOForEmployee>(It.IsAny<Application>()))
-            .Returns((Application source) => new ApplicationDTOForEmployee()
+        _mapper.Setup(temp => temp.Map<ApplicationDTOForEmployee>(It.IsAny<LicenseApplication>()))
+            .Returns((LicenseApplication source) => new ApplicationDTOForEmployee()
             {
                 Id = source.Id,
                 ApplicantUserId = source.ApplicantUserId,
@@ -84,7 +84,7 @@ public class GetApplicationByEmployeeSeriviceTEST
 
         var result = await _getApplication.GetByAsync(expression);
 
-        result.Should().BeEquivalentTo(_mapper.Object.Map<ApplicationDTOForEmployee>(application));
+        result.Should().BeEquivalentTo(_mapper.Object.Map<ApplicationDTOForEmployee>(licenseApplication));
     }
 
 

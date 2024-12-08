@@ -125,7 +125,7 @@ namespace DataConfigurations.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Models.ApplicationModels.Application", b =>
+            modelBuilder.Entity("Models.ApplicationModels.LicenseApplication", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -758,7 +758,7 @@ namespace DataConfigurations.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Models.ApplicationModels.Application", b =>
+            modelBuilder.Entity("Models.ApplicationModels.LicenseApplication", b =>
                 {
                     b.HasOne("Models.Users.User", "User")
                         .WithMany()
@@ -804,7 +804,7 @@ namespace DataConfigurations.Migrations
 
             modelBuilder.Entity("Models.ApplicationModels.LocalDrivingLicenseApplication", b =>
                 {
-                    b.HasOne("Models.ApplicationModels.Application", "Application")
+                    b.HasOne("Models.ApplicationModels.LicenseApplication", "LicenseApplication")
                         .WithMany()
                         .HasForeignKey("ApplicationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -816,7 +816,7 @@ namespace DataConfigurations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Application");
+                    b.Navigation("LicenseApplication");
 
                     b.Navigation("LicenseClass");
                 });
@@ -835,7 +835,7 @@ namespace DataConfigurations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.ApplicationModels.Application", "Application")
+                    b.HasOne("Models.ApplicationModels.LicenseApplication", "LicenseApplication")
                         .WithMany()
                         .HasForeignKey("ReleaseApplicationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -847,7 +847,7 @@ namespace DataConfigurations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Application");
+                    b.Navigation("LicenseApplication");
 
                     b.Navigation("CreatedBy");
 
@@ -858,7 +858,7 @@ namespace DataConfigurations.Migrations
 
             modelBuilder.Entity("Models.License.License", b =>
                 {
-                    b.HasOne("Models.ApplicationModels.Application", "application")
+                    b.HasOne("Models.ApplicationModels.LicenseApplication", "LicenseApplication")
                         .WithMany()
                         .HasForeignKey("ApplicationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -888,7 +888,7 @@ namespace DataConfigurations.Migrations
 
                     b.Navigation("LicenseClass");
 
-                    b.Navigation("application");
+                    b.Navigation("LicenseApplication");
                 });
 
             modelBuilder.Entity("Models.Test.Test", b =>
@@ -928,7 +928,7 @@ namespace DataConfigurations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.ApplicationModels.Application", "Application")
+                    b.HasOne("Models.ApplicationModels.LicenseApplication", "LicenseApplication")
                         .WithMany()
                         .HasForeignKey("RetakeTestApplicationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -940,7 +940,7 @@ namespace DataConfigurations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Application");
+                    b.Navigation("LicenseApplication");
 
                     b.Navigation("Employee");
 

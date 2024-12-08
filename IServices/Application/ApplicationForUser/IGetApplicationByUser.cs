@@ -11,7 +11,7 @@ namespace IServices.IApplicationServices.User;
 
 
 
-public interface IGetApplicationByUser : IGetByService<GetApplicationByUser, Application?>
+public interface IGetApplicationByUser : IGetByService<GetApplicationByUser, LicenseApplication?>
 
 {
 

@@ -20,12 +20,12 @@ public class TestAppointment
 
     public bool IsLocked { get; set; }
 
-    [ForeignKey("Application")] public int RetakeTestApplicationId { get; set; }
+    [ForeignKey("LicenseApplication")] public int RetakeTestApplicationId { get; set; }
     [ForeignKey("Employee")] [Required] public Guid CreatedByEmployeeId { get; set; }
    
 
     public LocalDrivingLicenseApplication LocalDrivingLicenseApplication { get; set; }
     public Employee Employee { get; set; }
-    public Application Application { get; set; }
+    public LicenseApplication LicenseApplication { get; set; }
     public TestType TestType { get; set; }
 }

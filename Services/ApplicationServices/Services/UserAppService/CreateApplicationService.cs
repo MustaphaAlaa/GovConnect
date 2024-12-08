@@ -11,13 +11,13 @@ namespace Services.ApplicationServices.Services.UserAppServices
     public class CreateApplicationService : ICreateApplication
     {
 
-        private readonly ICreateRepository<Application> _createRepository;
-        private readonly IGetRepository<Application> _getRepository;
+        private readonly ICreateRepository<LicenseApplication> _createRepository;
+        private readonly IGetRepository<LicenseApplication> _getRepository;
         private readonly IGetRepository<ApplicationFees> _getApplicationFeesRepository;
         private readonly IMapper _mapper;
 
-        public CreateApplicationService(ICreateRepository<Application> createRepository,
-               IGetRepository<Application> getRepository,
+        public CreateApplicationService(ICreateRepository<LicenseApplication> createRepository,
+               IGetRepository<LicenseApplication> getRepository,
                IGetRepository<ApplicationFees> getFeesRepository,
                IMapper mapper)
         {
@@ -60,7 +60,7 @@ namespace Services.ApplicationServices.Services.UserAppServices
                     throw new InvalidOperationException();
             }
 
-            var newApplication = _mapper.Map<Application>(entity)
+            var newApplication = _mapper.Map<LicenseApplication>(entity)
                                     ?? throw new AutoMapperMappingException();
 
             newApplication.ApplicationDate = DateTime.Now;

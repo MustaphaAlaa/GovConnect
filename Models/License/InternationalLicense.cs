@@ -8,8 +8,8 @@ public class InternationalLicense
 {
     [Key] public int Id { get; set; }
  
-    // The international driving license application contains the passport
-    [Required] [ForeignKey("application")] public int InternationalDrivingLicenseApplication { get; set; }
+    // The international driving license LicenseApplication contains the passport
+    [Required] [ForeignKey("LicenseApplication")] public int InternationalDrivingLicenseApplication { get; set; }
 
 
     [Required]

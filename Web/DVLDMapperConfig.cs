@@ -39,14 +39,14 @@ public class DVLDMapperConfig : Profile
         //@@ApplicationFees
         CreateMap<ApplicationFeesDTO, ApplicationFor>().ReverseMap();
 
-        //@@Application
+        //@@LicenseApplication
         //@@User
-        CreateMap<Application, CreateApplicationRequest>().ReverseMap();
-        CreateMap<Application, ApplicationDTOForUser>().ReverseMap();
-        CreateMap<Application, UpdateApplicationByUser>().ReverseMap();
+        CreateMap<LicenseApplication, CreateApplicationRequest>().ReverseMap();
+        CreateMap<LicenseApplication, ApplicationDTOForUser>().ReverseMap();
+        CreateMap<LicenseApplication, UpdateApplicationByUser>().ReverseMap();
         //@@Employees
-        CreateMap<Application, ApplicationDTOForEmployee>().ReverseMap();
-        CreateMap<Application, UpdateApplicationByEmployee>().ReverseMap();
+        CreateMap<LicenseApplication, ApplicationDTOForEmployee>().ReverseMap();
+        CreateMap<LicenseApplication, UpdateApplicationByEmployee>().ReverseMap();
 
     }
 }

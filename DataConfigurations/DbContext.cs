@@ -23,7 +23,7 @@ public partial class DVLDDbContext : IdentityDbContext<User, UserRoles, Guid>
     public DbSet<TestType> TestTypes { get; set; }
     public DbSet<LicenseClass> LicenseClasses { get; set; }
 
-    //@@Application
+    //@@LicenseApplication
     public DbSet<ApplicationType> ApplicationTypes { get; set; }
     public DbSet<ApplicationFor> ApplicationFor { get; set; }
     public DbSet<ApplicationFees> ApplicationsFees { get; set; }
@@ -38,8 +38,8 @@ public partial class DVLDDbContext : IdentityDbContext<User, UserRoles, Guid>
     public DbSet<LicenseType> LicenseTypes { get; set; }
     public DbSet<DetainedLicense> DetainedLicenses { get; set; }
 
-    //@@Application
-    public DbSet<Application> Applications { get; set; }
+    //@@LicenseApplication
+    public DbSet<LicenseApplication> Applications { get; set; }
     public DbSet<LocalDrivingLicenseApplication> LocalDrivingLicenseApplications { get; set; }
 
 

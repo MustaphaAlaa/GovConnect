@@ -10,12 +10,12 @@ namespace Services.ApplicationServices.Services.EmployeeAppService
 {
     public class UpdateApplicationByEmployeeService : IUpdateApplicationByEmployee
     {
-        private readonly IGetRepository<Application> _getRepository;
-        private readonly IUpdateRepository<Application> _updateRepository;
+        private readonly IGetRepository<LicenseApplication> _getRepository;
+        private readonly IUpdateRepository<LicenseApplication> _updateRepository;
         private IMapper _mapper;
 
-        public UpdateApplicationByEmployeeService(IGetRepository<Application> getRepository,
-            IUpdateRepository<Application> updateRepository,
+        public UpdateApplicationByEmployeeService(IGetRepository<LicenseApplication> getRepository,
+            IUpdateRepository<LicenseApplication> updateRepository,
             IMapper mapper)
         {
             _getRepository = getRepository;

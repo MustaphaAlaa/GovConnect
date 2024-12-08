@@ -18,8 +18,8 @@ public class UpdateApplicationByEmployeeTEST
 {
     private readonly IFixture _fixture;
     private readonly Mock<IMapper> _mapper;
-    private readonly Mock<IGetRepository<Application>> _getRepository;
-    private readonly Mock<IUpdateRepository<Application>> _updateRepository;
+    private readonly Mock<IGetRepository<LicenseApplication>> _getRepository;
+    private readonly Mock<IUpdateRepository<LicenseApplication>> _updateRepository;
     private readonly IUpdateApplicationByEmployee _updateApplicationByEmployee;
 
 
@@ -27,8 +27,8 @@ public class UpdateApplicationByEmployeeTEST
     {
         _fixture = new Fixture();
         _mapper = new Mock<IMapper>();
-        _getRepository = new Mock<IGetRepository<Application>>();
-        _updateRepository = new Mock<IUpdateRepository<Application>>();
+        _getRepository = new Mock<IGetRepository<LicenseApplication>>();
+        _updateRepository = new Mock<IUpdateRepository<LicenseApplication>>();
 
         _updateApplicationByEmployee = new UpdateApplicationByEmployeeService(_getRepository.Object,
                                                     _updateRepository.Object, _mapper.Object);
@@ -91,8 +91,8 @@ public class UpdateApplicationByEmployeeTEST
             ApplicationStatus = 1,
         };
 
-        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
-            .ReturnsAsync(new Application
+        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<LicenseApplication, bool>>>()))
+            .ReturnsAsync(new LicenseApplication
             {
                 ApplicantUserId = Guid.NewGuid()
             });
@@ -131,8 +131,8 @@ public class UpdateApplicationByEmployeeTEST
          .With(app => app.ApplicationStatus, 2)
          .Create();
 
-        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
-                  .ReturnsAsync(null as Application);
+        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<LicenseApplication, bool>>>()))
+                  .ReturnsAsync(null as LicenseApplication);
 
 
         //Act
@@ -150,7 +150,7 @@ public class UpdateApplicationByEmployeeTEST
           .With(app => app.ApplicationStatus, 2)
           .Create();
 
-        var dummyApplication = new Application
+        var dummyApplication = new LicenseApplication
         {
             Id = 1,
             ApplicantUserId = updateRequest.ApplicantUserId,
@@ -159,11 +159,11 @@ public class UpdateApplicationByEmployeeTEST
         };
 
 
-        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
+        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<LicenseApplication, bool>>>()))
             .ReturnsAsync(dummyApplication);
 
-        _updateRepository.Setup(temp => temp.UpdateAsync(It.IsAny<Application>()))
-            .ReturnsAsync(null as Application);
+        _updateRepository.Setup(temp => temp.UpdateAsync(It.IsAny<LicenseApplication>()))
+            .ReturnsAsync(null as LicenseApplication);
 
 
         //Act
@@ -181,7 +181,7 @@ public class UpdateApplicationByEmployeeTEST
             .With(app => app.ApplicationStatus, 2)
             .Create();
 
-        var dummyApplication = new Application
+        var dummyApplication = new LicenseApplication
         {
             Id = 1,
             ApplicantUserId = updateRequest.ApplicantUserId,
@@ -189,17 +189,17 @@ public class UpdateApplicationByEmployeeTEST
 
         };
 
-        _mapper.Setup(temp => temp.Map<Application>(It.IsAny<UpdateApplicationByEmployee>()))
+        _mapper.Setup(temp => temp.Map<LicenseApplication>(It.IsAny<UpdateApplicationByEmployee>()))
             .Returns(dummyApplication);
 
-        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
+        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<LicenseApplication, bool>>>()))
                       .ReturnsAsync(dummyApplication);
 
         _updateRepository.Setup(temp => temp.UpdateAsync(dummyApplication))
                          .ReturnsAsync(dummyApplication);
 
-        _mapper.Setup(temp => temp.Map<Application>(It.IsAny<UpdateApplicationByEmployee>()))
-               .Returns(null as Application);
+        _mapper.Setup(temp => temp.Map<LicenseApplication>(It.IsAny<UpdateApplicationByEmployee>()))
+               .Returns(null as LicenseApplication);
 
         //Act
         Func<Task> action = async () =>
@@ -218,7 +218,7 @@ public class UpdateApplicationByEmployeeTEST
                                     .With(app => app.ApplicationStatus, 5)
                                     .Create();
 
-        var dummyApplication = new Application
+        var dummyApplication = new LicenseApplication
         {
             Id = 1,
             ApplicantUserId = updateRequest.ApplicantUserId,
@@ -234,16 +234,16 @@ public class UpdateApplicationByEmployeeTEST
             UpdatedByEmployeeId = updateRequest.UpdatedByEmployeeId
         };
 
-        _mapper.Setup(temp => temp.Map<Application>(It.IsAny<UpdateApplicationByEmployee>()))
+        _mapper.Setup(temp => temp.Map<LicenseApplication>(It.IsAny<UpdateApplicationByEmployee>()))
             .Returns(dummyApplication);
 
-        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
+        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<LicenseApplication, bool>>>()))
                       .ReturnsAsync(dummyApplication);
 
         _updateRepository.Setup(temp => temp.UpdateAsync(dummyApplication))
                          .ReturnsAsync(dummyApplication);
 
-        _mapper.Setup(temp => temp.Map<ApplicationDTOForEmployee>(It.IsAny<Application>()))
+        _mapper.Setup(temp => temp.Map<ApplicationDTOForEmployee>(It.IsAny<LicenseApplication>()))
                .Returns(applicationDTOForEmployee);
 
         //Act

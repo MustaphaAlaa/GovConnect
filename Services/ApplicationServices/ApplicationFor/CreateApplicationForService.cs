@@ -28,14 +28,14 @@ public class CreateApplicationForService : ICreateApplicationFor
             throw new ArgumentNullException($" {typeof(CreateApplicationForRequest).Name} is Null");
 
         if (string.IsNullOrEmpty(entity.For))
-            throw new ArgumentException($"Application for cannot by null.");
+            throw new ArgumentException($"LicenseApplication for cannot by null.");
 
         entity.For = entity.For?.Trim().ToLower();
 
         var appfor = await _getRepository.GetAsync(at => at.For == entity.For);
 
         if (appfor != null)
-            throw new InvalidOperationException("This application for is already exist, cant duplicate types.");
+            throw new InvalidOperationException("This LicenseApplication for is already exist, cant duplicate types.");
 
         var reqDtoToModel = _mapper.Map<ApplicationFor>(entity);
 

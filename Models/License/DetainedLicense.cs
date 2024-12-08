@@ -25,10 +25,10 @@ public class DetainedLicense
 
     [ForeignKey("ReleasedBy")] public Guid ReleasedByEmployee { get; set; }
 
-    [ForeignKey("Application")] public int ReleaseApplicationId { get; set; }
+    [ForeignKey("LicenseApplication")] public int ReleaseApplicationId { get; set; }
 
     public License License { get; set; }
-    public Application Application { get; set; }
+    public LicenseApplication LicenseApplication { get; set; }
     public Employee ReleasedBy { get; set; }
     public Employee CreatedBy { get; set; }
 }
