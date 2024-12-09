@@ -35,12 +35,14 @@ public partial class DVLDDbContext : IdentityDbContext<User, UserRoles, Guid>
 
     //@@License
     public DbSet<License> Licenses { get; set; }
+    public DbSet<InternationalLicense> InternationalLicenses { get; set; }
     public DbSet<LicenseType> LicenseTypes { get; set; }
     public DbSet<DetainedLicense> DetainedLicenses { get; set; }
 
     //@@LicenseApplication
     public DbSet<LicenseApplication> Applications { get; set; }
     public DbSet<LocalDrivingLicenseApplication> LocalDrivingLicenseApplications { get; set; }
+    public DbSet<InternationalDrivingLicenseApplication> InternationalDrivingLicenseApplication { get; set; }
 
 
 }
