@@ -9,7 +9,7 @@ namespace Models.ApplicationModels
     public enum enApplicationFor
     {
         LocalLicense = 1,
-        internationalLicense = 2,
+        InternationalLicense = 2,
         Passport = 3,
         NationalNumberId = 4,
 

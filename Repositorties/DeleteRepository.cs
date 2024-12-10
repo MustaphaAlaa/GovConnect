@@ -7,7 +7,7 @@ public class DeleteRepository<T>  :  RepositoryDbContext,  IDeleteRepository<T> 
 {
     protected DbSet<T> _entity;
     
-    public DeleteRepository(DVLDDbContext context) : base(context)
+    public DeleteRepository(GovConnectDbContext context) : base(context)
     {
         _entity = this._db.Set<T>();
     }

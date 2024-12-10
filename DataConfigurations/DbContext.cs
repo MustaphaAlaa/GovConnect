@@ -9,7 +9,7 @@ using Models.Users;
 
 namespace DataConfigurations;
 
-public partial class DVLDDbContext : IdentityDbContext<User, UserRoles, Guid>
+public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Guid>
 {
     //@@Users
     public DbSet<Employee> Employees { get; set; }

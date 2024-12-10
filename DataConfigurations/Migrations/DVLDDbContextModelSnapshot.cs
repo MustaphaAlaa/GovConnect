@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataConfigurations.Migrations
 {
-    [DbContext(typeof(DVLDDbContext))]
+    [DbContext(typeof(GovConnectDbContext))]
     partial class DVLDDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

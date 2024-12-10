@@ -6,7 +6,7 @@ public class UpdateRepository<Entity> : RepositoryDbContext, IUpdateRepository<E
 {
     protected DbSet<Entity> _entity;
 
-    public UpdateRepository(DVLDDbContext context) : base(context)
+    public UpdateRepository(GovConnectDbContext context) : base(context)
     {
         _entity = this._db.Set<Entity>();
     }

@@ -7,7 +7,7 @@ public class GetRepository<Entity> : RepositoryDbContext, IGetRepository<Entity>
 {
     protected DbSet<Entity> _entities;
 
-    public GetRepository(DVLDDbContext context) : base(context)
+    public GetRepository(GovConnectDbContext context) : base(context)
     {
         _entities = this._db.Set<Entity>();
     }

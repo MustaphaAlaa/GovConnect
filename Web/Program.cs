@@ -26,7 +26,7 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddDbContext<DVLDDbContext>(options =>
+        builder.Services.AddDbContext<GovConnectDbContext>(options =>
      options.UseSqlServer(builder.Configuration.GetConnectionString("default")));
 
 
@@ -73,9 +73,9 @@ public class Program
 
 
         builder.Services.AddIdentity<User, UserRoles>()
-            .AddEntityFrameworkStores<DVLDDbContext>()
+            .AddEntityFrameworkStores<GovConnectDbContext>()
             .AddDefaultTokenProviders()
-            .AddUserStore<UserStore<User, UserRoles, DVLDDbContext, Guid>>();
+            .AddUserStore<UserStore<User, UserRoles, GovConnectDbContext, Guid>>();
 
         builder.Services.AddAutoMapper(typeof(DVLDMapperConfig));
 

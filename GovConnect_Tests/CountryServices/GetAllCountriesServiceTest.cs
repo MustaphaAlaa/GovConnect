@@ -32,7 +32,7 @@ namespace GovConnect_Tests.CountryServices
             _fixture = new Fixture();
             _mapper = new Mock<IMapper>();
 
-            var dbContextMock = new Mock<DataConfigurations.DVLDDbContext>();
+            var dbContextMock = new Mock<DataConfigurations.GovConnectDbContext>();
 
             _getAllRepositoryMock = new Mock<IGetAllRepository<Country>>();
 

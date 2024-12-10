@@ -6,10 +6,10 @@ using Models.Users;
 
 public abstract class RepositoryDbContext
 {
-    protected readonly DVLDDbContext _db;
+    protected readonly GovConnectDbContext _db;
 
 
-    public RepositoryDbContext(DVLDDbContext context)
+    public RepositoryDbContext(GovConnectDbContext context)
     {
         _db = context;
     }

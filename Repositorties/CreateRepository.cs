@@ -9,7 +9,7 @@ public class CreateRepository<Entity> : RepositoryDbContext,
 {
     protected DbSet<Entity> _entity;
 
-    public CreateRepository(DVLDDbContext context) : base(context)
+    public CreateRepository(GovConnectDbContext context) : base(context)
     {
         _entity = context.Set<Entity>();
     }

@@ -7,7 +7,7 @@ public class GetAllRepository<Entity> : RepositoryDbContext, IGetAllRepository<E
 {
     protected DbSet<Entity> _entities;
 
-    public GetAllRepository(DVLDDbContext context) : base(context)
+    public GetAllRepository(GovConnectDbContext context) : base(context)
     {
         _entities = this._db.Set<Entity>();
     }
