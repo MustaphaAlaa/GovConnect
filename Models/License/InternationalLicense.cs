@@ -9,19 +9,19 @@ public class InternationalLicense
     [Key] public int Id { get; set; }
  
     // The international driving license LicenseApplication contains the passport
-    [Required] [ForeignKey("LicenseApplication")] public int InternationalDrivingLicenseApplication { get; set; }
+    [Required] [ForeignKey("LicenseApplication")] public int InternationalDrivingLicenseApplicationID { get; set; }
 
 
     [Required]
     public int LicenseClassId
     {
-        get => License.LicenseClass.LicenseClassId;
+        get => LocalLicense.LicenseClass.LicenseClassId;
 
-        private set => value = License.LicenseClass.LicenseClassId;
+        private set => value = LocalLicense.LicenseClass.LicenseClassId;
     }
 
-    [Required] [ForeignKey("License")] public int LicenseId { get; set; }
+    [Required] [ForeignKey("LocalLicense")] public int LicenseId { get; set; }
 
-    public InternationalDrivingLicenseApplication application { get; set; }
-    public License License { get; set; }
+    public InternationalDrivingLicenseApplication InternationalDrivingLicenseApplication { get; set; }
+    public LocalLicense LocalLicense { get; set; }
 }

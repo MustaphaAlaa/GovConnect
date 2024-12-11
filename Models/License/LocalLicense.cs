@@ -7,7 +7,7 @@ using Models.ApplicationModels;
 
 namespace Models.LicenseModels;
 
-public class License
+public class LocalLicense
 {
     [Key] public int Id { get; set; }
 
@@ -36,6 +36,6 @@ public class License
     public Country Country { get; set; }
     public Employee Employee { get; set; }
     public Driver Driver { get; set; }
-    public LicenseApplication LicenseApplication { get; set; }
+    public LocalLicense LicenseApplication { get; set; }
     public LicenseClass LicenseClass { get; set; }
 }
