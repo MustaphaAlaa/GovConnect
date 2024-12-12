@@ -1,6 +1,6 @@
 ﻿namespace Models.ApplicationModels;
 
-public enum enApplicationType
+public enum EnApplicationType
 {
     New = 1,
     Renew,

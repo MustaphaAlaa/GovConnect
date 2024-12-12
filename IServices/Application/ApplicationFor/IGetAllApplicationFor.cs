@@ -4,7 +4,7 @@ using Models.ApplicationModels;
 
 namespace IServices.IApplicationServices.For;
 
-public interface IGetAllApplicationFor :   IGetAllService< ApplicationForDTO, ApplicationFor >
+public interface IGetAllApplicationFor :   IGetAllService<ApplicationFor, ApplicationForDTO >
 {
     
 }

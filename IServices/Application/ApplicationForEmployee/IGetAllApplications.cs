@@ -9,6 +9,6 @@ using System.Threading.Tasks;
 
 namespace IServices.IApplicationServices.Employee;
 
-public interface IGetAllApplicationsEmp : IGetAllService<ApplicationDTOForEmployee, LicenseApplication>
+public interface IGetAllApplicationsEmp : IGetAllService< LicenseApplication,ApplicationDTOForEmployee >
 {
 }

@@ -2,7 +2,7 @@
 
 namespace IServices.Country;
 
-public interface IUpdateCountry : IUpdateService<CountryDTO,UpdateCountryRequest>
+public interface IUpdateCountry : IUpdateService<UpdateCountryRequest,CountryDTO>
 {
     
 }

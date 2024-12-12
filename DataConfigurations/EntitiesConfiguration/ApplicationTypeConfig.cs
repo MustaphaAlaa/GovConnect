@@ -16,33 +16,33 @@ public class ApplicationTypeConfig : IEntityTypeConfiguration<ApplicationType>
         {
             new ApplicationType()
             {
-                Id = (byte)enApplicationType.New,
-                Type = enApplicationType.New.ToString(),
+                Id = (byte)EnApplicationType.New,
+                Type = EnApplicationType.New.ToString(),
             },
             new ApplicationType()
             {
-                Id = (byte)enApplicationType.Renew,
-                Type = enApplicationType.Renew.ToString(),
+                Id = (byte)EnApplicationType.Renew,
+                Type = EnApplicationType.Renew.ToString(),
             },
             new ApplicationType()
             {
-                Id = (byte)enApplicationType.Release,
-                Type = enApplicationType.Release.ToString(),
+                Id = (byte)EnApplicationType.Release,
+                Type = EnApplicationType.Release.ToString(),
             },
             new ApplicationType()
             {
-                Id = (byte)enApplicationType.ReplacementForDamge,
-                Type = enApplicationType.ReplacementForDamge.ToString(),
+                Id = (byte)EnApplicationType.ReplacementForDamge,
+                Type = EnApplicationType.ReplacementForDamge.ToString(),
             },
             new ApplicationType()
             {
-                Id = (byte)enApplicationType.ReplacementForLost,
-                Type = enApplicationType.ReplacementForLost.ToString(),
+                Id = (byte)EnApplicationType.ReplacementForLost,
+                Type = EnApplicationType.ReplacementForLost.ToString(),
             },
             new ApplicationType()
             {
-                Id = (byte)enApplicationType.RetakeTest,
-                Type = enApplicationType.RetakeTest.ToString(),
+                Id = (byte)EnApplicationType.RetakeTest,
+                Type = EnApplicationType.RetakeTest.ToString(),
             },
         });
     }

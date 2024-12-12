@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IServices.IApplicationServices.User;
 
-public interface IUpdateApplicationByUser : IUpdateService<ApplicationDTOForUser, UpdateApplicationByUser>
+public interface IUpdateApplicationByUser : IUpdateService< UpdateApplicationByUser,ApplicationDTOForUser >
 {
 
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Models.ApplicationModels
 {
-    public enum enApplicationFor
+    public enum EnApplicationFor
     {
         LocalLicense = 1,
         InternationalLicense = 2,

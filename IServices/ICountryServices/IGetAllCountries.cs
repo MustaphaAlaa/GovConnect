@@ -3,7 +3,7 @@ using ModelDTO;
 using Models.Types;
 namespace IServices.Country;
 
-public   interface IGetAllCountries : IGetAllService< CountryDTO,Models.Types.Country>
+public   interface IGetAllCountries : IGetAllService< Models.Types.Country,CountryDTO  >
 {
      
 }

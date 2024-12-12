@@ -15,4 +15,5 @@ public class CreateApplicationRequest
     [Required][ForeignKey("User")] public Guid ApplicantUserId { get; set; }
     [Required] public byte ApplicationTypeId { get; set; }
     [Required] public short ApplicationForId { get; set; }
+    [Required] public short LicenseClassId  { get; set; }
 }

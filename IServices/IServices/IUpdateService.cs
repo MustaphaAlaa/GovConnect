@@ -2,7 +2,9 @@
 
 namespace IServices;
 
-public interface IUpdateService<TResult,TUpdate>
+public interface IUpdateService<TUpdate,TResult>
 {
-    Task<TResult> UpdateAsync(TUpdate updateRequest);
+    Task<TResult> UpdateAsync(TUpdate updateRequest); 
 }
+
+

@@ -2,7 +2,7 @@
 
 namespace IServices;
 
-public interface IGetAllService<TResult,TModel>
+public interface IGetAllService<TModel,TResult>
 {
     Task<List<TResult>> GetAllAsync();
     Task<IQueryable<TResult>> GetAllAsync (Expression<Func<TModel, bool>> predicate);

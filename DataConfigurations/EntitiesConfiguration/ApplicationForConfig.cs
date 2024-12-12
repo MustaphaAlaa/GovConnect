@@ -18,23 +18,23 @@ public class ApplicationForConfig : IEntityTypeConfiguration<ApplicationFor>
         {
             new ApplicationFor()
             {
-                Id = (short)enApplicationFor.LocalLicense,
-                For = enApplicationFor.LocalLicense.ToString()
+                Id = (short)EnApplicationFor.LocalLicense,
+                For = EnApplicationFor.LocalLicense.ToString()
             },
             new ApplicationFor()
             {
-                Id = (short)enApplicationFor.InternationalLicense,
-                For = enApplicationFor.InternationalLicense.ToString()
+                Id = (short)EnApplicationFor.InternationalLicense,
+                For = EnApplicationFor.InternationalLicense.ToString()
             },
             new ApplicationFor()
             {
-                Id = (short)enApplicationFor.Passport,
-                For = enApplicationFor.Passport.ToString()
+                Id = (short)EnApplicationFor.Passport,
+                For = EnApplicationFor.Passport.ToString()
             },
             new ApplicationFor()
             {
-                Id = (short)enApplicationFor.NationalNumberId,
-                For = enApplicationFor.InternationalLicense.ToString()
+                Id = (short)EnApplicationFor.NationalNumberId,
+                For = EnApplicationFor.InternationalLicense.ToString()
             } 
         });
     }
