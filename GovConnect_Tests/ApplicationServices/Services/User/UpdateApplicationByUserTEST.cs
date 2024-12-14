@@ -197,7 +197,7 @@ public class UpdateApplicationByUserTEST
         LicenseApplication updatedLicenseApplication = new LicenseApplication()
         {
             Id = updateRequest.Id,
-            ApplicantUserId = updateRequest.ApplicantUserId,
+            UserId = updateRequest.ApplicantUserId,
             ApplicationTypeId = updateRequest.ApplicationTypeId,
             ApplicationForId = updateRequest.ApplicationForId,
         };
@@ -207,7 +207,7 @@ public class UpdateApplicationByUserTEST
         ApplicationDTOForUser applicationDTOForUser = new ApplicationDTOForUser()
         {
             Id = updateRequest.Id,
-            ApplicantUserId = updatedLicenseApplication.ApplicantUserId,
+            ApplicantUserId = updatedLicenseApplication.UserId,
             ApplicationTypeId = updatedLicenseApplication.ApplicationTypeId,
             ApplicationForId = updatedLicenseApplication.ApplicationForId,
             LastStatusDate = updatedLicenseApplication.LastStatusDate,

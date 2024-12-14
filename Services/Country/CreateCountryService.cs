@@ -2,7 +2,7 @@
 using IRepository;
 using IServices.Country;
 using IServices.ICountryServices;
-using ModelDTO;
+using ModelDTO.CountryDTOs;
 using Models.Types;
 
 namespace Services.CountryServices;
@@ -27,7 +27,7 @@ public class CreateCountryService : ICreateCountry
             throw new ArgumentNullException($" {typeof(CreateCountryRequest)} is Null");
 
         if (string.IsNullOrEmpty(entity.Name))
-            throw new ArgumentException($"Country Name cannot by null.");
+            throw new ArgumentException($"CountryDTOs Name cannot by null.");
 
 
         entity.Name = entity.Name?.Trim().ToLower();
@@ -36,7 +36,7 @@ public class CreateCountryService : ICreateCountry
         var country = await _getCountry.GetByAsync(c => c.CountryName == entity.Name);
 
         if (country != null)
-            throw new InvalidOperationException("Country is already exist, cant duplicate country.");
+            throw new InvalidOperationException("CountryDTOs is already exist, cant duplicate country.");
 
 
         var newCountry = await _createCountry.CreateAsync(_mapper.Map<Country>(entity));

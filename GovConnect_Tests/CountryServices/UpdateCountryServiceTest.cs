@@ -6,7 +6,7 @@ using IRepository;
 using IServices.Country;
 using IServices.ICountryServices;
 using Microsoft.EntityFrameworkCore;
-using ModelDTO;
+using ModelDTO.CountryDTOs;
 using Models.Types;
 using Models.Users;
 using Moq;
@@ -35,7 +35,7 @@ namespace GovConnect_Tests.CountryServices
             _fixture = new Fixture();
             _mapper = new Mock<IMapper>();
 
-            var mapperCfg = new MapperConfiguration(cfg => cfg.AddProfile(typeof(DVLDMapperConfig)));
+            var mapperCfg = new MapperConfiguration(cfg => cfg.AddProfile(typeof(GovConnectMapperConfig)));
 
             _updateRepositoryMock = new Mock<IUpdateRepository<Country>>();
             _getRepositoryMock = new Mock<IGetRepository<Country>>();

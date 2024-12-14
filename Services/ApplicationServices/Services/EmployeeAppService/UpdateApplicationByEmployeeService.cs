@@ -41,7 +41,7 @@ namespace Services.ApplicationServices.Services.EmployeeAppService
             var existsApplication = await _getRepository.GetAsync(app => app.Id == updateRequest.Id)
                 ?? throw new DoesNotExistException();
 
-            if (existsApplication.ApplicantUserId != updateRequest.ApplicantUserId)
+            if (existsApplication.UserId != updateRequest.ApplicantUserId)
                 throw new InvalidOperationException();
 
             existsApplication.ApplicationStatus = updateRequest.ApplicationStatus;

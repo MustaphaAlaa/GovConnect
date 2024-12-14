@@ -89,7 +89,7 @@ public class GetApplicationByUserSeriviceTEST
         LicenseApplication licenseApplication = new LicenseApplication()
         {
             Id = 2,
-            ApplicantUserId = Guid.NewGuid(),
+            UserId = Guid.NewGuid(),
             ApplicationDate = DateTime.Now,
             PaidFees = 500
         };

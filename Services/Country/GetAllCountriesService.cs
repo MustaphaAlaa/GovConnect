@@ -2,7 +2,7 @@
 using AutoMapper;
 using IRepository;
 using IServices.Country;
-using ModelDTO;
+using ModelDTO.CountryDTOs;
 using Models.Types;
 
 namespace Services.CountryServices;

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ModelDTO;
+using ModelDTO.CountryDTOs;
 using ModelDTO.ApplicationDTOs.User;
 using ModelDTO.ApplicationDTOs;
 using ModelDTO.ApplicationDTOs.Fees;
@@ -13,16 +13,16 @@ using ModelDTO.ApplicationDTOs.Employee;
 
 namespace Web.Mapper;
 
-public class DVLDMapperConfig : Profile
+public class GovConnectMapperConfig : Profile
 {
-    public DVLDMapperConfig()
+    public GovConnectMapperConfig()
     {
         CreateMap<User, UserDTO>().ReverseMap();
         CreateMap<UpdateUserDTO, UserDTO>().ReverseMap();
         CreateMap<User, RegisterDTO>().ReverseMap();
 
 
-        //@@Country
+        //@@CountryDTOs
         CreateMap<CountryDTO, Country>().ReverseMap();
         CreateMap<UpdateCountryRequest, Country>().ReverseMap();
         CreateMap<CreateCountryRequest, Country>();

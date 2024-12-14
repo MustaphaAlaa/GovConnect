@@ -1,4 +1,4 @@
-﻿namespace ModelDTO;
+﻿namespace ModelDTO.CountryDTOs;
 
 public class CreateCountryRequest
 {

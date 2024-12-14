@@ -1,6 +1,7 @@
 ﻿using System.Linq.Expressions;
-using ModelDTO;
-using Models.Types;
+ 
+using ModelDTO.CountryDTOs;
+ 
 namespace IServices.Country;
 
 public   interface IGetAllCountries : IGetAllService< Models.Types.Country,CountryDTO  >

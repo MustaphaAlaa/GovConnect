@@ -12,7 +12,7 @@ namespace ModelDTO.ApplicationDTOs.User;
 
 public class CreateApplicationRequest
 {
-    [Required][ForeignKey("User")] public Guid ApplicantUserId { get; set; }
+    [Required][ForeignKey("User")] public Guid UserId { get; set; }
     [Required] public byte ApplicationTypeId { get; set; }
     [Required] public short ApplicationForId { get; set; }
     [Required] public short LicenseClassId  { get; set; }

@@ -77,7 +77,7 @@ public class GetAllApplicationsByEmployeeTEST
             .Returns((LicenseApplication source) => new ApplicationDTOForEmployee()
             {
                 Id = source.Id,
-                ApplicantUserId = source.ApplicantUserId,
+                ApplicantUserId = source.UserId,
                 ApplicationDate = source.ApplicationDate,
                 ApplicationForId = source.ApplicationForId,
                 ApplicationStatus = source.ApplicationStatus,
@@ -115,7 +115,7 @@ public class GetAllApplicationsByEmployeeTEST
             .Returns((LicenseApplication source) => new ApplicationDTOForEmployee()
             {
                 Id = source.Id,
-                ApplicantUserId = source.ApplicantUserId,
+                ApplicantUserId = source.UserId,
                 ApplicationDate = source.ApplicationDate,
                 ApplicationForId = source.ApplicationForId,
                 ApplicationStatus = source.ApplicationStatus,
@@ -162,7 +162,7 @@ public class GetAllApplicationsByEmployeeTEST
             .Returns((LicenseApplication source) => new ApplicationDTOForEmployee()
             {
                 Id = source.Id,
-                ApplicantUserId = source.ApplicantUserId,
+                ApplicantUserId = source.UserId,
                 ApplicationDate = source.ApplicationDate,
                 ApplicationForId = source.ApplicationForId,
                 ApplicationStatus = source.ApplicationStatus,

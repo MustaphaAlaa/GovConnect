@@ -31,7 +31,7 @@ namespace GovConnect_Tests.CountryServices
         {
             _fixture = new Fixture();
 
-            //var mapperCfg = new MapperConfiguration(cfg => cfg.AddProfile(typeof(DVLDMapperConfig)));
+            //var mapperCfg = new MapperConfiguration(cfg => cfg.AddProfile(typeof(GovConnectMapperConfig)));
 
             _deleteRepositoryMock = new Mock<IDeleteRepository<Country>>();
 

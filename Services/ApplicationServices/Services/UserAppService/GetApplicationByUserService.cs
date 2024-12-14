@@ -33,7 +33,7 @@ namespace Services.ApplicationServices.Services.UserAppServices
 
             return await _getRepository.GetAsync(app =>
                                     app.Id == getApplicationByUser.ApplicationId
-                                    && app.ApplicantUserId == getApplicationByUser.userId);
+                                    && app.UserId == getApplicationByUser.userId);
         }
 
 

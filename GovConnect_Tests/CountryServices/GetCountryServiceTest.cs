@@ -32,7 +32,7 @@ namespace GovConnect_Tests.CountryServices
 
 
             var dbContextMock = new Mock<DataConfigurations.GovConnectDbContext>();
-            var mapperCfg = new MapperConfiguration(cfg => cfg.AddProfile(typeof(DVLDMapperConfig)));
+            var mapperCfg = new MapperConfiguration(cfg => cfg.AddProfile(typeof(GovConnectMapperConfig)));
 
             _getRepositoryMock = new Mock<IGetRepository<Country>>();
 

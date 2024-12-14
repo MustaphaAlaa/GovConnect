@@ -94,7 +94,7 @@ public class UpdateApplicationByEmployeeTEST
         _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<LicenseApplication, bool>>>()))
             .ReturnsAsync(new LicenseApplication
             {
-                ApplicantUserId = Guid.NewGuid()
+                UserId = Guid.NewGuid()
             });
 
 
@@ -153,7 +153,7 @@ public class UpdateApplicationByEmployeeTEST
         var dummyApplication = new LicenseApplication
         {
             Id = 1,
-            ApplicantUserId = updateRequest.ApplicantUserId,
+            UserId = updateRequest.ApplicantUserId,
             ApplicationStatus = 5,
 
         };
@@ -184,7 +184,7 @@ public class UpdateApplicationByEmployeeTEST
         var dummyApplication = new LicenseApplication
         {
             Id = 1,
-            ApplicantUserId = updateRequest.ApplicantUserId,
+            UserId = updateRequest.ApplicantUserId,
             ApplicationStatus = 5,
 
         };
@@ -221,7 +221,7 @@ public class UpdateApplicationByEmployeeTEST
         var dummyApplication = new LicenseApplication
         {
             Id = 1,
-            ApplicantUserId = updateRequest.ApplicantUserId,
+            UserId = updateRequest.ApplicantUserId,
             ApplicationStatus = 5,
 
         };

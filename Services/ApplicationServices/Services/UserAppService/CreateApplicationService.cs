@@ -32,7 +32,7 @@ namespace Services.ApplicationServices.Services.UserAppServices
             if (entity is null)
                 throw new ArgumentNullException("Create Request is null.");
 
-            if (entity.ApplicantUserId == Guid.Empty)
+            if (entity.UserId == Guid.Empty)
                 throw new ArgumentException();
 
             if (entity.ApplicationTypeId <= 0)
@@ -49,7 +49,7 @@ namespace Services.ApplicationServices.Services.UserAppServices
                                   ?? throw new DoesNotExistException("ApplicationFees Doesn't Exist");
 
             var existenceApplication = await _getRepository.GetAsync(app =>
-                app.ApplicantUserId == entity.ApplicantUserId
+                app.UserId == entity.UserId
                 && app.ApplicationTypeId == entity.ApplicationTypeId
                 && app.ApplicationForId == entity.ApplicationForId);
 

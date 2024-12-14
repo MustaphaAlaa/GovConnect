@@ -2,11 +2,11 @@
 using IServices.ICountryServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ModelDTO;
+using ModelDTO.CountryDTOs;
 
 namespace Web.Controllers;
  
-[Route("Country")]
+[Route("CountryDTOs")]
 [ApiController]
 public class CountryController : ControllerBase
 {

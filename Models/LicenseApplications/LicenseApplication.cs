@@ -30,7 +30,7 @@ public class LicenseApplication
 {
     [Key] public int Id { get; set; }
 
-    [Required][ForeignKey("User")] public Guid ApplicantUserId { get; set; }
+    [Required][ForeignKey("User")] public Guid UserId { get; set; }
 
     public byte ApplicationStatus { get; set; }
 

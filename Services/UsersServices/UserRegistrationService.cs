@@ -6,11 +6,11 @@ using Models.Users;
 
 namespace Services.UsersServices;
 
-public class RegisterService
+public class UserRegistrationService 
 {
     private UserManager<User> _userManager;
 
-    public RegisterService(UserManager<User> userManager)
+    public UserRegistrationService(UserManager<User> userManager)
     {
         _userManager = userManager;
     }

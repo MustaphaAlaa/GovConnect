@@ -2,7 +2,7 @@
 using AutoMapper;
 using IRepository;
 using IServices.Country;
-using ModelDTO;
+using ModelDTO.CountryDTOs;
 using Models.Types;
 
 namespace Services.CountryServices;
@@ -46,7 +46,7 @@ public class UpdateCountryService : IUpdateCountry
         var country = await _getRepository.GetAsync(country => country.Id == request.Id);
 
         if (country is null)
-            throw new InvalidOperationException("Country isn't exist in db");
+            throw new InvalidOperationException("CountryDTOs isn't exist in db");
 
         country.CountryName = request.Name;
         await _updateRepository.UpdateAsync(country);

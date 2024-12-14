@@ -19,7 +19,7 @@ public class AuthController : ControllerBase
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signManager;
     private readonly IMapper _mapper;
-    private readonly RegisterService _registerService;
+    private readonly UserRegistrationService _userRegistrationService;
     private readonly ApiResponse _response;
 
     public AuthController(UserManager<User> userManager, IMapper mapper, SignInManager<User> signManager)
@@ -28,7 +28,7 @@ public class AuthController : ControllerBase
         _signManager = signManager;
         _mapper = mapper;
         _response = new ApiResponse();
-        _registerService = new RegisterService(_userManager);
+        _userRegistrationService = new UserRegistrationService(_userManager);
     }
 
     [HttpPost("Register")]
@@ -53,7 +53,7 @@ public class AuthController : ControllerBase
 "countryId": 1
 }
          */
-        bool valid = await _registerService.ValidateRegisterAsync(register, _response, ModelState);
+        bool valid = await _userRegistrationService.ValidateRegisterAsync(register, _response, ModelState);
 
         if (!valid)
         {

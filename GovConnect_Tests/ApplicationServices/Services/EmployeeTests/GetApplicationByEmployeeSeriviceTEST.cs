@@ -53,7 +53,7 @@ public class GetApplicationByEmployeeSeriviceTEST
         LicenseApplication licenseApplication = new LicenseApplication()
         {
             Id = 23,
-            ApplicantUserId = Guid.NewGuid(),
+            UserId = Guid.NewGuid(),
             PaidFees = 500,
             ApplicationTypeId = 1,
             ApplicationForId = 2,
@@ -72,7 +72,7 @@ public class GetApplicationByEmployeeSeriviceTEST
             .Returns((LicenseApplication source) => new ApplicationDTOForEmployee()
             {
                 Id = source.Id,
-                ApplicantUserId = source.ApplicantUserId,
+                ApplicantUserId = source.UserId,
                 ApplicationTypeId = source.ApplicationTypeId,
                 ApplicationForId = source.ApplicationForId,
                 PaidFees = source.PaidFees,

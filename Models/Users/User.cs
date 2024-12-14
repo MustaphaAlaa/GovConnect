@@ -18,7 +18,7 @@ public class User : IdentityUser<Guid>
     public string ImagePath { get; set; }
 
     [Required]
-    [ForeignKey("Country")]
+    [ForeignKey("CountryDTOs")]
     public int CountryId { get; set; }
 
     public DateTime BirthDate { get; set; }

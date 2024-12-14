@@ -57,7 +57,7 @@ public class CreateApplcationServiceTEST
     {
         //Arrang
         CreateApplicationRequest createRequest = _fixture.Build<CreateApplicationRequest>()
-                                                 .With(app => app.ApplicantUserId, Guid.Empty)
+                                                 .With(app => app.UserId, Guid.Empty)
                                                  .Create();
         //Act
         Func<Task> action = async () => await _createApplication.CreateAsync(createRequest);
@@ -128,7 +128,7 @@ public class CreateApplcationServiceTEST
                                                  .Create();
 
         LicenseApplication licenseApplication = _fixture.Build<LicenseApplication>()
-            .With(app => app.ApplicantUserId, createRequest.ApplicantUserId)
+            .With(app => app.UserId, createRequest.UserId)
             .With(app => app.ApplicationStatus, (byte)statue)
             .With(app => app.Employee, null as Employee)
             .With(app => app.User, null as Models.Users.User)
@@ -187,7 +187,7 @@ public class CreateApplcationServiceTEST
                                                  .Create();
 
         LicenseApplication licenseApplication = _fixture.Build<LicenseApplication>()
-             .With(app => app.ApplicantUserId, createRequest.ApplicantUserId)
+             .With(app => app.UserId, createRequest.UserId)
              .With(app => app.Employee, null as Employee)
              .With(app => app.User, null as User)
              .With(app => app.ApplicationFees, null as ApplicationFees)
@@ -226,7 +226,7 @@ public class CreateApplcationServiceTEST
                                                  .Create();
 
         LicenseApplication licenseApplication = _fixture.Build<LicenseApplication>()
-            .With(app => app.ApplicantUserId, createRequest.ApplicantUserId)
+            .With(app => app.UserId, createRequest.UserId)
             .With(app => app.ApplicationForId, createRequest.ApplicationForId)
             .With(app => app.ApplicationTypeId, createRequest.ApplicationForId)
             .With(app => app.Employee, null as Employee)
@@ -266,7 +266,7 @@ public class CreateApplcationServiceTEST
                                                  .Create();
 
         LicenseApplication licenseApplication = _fixture.Build<LicenseApplication>()
-            .With(app => app.ApplicantUserId, createRequest.ApplicantUserId)
+            .With(app => app.UserId, createRequest.UserId)
             .With(app => app.ApplicationForId, createRequest.ApplicationForId)
             .With(app => app.ApplicationTypeId, createRequest.ApplicationForId)
             .With(app => app.Employee, null as Employee)
@@ -275,7 +275,7 @@ public class CreateApplcationServiceTEST
             .Create();
 
         ApplicationDTOForUser applicationDtoForUser = _fixture.Build<ApplicationDTOForUser>()
-            .With(app => app.ApplicantUserId, createRequest.ApplicantUserId)
+            .With(app => app.ApplicantUserId, createRequest.UserId)
             .With(app => app.ApplicationForId, createRequest.ApplicationForId)
             .With(app => app.ApplicationTypeId, createRequest.ApplicationForId)
             .Create();

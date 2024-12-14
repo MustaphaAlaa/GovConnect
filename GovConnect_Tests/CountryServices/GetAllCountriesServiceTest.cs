@@ -6,7 +6,7 @@ using IRepository;
 using IServices.Country;
 using IServices.ICountryServices;
 using Microsoft.EntityFrameworkCore;
-using ModelDTO;
+using ModelDTO.CountryDTOs;
 using Models.Types;
 using Models.Users;
 using Moq;

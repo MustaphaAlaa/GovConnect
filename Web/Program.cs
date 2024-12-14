@@ -77,7 +77,7 @@ public class Program
             .AddDefaultTokenProviders()
             .AddUserStore<UserStore<User, UserRoles, GovConnectDbContext, Guid>>();
 
-        builder.Services.AddAutoMapper(typeof(DVLDMapperConfig));
+        builder.Services.AddAutoMapper(typeof(GovConnectMapperConfig));
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();

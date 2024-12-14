@@ -4,7 +4,7 @@ using FluentAssertions;
 using IRepository;
 using IServices.Country;
 using IServices.ICountryServices;
-using ModelDTO;
+using ModelDTO.CountryDTOs;
 using Models.Types;
 using Moq;
 using Services.CountryServices;
@@ -29,7 +29,7 @@ namespace GovConnect_Tests.CountryServices
         {
             _fixture = new Fixture();
 
-            var mapperCfg = new MapperConfiguration(cfg => cfg.AddProfile(typeof(DVLDMapperConfig)));
+            var mapperCfg = new MapperConfiguration(cfg => cfg.AddProfile(typeof(GovConnectMapperConfig)));
 
 
             _createRepositoryMock = new Mock<ICreateRepository<Country>>();
