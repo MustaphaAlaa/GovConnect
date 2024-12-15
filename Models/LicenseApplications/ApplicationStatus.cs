@@ -2,9 +2,9 @@
 
 public enum ApplicationStatus
 {
-    Finalized = 1,  //  The LicenseApplication has been completed (could be used if necessary)
-    InProgress,    //   The LicenseApplication is being processed
-    Pending,      //     The LicenseApplication is waiting for further action or approval
-    Rejected,    // The LicenseApplication has been declined
-    Approved    // The LicenseApplication has been accepted
+    Finalized = 1,  //  The DrivingLicenseApplication has been completed (could be used if necessary)
+    InProgress,    //   The DrivingLicenseApplication is being processed
+    Pending,      //     The DrivingLicenseApplication is waiting for further action or approval
+    Rejected,    // The DrivingLicenseApplication has been declined
+    Approved    // The DrivingLicenseApplication has been accepted
 }

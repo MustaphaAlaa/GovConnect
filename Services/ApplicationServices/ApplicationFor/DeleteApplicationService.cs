@@ -17,7 +17,7 @@ public class DeleteApplicationForService : IDeleteApplicationFor
     public async Task<bool> DeleteAsync(int id)
     {
         if (id <= 0)
-            throw new ArgumentOutOfRangeException("Invalid Id");
+            throw new ArgumentOutOfRangeException("Invalid InternationalDrivingLicenseId");
 
         var deleted = await _deleteRepository.DeleteAsync(t => t.Id == id);
 

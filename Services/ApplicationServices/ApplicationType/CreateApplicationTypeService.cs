@@ -28,7 +28,7 @@ public class CreateApplicationTypeService : ICreateApplicationType
             throw new ArgumentNullException($" {typeof(CreateApplicationTypeRequest)} is Null");
 
         if (string.IsNullOrEmpty(entity.Type))
-            throw new ArgumentException($"LicenseApplication Type cannot by null.");
+            throw new ArgumentException($"DrivingLicenseApplication Type cannot by null.");
 
 
         entity.Type = entity.Type?.Trim().ToLower();
@@ -37,7 +37,7 @@ public class CreateApplicationTypeService : ICreateApplicationType
         var type = await _getApplicationTypeRepository.GetAsync(at => at.Type == entity.Type);
 
         if (type != null)
-            throw new InvalidOperationException("This LicenseApplication type is already exist, cant duplicate types.");
+            throw new InvalidOperationException("This DrivingLicenseApplication type is already exist, cant duplicate types.");
 
 
         var reqDtoToModel = _mapper.Map<ApplicationType>(entity);

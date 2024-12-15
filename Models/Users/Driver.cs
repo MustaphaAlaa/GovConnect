@@ -5,7 +5,7 @@ namespace Models.Users;
 
 public class Driver
 {
-    [Key] public Guid Id { get; set; }
+    [Key] public Guid DriverId { get; set; }
 
     [ForeignKey("user")] [Required] public Guid UserId { get; set; }
 

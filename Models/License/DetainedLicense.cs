@@ -10,7 +10,7 @@ public class DetainedLicense
 {
     [Key] public int Id { get; set; }
 
-    [Required][ForeignKey("LocalLicense")] public int LicenseId { get; set; }
+    [Required][ForeignKey("LocalDrivingLicense")] public int LicenseId { get; set; }
 
     [Required] public DateTime DetainDate { get; set; }
 
@@ -25,9 +25,9 @@ public class DetainedLicense
 
     [ForeignKey("ReleasedBy")] public Guid ReleasedByEmployee { get; set; }
 
-    [ForeignKey("LicenseApplication")] public int ReleaseApplicationId { get; set; }
+    [ForeignKey("DrivingLicenseApplication")] public int ReleaseApplicationId { get; set; }
 
-    public LocalLicense LocalLicense { get; set; }
+    public LocalDrivingLicense LocalDrivingLicense { get; set; }
     public LicenseApplication LicenseApplication { get; set; }
     public Employee ReleasedBy { get; set; }
     public Employee CreatedBy { get; set; }

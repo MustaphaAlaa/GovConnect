@@ -1,6 +1,6 @@
 ﻿namespace ModelDTO.LicenseDTOs;
 
-public class LocalLicenseDTO
+public class LocalDrivingLicenseDTO
 {
     
 }

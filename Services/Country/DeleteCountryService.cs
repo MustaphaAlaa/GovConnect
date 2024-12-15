@@ -20,7 +20,7 @@ public class DeleteCountryService : IDeleteCountry
     public async Task<bool> DeleteAsync(int id)
     {
         if (id <= 0)
-            throw new InvalidOperationException($"Invalid Id.");
+            throw new InvalidOperationException($"Invalid InternationalDrivingLicenseId.");
 
         //I didn't write get country because DeleteAsync will check if country exist or not
 

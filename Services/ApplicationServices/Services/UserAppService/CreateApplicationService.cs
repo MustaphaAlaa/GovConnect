@@ -48,6 +48,7 @@ namespace Services.ApplicationServices.Services.UserAppServices
             var applicationFees = await _getApplicationFeesRepository.GetAsync(expression)
                                   ?? throw new DoesNotExistException("ApplicationFees Doesn't Exist");
 
+            
             var existenceApplication = await _getRepository.GetAsync(app =>
                 app.UserId == entity.UserId
                 && app.ApplicationTypeId == entity.ApplicationTypeId

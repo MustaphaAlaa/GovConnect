@@ -10,7 +10,7 @@ public class LocalDrivingLicenseApplication
     [Key] public int Id { get; set; }
 
     [Required]
-    [ForeignKey("LicenseApplication")]
+    [ForeignKey("DrivingLicenseApplication")]
     public int ApplicationId { get; set; }
 
     [Required]

@@ -26,7 +26,7 @@ public class ProfileController : Controller
         _response = new ApiResponse();
     }
 
-    [HttpGet("{Id:guid}")]
+    [HttpGet("{InternationalDrivingLicenseId:guid}")]
     public async Task<IActionResult> profile(Guid Id)
     {
         if (Id == Guid.Empty)
@@ -56,7 +56,7 @@ public class ProfileController : Controller
 
 
     [Authorize()]
-    [HttpPut("{Id:guid}")]
+    [HttpPut("{InternationalDrivingLicenseId:guid}")]
     public async Task<IActionResult> profile(UpdateUserDTO updateUserRequest)
     {
         if (updateUserRequest is null)

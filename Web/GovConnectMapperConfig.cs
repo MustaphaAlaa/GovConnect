@@ -39,7 +39,7 @@ public class GovConnectMapperConfig : Profile
         //@@ApplicationFees
         CreateMap<ApplicationFeesDTO, ApplicationFor>().ReverseMap();
 
-        //@@LicenseApplication
+        //@@DrivingLicenseApplication
         //@@User
         CreateMap<LicenseApplication, CreateApplicationRequest>().ReverseMap();
         CreateMap<LicenseApplication, ApplicationDTOForUser>().ReverseMap();

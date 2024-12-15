@@ -29,7 +29,7 @@ public class UpdateApplicationTypeService : IUpdateApplicationType
             throw new ArgumentException($"Type cannot be null or empty", nameof(updateRequest.Type));
 
         if (updateRequest.Id <= 0)
-            throw new ArgumentException($"Id must be greater than 0");
+            throw new ArgumentException($"InternationalDrivingLicenseId must be greater than 0");
 
         var type = await _getRepository.GetAsync(type => type.Id == updateRequest.Id);
         if (type == null)

@@ -35,7 +35,7 @@ public class CountryController : ControllerBase
         return Ok();
     }
 
-    [HttpGet("{Id:int}")]
+    [HttpGet("{InternationalDrivingLicenseId:int}")]
     public async Task<IActionResult> GetCountry([FromRoute] int Id)
 
     {

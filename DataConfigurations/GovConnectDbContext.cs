@@ -23,7 +23,7 @@ public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Gu
     public DbSet<TestType> TestTypes { get; set; }
     public DbSet<LicenseClass> LicenseClasses { get; set; }
 
-    //@@LicenseApplication
+    //@@DrivingLicenseApplication
     public DbSet<ApplicationType> ApplicationTypes { get; set; }
     public DbSet<ApplicationFor> ApplicationFor { get; set; }
     public DbSet<ApplicationFees> ApplicationsFees { get; set; }
@@ -34,12 +34,12 @@ public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Gu
     public DbSet<TestAppointment> TestAppointments { get; set; }
 
     //@@LicensesServices
-    public DbSet<LocalLicense> LocalLicenses { get; set; }
-    public DbSet<InternationalLicense> InternationalLicenses { get; set; }
+    public DbSet<LocalDrivingLicense> LocalLicenses { get; set; }
+    public DbSet<InternationalDrivingLicense> InternationalLicenses { get; set; }
     public DbSet<LicenseType> LicenseTypes { get; set; }
     public DbSet<DetainedLicense> DetainedLicenses { get; set; }
 
-    //@@LicenseApplication
+    //@@DrivingLicenseApplication
     public DbSet<LicenseApplication> LicenseApplications { get; set; }
     public DbSet<LocalDrivingLicenseApplication> LocalDrivingLicenseApplications { get; set; }
     public DbSet<InternationalDrivingLicenseApplication> InternationalDrivingLicenseApplication { get; set; }
