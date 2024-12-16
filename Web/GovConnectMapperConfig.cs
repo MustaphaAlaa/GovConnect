@@ -3,8 +3,8 @@ using ModelDTO.CountryDTOs;
 using ModelDTO.ApplicationDTOs.User;
 using ModelDTO.ApplicationDTOs;
 using ModelDTO.ApplicationDTOs.Fees;
-using ModelDTO.ApplicationDTOs.For;
-using ModelDTO.ApplicationDTOs.Type;
+using ModelDTO.ApplicationDTOs.Category;
+using ModelDTO.ApplicationDTOs.Purpose;
 using ModelDTO.User;
 using Models.ApplicationModels;
 using Models.Types;
@@ -28,16 +28,16 @@ public class GovConnectMapperConfig : Profile
         CreateMap<CreateCountryRequest, Country>();
         CreateMap<Country, CreateCountryRequest>();
 
-        //@@ApplicationType
-        CreateMap<ApplicationTypeDTO, ApplicationType>().ReverseMap();
-        CreateMap<CreateApplicationTypeRequest, ApplicationType>().ReverseMap();
+        //@@ApplicationPurpose
+        CreateMap<ApplicationPurposeDTO, ApplicationPurpose>().ReverseMap();
+        CreateMap<CreateApplicationPurposeRequest, ApplicationPurpose>().ReverseMap();
 
-        //@@ApplicationFor
-        CreateMap<ApplicationForDTO, ApplicationFor>().ReverseMap();
-        CreateMap<CreateApplicationForRequest, ApplicationFor>().ReverseMap();
+        //@@ServiceCategory
+        CreateMap<ServiceCategoryDTO, ServiceCategory>().ReverseMap();
+        CreateMap<CreateServiceCategoryRequest, ServiceCategory>().ReverseMap();
 
-        //@@ApplicationFees
-        CreateMap<ApplicationFeesDTO, ApplicationFor>().ReverseMap();
+        //@@ServiceFees
+        CreateMap<ServiceFeesDTO, ServiceCategory>().ReverseMap();
 
         //@@DrivingLicenseApplication
         //@@User

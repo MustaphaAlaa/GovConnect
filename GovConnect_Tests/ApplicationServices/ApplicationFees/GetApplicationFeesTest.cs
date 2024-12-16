@@ -15,22 +15,22 @@ public class GetApplicationFeesTest
 {
     private readonly Mock<IMapper> _mapper;
 
-    private readonly Mock<IGetRepository<ApplicationFees>> _getRepository;
+    private readonly Mock<IGetRepository<ServiceFees>> _getRepository;
     private readonly IGetApplicationFees _getApplicationFees;
     public GetApplicationFeesTest()
     {
         _mapper = new Mock<IMapper>();
-        _getRepository = new Mock<IGetRepository<ApplicationFees>>();
+        _getRepository = new Mock<IGetRepository<ServiceFees>>();
 
-        _getApplicationFees = new GetApplicationFeesService(_getRepository.Object, _mapper.Object);
+        _getApplicationFees = new GetServiceFeesService(_getRepository.Object, _mapper.Object);
     }
 
     [Fact]
     public async Task GetApplicationFees_ApplicationFeesDoesNotExist_ReturnNull()
     {
         //Arrange
-        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
-           .ReturnsAsync(null as ApplicationFees);
+        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ServiceFees, bool>>>()))
+           .ReturnsAsync(null as ServiceFees);
 
         //Act
         var result = await _getApplicationFees.GetByAsync(app => app.Fees > 500);
@@ -43,21 +43,21 @@ public class GetApplicationFeesTest
     public async Task GetApplicationFees_ApplicationFeesDoesExist_ReturnApplicationFeesObj()
     {
         //Arrange
-        ApplicationFees applicationFees = new()
+        ServiceFees serviceFees = new()
         {
-            ApplicationForId = 1,
+            ServiceCategoryId = 1,
             ApplicationTypeId = 2,
             Fees = 100,
             LastUpdate = DateTime.Now,
         };
 
-        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
-           .ReturnsAsync(applicationFees);
+        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ServiceFees, bool>>>()))
+           .ReturnsAsync(serviceFees);
 
         //Act
         var result = await _getApplicationFees.GetByAsync(app => app.Fees > 500);
 
         //Assert
-        result.Should().BeEquivalentTo(applicationFees);
+        result.Should().BeEquivalentTo(serviceFees);
     }
 }

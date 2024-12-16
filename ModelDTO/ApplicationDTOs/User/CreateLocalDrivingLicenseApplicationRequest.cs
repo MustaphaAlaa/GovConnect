@@ -4,12 +4,12 @@ namespace ModelDTO.ApplicationDTOs.User;
 
 public class CreateLocalDrivingLicenseApplicationRequest : CreateApplicationRequest
 {
-    private short _applicationForId;
+    private short _serviceCategoryId;
 
-    public override short ApplicationForId
+    public override short ServiceCategoryId
     {
-        get { return _applicationForId; }
-        set { _applicationForId = (short)EnApplicationFor.LocalLicense; }
+        get { return _serviceCategoryId; }
+        set { _serviceCategoryId = (short)EnServiceCategory.LocalLicense; }
 
     }
 }

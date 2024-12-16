@@ -44,7 +44,7 @@ namespace GovConnect_Tests.CountryServices
         public async Task GetCountryAsync_CountryDoesNotExist_returnNull()
         {
             //Arrange
-            Expression<Func<Country?, bool>> predicate = c => c.Id == 0;
+            Expression<Func<Country?, bool>> predicate = c => c.CountryId == 0;
 
             _getRepositoryMock.Setup(temp => temp.GetAsync(predicate)).ReturnsAsync(null as Country);
 
@@ -59,9 +59,9 @@ namespace GovConnect_Tests.CountryServices
         public async Task GetCountry_CountryIsExist_returnCountryObj()
         {
             //Arrange
-            Country country = new Country() { CountryName = "Russia", Id = 5555 };
+            Country country = new Country() { CountryName = "Russia", CountryId = 5555 };
 
-            Expression<Func<Country?, bool>> predicate = c => c.Id == country.Id;
+            Expression<Func<Country?, bool>> predicate = c => c.CountryId == country.CountryId;
 
             _getRepositoryMock.Setup(temp => temp.GetAsync(predicate)).ReturnsAsync(country);
 
@@ -77,9 +77,9 @@ namespace GovConnect_Tests.CountryServices
         public async Task GetCountry_CountryObj_ThrowException()
         {
             //Arrange
-            Country country = new Country() { CountryName = "Russia", Id = 5555 };
+            Country country = new Country() { CountryName = "Russia", CountryId = 5555 };
 
-            Expression<Func<Country?, bool>> predicate = c => c.Id == country.Id;
+            Expression<Func<Country?, bool>> predicate = c => c.CountryId == country.CountryId;
 
             _getRepositoryMock.Setup(temp => temp.GetAsync(predicate)).ThrowsAsync(new Exception());
 

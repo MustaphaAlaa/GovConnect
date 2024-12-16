@@ -8,7 +8,7 @@ namespace Models.Test;
 
 public class TestAppointment
 {
-    [Key] public int Id { get; set; }
+    [Key] public int TestAppointmentId { get; set; }
     [ForeignKey("TestType")] [Required] public int TestTypeId { get; set; }
 
     [ForeignKey("LocalDrivingLicenseApplication")]

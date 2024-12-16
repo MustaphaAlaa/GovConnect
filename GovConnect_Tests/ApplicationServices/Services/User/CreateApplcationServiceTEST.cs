@@ -20,7 +20,7 @@ public class CreateApplcationServiceTEST
     private readonly ICreateApplication _createApplication;
     private readonly Mock<ICreateRepository<Application>> _createRepository;
     private readonly Mock<IGetRepository<Application>> _getApplicationRepository;
-    private readonly Mock<IGetRepository<ApplicationFees>> _getAppFeesRepository;
+    private readonly Mock<IGetRepository<ServiceFees>> _getAppFeesRepository;
     private readonly Mock<IMapper> _mapper;
 
     public CreateApplcationServiceTEST()
@@ -28,7 +28,7 @@ public class CreateApplcationServiceTEST
         _fixture = new Fixture();
         _mapper = new Mock<IMapper>();
 
-        _getAppFeesRepository = new Mock<IGetRepository<ApplicationFees>>();
+        _getAppFeesRepository = new Mock<IGetRepository<ServiceFees>>();
 
         _createRepository = new Mock<ICreateRepository<Application>>();
         _getApplicationRepository = new Mock<IGetRepository<Application>>();
@@ -73,7 +73,7 @@ public class CreateApplcationServiceTEST
     {
         //Arrang
         CreateApplicationRequest createRequest = _fixture.Build<CreateApplicationRequest>()
-                                                 .With(app => app.ApplicationTypeId, Id)
+                                                 .With(app => app.ApplicationPurposeId, Id)
                                                  .Create();
         //Act
         Func<Task> action = async () => await _createApplication.CreateAsync(createRequest);
@@ -90,7 +90,7 @@ public class CreateApplcationServiceTEST
     {
         //Arrang
         CreateApplicationRequest createRequest = _fixture.Build<CreateApplicationRequest>()
-                                                 .With(app => app.ApplicationForId, Id)
+                                                 .With(app => app.ServiceCategoryId, Id)
                                                  .Create();
         //Act
         Func<Task> action = async () => await _createApplication.CreateAsync(createRequest);
@@ -107,8 +107,8 @@ public class CreateApplcationServiceTEST
                                                  .Create();
         _getAppFeesRepository
             .Setup(temp => temp
-            .GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
-            .ReturnsAsync(null as ApplicationFees);
+            .GetAsync(It.IsAny<Expression<Func<ServiceFees, bool>>>()))
+            .ReturnsAsync(null as ServiceFees);
 
         //Act
         Func<Task> action = async () => await _createApplication.CreateAsync(createRequest);
@@ -132,7 +132,7 @@ public class CreateApplcationServiceTEST
             .With(app => app.ApplicationStatus, (byte)statue)
             .With(app => app.Employee, null as Employee)
             .With(app => app.User, null as Models.Users.User)
-            .With(app => app.ApplicationFees, null as ApplicationFees)
+            .With(app => app.ServiceFees, null as ServiceFees)
             .Create();
 
         _getApplicationRepository
@@ -140,8 +140,8 @@ public class CreateApplcationServiceTEST
             .GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
             .ReturnsAsync(application);
 
-        _getAppFeesRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
-            .ReturnsAsync(new ApplicationFees() { });
+        _getAppFeesRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ServiceFees, bool>>>()))
+            .ReturnsAsync(new ServiceFees() { });
 
         //Act
         Func<Task> action = async () => await _createApplication.CreateAsync(createRequest);
@@ -161,11 +161,11 @@ public class CreateApplcationServiceTEST
            .Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
            .ReturnsAsync(null as Application);
 
-        _getAppFeesRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
-            .ReturnsAsync(new ApplicationFees
+        _getAppFeesRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ServiceFees, bool>>>()))
+            .ReturnsAsync(new ServiceFees
             {
-                ApplicationForId = createRequest.ApplicationForId,
-                ApplicationTypeId = createRequest.ApplicationTypeId,
+                ServiceCategoryId = createRequest.ServiceCategoryId,
+                ApplicationTypeId = createRequest.ApplicationPurposeId,
                 Fees = 44,
             });
 
@@ -190,18 +190,18 @@ public class CreateApplcationServiceTEST
              .With(app => app.UserId, createRequest.UserId)
              .With(app => app.Employee, null as Employee)
              .With(app => app.User, null as User)
-             .With(app => app.ApplicationFees, null as ApplicationFees)
+             .With(app => app.ServiceFees, null as ServiceFees)
              .With(app => app.ApplicationStatus, (byte)ApplicationStatus.Approved)
              .Create();
 
         _getApplicationRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
             .ReturnsAsync(application);
 
-        _getAppFeesRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
-           .ReturnsAsync(new ApplicationFees
+        _getAppFeesRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ServiceFees, bool>>>()))
+           .ReturnsAsync(new ServiceFees
            {
-               ApplicationForId = createRequest.ApplicationForId,
-               ApplicationTypeId = createRequest.ApplicationTypeId,
+               ServiceCategoryId = createRequest.ServiceCategoryId,
+               ApplicationTypeId = createRequest.ApplicationPurposeId,
                Fees = 44,
            });
 
@@ -227,21 +227,21 @@ public class CreateApplcationServiceTEST
 
         Application application = _fixture.Build<Application>()
             .With(app => app.UserId, createRequest.UserId)
-            .With(app => app.ApplicationForId, createRequest.ApplicationForId)
-            .With(app => app.ApplicationTypeId, createRequest.ApplicationForId)
+            .With(app => app.ServiceCategoryId, createRequest.ServiceCategoryId)
+            .With(app => app.ApplicationPurposeId, createRequest.ServiceCategoryId)
             .With(app => app.Employee, null as Employee)
             .With(app => app.User, null as Models.Users.User)
-            .With(app => app.ApplicationFees, null as ApplicationFees)
+            .With(app => app.ServiceFees, null as ServiceFees)
             .Create();
 
         _getApplicationRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
             .ReturnsAsync(null as Application);
 
-        _getAppFeesRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
-           .ReturnsAsync(new ApplicationFees
+        _getAppFeesRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ServiceFees, bool>>>()))
+           .ReturnsAsync(new ServiceFees
            {
-               ApplicationForId = createRequest.ApplicationForId,
-               ApplicationTypeId = createRequest.ApplicationTypeId,
+               ServiceCategoryId = createRequest.ServiceCategoryId,
+               ApplicationTypeId = createRequest.ApplicationPurposeId,
                Fees = 44,
            });
 
@@ -267,27 +267,27 @@ public class CreateApplcationServiceTEST
 
         Application application = _fixture.Build<Application>()
             .With(app => app.UserId, createRequest.UserId)
-            .With(app => app.ApplicationForId, createRequest.ApplicationForId)
-            .With(app => app.ApplicationTypeId, createRequest.ApplicationForId)
+            .With(app => app.ServiceCategoryId, createRequest.ServiceCategoryId)
+            .With(app => app.ApplicationPurposeId, createRequest.ServiceCategoryId)
             .With(app => app.Employee, null as Employee)
             .With(app => app.User, null as Models.Users.User)
-            .With(app => app.ApplicationFees, null as ApplicationFees)
+            .With(app => app.ServiceFees, null as ServiceFees)
             .Create();
 
         ApplicationDTOForUser applicationDtoForUser = _fixture.Build<ApplicationDTOForUser>()
             .With(app => app.ApplicantUserId, createRequest.UserId)
-            .With(app => app.ApplicationForId, createRequest.ApplicationForId)
-            .With(app => app.ApplicationTypeId, createRequest.ApplicationForId)
+            .With(app => app.ServiceCategoryId, createRequest.ServiceCategoryId)
+            .With(app => app.ApplicationPurposeId, createRequest.ServiceCategoryId)
             .Create();
 
         _getApplicationRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
             .ReturnsAsync(null as Application);
 
-        _getAppFeesRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
-           .ReturnsAsync(new ApplicationFees
+        _getAppFeesRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ServiceFees, bool>>>()))
+           .ReturnsAsync(new ServiceFees
            {
-               ApplicationForId = createRequest.ApplicationForId,
-               ApplicationTypeId = createRequest.ApplicationTypeId,
+               ServiceCategoryId = createRequest.ServiceCategoryId,
+               ApplicationTypeId = createRequest.ApplicationPurposeId,
                Fees = 44,
            });
 

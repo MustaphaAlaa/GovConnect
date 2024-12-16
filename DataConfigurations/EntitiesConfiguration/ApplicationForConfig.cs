@@ -4,37 +4,37 @@ using Models.ApplicationModels;
 
 namespace DataConfigurations.EntitiesConfiguration;
 
-public class ApplicationForConfig : IEntityTypeConfiguration<ApplicationFor>
+public class ApplicationForConfig : IEntityTypeConfiguration<ServiceCategory>
 {
-    public void Configure(EntityTypeBuilder<ApplicationFor> builder)
+    public void Configure(EntityTypeBuilder<ServiceCategory> builder)
     {
-        builder.HasKey(app => app.Id);
+        builder.HasKey(app => app.ServiceCategoryId);
 
-        builder.Property(app => app.Id)
+        builder.Property(app => app.ServiceCategoryId)
             .HasColumnType("smallint")
             .ValueGeneratedOnAdd();
 
-        builder.HasData(new ApplicationFor[]
+        builder.HasData(new ServiceCategory[]
         {
-            new ApplicationFor()
+            new ServiceCategory()
             {
-                Id = (short)EnApplicationFor.LocalLicense,
-                For = EnApplicationFor.LocalLicense.ToString()
+                ServiceCategoryId = (short)EnServiceCategory.LocalLicense,
+                Category = EnServiceCategory.LocalLicense.ToString()
             },
-            new ApplicationFor()
+            new ServiceCategory()
             {
-                Id = (short)EnApplicationFor.InternationalLicense,
-                For = EnApplicationFor.InternationalLicense.ToString()
+                ServiceCategoryId = (short)EnServiceCategory.InternationalLicense,
+                Category = EnServiceCategory.InternationalLicense.ToString()
             },
-            new ApplicationFor()
+            new ServiceCategory()
             {
-                Id = (short)EnApplicationFor.Passport,
-                For = EnApplicationFor.Passport.ToString()
+                ServiceCategoryId = (short)EnServiceCategory.Passport,
+                Category = EnServiceCategory.Passport.ToString()
             },
-            new ApplicationFor()
+            new ServiceCategory()
             {
-                Id = (short)EnApplicationFor.NationalNumberId,
-                For = EnApplicationFor.InternationalLicense.ToString()
+                ServiceCategoryId = (short)EnServiceCategory.NationalNumberId,
+                Category = EnServiceCategory.InternationalLicense.ToString()
             } 
         });
     }

@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using IRepository;
-using IServices.IApplicationServices.For;
+using IServices.IApplicationServices.Category;
 using Models.ApplicationModels;
 using Moq;
 using Services.ApplicationServices.For;
@@ -15,13 +15,13 @@ namespace GovConnect_Tests.ApplicationServices;
 
 public class DeleteApplicationForServicesTest
 {
-    private readonly IDeleteApplicationFor _deleteApplicationFor;
-    private readonly Mock<IDeleteRepository<ApplicationFor>> _deleteRepositoryMock;
+    private readonly IDeleteServiceCategory _iDeleteServiceCategory;
+    private readonly Mock<IDeleteRepository<ServiceCategory>> _deleteRepositoryMock;
 
     public DeleteApplicationForServicesTest()
     {
-        _deleteRepositoryMock = new Mock<IDeleteRepository<ApplicationFor>>();
-        _deleteApplicationFor = new DeleteApplicationForService(_deleteRepositoryMock.Object);
+        _deleteRepositoryMock = new Mock<IDeleteRepository<ServiceCategory>>();
+        _iDeleteServiceCategory = new IDeleteServiceCategoryService(_deleteRepositoryMock.Object);
     }
 
     [Theory]
@@ -29,7 +29,7 @@ public class DeleteApplicationForServicesTest
     [InlineData(-1)]
     public async Task DeleteAsync_InvalidId_ThrowArgumentOutOfRangeException(int id)
     {
-        Func<Task> result = async () => await _deleteApplicationFor.DeleteAsync(id);
+        Func<Task> result = async () => await _iDeleteServiceCategory.DeleteAsync(id);
 
         //Assert
         await result.Should().ThrowAsync<ArgumentOutOfRangeException>();
@@ -40,9 +40,9 @@ public class DeleteApplicationForServicesTest
     public async Task DeleteAsync_ValidId_ReturnNumber1()
     {
 
-        _deleteRepositoryMock.Setup(temp => temp.DeleteAsync(It.IsAny<Expression<Func<ApplicationFor, bool>>>())).ReturnsAsync(1);
+        _deleteRepositoryMock.Setup(temp => temp.DeleteAsync(It.IsAny<Expression<Func<ServiceCategory, bool>>>())).ReturnsAsync(1);
 
-        var result = await _deleteApplicationFor.DeleteAsync(2);
+        var result = await _iDeleteServiceCategory.DeleteAsync(2);
 
         //Assert
         result.Should().BeTrue();

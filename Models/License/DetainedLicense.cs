@@ -8,7 +8,7 @@ namespace Models.LicenseModels;
 
 public class DetainedLicense
 {
-    [Key] public int Id { get; set; }
+    [Key] public int DetainedLicenseId { get; set; }
 
     [Required][ForeignKey("LocalDrivingLicense")] public int LicenseId { get; set; }
 

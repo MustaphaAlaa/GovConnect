@@ -25,8 +25,8 @@ public class ApplicationDTOForEmployee
 
     public decimal PaidFees { get; set; }
 
-    [Required] public byte ApplicationTypeId { get; set; }
-    [Required] public short ApplicationForId { get; set; }
+    [Required] public byte ApplicationPurposeId { get; set; }
+    [Required] public short ServiceCategoryId { get; set; }
     public Guid? UpdatedByEmployeeId { get; set; }
 
 }

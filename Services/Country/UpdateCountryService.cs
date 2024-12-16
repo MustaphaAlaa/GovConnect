@@ -43,7 +43,7 @@ public class UpdateCountryService : IUpdateCountry
             throw new InvalidOperationException("InternationalDrivingLicenseId Is out of boundry");
 
 
-        var country = await _getRepository.GetAsync(country => country.Id == request.Id);
+        var country = await _getRepository.GetAsync(country => country.CountryId == request.Id);
 
         if (country is null)
             throw new InvalidOperationException("CountryDTOs isn't exist in db");

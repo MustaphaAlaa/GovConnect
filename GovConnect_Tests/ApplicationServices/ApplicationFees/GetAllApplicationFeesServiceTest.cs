@@ -15,27 +15,27 @@ namespace GovConnect_Tests.ApplicationServices
     public class GetAllApplicationFeesServiceTest
     {
         private readonly IFixture _fixture;
-        private readonly IGetAllApplicationFees _getAllApplicationFees;
-        private readonly Mock<IGetAllRepository<ApplicationFees>> _getAllRepository;
+        private readonly IGetAllServiceFees _iGetAllServiceFees;
+        private readonly Mock<IGetAllRepository<ServiceFees>> _getAllRepository;
         private readonly Mock<IMapper> _mapper;
 
         public GetAllApplicationFeesServiceTest()
         {
             _fixture = new Fixture();
-            _getAllRepository = new Mock<IGetAllRepository<ApplicationFees>>();
+            _getAllRepository = new Mock<IGetAllRepository<ServiceFees>>();
             _mapper = new Mock<IMapper>();
 
-            _getAllApplicationFees = new GetAllApplicationsFeesService(_getAllRepository.Object, _mapper.Object);
+            _iGetAllServiceFees = new IGetAllServicesFeesService(_getAllRepository.Object, _mapper.Object);
         }
 
         [Fact]
         public async Task GetAllApplicationsFees_EmptyDb_ReturnEmptyList()
         {
             //Arrange
-            _getAllRepository.Setup(temp => temp.GetAllAsync()).ReturnsAsync(new List<ApplicationFees>() { });
+            _getAllRepository.Setup(temp => temp.GetAllAsync()).ReturnsAsync(new List<ServiceFees>() { });
 
             //Act
-            var result = await _getAllApplicationFees.GetAllAsync();
+            var result = await _iGetAllServiceFees.GetAllAsync();
 
             //Assert
             result.Should().BeEmpty();
@@ -46,37 +46,37 @@ namespace GovConnect_Tests.ApplicationServices
         public async Task GetAllApplicationsFees_DbHasData_ReturnApplicationFeesList()
         {
             //Arrange
-            List<ApplicationFees> applicationFeesList = new()
+            List<ServiceFees> applicationFeesList = new()
             {
-                new ApplicationFees() { ApplicationTypeId = 1,  ApplicationForId = 2, Fees = 200, LastUpdate = DateTime.Now},
-                new ApplicationFees() { ApplicationTypeId = 1,  ApplicationForId = 1, Fees = 300, LastUpdate = DateTime.Now},
-                new ApplicationFees() { ApplicationTypeId = 3,  ApplicationForId = 2, Fees = 100, LastUpdate = DateTime.Now},
-                new ApplicationFees() { ApplicationTypeId = 1,  ApplicationForId = 3, Fees = 500, LastUpdate = DateTime.Now},
+                new ServiceFees() { ApplicationTypeId = 1,  ServiceCategoryId = 2, Fees = 200, LastUpdate = DateTime.Now},
+                new ServiceFees() { ApplicationTypeId = 1,  ServiceCategoryId = 1, Fees = 300, LastUpdate = DateTime.Now},
+                new ServiceFees() { ApplicationTypeId = 3,  ServiceCategoryId = 2, Fees = 100, LastUpdate = DateTime.Now},
+                new ServiceFees() { ApplicationTypeId = 1,  ServiceCategoryId = 3, Fees = 500, LastUpdate = DateTime.Now},
             };
 
-            List<ApplicationFeesDTO> applicationFeesDTOs = applicationFeesList
-                .Select(appFees => new ApplicationFeesDTO
+            List<ServiceFeesDTO> applicationFeesDTOs = applicationFeesList
+                .Select(appFees => new ServiceFeesDTO
                 {
-                    ApplicationForId = appFees.ApplicationForId,
-                    ApplicationTypeId = appFees.ApplicationTypeId,
+                    ServiceCategoryId = appFees.ServiceCategoryId,
+                    ApplicationPuropseId = appFees.ApplicationTypeId,
                     Fees = appFees.Fees,
-                    LastUdpate = appFees.LastUpdate
+                    LastUpdate = appFees.LastUpdate
                 }).ToList();
 
             _getAllRepository.Setup(temp => temp.GetAllAsync()).ReturnsAsync(applicationFeesList);
 
 
-            _mapper.Setup(temp => temp.Map<ApplicationFeesDTO>(It.IsAny<ApplicationFees>()))
-                .Returns((ApplicationFees source) => new ApplicationFeesDTO
+            _mapper.Setup(temp => temp.Map<ServiceFeesDTO>(It.IsAny<ServiceFees>()))
+                .Returns((ServiceFees source) => new ServiceFeesDTO
                 {
-                    ApplicationForId = source.ApplicationForId,
-                    ApplicationTypeId = source.ApplicationTypeId,
+                    ServiceCategoryId = source.ServiceCategoryId,
+                    ApplicationPuropseId = source.ApplicationTypeId,
                     Fees = source.Fees,
-                    LastUdpate = source.LastUpdate
+                    LastUpdate = source.LastUpdate
                 });
 
             //Act
-            var result = await _getAllApplicationFees.GetAllAsync();
+            var result = await _iGetAllServiceFees.GetAllAsync();
 
             //Assert
             result.Should().BeEquivalentTo(applicationFeesDTOs);
@@ -86,13 +86,13 @@ namespace GovConnect_Tests.ApplicationServices
         public async Task GetAllApplicationsFeesExpr_EmptyDb_ReturnEmptyList()
         {
             //Arrange
-            IQueryable<ApplicationFees> emptyQueryable = new List<ApplicationFees>() { }.AsQueryable();
+            IQueryable<ServiceFees> emptyQueryable = new List<ServiceFees>() { }.AsQueryable();
 
-            _getAllRepository.Setup(temp => temp.GetAllAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
+            _getAllRepository.Setup(temp => temp.GetAllAsync(It.IsAny<Expression<Func<ServiceFees, bool>>>()))
                 .ReturnsAsync(emptyQueryable);
 
             //Act
-            var result = await _getAllApplicationFees.GetAllAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>());
+            var result = await _iGetAllServiceFees.GetAllAsync(It.IsAny<Expression<Func<ServiceFees, bool>>>());
 
             //Assert
             result.Should().BeEmpty();
@@ -103,40 +103,40 @@ namespace GovConnect_Tests.ApplicationServices
         public async Task GetAllApplicationsFeesExpr_DbHasData_ReturnApplicationFeesQueryable()
         {
             //Arrange
-            IQueryable<ApplicationFees> applicationFeesQueryable = new List<ApplicationFees>()
+            IQueryable<ServiceFees> applicationFeesQueryable = new List<ServiceFees>()
             {
-                new ApplicationFees() { ApplicationTypeId = 1,  ApplicationForId = 2, Fees = 200, LastUpdate = DateTime.Now},
-                new ApplicationFees() { ApplicationTypeId = 1,  ApplicationForId = 1, Fees = 300, LastUpdate = DateTime.Now},
-                new ApplicationFees() { ApplicationTypeId = 3,  ApplicationForId = 2, Fees = 100, LastUpdate = DateTime.Now},
-                new ApplicationFees() { ApplicationTypeId = 1,  ApplicationForId = 3, Fees = 500, LastUpdate = DateTime.Now},
+                new ServiceFees() { ApplicationTypeId = 1,  ServiceCategoryId = 2, Fees = 200, LastUpdate = DateTime.Now},
+                new ServiceFees() { ApplicationTypeId = 1,  ServiceCategoryId = 1, Fees = 300, LastUpdate = DateTime.Now},
+                new ServiceFees() { ApplicationTypeId = 3,  ServiceCategoryId = 2, Fees = 100, LastUpdate = DateTime.Now},
+                new ServiceFees() { ApplicationTypeId = 1,  ServiceCategoryId = 3, Fees = 500, LastUpdate = DateTime.Now},
             }.AsQueryable();
 
 
-            IQueryable<ApplicationFeesDTO> expectedApplicationFeesQueryable = applicationFeesQueryable
-                .Select(appFees => new ApplicationFeesDTO()
+            IQueryable<ServiceFeesDTO> expectedApplicationFeesQueryable = applicationFeesQueryable
+                .Select(appFees => new ServiceFeesDTO()
                 {
-                    ApplicationForId = appFees.ApplicationForId,
-                    ApplicationTypeId = appFees.ApplicationTypeId,
+                    ServiceCategoryId = appFees.ServiceCategoryId,
+                    ApplicationPuropseId = appFees.ApplicationTypeId,
                     Fees = appFees.Fees,
-                    LastUdpate = appFees.LastUpdate
+                    LastUpdate = appFees.LastUpdate
                 }).AsQueryable();
 
-            _mapper.Setup(temp => temp.Map<ApplicationFeesDTO>(It.IsAny<ApplicationFees>()))
-                .Returns((ApplicationFees source) => new ApplicationFeesDTO
+            _mapper.Setup(temp => temp.Map<ServiceFeesDTO>(It.IsAny<ServiceFees>()))
+                .Returns((ServiceFees source) => new ServiceFeesDTO
                 {
-                    ApplicationForId = source.ApplicationForId,
-                    ApplicationTypeId = source.ApplicationTypeId,
+                    ServiceCategoryId = source.ServiceCategoryId,
+                    ApplicationPuropseId = source.ApplicationTypeId,
                     Fees = source.Fees,
-                    LastUdpate = source.LastUpdate
+                    LastUpdate = source.LastUpdate
 
                 });
 
 
-            _getAllRepository.Setup(temp => temp.GetAllAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
+            _getAllRepository.Setup(temp => temp.GetAllAsync(It.IsAny<Expression<Func<ServiceFees, bool>>>()))
                .ReturnsAsync(applicationFeesQueryable);
 
             //Act
-            var result = await _getAllApplicationFees.GetAllAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>());
+            var result = await _iGetAllServiceFees.GetAllAsync(It.IsAny<Expression<Func<ServiceFees, bool>>>());
 
             //Assert
             result.Should().BeEquivalentTo(expectedApplicationFeesQueryable);

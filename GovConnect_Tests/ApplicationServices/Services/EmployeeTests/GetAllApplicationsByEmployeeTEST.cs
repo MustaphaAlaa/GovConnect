@@ -3,9 +3,9 @@ using AutoMapper;
 using FluentAssertions;
 using IRepository;
 using IServices.IApplicationServices.Employee;
-using IServices.IApplicationServices.For;
+using IServices.IApplicationServices.Category;
 using ModelDTO.ApplicationDTOs.Employee;
-using ModelDTO.ApplicationDTOs.For;
+using ModelDTO.ApplicationDTOs.Category;
 using Models.ApplicationModels;
 using Models.Users;
 using Moq;
@@ -57,17 +57,17 @@ public class GetAllApplicationsByEmployeeTEST
         //Arrange
         List<Application> applicationList = new() {
           _fixture.Build<Application>()
-          .With (app=> app.ApplicationFees, null as ApplicationFees)
+          .With (app=> app.ServiceFees, null as ServiceFees)
           .With(app=> app.Employee, null as Employee)
           .With(app=> app.User, null as User)
           .Create(),
             _fixture.Build<Application>()
-          .With (app=> app.ApplicationFees, null as ApplicationFees)
+          .With (app=> app.ServiceFees, null as ServiceFees)
           .With(app=> app.Employee, null as Employee)
           .With(app=> app.User, null as User)
           .Create(),
             _fixture.Build<Application>()
-          .With (app=> app.ApplicationFees, null as ApplicationFees)
+          .With (app=> app.ServiceFees, null as ServiceFees)
           .With(app=> app.Employee, null as Employee)
           .With(app=> app.User, null as User)
           .Create(),
@@ -79,9 +79,9 @@ public class GetAllApplicationsByEmployeeTEST
                 Id = source.Id,
                 ApplicantUserId = source.UserId,
                 ApplicationDate = source.ApplicationDate,
-                ApplicationForId = source.ApplicationForId,
+                ServiceCategoryId = source.ServiceCategoryId,
                 ApplicationStatus = source.ApplicationStatus,
-                ApplicationTypeId = source.ApplicationTypeId,
+                ApplicationPurposeId = source.ApplicationPurposeId,
                 LastStatusDate = source.LastStatusDate,
                 PaidFees = source.PaidFees,
                 UpdatedByEmployeeId = source.UpdatedByEmployeeId,
@@ -117,9 +117,9 @@ public class GetAllApplicationsByEmployeeTEST
                 Id = source.Id,
                 ApplicantUserId = source.UserId,
                 ApplicationDate = source.ApplicationDate,
-                ApplicationForId = source.ApplicationForId,
+                ServiceCategoryId = source.ServiceCategoryId,
                 ApplicationStatus = source.ApplicationStatus,
-                ApplicationTypeId = source.ApplicationTypeId,
+                ApplicationPurposeId = source.ApplicationPurposeId,
                 LastStatusDate = source.LastStatusDate,
                 PaidFees = source.PaidFees,
                 UpdatedByEmployeeId = source.UpdatedByEmployeeId,
@@ -141,17 +141,17 @@ public class GetAllApplicationsByEmployeeTEST
         //Arrange
         List<Application> applicationList = new() {
           _fixture.Build<Application>()
-          .With (app=> app.ApplicationFees, null as ApplicationFees)
+          .With (app=> app.ServiceFees, null as ServiceFees)
           .With(app=> app.Employee, null as Employee)
           .With(app=> app.User, null as User)
           .Create(),
             _fixture.Build<Application>()
-          .With (app=> app.ApplicationFees, null as ApplicationFees)
+          .With (app=> app.ServiceFees, null as ServiceFees)
           .With(app=> app.Employee, null as Employee)
           .With(app=> app.User, null as User)
           .Create(),
             _fixture.Build<Application>()
-          .With (app=> app.ApplicationFees, null as ApplicationFees)
+          .With (app=> app.ServiceFees, null as ServiceFees)
           .With(app=> app.Employee, null as Employee)
           .With(app=> app.User, null as User)
           .Create(),
@@ -164,9 +164,9 @@ public class GetAllApplicationsByEmployeeTEST
                 Id = source.Id,
                 ApplicantUserId = source.UserId,
                 ApplicationDate = source.ApplicationDate,
-                ApplicationForId = source.ApplicationForId,
+                ServiceCategoryId = source.ServiceCategoryId,
                 ApplicationStatus = source.ApplicationStatus,
-                ApplicationTypeId = source.ApplicationTypeId,
+                ApplicationPurposeId = source.ApplicationPurposeId,
                 LastStatusDate = source.LastStatusDate,
                 PaidFees = source.PaidFees,
                 UpdatedByEmployeeId = source.UpdatedByEmployeeId,

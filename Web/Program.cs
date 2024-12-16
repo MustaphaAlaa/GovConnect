@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using DataConfigurations;
 using IRepository;
-using IServices.IApplicationServices.Type;
+using IServices.IApplicationServices.Purpose;
 using IServices.Country;
 using IServices.ICountryServices;
 using Microsoft.AspNetCore.Identity;
@@ -10,7 +10,7 @@ using ModelDTO;
 using Models;
 using Models.Users;
 using Repositorties;
-using Services.ApplicationServices.Type;
+using Services.ApplicationServices.Purpose;
 using Services.CountryServices;
 using Web.Mapper;
 
@@ -42,23 +42,23 @@ public class Program
         builder.Services.AddScoped<IGetCountry, GetCountryService>();
         builder.Services.AddScoped<IGetAllCountries, GetAllCountriesService>();
 
-        //@@ApplicationType
-        builder.Services.AddScoped<ICreateApplicationType, CreateApplicationTypeService>();
-        builder.Services.AddScoped<IGetApplicationType, GetApplicationTypeService>();
-        builder.Services.AddScoped<IGetAllApplicationTypes, GetAllApplicationTypesService>();
-        builder.Services.AddScoped<IUpdateApplicationType, UpdateApplicationTypeService>();
-        builder.Services.AddScoped<IDeleteApplicationType, DeleteApplicationTypeService>();
+        //@@ApplicationPurpose
+        builder.Services.AddScoped<ICreateApplicationPurpose, ICreateApplicationPurposeService>();
+        builder.Services.AddScoped<IGetApplicationPurpose, GetApplicationPurposeService>();
+        builder.Services.AddScoped<IGetAllApplicationPurpose, GetAllApplicationPurposesService>();
+        builder.Services.AddScoped<IUpdateApplicationPurpose, UpdateApplicationPurposeService>();
+        builder.Services.AddScoped<IDeleteApplicationPurpose, DeleteApplicationPurposeService>();
 
-        //@@ApplicationFor
-        builder.Services.AddScoped<ICreateApplicationType, CreateApplicationTypeService>();
-        builder.Services.AddScoped<IGetApplicationType, GetApplicationTypeService>();
-        builder.Services.AddScoped<IGetAllApplicationTypes, GetAllApplicationTypesService>();
-        builder.Services.AddScoped<IUpdateApplicationType, UpdateApplicationTypeService>();
-        builder.Services.AddScoped<IDeleteApplicationType, DeleteApplicationTypeService>();
+        //@@ServiceCategory
+        /*builder.Services.AddScoped<ICreateApplicationPurpose, ICreateApplicationPurposeService>();
+        builder.Services.AddScoped<IGetApplicationPurpose, GetApplicationPurposeService>();
+        builder.Services.AddScoped<IGetAllApplicationTypes, GetAllApplicationPurposesService>();
+        builder.Services.AddScoped<IUpdateApplicationPurpose, UpdateApplicationPurposeService>();
+        builder.Services.AddScoped<IDeleteApplicationType, DeleteApplicationPurposeService>();*/
 
-        //@@ApplicationFees
-        //builder.Services.AddScoped<ICreateApplicationFees, CreateApplicationFeesService>();
-        //builder.Services.AddScoped<IGetApplicationFees, GetApplicationFeesService>();
+        //@@ServiceFees
+        //builder.Services.AddScoped<ICreateServiceFees, ICreateServiceFeesService>();
+        //builder.Services.AddScoped<IGetApplicationFees, GetServiceFeesService>();
 
 
         builder.Services.AddScoped<IUpdateCountry, UpdateCountryService>();

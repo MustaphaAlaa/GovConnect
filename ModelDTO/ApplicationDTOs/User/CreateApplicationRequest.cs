@@ -15,8 +15,8 @@ namespace ModelDTO.ApplicationDTOs.User;
 public abstract class CreateApplicationRequest
 {
     [Required] public Guid UserId { get; set; }
-    [Required] public byte ApplicationTypeId { get; set; }
-    [Required]  public virtual short ApplicationForId { get; set; }
+    [Required] public byte ApplicationPurposeId { get; set; }
+    [Required]  public virtual short ServiceCategoryId { get; set; }
     [Required] public short LicenseClassId { get; set; }
 
     private bool _isFirstTime = true;
@@ -26,18 +26,18 @@ public abstract class CreateApplicationRequest
         get { return _isFirstTime; }
         set
         {
-            switch (ApplicationForId)
+            switch (ServiceCategoryId)
             {
-                case (short)EnApplicationFor.InternationalLicense:
+                case (short)EnServiceCategory.InternationalLicense:
                     _isFirstTime = true;
                     break;
-                case (short)EnApplicationFor.LocalLicense:
+                case (short)EnServiceCategory.LocalLicense:
                     _isFirstTime = true;
                     break;
-                case (short)EnApplicationFor.Passport:
+                case (short)EnServiceCategory.Passport:
                     _isFirstTime = true;
                     break;
-                case (short)EnApplicationFor.NationalNumberId:
+                case (short)EnServiceCategory.NationalNumberId:
                     _isFirstTime = true;
                     break;
                 default:

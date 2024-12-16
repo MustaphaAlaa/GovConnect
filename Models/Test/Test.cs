@@ -6,7 +6,7 @@ namespace Models.Test;
 
 public class Test
 {
-    [Key] public int Id { get; set; }
+    [Key] public int TestId { get; set; }
 
     [Required]
     [ForeignKey("TestAppointment")]
@@ -15,7 +15,7 @@ public class Test
     [Required] public bool TestResult { get; set; }
     public string Notes { get; set; }
 
-    [Required] [ForeignKey("Employe")] public Guid CreatedByEmployee { get; set; }
+    [Required] [ForeignKey("Employee")] public Guid CreatedByEmployee { get; set; }
 
     public Employee Employee { get; set; }
     public TestAppointment TestAppointment { get; set; }

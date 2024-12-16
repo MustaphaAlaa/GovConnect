@@ -4,10 +4,10 @@ using Models.ApplicationModels;
 
 namespace DataConfigurations.EntitiesConfiguration;
 
-public class ApplicationFeesConfig : IEntityTypeConfiguration<ApplicationFees>
+public class ApplicationFeesConfig : IEntityTypeConfiguration<ServiceFees>
 {
-    public void Configure(EntityTypeBuilder<ApplicationFees> builder)
+    public void Configure(EntityTypeBuilder<ServiceFees> builder)
     {
-        builder.HasKey(appFees => new { appFees.ApplicationTypeId, appFees.ApplicationForId });
+        builder.HasKey(appFees => new { appFees.ApplicationTypeId, ApplicationForId = appFees.ServiceCategoryId });
     }
 }

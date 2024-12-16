@@ -16,8 +16,8 @@ public class UpdateeApplicationFeesServiceTEST
     private readonly IFixture _fixture;
     private readonly Mock<IMapper> _mapper;
 
-    private readonly Mock<IGetRepository<ApplicationFees>> _getRepository;
-    private readonly Mock<IUpdateRepository<ApplicationFees>> _updateRepository;
+    private readonly Mock<IGetRepository<ServiceFees>> _getRepository;
+    private readonly Mock<IUpdateRepository<ServiceFees>> _updateRepository;
 
     private readonly IUpdateApplicationFees _updateApplicationFees;
 
@@ -26,10 +26,10 @@ public class UpdateeApplicationFeesServiceTEST
         _fixture = new Fixture();
         _mapper = new Mock<IMapper>();
 
-        _getRepository = new Mock<IGetRepository<ApplicationFees>>();
-        _updateRepository = new Mock<IUpdateRepository<ApplicationFees>>();
+        _getRepository = new Mock<IGetRepository<ServiceFees>>();
+        _updateRepository = new Mock<IUpdateRepository<ServiceFees>>();
 
-        _updateApplicationFees = new UpdateApplicationFeesService(_mapper.Object, _updateRepository.Object, _getRepository.Object);
+        _updateApplicationFees = new UpdateServiceFeesService(_mapper.Object, _updateRepository.Object, _getRepository.Object);
     }
 
     [Fact]
@@ -48,8 +48,8 @@ public class UpdateeApplicationFeesServiceTEST
     public async Task UpdateApplicationFees_TypeIdIsInvalid_ThrowsArgumentOutOfRangeException(int id)
     {
         //Arrange
-        ApplicationFeesDTO updateRequest = _fixture.Build<ApplicationFeesDTO>()
-            .With(app => app.ApplicationTypeId, id)
+        ServiceFeesDTO updateRequest = _fixture.Build<ServiceFeesDTO>()
+            .With(app => app.ApplicationPuropseId, id)
             .Create();
 
         //Act
@@ -67,8 +67,8 @@ public class UpdateeApplicationFeesServiceTEST
     public async Task UpdateApplicationFees_ForIdIsInvalid_ThrowsArgumentOutOfRangeException(int id)
     {
         //Arrange
-        ApplicationFeesDTO updateRequest = _fixture.Build<ApplicationFeesDTO>()
-               .With(app => app.ApplicationForId, id)
+        ServiceFeesDTO updateRequest = _fixture.Build<ServiceFeesDTO>()
+               .With(app => app.ServiceCategoryId, id)
                .Create();
 
         //Act
@@ -82,8 +82,8 @@ public class UpdateeApplicationFeesServiceTEST
     public async Task UpdateApplicationFees_FeesValueIsInvalid_ThrowsArgumentOutOfRangeException()
     {
         //Arrange
-        ApplicationFeesDTO createReq = _fixture.Build<ApplicationFeesDTO>()
-               .With(app => app.ApplicationForId, -4)
+        ServiceFeesDTO createReq = _fixture.Build<ServiceFeesDTO>()
+               .With(app => app.ServiceCategoryId, -4)
                .Create();
 
         //Act
@@ -97,11 +97,11 @@ public class UpdateeApplicationFeesServiceTEST
     public async Task UpdateApplicationFees_ApplicationFeesDoesNotExists_ThrowsException()
     {
         //Arrange
-        ApplicationFeesDTO updateRequest = _fixture.Create<ApplicationFeesDTO>();
+        ServiceFeesDTO updateRequest = _fixture.Create<ServiceFeesDTO>();
 
 
-        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
-            .ReturnsAsync(null as ApplicationFees);
+        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ServiceFees, bool>>>()))
+            .ReturnsAsync(null as ServiceFees);
 
         //Act
         Func<Task> action = async () => await _updateApplicationFees.UpdateAsync(updateRequest);
@@ -115,18 +115,18 @@ public class UpdateeApplicationFeesServiceTEST
     public async Task UpdateApplicationFees_InvalidDate_ThrowsException()
     {
         //Arrange
-        ApplicationFees existApplicationFees = new ApplicationFees()
+        ServiceFees existServiceFees = new ServiceFees()
         {
             ApplicationTypeId = 1,
-            ApplicationForId = 200,
+            ServiceCategoryId = 200,
             Fees = 10000,
             LastUpdate = new DateTime(2005, 11, 30)
         };
 
-        ApplicationFeesDTO updateRequest = _fixture.Build<ApplicationFeesDTO>()
-            .With(appFees => appFees.ApplicationTypeId, existApplicationFees.ApplicationTypeId)
-            .With(appFees => appFees.ApplicationForId, existApplicationFees.ApplicationForId)
-            .With(appFees => appFees.LastUdpate, existApplicationFees.LastUpdate - TimeSpan.FromDays(10))
+        ServiceFeesDTO updateRequest = _fixture.Build<ServiceFeesDTO>()
+            .With(appFees => appFees.ApplicationPuropseId, existServiceFees.ApplicationTypeId)
+            .With(appFees => appFees.ServiceCategoryId, existServiceFees.ServiceCategoryId)
+            .With(appFees => appFees.LastUpdate, existServiceFees.LastUpdate - TimeSpan.FromDays(10))
             .Create();
 
 
@@ -144,27 +144,27 @@ public class UpdateeApplicationFeesServiceTEST
     {
 
         //Arrange
-        ApplicationFees existApplicationFees = new ApplicationFees()
+        ServiceFees existServiceFees = new ServiceFees()
         {
             ApplicationTypeId = 1,
-            ApplicationForId = 2,
+            ServiceCategoryId = 2,
             Fees = 12,
             LastUpdate = new DateTime(2021, 5, 16)
         };
 
-        ApplicationFeesDTO updateRequest = new()
+        ServiceFeesDTO updateRequest = new()
         {
-            ApplicationTypeId = existApplicationFees.ApplicationTypeId,
-            ApplicationForId = existApplicationFees.ApplicationForId,
+            ApplicationPuropseId = existServiceFees.ApplicationTypeId,
+            ServiceCategoryId = existServiceFees.ServiceCategoryId,
             Fees = 120,
-            LastUdpate = DateTime.Now,
+            LastUpdate = DateTime.Now,
         };
 
-        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
-            .ReturnsAsync(existApplicationFees);
+        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ServiceFees, bool>>>()))
+            .ReturnsAsync(existServiceFees);
 
-        _mapper.Setup(temp => temp.Map<ApplicationFees>(It.IsAny<ApplicationFeesDTO>()))
-            .Returns(null as ApplicationFees);
+        _mapper.Setup(temp => temp.Map<ServiceFees>(It.IsAny<ServiceFeesDTO>()))
+            .Returns(null as ServiceFees);
 
         //Act
         Func<Task> action = async () => await _updateApplicationFees.UpdateAsync(updateRequest);
@@ -177,24 +177,24 @@ public class UpdateeApplicationFeesServiceTEST
     public async Task UpdateApplicationFees_FailureToUpdateApplicationFees_ThrowsException()
     {
         //Arrange
-        ApplicationFeesDTO updateRequest = _fixture.Create<ApplicationFeesDTO>();
-        ApplicationFees existApplicationFees = new ApplicationFees()
+        ServiceFeesDTO updateRequest = _fixture.Create<ServiceFeesDTO>();
+        ServiceFees existServiceFees = new ServiceFees()
         {
             ApplicationTypeId = 1,
-            ApplicationForId = 5,
+            ServiceCategoryId = 5,
             Fees = 102,
-            LastUpdate = updateRequest.LastUdpate - TimeSpan.FromDays(2)
+            LastUpdate = updateRequest.LastUpdate - TimeSpan.FromDays(2)
         };
 
-        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
-            .ReturnsAsync(existApplicationFees);
+        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ServiceFees, bool>>>()))
+            .ReturnsAsync(existServiceFees);
 
-        _mapper.Setup(temp => temp.Map<ApplicationFees>(It.IsAny<ApplicationFeesDTO>()))
-            .Returns(existApplicationFees);
+        _mapper.Setup(temp => temp.Map<ServiceFees>(It.IsAny<ServiceFeesDTO>()))
+            .Returns(existServiceFees);
 
 
-        _updateRepository.Setup(temp => temp.UpdateAsync(It.IsAny<ApplicationFees>()))
-            .ReturnsAsync(null as ApplicationFees);
+        _updateRepository.Setup(temp => temp.UpdateAsync(It.IsAny<ServiceFees>()))
+            .ReturnsAsync(null as ServiceFees);
 
         //Act
         Func<Task> action = async () => await _updateApplicationFees.UpdateAsync(updateRequest);
@@ -208,45 +208,45 @@ public class UpdateeApplicationFeesServiceTEST
     public async Task UpdateApplicationFees_FailureToMappingFromModelToDTO_AutoMapperMappingException()
     {
         //Arrange
-        ApplicationFeesDTO updateRequest = new()
+        ServiceFeesDTO updateRequest = new()
         {
-            ApplicationTypeId = 1,
-            ApplicationForId = 5,
+            ApplicationPuropseId = 1,
+            ServiceCategoryId = 5,
             Fees = 80,
-            LastUdpate = DateTime.Now
+            LastUpdate = DateTime.Now
         };
-        ApplicationFees existApplicationFees = new ApplicationFees()
+        ServiceFees existServiceFees = new ServiceFees()
         {
             ApplicationTypeId = 1,
-            ApplicationForId = 5,
+            ServiceCategoryId = 5,
             Fees = 102,
-            LastUpdate = updateRequest.LastUdpate - TimeSpan.FromDays(2)
+            LastUpdate = updateRequest.LastUpdate - TimeSpan.FromDays(2)
         };
 
 
-        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
-            .ReturnsAsync(existApplicationFees);
+        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ServiceFees, bool>>>()))
+            .ReturnsAsync(existServiceFees);
 
-        _mapper.Setup(temp => temp.Map<ApplicationFees>(It.IsAny<ApplicationFeesDTO>()))
-            .Returns((ApplicationFeesDTO source) => new ApplicationFees
+        _mapper.Setup(temp => temp.Map<ServiceFees>(It.IsAny<ServiceFeesDTO>()))
+            .Returns((ServiceFeesDTO source) => new ServiceFees
             {
-                ApplicationForId = source.ApplicationForId,
-                ApplicationTypeId = source.ApplicationTypeId,
+                ServiceCategoryId = source.ServiceCategoryId,
+                ApplicationTypeId = source.ApplicationPuropseId,
                 Fees = source.Fees,
-                LastUpdate = source.LastUdpate
+                LastUpdate = source.LastUpdate
             });
 
-        _updateRepository.Setup(temp => temp.UpdateAsync(It.IsAny<ApplicationFees>()))
-            .ReturnsAsync(new ApplicationFees()
+        _updateRepository.Setup(temp => temp.UpdateAsync(It.IsAny<ServiceFees>()))
+            .ReturnsAsync(new ServiceFees()
             {
-                ApplicationTypeId = updateRequest.ApplicationTypeId,
-                ApplicationForId = updateRequest.ApplicationForId,
+                ApplicationTypeId = updateRequest.ApplicationPuropseId,
+                ServiceCategoryId = updateRequest.ServiceCategoryId,
                 Fees = updateRequest.Fees,
-                LastUpdate = updateRequest.LastUdpate
+                LastUpdate = updateRequest.LastUpdate
             });
 
-        _mapper.Setup(temp => temp.Map<ApplicationFeesDTO>(It.IsAny<ApplicationFees>()))
-             .Returns<ApplicationFeesDTO>(null);
+        _mapper.Setup(temp => temp.Map<ServiceFeesDTO>(It.IsAny<ServiceFees>()))
+             .Returns<ServiceFeesDTO>(null);
 
         //Act
         Func<Task> action = async () => await _updateApplicationFees.UpdateAsync(updateRequest);
@@ -261,50 +261,50 @@ public class UpdateeApplicationFeesServiceTEST
     {
         //Arrange
         //Arrange
-        ApplicationFeesDTO updateRequest = new()
+        ServiceFeesDTO updateRequest = new()
         {
-            ApplicationTypeId = 1,
-            ApplicationForId = 5,
+            ApplicationPuropseId = 1,
+            ServiceCategoryId = 5,
             Fees = 80,
-            LastUdpate = DateTime.Now
+            LastUpdate = DateTime.Now
         };
-        ApplicationFees existApplicationFees = new ApplicationFees()
+        ServiceFees existServiceFees = new ServiceFees()
         {
-            ApplicationTypeId = updateRequest.ApplicationTypeId,
-            ApplicationForId = updateRequest.ApplicationForId,
+            ApplicationTypeId = updateRequest.ApplicationPuropseId,
+            ServiceCategoryId = updateRequest.ServiceCategoryId,
             Fees = 102,
-            LastUpdate = updateRequest.LastUdpate - TimeSpan.FromDays(2)
+            LastUpdate = updateRequest.LastUpdate - TimeSpan.FromDays(2)
         };
 
-        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
-            .ReturnsAsync(existApplicationFees);
+        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ServiceFees, bool>>>()))
+            .ReturnsAsync(existServiceFees);
 
-        _mapper.Setup(temp => temp.Map<ApplicationFees>(It.IsAny<ApplicationFeesDTO>()))
-            .Returns((ApplicationFeesDTO source) => new ApplicationFees
+        _mapper.Setup(temp => temp.Map<ServiceFees>(It.IsAny<ServiceFeesDTO>()))
+            .Returns((ServiceFeesDTO source) => new ServiceFees
             {
-                ApplicationForId = source.ApplicationForId,
-                ApplicationTypeId = source.ApplicationTypeId,
+                ServiceCategoryId = source.ServiceCategoryId,
+                ApplicationTypeId = source.ApplicationPuropseId,
                 Fees = source.Fees,
-                LastUpdate = source.LastUdpate
+                LastUpdate = source.LastUpdate
             });
 
-        _updateRepository.Setup(temp => temp.UpdateAsync(It.IsAny<ApplicationFees>()))
-            .ReturnsAsync(new ApplicationFees()
+        _updateRepository.Setup(temp => temp.UpdateAsync(It.IsAny<ServiceFees>()))
+            .ReturnsAsync(new ServiceFees()
             {
-                ApplicationTypeId = updateRequest.ApplicationTypeId,
-                ApplicationForId = updateRequest.ApplicationForId,
+                ApplicationTypeId = updateRequest.ApplicationPuropseId,
+                ServiceCategoryId = updateRequest.ServiceCategoryId,
                 Fees = updateRequest.Fees,
-                LastUpdate = updateRequest.LastUdpate
+                LastUpdate = updateRequest.LastUpdate
             });
 
 
-        _mapper.Setup(temp => temp.Map<ApplicationFeesDTO>(It.IsAny<ApplicationFees>()))
-           .Returns((ApplicationFees source) => new ApplicationFeesDTO
+        _mapper.Setup(temp => temp.Map<ServiceFeesDTO>(It.IsAny<ServiceFees>()))
+           .Returns((ServiceFees source) => new ServiceFeesDTO
            {
-               ApplicationForId = source.ApplicationForId,
-               ApplicationTypeId = source.ApplicationTypeId,
+               ServiceCategoryId = source.ServiceCategoryId,
+               ApplicationPuropseId = source.ApplicationTypeId,
                Fees = source.Fees,
-               LastUdpate = source.LastUpdate
+               LastUpdate = source.LastUpdate
            });
 
 

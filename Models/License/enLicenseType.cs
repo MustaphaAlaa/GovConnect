@@ -2,6 +2,6 @@
 
 public enum enLicenseType
 {
-    Local = 1,          // For domestic licenses
-    International,  // For licenses valid across countries
+    Local = 1,          // Category domestic licenses
+    International,  // Category licenses valid across countries
 }

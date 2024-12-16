@@ -24,9 +24,9 @@ public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Gu
     public DbSet<LicenseClass> LicenseClasses { get; set; }
 
     //@@DrivingLicenseApplication
-    public DbSet<ApplicationType> ApplicationTypes { get; set; }
-    public DbSet<ApplicationFor> ApplicationFor { get; set; }
-    public DbSet<ApplicationFees> ApplicationsFees { get; set; }
+    public DbSet<ApplicationPurpose> ApplicationTypes { get; set; }
+    public DbSet<ServiceCategory> ApplicationFor { get; set; }
+    public DbSet<ServiceFees> ApplicationsFees { get; set; }
 
     //@@Test
     public DbSet<Test> Tests { get; set; }

@@ -35,17 +35,17 @@ public class UpdateApplcationByUserService : IUpdateApplicationByUser
         if (updateRequest.ApplicantUserId == Guid.Empty)
             throw new ArgumentOutOfRangeException();
 
-        if (updateRequest.ApplicationTypeId <= 0)
+        if (updateRequest.ApplicationPurposeId <= 0)
             throw new ArgumentOutOfRangeException();
 
-        if (updateRequest.ApplicationForId <= 0)
+        if (updateRequest.ServiceCategoryId <= 0)
             throw new ArgumentOutOfRangeException();
 
         var existsApplication = await _getRepository.GetAsync(app => app.Id == updateRequest.Id)
             ?? throw new DoesNotExistException();
 
-        existsApplication.ApplicationForId = updateRequest.ApplicationForId;
-        existsApplication.ApplicationTypeId = updateRequest.ApplicationTypeId;
+        existsApplication.ServiceCategoryId = updateRequest.ServiceCategoryId;
+        existsApplication.ApplicationPurposeId = updateRequest.ApplicationPurposeId;
         existsApplication.ApplicationDate = DateTime.Now;
 
         var updatedApplication = await _updateRepository.UpdateAsync(existsApplication)

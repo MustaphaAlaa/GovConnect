@@ -4,45 +4,45 @@ using Models.ApplicationModels;
 
 namespace DataConfigurations.EntitiesConfiguration;
 
-public class ApplicationTypeConfig : IEntityTypeConfiguration<ApplicationType>
+public class ApplicationTypeConfig : IEntityTypeConfiguration<ApplicationPurpose>
 {
-    public void Configure(EntityTypeBuilder<ApplicationType> builder)
+    public void Configure(EntityTypeBuilder<ApplicationPurpose> builder)
     {
-        builder.HasKey(x => x.Id);
+        builder.HasKey(x => x.ApplicationPurposeId);
 
         builder.ToTable("ApplicationTypes");
 
-        builder.HasData(new ApplicationType[]
+        builder.HasData(new ApplicationPurpose[]
         {
-            new ApplicationType()
+            new ApplicationPurpose()
             {
-                Id = (byte)EnApplicationType.New,
-                Type = EnApplicationType.New.ToString(),
+                ApplicationPurposeId = (byte)EnServicePurpose.New,
+                Purpose = EnServicePurpose.New.ToString(),
             },
-            new ApplicationType()
+            new ApplicationPurpose()
             {
-                Id = (byte)EnApplicationType.Renew,
-                Type = EnApplicationType.Renew.ToString(),
+                ApplicationPurposeId = (byte)EnServicePurpose.Renew,
+                Purpose = EnServicePurpose.Renew.ToString(),
             },
-            new ApplicationType()
+            new ApplicationPurpose()
             {
-                Id = (byte)EnApplicationType.Release,
-                Type = EnApplicationType.Release.ToString(),
+                ApplicationPurposeId = (byte)EnServicePurpose.Release,
+                Purpose = EnServicePurpose.Release.ToString(),
             },
-            new ApplicationType()
+            new ApplicationPurpose()
             {
-                Id = (byte)EnApplicationType.ReplacementForDamge,
-                Type = EnApplicationType.ReplacementForDamge.ToString(),
+                ApplicationPurposeId = (byte)EnServicePurpose.ReplacementForDamge,
+                Purpose = EnServicePurpose.ReplacementForDamge.ToString(),
             },
-            new ApplicationType()
+            new ApplicationPurpose()
             {
-                Id = (byte)EnApplicationType.ReplacementForLost,
-                Type = EnApplicationType.ReplacementForLost.ToString(),
+                ApplicationPurposeId = (byte)EnServicePurpose.ReplacementForLost,
+                Purpose = EnServicePurpose.ReplacementForLost.ToString(),
             },
-            new ApplicationType()
+            new ApplicationPurpose()
             {
-                Id = (byte)EnApplicationType.RetakeTest,
-                Type = EnApplicationType.RetakeTest.ToString(),
+                ApplicationPurposeId = (byte)EnServicePurpose.RetakeTest,
+                Purpose = EnServicePurpose.RetakeTest.ToString(),
             },
         });
     }

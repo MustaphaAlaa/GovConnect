@@ -54,7 +54,7 @@ namespace GovConnect_Tests.CountryServices
             };
 
             List<CountryDTO> countryDTOs = countries
-                              .Select(c => new CountryDTO { Id = c.Id, CountryName = c.CountryName })
+                              .Select(c => new CountryDTO { Id = c.CountryId, CountryName = c.CountryName })
                               .ToList();
 
             _getAllRepositoryMock.Setup(temp => temp.GetAllAsync()).ReturnsAsync(countries);
@@ -63,7 +63,7 @@ namespace GovConnect_Tests.CountryServices
                    .Returns((Country source) => new CountryDTO
                    {
                        CountryName = source.CountryName,
-                       Id = source.Id
+                       Id = source.CountryId
                    });
 
 
@@ -115,7 +115,7 @@ namespace GovConnect_Tests.CountryServices
         public async Task GetAllExpr_DbErorr_ThrowException()
         {
             //Arrange
-            Expression<Func<Country, bool>> expression = country => country.Id > 45;
+            Expression<Func<Country, bool>> expression = country => country.CountryId > 45;
 
             _getAllRepositoryMock.Setup(temp => temp.GetAllAsync(expression)).ThrowsAsync(new Exception());
 
@@ -131,24 +131,24 @@ namespace GovConnect_Tests.CountryServices
         {
             //Arrange
             List<Country> countries = new() {
-                _fixture.Build<Country>().With( c => c.Id, 10).With(c=>c.Users, null as List<User>).Create(),
-                _fixture.Build<Country>().With( c => c.Id, 50).With(c=>c.Users, null as List<User>).Create(),
-                _fixture.Build<Country>().With( c => c.Id, 90).With(c=>c.Users, null as List<User>).Create(),
-                _fixture.Build<Country>().With( c => c.Id, 80).With(c=>c.Users, null as List<User>).Create(),
-                _fixture.Build<Country>().With( c => c.Id, 16).With(c=>c.Users, null as List<User>).Create(),
+                _fixture.Build<Country>().With( c => c.CountryId, 10).With(c=>c.Users, null as List<User>).Create(),
+                _fixture.Build<Country>().With( c => c.CountryId, 50).With(c=>c.Users, null as List<User>).Create(),
+                _fixture.Build<Country>().With( c => c.CountryId, 90).With(c=>c.Users, null as List<User>).Create(),
+                _fixture.Build<Country>().With( c => c.CountryId, 80).With(c=>c.Users, null as List<User>).Create(),
+                _fixture.Build<Country>().With( c => c.CountryId, 16).With(c=>c.Users, null as List<User>).Create(),
             };
 
 
-            Expression<Func<Country, bool>> expression = country => country.Id > 45;
+            Expression<Func<Country, bool>> expression = country => country.CountryId > 45;
 
             _mapper.Setup(m => m.Map<CountryDTO>(It.IsAny<Country>()))
-                .Returns((Country countrySource) => new CountryDTO() { Id = countrySource.Id, CountryName = countrySource.CountryName });
+                .Returns((Country countrySource) => new CountryDTO() { Id = countrySource.CountryId, CountryName = countrySource.CountryName });
 
             IQueryable<Country> SelectedCountries = countries.AsQueryable().Where(expression);
 
             IQueryable<CountryDTO> Expected = countries.AsQueryable()
                                                         .Where(expression)
-                                                        .Select(c => new CountryDTO { Id = c.Id, CountryName = c.CountryName });
+                                                        .Select(c => new CountryDTO { Id = c.CountryId, CountryName = c.CountryName });
 
             _getAllRepositoryMock.Setup(temp => temp.GetAllAsync(expression)).ReturnsAsync(SelectedCountries);
 
@@ -165,20 +165,20 @@ namespace GovConnect_Tests.CountryServices
         {
             //Arrange
             List<Country> countries = new() {
-                _fixture.Build<Country>().With( c => c.Id, 10).With(c=>c.Users, null as List<User>).Create(),
-                _fixture.Build<Country>().With( c => c.Id, 50).With(c=>c.Users, null as List<User>).Create(),
-                _fixture.Build<Country>().With( c => c.Id, 90).With(c=>c.Users, null as List<User>).Create(),
-                _fixture.Build<Country>().With( c => c.Id, 80).With(c=>c.Users, null as List<User>).Create(),
-                _fixture.Build<Country>().With( c => c.Id, 16).With(c=>c.Users, null as List<User>).Create(),
+                _fixture.Build<Country>().With( c => c.CountryId, 10).With(c=>c.Users, null as List<User>).Create(),
+                _fixture.Build<Country>().With( c => c.CountryId, 50).With(c=>c.Users, null as List<User>).Create(),
+                _fixture.Build<Country>().With( c => c.CountryId, 90).With(c=>c.Users, null as List<User>).Create(),
+                _fixture.Build<Country>().With( c => c.CountryId, 80).With(c=>c.Users, null as List<User>).Create(),
+                _fixture.Build<Country>().With( c => c.CountryId, 16).With(c=>c.Users, null as List<User>).Create(),
             };
 
 
-            Expression<Func<Country, bool>> expression = country => country.Id > 145;
+            Expression<Func<Country, bool>> expression = country => country.CountryId > 145;
 
             IQueryable<Country> SelectedCountries = countries.AsQueryable().Where(expression);
 
             _mapper.Setup(m => m.Map<CountryDTO>(It.IsAny<Country>()))
-                .Returns((Country countrySource) => new CountryDTO() { Id = countrySource.Id, CountryName = countrySource.CountryName });
+                .Returns((Country countrySource) => new CountryDTO() { Id = countrySource.CountryId, CountryName = countrySource.CountryName });
 
             _getAllRepositoryMock.Setup(temp => temp.GetAllAsync(expression)).ReturnsAsync(SelectedCountries);
 

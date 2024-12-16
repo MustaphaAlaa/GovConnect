@@ -82,7 +82,7 @@ public class UpdateApplicationByUserTEST
     public async Task UpdateAsync_InvaildApplicationTypeId_ThrowsArgumentOutOfRangeException()
     {
         //Arrange
-        UpdateApplicationByUser updateRequest = new UpdateApplicationByUser() { Id = 1, ApplicantUserId = Guid.NewGuid(), ApplicationTypeId = 0 };
+        UpdateApplicationByUser updateRequest = new UpdateApplicationByUser() { Id = 1, ApplicantUserId = Guid.NewGuid(), ApplicationPurposeId = 0 };
 
         //Act
         Func<Task> action = async () => await _updateApplicationByUser.UpdateAsync(updateRequest);
@@ -100,7 +100,7 @@ public class UpdateApplicationByUserTEST
     {
         //Arrange
         UpdateApplicationByUser updateRequest = _fixture.Build<UpdateApplicationByUser>()
-                                                .With(app => app.ApplicationTypeId, id)
+                                                .With(app => app.ApplicationPurposeId, id)
                                                 .Create();
 
         //Act
@@ -164,7 +164,7 @@ public class UpdateApplicationByUserTEST
                                                         .Create();
 
         Application existsApplication = _fixture.Build<Application>()
-                                 .With(app => app.ApplicationFees, null as ApplicationFees)
+                                 .With(app => app.ServiceFees, null as ServiceFees)
                                  .With(app => app.Employee, null as Employee)
                                  .With(app => app.User, null as Models.Users.User)
                               .Create();
@@ -198,8 +198,8 @@ public class UpdateApplicationByUserTEST
         {
             Id = updateRequest.Id,
             UserId = updateRequest.ApplicantUserId,
-            ApplicationTypeId = updateRequest.ApplicationTypeId,
-            ApplicationForId = updateRequest.ApplicationForId,
+            ApplicationPurposeId = updateRequest.ApplicationPurposeId,
+            ServiceCategoryId = updateRequest.ServiceCategoryId,
         };
 
         Application dummyApplication = new() { };
@@ -208,8 +208,8 @@ public class UpdateApplicationByUserTEST
         {
             Id = updateRequest.Id,
             ApplicantUserId = updatedApplication.UserId,
-            ApplicationTypeId = updatedApplication.ApplicationTypeId,
-            ApplicationForId = updatedApplication.ApplicationForId,
+            ApplicationPurposeId = updatedApplication.ApplicationPurposeId,
+            ServiceCategoryId = updatedApplication.ServiceCategoryId,
             LastStatusDate = updatedApplication.LastStatusDate,
             ApplicationStatus = updatedApplication.ApplicationStatus,
             ApplicationDate = updatedApplication.ApplicationDate,

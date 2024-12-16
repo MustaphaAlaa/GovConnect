@@ -13,12 +13,12 @@ namespace Services.ApplicationServices.Services.UserAppServices
     {
         private readonly ICreateRepository<Application> _createRepository;
         private readonly IGetRepository<Application> _getRepository;
-        private readonly IGetRepository<ApplicationFees> _getApplicationFeesRepository;
+        private readonly IGetRepository<ServiceFees> _getApplicationFeesRepository;
         private readonly IMapper _mapper;
 
         public CreateApplicationService(ICreateRepository<Application> createRepository,
             IGetRepository<Application> getRepository,
-            IGetRepository<ApplicationFees> getFeesRepository,
+            IGetRepository<ServiceFees> getFeesRepository,
             IMapper mapper)
         {
             _getApplicationFeesRepository = getFeesRepository;
@@ -35,24 +35,24 @@ namespace Services.ApplicationServices.Services.UserAppServices
             if (entity.UserId == Guid.Empty)
                 throw new ArgumentException();
 
-            if (entity.ApplicationTypeId <= 0)
-                throw new ArgumentOutOfRangeException("ApplicationTypeId nust be greater than 0");
+            if (entity.ApplicationPurposeId <= 0)
+                throw new ArgumentOutOfRangeException("ApplicationPurposeId nust be greater than 0");
 
-            if (entity.ApplicationForId <= 0)
-                throw new ArgumentOutOfRangeException("ApplicationForId nust be greater than 0");
+            if (entity.ServiceCategoryId <= 0)
+                throw new ArgumentOutOfRangeException("ServiceCategoryId nust be greater than 0");
 
-            Expression<Func<ApplicationFees, bool>> expression = appFees =>
-                (appFees.ApplicationTypeId == entity.ApplicationTypeId
-                 && appFees.ApplicationForId == entity.ApplicationForId);
+            Expression<Func<ServiceFees, bool>> expression = appFees =>
+                (appFees.ApplicationTypeId == entity.ApplicationPurposeId
+                 && appFees.ServiceCategoryId == entity.ServiceCategoryId);
 
             var applicationFees = await _getApplicationFeesRepository.GetAsync(expression)
-                                  ?? throw new DoesNotExistException("ApplicationFees Doesn't Exist");
+                                  ?? throw new DoesNotExistException("ServiceFees Doesn't Exist");
 
             
             var existenceApplication = await _getRepository.GetAsync(app =>
                 app.UserId == entity.UserId
-                && app.ApplicationTypeId == entity.ApplicationTypeId
-                && app.ApplicationForId == entity.ApplicationForId);
+                && app.ApplicationPurposeId == entity.ApplicationPurposeId
+                && app.ServiceCategoryId == entity.ServiceCategoryId);
 
             switch (existenceApplication?.ApplicationStatus)
             {
