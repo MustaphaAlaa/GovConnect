@@ -4,9 +4,9 @@ using Models.ApplicationModels;
 
 namespace DataConfigurations.EntitiesConfiguration;
 
-public class LicenseApplicationConfig : IEntityTypeConfiguration<LicenseApplication>
+public class LicenseApplicationConfig : IEntityTypeConfiguration<Application>
 {
-    public void Configure(EntityTypeBuilder<LicenseApplication> builder)
+    public void Configure(EntityTypeBuilder<Application> builder)
     {
         builder.HasOne(app => app.ApplicationFees)
             .WithMany(fees => fees.Applications)

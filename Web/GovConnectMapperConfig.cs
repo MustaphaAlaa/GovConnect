@@ -41,12 +41,12 @@ public class GovConnectMapperConfig : Profile
 
         //@@DrivingLicenseApplication
         //@@User
-        CreateMap<LicenseApplication, CreateApplicationRequest>().ReverseMap();
-        CreateMap<LicenseApplication, ApplicationDTOForUser>().ReverseMap();
-        CreateMap<LicenseApplication, UpdateApplicationByUser>().ReverseMap();
+        CreateMap<Application, CreateApplicationRequest>().ReverseMap();
+        CreateMap<Application, ApplicationDTOForUser>().ReverseMap();
+        CreateMap<Application, UpdateApplicationByUser>().ReverseMap();
         //@@Employees
-        CreateMap<LicenseApplication, ApplicationDTOForEmployee>().ReverseMap();
-        CreateMap<LicenseApplication, UpdateApplicationByEmployee>().ReverseMap();
+        CreateMap<Application, ApplicationDTOForEmployee>().ReverseMap();
+        CreateMap<Application, UpdateApplicationByEmployee>().ReverseMap();
 
     }
 }

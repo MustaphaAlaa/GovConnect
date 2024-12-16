@@ -16,7 +16,7 @@ public class InternationalDrivingLicenseApplication
     //[Required][ForeignKey("Passport")] public int PassportId { get; set; }
 
 
-    public LicenseApplication LicenseApplication { get; set; }
+    public Application Application { get; set; }
     public LocalDrivingLicense LocalDrivingLicense { get; set; }
     //public Passport Passport { get; set; }
 }

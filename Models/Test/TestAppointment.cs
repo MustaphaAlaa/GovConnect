@@ -26,6 +26,6 @@ public class TestAppointment
 
     public LocalDrivingLicenseApplication LocalDrivingLicenseApplication { get; set; }
     public Employee Employee { get; set; }
-    public LicenseApplication LicenseApplication { get; set; }
+    public Application Application { get; set; }
     public TestType TestType { get; set; }
 }

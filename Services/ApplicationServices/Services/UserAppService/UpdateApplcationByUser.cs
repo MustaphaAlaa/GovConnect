@@ -11,12 +11,12 @@ namespace Services.ApplicationServices.Services.UserAppServices;
 
 public class UpdateApplcationByUserService : IUpdateApplicationByUser
 {
-    private readonly IUpdateRepository<LicenseApplication> _updateRepository;
-    private readonly IGetRepository<LicenseApplication> _getRepository;
+    private readonly IUpdateRepository<Application> _updateRepository;
+    private readonly IGetRepository<Application> _getRepository;
     private readonly IMapper _mapper;
 
-    public UpdateApplcationByUserService(IUpdateRepository<LicenseApplication> updateRepository,
-                                            IGetRepository<LicenseApplication> getRepository,
+    public UpdateApplcationByUserService(IUpdateRepository<Application> updateRepository,
+                                            IGetRepository<Application> getRepository,
                                             IMapper mapper)
     {
         _updateRepository = updateRepository;

@@ -18,8 +18,8 @@ public class CreateApplcationServiceTEST
     private readonly IFixture _fixture;
 
     private readonly ICreateApplication _createApplication;
-    private readonly Mock<ICreateRepository<LicenseApplication>> _createRepository;
-    private readonly Mock<IGetRepository<LicenseApplication>> _getApplicationRepository;
+    private readonly Mock<ICreateRepository<Application>> _createRepository;
+    private readonly Mock<IGetRepository<Application>> _getApplicationRepository;
     private readonly Mock<IGetRepository<ApplicationFees>> _getAppFeesRepository;
     private readonly Mock<IMapper> _mapper;
 
@@ -30,8 +30,8 @@ public class CreateApplcationServiceTEST
 
         _getAppFeesRepository = new Mock<IGetRepository<ApplicationFees>>();
 
-        _createRepository = new Mock<ICreateRepository<LicenseApplication>>();
-        _getApplicationRepository = new Mock<IGetRepository<LicenseApplication>>();
+        _createRepository = new Mock<ICreateRepository<Application>>();
+        _getApplicationRepository = new Mock<IGetRepository<Application>>();
 
         _createApplication = new CreateApplicationService(_createRepository.Object,
                                 _getApplicationRepository.Object,
@@ -127,7 +127,7 @@ public class CreateApplcationServiceTEST
         CreateApplicationRequest createRequest = _fixture.Build<CreateApplicationRequest>()
                                                  .Create();
 
-        LicenseApplication licenseApplication = _fixture.Build<LicenseApplication>()
+        Application application = _fixture.Build<Application>()
             .With(app => app.UserId, createRequest.UserId)
             .With(app => app.ApplicationStatus, (byte)statue)
             .With(app => app.Employee, null as Employee)
@@ -137,8 +137,8 @@ public class CreateApplcationServiceTEST
 
         _getApplicationRepository
             .Setup(temp => temp
-            .GetAsync(It.IsAny<Expression<Func<LicenseApplication, bool>>>()))
-            .ReturnsAsync(licenseApplication);
+            .GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
+            .ReturnsAsync(application);
 
         _getAppFeesRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
             .ReturnsAsync(new ApplicationFees() { });
@@ -158,8 +158,8 @@ public class CreateApplcationServiceTEST
                                                  .Create();
 
         _getApplicationRepository
-           .Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<LicenseApplication, bool>>>()))
-           .ReturnsAsync(null as LicenseApplication);
+           .Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
+           .ReturnsAsync(null as Application);
 
         _getAppFeesRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
             .ReturnsAsync(new ApplicationFees
@@ -169,8 +169,8 @@ public class CreateApplcationServiceTEST
                 Fees = 44,
             });
 
-        _mapper.Setup(temp => temp.Map<LicenseApplication>(It.IsAny<CreateApplicationRequest>()))
-            .Returns(null as LicenseApplication);
+        _mapper.Setup(temp => temp.Map<Application>(It.IsAny<CreateApplicationRequest>()))
+            .Returns(null as Application);
 
         //Act
         Func<Task> action = async () => await _createApplication.CreateAsync(createRequest);
@@ -186,7 +186,7 @@ public class CreateApplcationServiceTEST
         CreateApplicationRequest createRequest = _fixture.Build<CreateApplicationRequest>()
                                                  .Create();
 
-        LicenseApplication licenseApplication = _fixture.Build<LicenseApplication>()
+        Application application = _fixture.Build<Application>()
              .With(app => app.UserId, createRequest.UserId)
              .With(app => app.Employee, null as Employee)
              .With(app => app.User, null as User)
@@ -194,8 +194,8 @@ public class CreateApplcationServiceTEST
              .With(app => app.ApplicationStatus, (byte)ApplicationStatus.Approved)
              .Create();
 
-        _getApplicationRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<LicenseApplication, bool>>>()))
-            .ReturnsAsync(licenseApplication);
+        _getApplicationRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
+            .ReturnsAsync(application);
 
         _getAppFeesRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
            .ReturnsAsync(new ApplicationFees
@@ -205,11 +205,11 @@ public class CreateApplcationServiceTEST
                Fees = 44,
            });
 
-        _mapper.Setup(temp => temp.Map<LicenseApplication>(It.IsAny<CreateApplicationRequest>()))
-            .Returns(licenseApplication);
+        _mapper.Setup(temp => temp.Map<Application>(It.IsAny<CreateApplicationRequest>()))
+            .Returns(application);
 
-        _createRepository.Setup(temp => temp.CreateAsync(It.IsAny<LicenseApplication>()))
-            .ReturnsAsync(null as LicenseApplication);
+        _createRepository.Setup(temp => temp.CreateAsync(It.IsAny<Application>()))
+            .ReturnsAsync(null as Application);
 
         //Act
         Func<Task> action = async () => await _createApplication.CreateAsync(createRequest);
@@ -225,7 +225,7 @@ public class CreateApplcationServiceTEST
         CreateApplicationRequest createRequest = _fixture.Build<CreateApplicationRequest>()
                                                  .Create();
 
-        LicenseApplication licenseApplication = _fixture.Build<LicenseApplication>()
+        Application application = _fixture.Build<Application>()
             .With(app => app.UserId, createRequest.UserId)
             .With(app => app.ApplicationForId, createRequest.ApplicationForId)
             .With(app => app.ApplicationTypeId, createRequest.ApplicationForId)
@@ -234,8 +234,8 @@ public class CreateApplcationServiceTEST
             .With(app => app.ApplicationFees, null as ApplicationFees)
             .Create();
 
-        _getApplicationRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<LicenseApplication, bool>>>()))
-            .ReturnsAsync(null as LicenseApplication);
+        _getApplicationRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
+            .ReturnsAsync(null as Application);
 
         _getAppFeesRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
            .ReturnsAsync(new ApplicationFees
@@ -245,10 +245,10 @@ public class CreateApplcationServiceTEST
                Fees = 44,
            });
 
-        _createRepository.Setup(temp => temp.CreateAsync(It.IsAny<LicenseApplication>()))
-            .ReturnsAsync(licenseApplication);
+        _createRepository.Setup(temp => temp.CreateAsync(It.IsAny<Application>()))
+            .ReturnsAsync(application);
 
-        _mapper.Setup(temp => temp.Map<ApplicationDTOForUser>(It.IsAny<LicenseApplication>()))
+        _mapper.Setup(temp => temp.Map<ApplicationDTOForUser>(It.IsAny<Application>()))
             .Returns(null as ApplicationDTOForUser);
 
         //Act
@@ -265,7 +265,7 @@ public class CreateApplcationServiceTEST
         CreateApplicationRequest createRequest = _fixture.Build<CreateApplicationRequest>()
                                                  .Create();
 
-        LicenseApplication licenseApplication = _fixture.Build<LicenseApplication>()
+        Application application = _fixture.Build<Application>()
             .With(app => app.UserId, createRequest.UserId)
             .With(app => app.ApplicationForId, createRequest.ApplicationForId)
             .With(app => app.ApplicationTypeId, createRequest.ApplicationForId)
@@ -280,8 +280,8 @@ public class CreateApplcationServiceTEST
             .With(app => app.ApplicationTypeId, createRequest.ApplicationForId)
             .Create();
 
-        _getApplicationRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<LicenseApplication, bool>>>()))
-            .ReturnsAsync(null as LicenseApplication);
+        _getApplicationRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
+            .ReturnsAsync(null as Application);
 
         _getAppFeesRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
            .ReturnsAsync(new ApplicationFees
@@ -291,13 +291,13 @@ public class CreateApplcationServiceTEST
                Fees = 44,
            });
 
-        _createRepository.Setup(temp => temp.CreateAsync(It.IsAny<LicenseApplication>()))
-            .ReturnsAsync(licenseApplication);
+        _createRepository.Setup(temp => temp.CreateAsync(It.IsAny<Application>()))
+            .ReturnsAsync(application);
 
-        _mapper.Setup(temp => temp.Map<LicenseApplication>(It.IsAny<CreateApplicationRequest>()))
-            .Returns(licenseApplication);
+        _mapper.Setup(temp => temp.Map<Application>(It.IsAny<CreateApplicationRequest>()))
+            .Returns(application);
 
-        _mapper.Setup(temp => temp.Map<ApplicationDTOForUser>(It.IsAny<LicenseApplication>()))
+        _mapper.Setup(temp => temp.Map<ApplicationDTOForUser>(It.IsAny<Application>()))
             .Returns(applicationDtoForUser);
 
         //Act

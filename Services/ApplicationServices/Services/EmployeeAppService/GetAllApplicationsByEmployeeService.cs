@@ -11,9 +11,9 @@ public class GetAllApplicationsByEmployeeService : IGetAllApplicationsEmp
 {
 
     private readonly IMapper _mapper;
-    private readonly IGetAllRepository<LicenseApplication> _getAllRepository;
+    private readonly IGetAllRepository<Application> _getAllRepository;
 
-    public GetAllApplicationsByEmployeeService(IGetAllRepository<LicenseApplication> getAllRepository, IMapper mapper)
+    public GetAllApplicationsByEmployeeService(IGetAllRepository<Application> getAllRepository, IMapper mapper)
     {
         _mapper = mapper;
         _getAllRepository = getAllRepository;
@@ -27,7 +27,7 @@ public class GetAllApplicationsByEmployeeService : IGetAllApplicationsEmp
                            _mapper.Map<ApplicationDTOForEmployee>(app)).ToList();
     }
 
-    public async Task<IQueryable<ApplicationDTOForEmployee>> GetAllAsync(Expression<Func<LicenseApplication, bool>> predicate)
+    public async Task<IQueryable<ApplicationDTOForEmployee>> GetAllAsync(Expression<Func<Application, bool>> predicate)
     {
         var applications = await _getAllRepository.GetAllAsync(predicate);
 

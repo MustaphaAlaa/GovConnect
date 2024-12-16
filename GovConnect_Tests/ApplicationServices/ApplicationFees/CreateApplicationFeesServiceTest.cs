@@ -104,7 +104,7 @@ public class CreateApplicationFeesServiceTest
         ApplicationFees existApplicationFees = _fixture.Build<ApplicationFees>()
             .With(app => app.ApplicationFor, null as ApplicationFor)
             .With(app => app.ApplicationType, null as ApplicationType)
-            .With(app => app.Applications, null as ICollection<LicenseApplication>)
+            .With(app => app.Applications, null as ICollection<Application>)
             .Create();
 
         _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))
@@ -146,7 +146,7 @@ public class CreateApplicationFeesServiceTest
         ApplicationFees mappedCreatedReq = _fixture.Build<ApplicationFees>()
             .With(app => app.ApplicationFor, null as ApplicationFor)
             .With(app => app.ApplicationType, null as ApplicationType)
-            .With(app => app.Applications, null as ICollection<LicenseApplication>)
+            .With(app => app.Applications, null as ICollection<Application>)
             .Create();
 
         _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<ApplicationFees, bool>>>()))

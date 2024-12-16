@@ -10,17 +10,17 @@ namespace Services.ApplicationServices.Services.UserAppServices
     public class GetApplicationByUserService : IGetApplicationByUser
     {
 
-        private readonly IGetRepository<LicenseApplication> _getRepository;
+        private readonly IGetRepository<Application> _getRepository;
         private readonly IGetRepository<User> _getUserRepository;
 
 
-        public GetApplicationByUserService(IGetRepository<LicenseApplication> getRepository, IGetRepository<User> getUserRepository)
+        public GetApplicationByUserService(IGetRepository<Application> getRepository, IGetRepository<User> getUserRepository)
         {
             _getRepository = getRepository;
             _getUserRepository = getUserRepository;
         }
 
-        public async Task<LicenseApplication?> GetByAsync(GetApplicationByUser getApplicationByUser)
+        public async Task<Application?> GetByAsync(GetApplicationByUser getApplicationByUser)
         {
             if (getApplicationByUser.ApplicationId <= 0)
                 throw new ArgumentOutOfRangeException();

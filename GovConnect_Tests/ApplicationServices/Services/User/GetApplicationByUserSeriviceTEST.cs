@@ -21,14 +21,14 @@ namespace GovConnect_Tests.ApplicationServices.Services.UserTests;
 public class GetApplicationByUserSeriviceTEST
 {
 
-    private readonly Mock<IGetRepository<LicenseApplication>> _getRepository;
+    private readonly Mock<IGetRepository<Application>> _getRepository;
     private readonly Mock<IGetRepository<User>> _getUserRepository;
 
     private readonly IGetApplicationByUser _getApplication;
 
     public GetApplicationByUserSeriviceTEST()
     {
-        _getRepository = new Mock<IGetRepository<LicenseApplication>>();
+        _getRepository = new Mock<IGetRepository<Application>>();
         _getUserRepository = new Mock<IGetRepository<Models.Users.User>>();
 
         _getApplication = new GetApplicationByUserService(_getRepository.Object,
@@ -69,8 +69,8 @@ public class GetApplicationByUserSeriviceTEST
     [Fact]
     public async Task GetAsync_WhenApplicationDoesNotExist_RetunsNull()
     {
-        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<LicenseApplication, bool>>>()))
-           .ReturnsAsync(null as LicenseApplication);
+        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
+           .ReturnsAsync(null as Application);
 
         _getUserRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<User, bool>>>()))
             .ReturnsAsync(new User());
@@ -86,15 +86,15 @@ public class GetApplicationByUserSeriviceTEST
     public async Task GetAsync_WhenApplicationExists_RetunsApplicationObj()
     {
 
-        LicenseApplication licenseApplication = new LicenseApplication()
+        Application application = new Application()
         {
             Id = 2,
             UserId = Guid.NewGuid(),
             ApplicationDate = DateTime.Now,
             PaidFees = 500
         };
-        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<LicenseApplication, bool>>>()))
-            .ReturnsAsync(licenseApplication);
+        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
+            .ReturnsAsync(application);
 
         _getUserRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<User, bool>>>()))
            .ReturnsAsync(new User());
@@ -103,7 +103,7 @@ public class GetApplicationByUserSeriviceTEST
         var result = await _getApplication.GetByAsync(new GetApplicationByUser(55, Guid.NewGuid()));
 
 
-        result.Should().BeEquivalentTo(licenseApplication);
+        result.Should().BeEquivalentTo(application);
     }
 
 

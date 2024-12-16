@@ -11,13 +11,13 @@ namespace Services.ApplicationServices.Services.UserAppServices
 {
     public class CreateApplicationService : ICreateApplication
     {
-        private readonly ICreateRepository<LicenseApplication> _createRepository;
-        private readonly IGetRepository<LicenseApplication> _getRepository;
+        private readonly ICreateRepository<Application> _createRepository;
+        private readonly IGetRepository<Application> _getRepository;
         private readonly IGetRepository<ApplicationFees> _getApplicationFeesRepository;
         private readonly IMapper _mapper;
 
-        public CreateApplicationService(ICreateRepository<LicenseApplication> createRepository,
-            IGetRepository<LicenseApplication> getRepository,
+        public CreateApplicationService(ICreateRepository<Application> createRepository,
+            IGetRepository<Application> getRepository,
             IGetRepository<ApplicationFees> getFeesRepository,
             IMapper mapper)
         {
@@ -70,7 +70,12 @@ namespace Services.ApplicationServices.Services.UserAppServices
                 throw new AlreadyExistException();
             }
 
-            var newApplication = _mapper.Map<LicenseApplication>(entity)
+
+            /*
+             * 
+             * IApplicationFor.Validate()
+            */
+            var newApplication = _mapper.Map<Application>(entity)
                                  ?? throw new AutoMapperMappingException();
 
             newApplication.ApplicationDate = DateTime.Now;
@@ -86,6 +91,8 @@ namespace Services.ApplicationServices.Services.UserAppServices
             var applicationDToForUser = _mapper.Map<ApplicationDTOForUser>(applicationisCreated)
                                         ?? throw new AutoMapperMappingException();
 
+            /*IApplicationFor.Create()*/
+            
             return applicationDToForUser;
         }
     }

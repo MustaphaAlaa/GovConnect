@@ -17,6 +17,6 @@ public class LocalDrivingLicenseApplication
     [ForeignKey("LicenseClass")]
     public int LicenseClassId { get; set; }
 
-    public LicenseApplication  LicenseApplication  { get; set; }
+    public Application  Application  { get; set; }
     public LicenseClass LicenseClass { get; set; }
 }

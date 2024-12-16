@@ -28,7 +28,7 @@ public class DetainedLicense
     [ForeignKey("DrivingLicenseApplication")] public int ReleaseApplicationId { get; set; }
 
     public LocalDrivingLicense LocalDrivingLicense { get; set; }
-    public LicenseApplication LicenseApplication { get; set; }
+    public Application Application { get; set; }
     public Employee ReleasedBy { get; set; }
     public Employee CreatedBy { get; set; }
 }

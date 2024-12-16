@@ -19,8 +19,8 @@ public class UpdateApplicationByUserTEST
     private readonly IFixture _fixture;
     private readonly Mock<IMapper> _mapper;
 
-    private readonly Mock<IUpdateRepository<LicenseApplication>> _updateRepository;
-    private readonly Mock<IGetRepository<LicenseApplication>> _getRepository;
+    private readonly Mock<IUpdateRepository<Application>> _updateRepository;
+    private readonly Mock<IGetRepository<Application>> _getRepository;
 
     private readonly IUpdateApplicationByUser _updateApplicationByUser;
 
@@ -29,8 +29,8 @@ public class UpdateApplicationByUserTEST
         _fixture = new Fixture();
         _mapper = new Mock<IMapper>();
 
-        _getRepository = new Mock<IGetRepository<LicenseApplication>>();
-        _updateRepository = new Mock<IUpdateRepository<LicenseApplication>>();
+        _getRepository = new Mock<IGetRepository<Application>>();
+        _updateRepository = new Mock<IUpdateRepository<Application>>();
 
         _updateApplicationByUser = new UpdateApplcationByUserService(_updateRepository.Object, _getRepository.Object, _mapper.Object);
     }
@@ -117,8 +117,8 @@ public class UpdateApplicationByUserTEST
         UpdateApplicationByUser updateRequest = _fixture.Build<UpdateApplicationByUser>()
                                                         .Create();
 
-        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<LicenseApplication, bool>>>()))
-            .ReturnsAsync(null as LicenseApplication);
+        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
+            .ReturnsAsync(null as Application);
 
         //Act
         Func<Task> action = async () => await _updateApplicationByUser.UpdateAsync(updateRequest);
@@ -137,16 +137,16 @@ public class UpdateApplicationByUserTEST
                                                         .Create();
 
 
-        LicenseApplication dummyLicenseApplication = new LicenseApplication() { };
+        Application dummyApplication = new Application() { };
 
-        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<LicenseApplication, bool>>>()))
-            .ReturnsAsync(dummyLicenseApplication);
+        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
+            .ReturnsAsync(dummyApplication);
 
-        _mapper.Setup(temp => temp.Map<LicenseApplication>(It.IsAny<UpdateApplicationByUser>()))
-                        .Returns(dummyLicenseApplication);
+        _mapper.Setup(temp => temp.Map<Application>(It.IsAny<UpdateApplicationByUser>()))
+                        .Returns(dummyApplication);
 
-        _updateRepository.Setup(temp => temp.UpdateAsync(It.IsAny<LicenseApplication>()))
-                    .ReturnsAsync(null as LicenseApplication);
+        _updateRepository.Setup(temp => temp.UpdateAsync(It.IsAny<Application>()))
+                    .ReturnsAsync(null as Application);
         //Act
         Func<Task> action = async () => await _updateApplicationByUser.UpdateAsync(updateRequest);
 
@@ -163,20 +163,20 @@ public class UpdateApplicationByUserTEST
         UpdateApplicationByUser updateRequest = _fixture.Build<UpdateApplicationByUser>()
                                                         .Create();
 
-        LicenseApplication existsLicenseApplication = _fixture.Build<LicenseApplication>()
+        Application existsApplication = _fixture.Build<Application>()
                                  .With(app => app.ApplicationFees, null as ApplicationFees)
                                  .With(app => app.Employee, null as Employee)
                                  .With(app => app.User, null as Models.Users.User)
                               .Create();
 
-        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<LicenseApplication, bool>>>()))
-            .ReturnsAsync(existsLicenseApplication);
+        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
+            .ReturnsAsync(existsApplication);
 
-        _updateRepository.Setup(temp => temp.UpdateAsync(It.IsAny<LicenseApplication>()))
-            .ReturnsAsync(existsLicenseApplication);
+        _updateRepository.Setup(temp => temp.UpdateAsync(It.IsAny<Application>()))
+            .ReturnsAsync(existsApplication);
 
-        _mapper.Setup(temp => temp.Map<LicenseApplication>(It.IsAny<UpdateApplicationByUser>()))
-                        .Returns(existsLicenseApplication);
+        _mapper.Setup(temp => temp.Map<Application>(It.IsAny<UpdateApplicationByUser>()))
+                        .Returns(existsApplication);
         //Act
         Func<Task> action = async () => await _updateApplicationByUser.UpdateAsync(updateRequest);
 
@@ -194,7 +194,7 @@ public class UpdateApplicationByUserTEST
         UpdateApplicationByUser updateRequest = _fixture.Build<UpdateApplicationByUser>()
                                                         .Create();
 
-        LicenseApplication updatedLicenseApplication = new LicenseApplication()
+        Application updatedApplication = new Application()
         {
             Id = updateRequest.Id,
             UserId = updateRequest.ApplicantUserId,
@@ -202,30 +202,30 @@ public class UpdateApplicationByUserTEST
             ApplicationForId = updateRequest.ApplicationForId,
         };
 
-        LicenseApplication dummyLicenseApplication = new() { };
+        Application dummyApplication = new() { };
 
         ApplicationDTOForUser applicationDTOForUser = new ApplicationDTOForUser()
         {
             Id = updateRequest.Id,
-            ApplicantUserId = updatedLicenseApplication.UserId,
-            ApplicationTypeId = updatedLicenseApplication.ApplicationTypeId,
-            ApplicationForId = updatedLicenseApplication.ApplicationForId,
-            LastStatusDate = updatedLicenseApplication.LastStatusDate,
-            ApplicationStatus = updatedLicenseApplication.ApplicationStatus,
-            ApplicationDate = updatedLicenseApplication.ApplicationDate,
-            PaidFees = updatedLicenseApplication.PaidFees,
+            ApplicantUserId = updatedApplication.UserId,
+            ApplicationTypeId = updatedApplication.ApplicationTypeId,
+            ApplicationForId = updatedApplication.ApplicationForId,
+            LastStatusDate = updatedApplication.LastStatusDate,
+            ApplicationStatus = updatedApplication.ApplicationStatus,
+            ApplicationDate = updatedApplication.ApplicationDate,
+            PaidFees = updatedApplication.PaidFees,
         };
 
-        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<LicenseApplication, bool>>>()))
-            .ReturnsAsync(dummyLicenseApplication);
+        _getRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
+            .ReturnsAsync(dummyApplication);
 
-        _mapper.Setup(temp => temp.Map<LicenseApplication>(It.IsAny<UpdateApplicationByUser>()))
-                        .Returns(dummyLicenseApplication);
+        _mapper.Setup(temp => temp.Map<Application>(It.IsAny<UpdateApplicationByUser>()))
+                        .Returns(dummyApplication);
 
-        _updateRepository.Setup(temp => temp.UpdateAsync(It.IsAny<LicenseApplication>()))
-                    .ReturnsAsync(updatedLicenseApplication);
+        _updateRepository.Setup(temp => temp.UpdateAsync(It.IsAny<Application>()))
+                    .ReturnsAsync(updatedApplication);
 
-        _mapper.Setup(temp => temp.Map<ApplicationDTOForUser>(It.IsAny<LicenseApplication>()))
+        _mapper.Setup(temp => temp.Map<ApplicationDTOForUser>(It.IsAny<Application>()))
                      .Returns(applicationDTOForUser);
 
         //Act

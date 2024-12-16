@@ -23,7 +23,7 @@ public class GetAllApplicationsByEmployeeTEST
 {
     private readonly IFixture _fixture;
     private readonly Mock<IMapper> _mapper;
-    private readonly Mock<IGetAllRepository<LicenseApplication>> _getAllRepository;
+    private readonly Mock<IGetAllRepository<Application>> _getAllRepository;
     private readonly IGetAllApplicationsEmp _getAllApplicationsEmp;
 
 
@@ -32,7 +32,7 @@ public class GetAllApplicationsByEmployeeTEST
         _fixture = new Fixture();
         _mapper = new Mock<IMapper>();
 
-        _getAllRepository = new Mock<IGetAllRepository<LicenseApplication>>();
+        _getAllRepository = new Mock<IGetAllRepository<Application>>();
         _getAllApplicationsEmp = new GetAllApplicationsByEmployeeService(_getAllRepository.Object, _mapper.Object);
     }
 
@@ -41,7 +41,7 @@ public class GetAllApplicationsByEmployeeTEST
     public async Task GetAllAsync_EmptyDb_ReturnEmptyList()
     {
         //Arrange
-        List<LicenseApplication> applications = new() { };
+        List<Application> applications = new() { };
         _getAllRepository.Setup(x => x.GetAllAsync()).ReturnsAsync(applications);
 
         //Act
@@ -55,26 +55,26 @@ public class GetAllApplicationsByEmployeeTEST
     public async Task GetAllAsync_DbHasData_ReturnApplicationDTOsList()
     {
         //Arrange
-        List<LicenseApplication> applicationList = new() {
-          _fixture.Build<LicenseApplication>()
+        List<Application> applicationList = new() {
+          _fixture.Build<Application>()
           .With (app=> app.ApplicationFees, null as ApplicationFees)
           .With(app=> app.Employee, null as Employee)
           .With(app=> app.User, null as User)
           .Create(),
-            _fixture.Build<LicenseApplication>()
+            _fixture.Build<Application>()
           .With (app=> app.ApplicationFees, null as ApplicationFees)
           .With(app=> app.Employee, null as Employee)
           .With(app=> app.User, null as User)
           .Create(),
-            _fixture.Build<LicenseApplication>()
+            _fixture.Build<Application>()
           .With (app=> app.ApplicationFees, null as ApplicationFees)
           .With(app=> app.Employee, null as Employee)
           .With(app=> app.User, null as User)
           .Create(),
         };
 
-        _mapper.Setup(temp => temp.Map<ApplicationDTOForEmployee>(It.IsAny<LicenseApplication>()))
-            .Returns((LicenseApplication source) => new ApplicationDTOForEmployee()
+        _mapper.Setup(temp => temp.Map<ApplicationDTOForEmployee>(It.IsAny<Application>()))
+            .Returns((Application source) => new ApplicationDTOForEmployee()
             {
                 Id = source.Id,
                 ApplicantUserId = source.UserId,
@@ -106,13 +106,13 @@ public class GetAllApplicationsByEmployeeTEST
     public async Task GetAllExpressionAsync_EmptyDb_ReturnEmptyList()
     {
         //Arrange
-        List<LicenseApplication> applicationList = new() { };
+        List<Application> applicationList = new() { };
 
 
         List<ApplicationDTOForEmployee> applicationDTOs = new() { };
 
-        _mapper.Setup(temp => temp.Map<ApplicationDTOForEmployee>(It.IsAny<LicenseApplication>()))
-            .Returns((LicenseApplication source) => new ApplicationDTOForEmployee()
+        _mapper.Setup(temp => temp.Map<ApplicationDTOForEmployee>(It.IsAny<Application>()))
+            .Returns((Application source) => new ApplicationDTOForEmployee()
             {
                 Id = source.Id,
                 ApplicantUserId = source.UserId,
@@ -126,10 +126,10 @@ public class GetAllApplicationsByEmployeeTEST
 
             });
 
-        _getAllRepository.Setup(x => x.GetAllAsync(It.IsAny<Expression<Func<LicenseApplication, bool>>>()))
+        _getAllRepository.Setup(x => x.GetAllAsync(It.IsAny<Expression<Func<Application, bool>>>()))
              .ReturnsAsync(applicationList.AsQueryable());
         //Act
-        var result = await _getAllApplicationsEmp.GetAllAsync(It.IsAny<Expression<Func<LicenseApplication, bool>>>());
+        var result = await _getAllApplicationsEmp.GetAllAsync(It.IsAny<Expression<Func<Application, bool>>>());
 
         //Assert
         result.Should().BeEquivalentTo(applicationDTOs);
@@ -139,18 +139,18 @@ public class GetAllApplicationsByEmployeeTEST
     public async Task GetAllExpressingAsync_DbHasData_ReturnApplicationDTOsList()
     {
         //Arrange
-        List<LicenseApplication> applicationList = new() {
-          _fixture.Build<LicenseApplication>()
+        List<Application> applicationList = new() {
+          _fixture.Build<Application>()
           .With (app=> app.ApplicationFees, null as ApplicationFees)
           .With(app=> app.Employee, null as Employee)
           .With(app=> app.User, null as User)
           .Create(),
-            _fixture.Build<LicenseApplication>()
+            _fixture.Build<Application>()
           .With (app=> app.ApplicationFees, null as ApplicationFees)
           .With(app=> app.Employee, null as Employee)
           .With(app=> app.User, null as User)
           .Create(),
-            _fixture.Build<LicenseApplication>()
+            _fixture.Build<Application>()
           .With (app=> app.ApplicationFees, null as ApplicationFees)
           .With(app=> app.Employee, null as Employee)
           .With(app=> app.User, null as User)
@@ -158,8 +158,8 @@ public class GetAllApplicationsByEmployeeTEST
         };
 
 
-        _mapper.Setup(temp => temp.Map<ApplicationDTOForEmployee>(It.IsAny<LicenseApplication>()))
-            .Returns((LicenseApplication source) => new ApplicationDTOForEmployee()
+        _mapper.Setup(temp => temp.Map<ApplicationDTOForEmployee>(It.IsAny<Application>()))
+            .Returns((Application source) => new ApplicationDTOForEmployee()
             {
                 Id = source.Id,
                 ApplicantUserId = source.UserId,
@@ -178,11 +178,11 @@ public class GetAllApplicationsByEmployeeTEST
                    .ToList();
 
 
-        _getAllRepository.Setup(x => x.GetAllAsync(It.IsAny<Expression<Func<LicenseApplication, bool>>>()))
+        _getAllRepository.Setup(x => x.GetAllAsync(It.IsAny<Expression<Func<Application, bool>>>()))
           .ReturnsAsync(applicationList.AsQueryable());
 
         //Act
-        var result = await _getAllApplicationsEmp.GetAllAsync(It.IsAny<Expression<Func<LicenseApplication, bool>>>());
+        var result = await _getAllApplicationsEmp.GetAllAsync(It.IsAny<Expression<Func<Application, bool>>>());
 
         //Assert
         result.Should().BeEquivalentTo(applicationDTOs);

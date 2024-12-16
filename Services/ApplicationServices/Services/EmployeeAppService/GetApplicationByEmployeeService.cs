@@ -11,16 +11,16 @@ namespace Services.ApplicationServices.Services.EmployeeAppService;
 public class GetApplicationByEmployeeService : IGetApplcationForEmployee
 {
 
-    private readonly IGetRepository<LicenseApplication> _getReposiory;
+    private readonly IGetRepository<Application> _getReposiory;
     private readonly IMapper _mapper;
 
-    public GetApplicationByEmployeeService(IGetRepository<LicenseApplication> getReposiory, IMapper mapper)
+    public GetApplicationByEmployeeService(IGetRepository<Application> getReposiory, IMapper mapper)
     {
         _getReposiory = getReposiory;
         _mapper = mapper;
     }
 
-    public async Task<ApplicationDTOForEmployee?> GetByAsync(Expression<Func<LicenseApplication, bool>> predicate)
+    public async Task<ApplicationDTOForEmployee?> GetByAsync(Expression<Func<Application, bool>> predicate)
     {
         var application = await _getReposiory.GetAsync(predicate);
 

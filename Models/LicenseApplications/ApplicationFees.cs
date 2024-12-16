@@ -20,5 +20,5 @@ public class ApplicationFees
 
     public ApplicationType ApplicationType { get; set; }
     public ApplicationFor ApplicationFor { get; set; }
-    public ICollection<LicenseApplication> Applications { get; set; }
+    public ICollection<Application> Applications { get; set; }
 }
