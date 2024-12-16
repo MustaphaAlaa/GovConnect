@@ -6,13 +6,13 @@ using Models.ApplicationModels;
 
 namespace Services.ApplicationServices.For;
 
-public class IUpdateServiceCategoryService : IUpdateServiceCategory
+public class UpdateServiceCategoryService : IUpdateServiceCategory
 {
     private readonly IUpdateRepository<ServiceCategory> _updateRepository;
     private readonly IGetRepository<ServiceCategory> _getRepository;
     private readonly IMapper _mapper;
 
-    public IUpdateServiceCategoryService(IUpdateRepository<ServiceCategory> updateRepository, IMapper mapper,
+    public UpdateServiceCategoryService(IUpdateRepository<ServiceCategory> updateRepository, IMapper mapper,
         IGetRepository<ServiceCategory> getRepository)
     {
         _updateRepository = updateRepository;

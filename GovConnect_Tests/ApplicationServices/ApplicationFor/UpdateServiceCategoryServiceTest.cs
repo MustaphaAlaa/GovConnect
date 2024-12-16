@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace GovConnect_Tests.ApplicationServices;
 
-public class IUpdateServiceCategoryServiceTest
+public class UpdateServiceCategoryServiceTest
 {
     private readonly Mock<IMapper> _mapper;
     private readonly IFixture _fixture;
@@ -30,7 +30,7 @@ public class IUpdateServiceCategoryServiceTest
     private readonly Mock<IUpdateRepository<ServiceCategory>> _updateRepositoryMock;
 
 
-    public IUpdateServiceCategoryServiceTest()
+    public UpdateServiceCategoryServiceTest()
     {
         _fixture = new Fixture();
         _mapper = new Mock<IMapper>();
@@ -39,7 +39,7 @@ public class IUpdateServiceCategoryServiceTest
         _updateRepositoryMock = new Mock<IUpdateRepository<ServiceCategory>>();
 
         _iUpdateServiceCategory =
-            new IUpdateServiceCategoryService(_updateRepositoryMock.Object, _mapper.Object, _getRepositoryMock.Object);
+            new UpdateServiceCategoryService(_updateRepositoryMock.Object, _mapper.Object, _getRepositoryMock.Object);
     }
 
     [Fact]

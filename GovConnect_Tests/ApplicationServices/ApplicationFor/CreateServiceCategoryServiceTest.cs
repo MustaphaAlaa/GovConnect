@@ -14,7 +14,7 @@ using Web.Mapper;
 
 namespace GovConnect_Tests.ApplicationServices
 {
-    public class ICreateServiceCategoryServiceTest
+    public class CreateServiceCategoryServiceTest
     {
 
         private readonly IFixture _fixture;
@@ -27,7 +27,7 @@ namespace GovConnect_Tests.ApplicationServices
 
         private readonly IGetRepository<ServiceCategory> _getRepository;
         private readonly Mock<IGetRepository<ServiceCategory>> _MockGetRepository;
-        public ICreateServiceCategoryServiceTest()
+        public CreateServiceCategoryServiceTest()
         {
 
             _fixture = new Fixture();
@@ -36,7 +36,7 @@ namespace GovConnect_Tests.ApplicationServices
             _MockGetRepository = new Mock<IGetRepository<ServiceCategory>>();
 
             _iCreateServiceCategory =
-                new ICreateServiceCategoryService(_MockcreateRepository.Object,
+                new CreateServiceCategoryService(_MockcreateRepository.Object,
                                                 _MockGetRepository.Object,
                                                 _mapper.Object);
         }

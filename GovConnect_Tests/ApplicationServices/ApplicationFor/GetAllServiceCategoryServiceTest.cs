@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace GovConnect_Tests.ApplicationServices;
 
-public class IGetAllServiceCategoryServiceTest
+public class GetAllServiceCategoryServiceTest
 {
     private readonly IFixture _fixture;
     private readonly IGetAllServiceCategory _iGetAllServiceCategory;
@@ -26,13 +26,13 @@ public class IGetAllServiceCategoryServiceTest
     private readonly Mock<IMapper> _mapper;
     private readonly IMapper _mapperObj;
 
-    public IGetAllServiceCategoryServiceTest()
+    public GetAllServiceCategoryServiceTest()
     {
         _fixture = new Fixture();
         _getAllRepositoryMock = new Mock<IGetAllRepository<ServiceCategory>>();
         _mapper = new Mock<IMapper>();
         _mapperObj = _mapper.Object;
-        _iGetAllServiceCategory = new IGetAllServiceCategoryService(_getAllRepositoryMock.Object, _mapperObj);
+        _iGetAllServiceCategory = new GetAllServiceCategoryService(_getAllRepositoryMock.Object, _mapperObj);
     }
 
     [Fact]

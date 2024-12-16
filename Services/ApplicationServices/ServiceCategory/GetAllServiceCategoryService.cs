@@ -7,12 +7,12 @@ using Models.ApplicationModels;
 
 namespace Services.ApplicationServices.For;
 
-public class IGetAllServiceCategoryService : IGetAllServiceCategory
+public class GetAllServiceCategoryService : IGetAllServiceCategory
 {
     private readonly IGetAllRepository<ServiceCategory> _getAllRepository;
     private readonly IMapper _mapper;
 
-    public IGetAllServiceCategoryService(IGetAllRepository<ServiceCategory> getAllRepository,
+    public GetAllServiceCategoryService(IGetAllRepository<ServiceCategory> getAllRepository,
         IMapper mapper)
     {
         _getAllRepository = getAllRepository;

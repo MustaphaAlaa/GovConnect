@@ -7,13 +7,13 @@ using Models.ApplicationModels;
 
 namespace Services.ApplicationServices.Purpose;
 
-public class ICreateApplicationPurposeService : ICreateApplicationPurpose
+public class CreateApplicationPurposeService : ICreateApplicationPurpose
 {
     private readonly ICreateRepository<ApplicationPurpose> _createApplicationPurposeRepository;
     private readonly IGetRepository<ApplicationPurpose> _getApplicationPurposeRepository;
     private readonly IMapper _mapper;
 
-    public ICreateApplicationPurposeService(ICreateRepository<ApplicationPurpose> createApplicationPurposeRepository,
+    public CreateApplicationPurposeService(ICreateRepository<ApplicationPurpose> createApplicationPurposeRepository,
         IGetRepository<ApplicationPurpose> getApplicationPurposeRepository, IMapper mapper)
     {
         _createApplicationPurposeRepository = createApplicationPurposeRepository;

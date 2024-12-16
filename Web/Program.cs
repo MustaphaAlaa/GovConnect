@@ -3,6 +3,7 @@ using DataConfigurations;
 using IRepository;
 using IServices.IApplicationServices.Purpose;
 using IServices.Country;
+using IServices.IApplicationServices.Category;
 using IServices.ICountryServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -13,9 +14,9 @@ using Repositorties;
 using Services.ApplicationServices.Purpose;
 using Services.CountryServices;
 using Web.Mapper;
-
 using IServices.IApplicationServices.Fees;
 using Services.ApplicationServices;
+using Services.ApplicationServices.For;
 
 
 namespace Web;
@@ -27,7 +28,7 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddDbContext<GovConnectDbContext>(options =>
-     options.UseSqlServer(builder.Configuration.GetConnectionString("default")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("default")));
 
 
         /*builder.Services.AddConfigurationServices(builder.Configuration);*/
@@ -43,18 +44,19 @@ public class Program
         builder.Services.AddScoped<IGetAllCountries, GetAllCountriesService>();
 
         //@@ApplicationPurpose
-        builder.Services.AddScoped<ICreateApplicationPurpose, ICreateApplicationPurposeService>();
+        builder.Services.AddScoped<ICreateApplicationPurpose, CreateApplicationPurposeService>();
         builder.Services.AddScoped<IGetApplicationPurpose, GetApplicationPurposeService>();
         builder.Services.AddScoped<IGetAllApplicationPurpose, GetAllApplicationPurposesService>();
         builder.Services.AddScoped<IUpdateApplicationPurpose, UpdateApplicationPurposeService>();
         builder.Services.AddScoped<IDeleteApplicationPurpose, DeleteApplicationPurposeService>();
 
         //@@ServiceCategory
-        /*builder.Services.AddScoped<ICreateApplicationPurpose, ICreateApplicationPurposeService>();
-        builder.Services.AddScoped<IGetApplicationPurpose, GetApplicationPurposeService>();
-        builder.Services.AddScoped<IGetAllApplicationTypes, GetAllApplicationPurposesService>();
-        builder.Services.AddScoped<IUpdateApplicationPurpose, UpdateApplicationPurposeService>();
-        builder.Services.AddScoped<IDeleteApplicationType, DeleteApplicationPurposeService>();*/
+        builder.Services.AddScoped<ICreateServiceCategory, CreateServiceCategoryService>();
+        builder.Services.AddScoped<IGetServiceCategory, GetServiceCategoryService>();
+        builder.Services.AddScoped<IGetAllServiceCategory, GetAllServiceCategoryService>();
+        builder.Services.AddScoped<IUpdateServiceCategory, UpdateServiceCategoryService>();
+        builder.Services.AddScoped<IDeleteServiceCategory, DeleteServiceCategoryService>();
+
 
         //@@ServiceFees
         //builder.Services.AddScoped<ICreateServiceFees, ICreateServiceFeesService>();
@@ -68,8 +70,6 @@ public class Program
         /*builder.Services.AddAuthorization();
         */
         builder.Services.AddControllers();
-
-
 
 
         builder.Services.AddIdentity<User, UserRoles>()

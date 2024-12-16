@@ -7,13 +7,13 @@ using Models.ApplicationModels;
 
 namespace Services.ApplicationServices.For;
 
-public class ICreateServiceCategoryService : ICreateServiceCategory
+public class CreateServiceCategoryService : ICreateServiceCategory
 {
     private readonly ICreateRepository<ServiceCategory> _createRepository;
     private readonly IGetRepository<ServiceCategory> _getRepository;
     private readonly IMapper _mapper;
 
-    public ICreateServiceCategoryService(ICreateRepository<ServiceCategory> createRepository,
+    public CreateServiceCategoryService(ICreateRepository<ServiceCategory> createRepository,
         IGetRepository<ServiceCategory> getRepository, IMapper mapper)
     {
         _createRepository = createRepository;

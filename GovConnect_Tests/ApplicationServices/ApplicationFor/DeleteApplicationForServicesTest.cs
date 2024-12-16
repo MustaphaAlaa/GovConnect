@@ -21,7 +21,7 @@ public class DeleteApplicationForServicesTest
     public DeleteApplicationForServicesTest()
     {
         _deleteRepositoryMock = new Mock<IDeleteRepository<ServiceCategory>>();
-        _iDeleteServiceCategory = new IDeleteServiceCategoryService(_deleteRepositoryMock.Object);
+        _iDeleteServiceCategory = new DeleteServiceCategoryService(_deleteRepositoryMock.Object);
     }
 
     [Theory]

@@ -8,12 +8,12 @@ using Models.ApplicationModels;
 
 namespace Services.ApplicationServices.For;
 
-public class IGetServiceCategoryService : IGetServiceCategory
+public class GetServiceCategoryService : IGetServiceCategory
 {
     private readonly IGetRepository<ServiceCategory> _getRepository;
     private IMapper _mapper;
 
-    public IGetServiceCategoryService(IGetRepository<ServiceCategory> getRepository, IMapper mapper)
+    public GetServiceCategoryService(IGetRepository<ServiceCategory> getRepository, IMapper mapper)
     {
         _getRepository = getRepository;
         _mapper = mapper;

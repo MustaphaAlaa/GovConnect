@@ -15,7 +15,7 @@ using Web.Mapper;
 
 namespace GovConnect_Tests.ApplicationServices
 {
-    public class ICreateApplicationPurposeServiceTest
+    public class CreateApplicationPurposeServiceTest
     {
 
         private readonly IFixture _fixture;
@@ -28,7 +28,7 @@ namespace GovConnect_Tests.ApplicationServices
         private readonly IGetApplicationPurpose _getApplicationPurpose;
         private readonly IGetRepository<ApplicationPurpose> _getRepository;
         private readonly Mock<IGetRepository<ApplicationPurpose>> _MockGetRepository;
-        public ICreateApplicationPurposeServiceTest()
+        public CreateApplicationPurposeServiceTest()
         {
 
             _fixture = new Fixture();
@@ -37,7 +37,7 @@ namespace GovConnect_Tests.ApplicationServices
             _MockGetRepository = new Mock<IGetRepository<ApplicationPurpose>>();
 
             _createApplicationPurpose =
-                new ICreateApplicationPurposeService(_MockcreateRepository.Object,
+                new CreateApplicationPurposeService(_MockcreateRepository.Object,
                                                 _MockGetRepository.Object,
                                                 _mapper.Object);
         }
