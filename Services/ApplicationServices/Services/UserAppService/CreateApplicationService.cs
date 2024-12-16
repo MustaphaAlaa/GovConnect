@@ -63,7 +63,7 @@ namespace Services.ApplicationServices.Services.UserAppServices
             }
 
 
-            if (entity.ApplicationTypeId == (byte)EnApplicationType.New)
+            if (entity.IsFirstTimeOnly)
             {
                 /*Check if the applicant has already a license in the license class*/
                 //if license class && userID Exist in license tables 

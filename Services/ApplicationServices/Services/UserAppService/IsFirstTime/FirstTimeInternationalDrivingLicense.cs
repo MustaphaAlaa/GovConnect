@@ -22,8 +22,7 @@ public class FirstTimeInternationalDrivingLicense: IFirstTimeCheckable
     
     public async Task<bool> IsFirstTime(CreateApplicationRequest request)
     {
-         bool queryMethod =  (await _getAllInternationalLicensesRepository.GetAllAsync())
-             .Where(r => r.)
+        //code...
         return false;
     }
 }

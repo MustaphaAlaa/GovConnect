@@ -12,11 +12,11 @@ using Models.ApplicationModels;
 
 namespace ModelDTO.ApplicationDTOs.User;
 
-public class CreateApplicationRequest
+public abstract class CreateApplicationRequest
 {
     [Required] public Guid UserId { get; set; }
     [Required] public byte ApplicationTypeId { get; set; }
-    [Required] public short ApplicationForId { get; set; }
+    [Required]  public virtual short ApplicationForId { get; set; }
     [Required] public short LicenseClassId { get; set; }
 
     private bool _isFirstTime = true;

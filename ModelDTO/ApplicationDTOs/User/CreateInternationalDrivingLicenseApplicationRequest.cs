@@ -3,12 +3,20 @@ using Models.ApplicationModels;
 
 namespace ModelDTO.ApplicationDTOs.User;
 
-public class CreateInternationalDrivingLicenseApplicationRequest
+public class CreateInternationalDrivingLicenseApplicationRequest : CreateApplicationRequest
 {
     [Required] public Guid UserId { get; set; }
     [Required] public Guid DriverId { get; set; }
-    [Required] public byte ApplicationTypeId { get; set; }
-    public short ApplicationForId { get; private set; } = (short)EnApplicationFor.InternationalLicense;
-    [Required] public short LicenseClassId  { get; set; }
 
+    private short _applicationForId;
+
+    public override short ApplicationForId
+    {
+        get { return _applicationForId; }
+        set { _applicationForId = (short)EnApplicationFor.InternationalLicense; }
+    }
+
+    //PassprotData....
+    
+    [Required] public short LicenseClassId { get; set; }
 }
