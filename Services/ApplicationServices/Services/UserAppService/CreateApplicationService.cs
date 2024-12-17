@@ -48,7 +48,7 @@ namespace Services.ApplicationServices.Services.UserAppServices
             var applicationFees = await _getApplicationFeesRepository.GetAsync(expression)
                                   ?? throw new DoesNotExistException("ServiceFees Doesn't Exist");
 
-            
+
             var existenceApplication = await _getRepository.GetAsync(app =>
                 app.UserId == entity.UserId
                 && app.ApplicationPurposeId == entity.ApplicationPurposeId
@@ -63,12 +63,12 @@ namespace Services.ApplicationServices.Services.UserAppServices
             }
 
 
-            if (entity.IsFirstTimeOnly)
-            {
-                /*Check if the applicant has already a license in the license class*/
-                //if license class && userID Exist in license tables 
-                throw new AlreadyExistException();
-            }
+            //if (entity.IsFirstTimeOnly)
+            //{
+            //    /*Check if the applicant has already a license in the license class*/
+            //    //if license class && userID Exist in license tables 
+            //    throw new AlreadyExistException();
+            //}
 
 
             /*
@@ -92,7 +92,7 @@ namespace Services.ApplicationServices.Services.UserAppServices
                                         ?? throw new AutoMapperMappingException();
 
             /*IApplicationFor.Create()*/
-            
+
             return applicationDToForUser;
         }
     }

@@ -3,7 +3,7 @@ using Models.ApplicationModels;
 
 namespace IServices.IApplicationServices.Fees;
 
-public interface IGetApplicationFees : IGeWhenService<ServiceFees>
+public interface IGetServiceFees : IGeWhenService<ServiceFees>
 {
 
 }

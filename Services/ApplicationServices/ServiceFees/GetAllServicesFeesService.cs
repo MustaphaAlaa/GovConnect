@@ -8,13 +8,13 @@ using System.Linq.Expressions;
 
 namespace Services.ApplicationServices.Fees;
 
-public class IGetAllServicesFeesService : IGetAllServiceFees
+public class GetAllServicesFeesService : IGetAllServiceFees
 {
 
     private readonly IGetAllRepository<ServiceFees> _getAllRepository;
     private readonly IMapper _mapper;
 
-    public IGetAllServicesFeesService(IGetAllRepository<ServiceFees> getAllRepository, IMapper mapper)
+    public GetAllServicesFeesService(IGetAllRepository<ServiceFees> getAllRepository, IMapper mapper)
     {
         _getAllRepository = getAllRepository;
         _mapper = mapper;

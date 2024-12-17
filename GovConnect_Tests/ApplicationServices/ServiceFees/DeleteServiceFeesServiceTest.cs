@@ -14,17 +14,17 @@ using System.Threading.Tasks;
 
 namespace GovConnect_Tests.ApplicationServices.Fees;
 
-public class IDeleteServiceFeesServiceTest
+public class DeleteServiceFeesServiceTest
 {
 
     private readonly Mock<IDeleteRepository<ServiceFees>> _deleteRepository;
     private readonly IDeleteServiceFees _iDeleteServiceFees;
 
-    public IDeleteServiceFeesServiceTest()
+    public DeleteServiceFeesServiceTest()
     {
         _deleteRepository = new Mock<IDeleteRepository<ServiceFees>>();
 
-        _iDeleteServiceFees = new IDeleteServiceFeesService(_deleteRepository.Object);
+        _iDeleteServiceFees = new DeleteServiceFeesService(_deleteRepository.Object);
     }
 
     [Fact]

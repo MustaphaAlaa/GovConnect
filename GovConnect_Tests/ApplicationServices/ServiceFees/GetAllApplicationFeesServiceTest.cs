@@ -25,7 +25,7 @@ namespace GovConnect_Tests.ApplicationServices
             _getAllRepository = new Mock<IGetAllRepository<ServiceFees>>();
             _mapper = new Mock<IMapper>();
 
-            _iGetAllServiceFees = new IGetAllServicesFeesService(_getAllRepository.Object, _mapper.Object);
+            _iGetAllServiceFees = new GetAllServicesFeesService(_getAllRepository.Object, _mapper.Object);
         }
 
         [Fact]
