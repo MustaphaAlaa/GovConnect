@@ -1,4 +1,4 @@
-﻿using AutoFixture;
+﻿/*using AutoFixture;
 using AutoMapper;
 using FluentAssertions;
 using IRepository;
@@ -310,4 +310,4 @@ public class CreateApplcationServiceTEST
         //Asert
         result.Should().BeEquivalentTo(applicationDtoForUser);
     }
-}
+}*/

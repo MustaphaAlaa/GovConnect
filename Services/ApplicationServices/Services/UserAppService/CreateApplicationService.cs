@@ -5,95 +5,65 @@ using ModelDTO.ApplicationDTOs.User;
 using Models.ApplicationModels;
 using Services.Execptions;
 using System.Linq.Expressions;
+using System.Reflection.Emit;
+using System.Reflection.Metadata.Ecma335;
+using IServices.IApplicationServices.Category;
 using Models.LicenseModels;
+using Models.Users;
 
-namespace Services.ApplicationServices.Services.UserAppServices
+namespace Services.ApplicationServices.Services.UserAppServices;
+
+public class CreateApplicationService : ICreateApplication
 {
-    public class CreateApplicationService : ICreateApplication
+    private readonly ICreateApplicationEntity _createApplicationEntity;
+    private readonly IGetRepository<ServiceFees> _getApplicationFeesRepository;
+    private readonly IServiceCategoryService _serviceCategoryService;
+     private readonly IMapper _mapper;
+
+    private readonly ICreateApplicationServiceValidator _createApplicationServiceValidator;
+    private readonly ICheckApplicationExistenceService _checkApplicationExistenceService;
+
+    public CreateApplicationService(  IGetRepository<ServiceFees> getFeesRepository,
+        IServiceCategoryService serviceCategoryService, 
+        ICreateApplicationServiceValidator createApplicationServiceValidator,
+        ICheckApplicationExistenceService checkApplicationExistenceService,
+        ICreateApplicationEntity createApplicationEntity,
+        IMapper mapper)
     {
-        private readonly ICreateRepository<Application> _createRepository;
-        private readonly IGetRepository<Application> _getRepository;
-        private readonly IGetRepository<ServiceFees> _getApplicationFeesRepository;
-        private readonly IMapper _mapper;
+        _getApplicationFeesRepository = getFeesRepository;
+        _serviceCategoryService = serviceCategoryService; 
+        _createApplicationServiceValidator = createApplicationServiceValidator;
+        _checkApplicationExistenceService = checkApplicationExistenceService;
+        _createApplicationEntity = createApplicationEntity;
+        _mapper = mapper;
+    }
 
-        public CreateApplicationService(ICreateRepository<Application> createRepository,
-            IGetRepository<Application> getRepository,
-            IGetRepository<ServiceFees> getFeesRepository,
-            IMapper mapper)
-        {
-            _getApplicationFeesRepository = getFeesRepository;
-            _createRepository = createRepository;
-            _getRepository = getRepository;
-            _mapper = mapper;
-        }
+    public async Task<ApplicationDTOForUser> CreateAsync(CreateApplicationRequest entity)
+    {
+        _createApplicationServiceValidator.ValidateRequest(entity);
 
-        public async Task<ApplicationDTOForUser> CreateAsync(CreateApplicationRequest entity)
-        {
-            if (entity is null)
-                throw new ArgumentNullException("Create Request is null.");
+        Expression<Func<ServiceFees, bool>> expression = appFees =>
+            (appFees.ApplicationTypeId == entity.ApplicationPurposeId
+             && appFees.ServiceCategoryId == entity.ServiceCategoryId);
 
-            if (entity.UserId == Guid.Empty)
-                throw new ArgumentException();
-
-            if (entity.ApplicationPurposeId <= 0)
-                throw new ArgumentOutOfRangeException("ApplicationPurposeId nust be greater than 0");
-
-            if (entity.ServiceCategoryId <= 0)
-                throw new ArgumentOutOfRangeException("ServiceCategoryId nust be greater than 0");
-
-            Expression<Func<ServiceFees, bool>> expression = appFees =>
-                (appFees.ApplicationTypeId == entity.ApplicationPurposeId
-                 && appFees.ServiceCategoryId == entity.ServiceCategoryId);
-
-            var applicationFees = await _getApplicationFeesRepository.GetAsync(expression)
-                                  ?? throw new DoesNotExistException("ServiceFees Doesn't Exist");
+        var applicationFees = await _getApplicationFeesRepository.GetAsync(expression)
+                              ?? throw new DoesNotExistException("ServiceFees Doesn't Exist");
 
 
-            var existenceApplication = await _getRepository.GetAsync(app =>
-                app.UserId == entity.UserId
-                && app.ApplicationPurposeId == entity.ApplicationPurposeId
-                && app.ServiceCategoryId == entity.ServiceCategoryId);
-
-            switch (existenceApplication?.ApplicationStatus)
-            {
-                case (byte)ApplicationStatus.Finalized:
-                case (byte)ApplicationStatus.InProgress:
-                case (byte)ApplicationStatus.Pending:
-                    throw new InvalidOperationException();
-            }
+        await _checkApplicationExistenceService.CheckApplicationExistence(entity);
 
 
-            //if (entity.IsFirstTimeOnly)
-            //{
-            //    /*Check if the applicant has already a license in the license class*/
-            //    //if license class && userID Exist in license tables 
-            //    throw new AlreadyExistException();
-            //}
+        bool isValidServiceCategory = await _serviceCategoryService.IsValidServiceCategory();
+
+        if (!isValidServiceCategory)
+            throw new Exception();
 
 
-            /*
-             * 
-             * IApplicationFor.Validate()
-            */
-            var newApplication = _mapper.Map<Application>(entity)
-                                 ?? throw new AutoMapperMappingException();
+        var applicationIsCreated = await _createApplicationEntity.CreateNewApplication(entity, applicationFees);
 
-            newApplication.ApplicationDate = DateTime.Now;
-            newApplication.LastStatusDate = DateTime.Now;
-            newApplication.PaidFees = applicationFees.Fees;
-            newApplication.ApplicationStatus = ((byte)ApplicationStatus.InProgress);
-            newApplication.UpdatedByEmployeeId = null;
+        var applicationDToForUser = _mapper.Map<ApplicationDTOForUser>(applicationIsCreated)
+                                    ?? throw new AutoMapperMappingException();
 
-            /*i'll make class/method to create it and all application needed */
-            var applicationisCreated = await _createRepository.CreateAsync(newApplication)
-                                       ?? throw new FailedToCreateException();
-
-            var applicationDToForUser = _mapper.Map<ApplicationDTOForUser>(applicationisCreated)
-                                        ?? throw new AutoMapperMappingException();
-
-            /*IApplicationFor.Create()*/
-
-            return applicationDToForUser;
-        }
+        return applicationDToForUser;
     }
 }
