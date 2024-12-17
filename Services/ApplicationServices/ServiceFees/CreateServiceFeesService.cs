@@ -7,13 +7,13 @@ using Models.ApplicationModels;
 
 namespace Services.ApplicationServices.Fees;
 
-public class ICreateServiceFeesService : ICreateServiceFees
+public class CreateServiceFeesService : ICreateServiceFees
 {
     private readonly IMapper _mapper; //
     private readonly IGetRepository<ServiceFees> _getRepository;
     private readonly ICreateRepository<ServiceFees> _createRepository;
 
-    public ICreateServiceFeesService(IMapper mapper,
+    public CreateServiceFeesService(IMapper mapper,
         IGetRepository<ServiceFees> getRepository,
         ICreateRepository<ServiceFees> createRepository)
     {

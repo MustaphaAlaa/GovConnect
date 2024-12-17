@@ -19,7 +19,7 @@ public class UpdateeApplicationFeesServiceTEST
     private readonly Mock<IGetRepository<ServiceFees>> _getRepository;
     private readonly Mock<IUpdateRepository<ServiceFees>> _updateRepository;
 
-    private readonly IUpdateApplicationFees _updateApplicationFees;
+    private readonly IUpdateServiceFees _iUpdateServiceFees;
 
     public UpdateeApplicationFeesServiceTEST()
     {
@@ -29,14 +29,14 @@ public class UpdateeApplicationFeesServiceTEST
         _getRepository = new Mock<IGetRepository<ServiceFees>>();
         _updateRepository = new Mock<IUpdateRepository<ServiceFees>>();
 
-        _updateApplicationFees = new UpdateServiceFeesService(_mapper.Object, _updateRepository.Object, _getRepository.Object);
+        _iUpdateServiceFees = new UpdateServiceFeesService(_mapper.Object, _updateRepository.Object, _getRepository.Object);
     }
 
     [Fact]
     public async Task UpdateApplictaionFees_ReqObjIsNull_ThrowsArgumentException()
     {
         //Arrange && Act
-        Func<Task> action = async () => await _updateApplicationFees.UpdateAsync(null);
+        Func<Task> action = async () => await _iUpdateServiceFees.UpdateAsync(null);
 
         //Assest
         await action.Should().ThrowAsync<ArgumentNullException>();
@@ -53,7 +53,7 @@ public class UpdateeApplicationFeesServiceTEST
             .Create();
 
         //Act
-        Func<Task> action = async () => await _updateApplicationFees.UpdateAsync(updateRequest);
+        Func<Task> action = async () => await _iUpdateServiceFees.UpdateAsync(updateRequest);
 
         //Assert
         await action.Should().ThrowAsync<ArgumentOutOfRangeException>();
@@ -72,7 +72,7 @@ public class UpdateeApplicationFeesServiceTEST
                .Create();
 
         //Act
-        Func<Task> action = async () => await _updateApplicationFees.UpdateAsync(updateRequest);
+        Func<Task> action = async () => await _iUpdateServiceFees.UpdateAsync(updateRequest);
 
         //Assert
         await action.Should().ThrowAsync<ArgumentOutOfRangeException>();
@@ -87,7 +87,7 @@ public class UpdateeApplicationFeesServiceTEST
                .Create();
 
         //Act
-        Func<Task> action = async () => await _updateApplicationFees.UpdateAsync(createReq);
+        Func<Task> action = async () => await _iUpdateServiceFees.UpdateAsync(createReq);
 
         //Assert
         await action.Should().ThrowAsync<ArgumentOutOfRangeException>();
@@ -104,7 +104,7 @@ public class UpdateeApplicationFeesServiceTEST
             .ReturnsAsync(null as ServiceFees);
 
         //Act
-        Func<Task> action = async () => await _updateApplicationFees.UpdateAsync(updateRequest);
+        Func<Task> action = async () => await _iUpdateServiceFees.UpdateAsync(updateRequest);
 
         //Assert
         await action.Should().ThrowAsync<Exception>();
@@ -131,7 +131,7 @@ public class UpdateeApplicationFeesServiceTEST
 
 
         //Act
-        Func<Task> action = async () => await _updateApplicationFees.UpdateAsync(updateRequest);
+        Func<Task> action = async () => await _iUpdateServiceFees.UpdateAsync(updateRequest);
 
         //Assert
         await action.Should().ThrowAsync<Exception>();
@@ -167,7 +167,7 @@ public class UpdateeApplicationFeesServiceTEST
             .Returns(null as ServiceFees);
 
         //Act
-        Func<Task> action = async () => await _updateApplicationFees.UpdateAsync(updateRequest);
+        Func<Task> action = async () => await _iUpdateServiceFees.UpdateAsync(updateRequest);
 
         //Assert
         await action.Should().ThrowAsync<AutoMapperMappingException>();
@@ -197,7 +197,7 @@ public class UpdateeApplicationFeesServiceTEST
             .ReturnsAsync(null as ServiceFees);
 
         //Act
-        Func<Task> action = async () => await _updateApplicationFees.UpdateAsync(updateRequest);
+        Func<Task> action = async () => await _iUpdateServiceFees.UpdateAsync(updateRequest);
 
         //Assert
         await action.Should().ThrowAsync<Exception>();
@@ -249,7 +249,7 @@ public class UpdateeApplicationFeesServiceTEST
              .Returns<ServiceFeesDTO>(null);
 
         //Act
-        Func<Task> action = async () => await _updateApplicationFees.UpdateAsync(updateRequest);
+        Func<Task> action = async () => await _iUpdateServiceFees.UpdateAsync(updateRequest);
 
         //Assert
         await action.Should().ThrowAsync<AutoMapperMappingException>();
@@ -309,7 +309,7 @@ public class UpdateeApplicationFeesServiceTEST
 
 
         //Act
-        var result = await _updateApplicationFees.UpdateAsync(updateRequest);
+        var result = await _iUpdateServiceFees.UpdateAsync(updateRequest);
 
         //Assert
         result.Should().BeEquivalentTo(updateRequest);

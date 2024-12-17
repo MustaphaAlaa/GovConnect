@@ -12,7 +12,7 @@ using System.Linq.Expressions;
 
 namespace GovConnect_Tests.ApplicationServices;
 
-public class ICreateServiceFeesServiceTest
+public class CreateServiceFeesServiceTest
 {
     private readonly IFixture _fixture;
     private readonly Mock<IMapper> _mapper;
@@ -22,7 +22,7 @@ public class ICreateServiceFeesServiceTest
 
     private readonly ICreateServiceFees _iCreateServiceFees;
 
-    public ICreateServiceFeesServiceTest()
+    public CreateServiceFeesServiceTest()
     {
         _fixture = new Fixture();
         _mapper = new Mock<IMapper>();
@@ -30,7 +30,7 @@ public class ICreateServiceFeesServiceTest
         _getRepository = new Mock<IGetRepository<ServiceFees>>();
         _createRepository = new Mock<ICreateRepository<ServiceFees>>();
 
-        _iCreateServiceFees = new ICreateServiceFeesService(_mapper.Object, _getRepository.Object, _createRepository.Object);
+        _iCreateServiceFees = new CreateServiceFeesService(_mapper.Object, _getRepository.Object, _createRepository.Object);
     }
 
     [Fact]

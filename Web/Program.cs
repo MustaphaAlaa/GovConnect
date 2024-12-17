@@ -16,6 +16,7 @@ using Services.CountryServices;
 using Web.Mapper;
 using IServices.IApplicationServices.Fees;
 using Services.ApplicationServices;
+using Services.ApplicationServices.Fees;
 using Services.ApplicationServices.For;
 
 
@@ -36,8 +37,8 @@ public class Program
         builder.Services.AddScoped(typeof(IGetRepository<>), typeof(GetRepository<>));
         builder.Services.AddScoped(typeof(IGetAllRepository<>), typeof(GetAllRepository<>));
         builder.Services.AddScoped(typeof(ICreateRepository<>), typeof(CreateRepository<>));
-        /*services.AddScoped(typeof(IUpdateRepository<>), typeof(UpdateRepository<>));
-        services.AddScoped(typeof(IDeleteRepository<>), typeof(DeleteRepository<>));*/
+         builder.Services.AddScoped(typeof(IUpdateRepository<>), typeof(UpdateRepository<>));
+        builder.Services.AddScoped(typeof(IDeleteRepository<>), typeof(DeleteRepository<>)); 
 
         builder.Services.AddScoped<ICreateCountry, CreateCountryService>();
         builder.Services.AddScoped<IGetCountry, GetCountryService>();
@@ -59,8 +60,8 @@ public class Program
 
 
         //@@ServiceFees
-        //builder.Services.AddScoped<ICreateServiceFees, ICreateServiceFeesService>();
-        //builder.Services.AddScoped<IGetApplicationFees, GetServiceFeesService>();
+          builder.Services.AddScoped<ICreateServiceFees,  CreateServiceFeesService>();
+       builder.Services.AddScoped<IGetServiceFees, GetServiceFeesService>();
 
 
         builder.Services.AddScoped<IUpdateCountry, UpdateCountryService>();

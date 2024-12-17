@@ -16,13 +16,13 @@ public class GetApplicationFeesTest
     private readonly Mock<IMapper> _mapper;
 
     private readonly Mock<IGetRepository<ServiceFees>> _getRepository;
-    private readonly IGetApplicationFees _getApplicationFees;
+    private readonly IGetServiceFees _iGetServiceFees;
     public GetApplicationFeesTest()
     {
         _mapper = new Mock<IMapper>();
         _getRepository = new Mock<IGetRepository<ServiceFees>>();
 
-        _getApplicationFees = new GetServiceFeesService(_getRepository.Object, _mapper.Object);
+        _iGetServiceFees = new GetServiceFeesService(_getRepository.Object, _mapper.Object);
     }
 
     [Fact]
@@ -33,7 +33,7 @@ public class GetApplicationFeesTest
            .ReturnsAsync(null as ServiceFees);
 
         //Act
-        var result = await _getApplicationFees.GetByAsync(app => app.Fees > 500);
+        var result = await _iGetServiceFees.GetByAsync(app => app.Fees > 500);
 
         //Assert
         result.Should().BeNull();
@@ -55,7 +55,7 @@ public class GetApplicationFeesTest
            .ReturnsAsync(serviceFees);
 
         //Act
-        var result = await _getApplicationFees.GetByAsync(app => app.Fees > 500);
+        var result = await _iGetServiceFees.GetByAsync(app => app.Fees > 500);
 
         //Assert
         result.Should().BeEquivalentTo(serviceFees);

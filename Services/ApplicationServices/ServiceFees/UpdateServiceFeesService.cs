@@ -6,7 +6,7 @@ using Models.ApplicationModels;
 
 namespace Services.ApplicationServices.Fees
 {
-    public class UpdateServiceFeesService : IUpdateApplicationFees
+    public class UpdateServiceFeesService : IUpdateServiceFees
     {
         private readonly IMapper _mapper;
         private readonly IUpdateRepository<ServiceFees> _updateRepository;

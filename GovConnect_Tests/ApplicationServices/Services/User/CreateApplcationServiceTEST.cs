@@ -15,6 +15,7 @@ namespace GovConnect_Tests.ApplicationServices.Services.UserTests;
 
 public class CreateApplcationServiceTEST
 {
+    // CreateLocalDrivingLicenseApplicationRequest used because it's inhertied from CreateRequestApplication;
     private readonly IFixture _fixture;
 
     private readonly ICreateApplication _createApplication;
@@ -56,9 +57,11 @@ public class CreateApplcationServiceTEST
     public async Task CreateAsync_ApplicantUserIdIsEmpty_ThrowsArgumentException()
     {
         //Arrang
-        CreateApplicationRequest createRequest = _fixture.Build<CreateApplicationRequest>()
+        CreateApplicationRequest createRequest = _fixture.Build<CreateLocalDrivingLicenseApplicationRequest>()
                                                  .With(app => app.UserId, Guid.Empty)
                                                  .Create();
+
+
         //Act
         Func<Task> action = async () => await _createApplication.CreateAsync(createRequest);
 
@@ -72,7 +75,7 @@ public class CreateApplcationServiceTEST
     public async Task CreateAsync_ApplicationTypeIdInvalid_ThrowsArgumentException(byte Id)
     {
         //Arrang
-        CreateApplicationRequest createRequest = _fixture.Build<CreateApplicationRequest>()
+        CreateApplicationRequest createRequest = _fixture.Build<CreateLocalDrivingLicenseApplicationRequest>()
                                                  .With(app => app.ApplicationPurposeId, Id)
                                                  .Create();
         //Act
@@ -82,28 +85,29 @@ public class CreateApplcationServiceTEST
         await action.Should().ThrowAsync<ArgumentException>();
     }
 
-    [Theory]
-    [InlineData(null)]
-    [InlineData(0)]
-    [InlineData(-1)]
-    public async Task CreateAsync_ApplicationForIdInvalid_ThrowsArgumentException(short Id)
-    {
-        //Arrang
-        CreateApplicationRequest createRequest = _fixture.Build<CreateApplicationRequest>()
-                                                 .With(app => app.ServiceCategoryId, Id)
-                                                 .Create();
-        //Act
-        Func<Task> action = async () => await _createApplication.CreateAsync(createRequest);
 
-        //Asert
-        await action.Should().ThrowAsync<ArgumentException>();
-    }
+    //I commented this code because ServiceCategory will has always its own DTO 
+    //[Theory]
+    //[InlineData(0)]
+    //[InlineData(-1)]
+    //public async Task CreateAsync_ServiceCategoryIdInvalid_ThrowsArgumentException(short Id)
+    //{
+    //    //Arrang
+    //    CreateApplicationRequest createRequest = _fixture.Build<CreateLocalDrivingLicenseApplicationRequest>()
+    //                                             .With(app => app.ServiceCategoryId, Id)
+    //                                             .Create();
+    //    //Act
+    //    Func<Task> action = async () => await _createApplication.CreateAsync(createRequest);
+
+    //    //Asert
+    //    await action.Should().ThrowAsync<ArgumentException>();
+    //}
 
     [Fact]
     public async Task CreateAsync_WhenApplicationFeesDoesNotExist_ThrowsDoseNotExistException()
     {
         //Arrang
-        CreateApplicationRequest createRequest = _fixture.Build<CreateApplicationRequest>()
+        CreateApplicationRequest createRequest = _fixture.Build<CreateLocalDrivingLicenseApplicationRequest>()
                                                  .Create();
         _getAppFeesRepository
             .Setup(temp => temp
@@ -124,7 +128,7 @@ public class CreateApplcationServiceTEST
     public async Task CreateAsync_ApplicationExistAndStatusIsNotApprovedOrRejected_ThrowsInvalidOperationException(ApplicationStatus statue)
     {
         //Arrang
-        CreateApplicationRequest createRequest = _fixture.Build<CreateApplicationRequest>()
+        CreateApplicationRequest createRequest = _fixture.Build<CreateLocalDrivingLicenseApplicationRequest>()
                                                  .Create();
 
         Application application = _fixture.Build<Application>()
@@ -154,7 +158,7 @@ public class CreateApplcationServiceTEST
     public async Task CreateAsync_FailureToMapFromCreateApplicationDTOToApplicationModel_ThrowsAutoMapperMappingException()
     {
         //Arrang
-        CreateApplicationRequest createRequest = _fixture.Build<CreateApplicationRequest>()
+        CreateApplicationRequest createRequest = _fixture.Build<CreateLocalDrivingLicenseApplicationRequest>()
                                                  .Create();
 
         _getApplicationRepository
@@ -183,7 +187,7 @@ public class CreateApplcationServiceTEST
     public async Task CreateAsync_FailurToCreateApplication_ThrowsFailedToCreateException()
     {
         //Arrang
-        CreateApplicationRequest createRequest = _fixture.Build<CreateApplicationRequest>()
+        CreateApplicationRequest createRequest = _fixture.Build<CreateLocalDrivingLicenseApplicationRequest>()
                                                  .Create();
 
         Application application = _fixture.Build<Application>()
@@ -222,7 +226,7 @@ public class CreateApplcationServiceTEST
     public async Task CreateAsync_FailureToMapFromApplicationModelToApplicationDTOForUser_ThrowsAutoMapperMappingException()
     {
         //Arrang
-        CreateApplicationRequest createRequest = _fixture.Build<CreateApplicationRequest>()
+        CreateApplicationRequest createRequest = _fixture.Build<CreateLocalDrivingLicenseApplicationRequest>()
                                                  .Create();
 
         Application application = _fixture.Build<Application>()
@@ -262,7 +266,7 @@ public class CreateApplcationServiceTEST
     public async Task CreateAsync_ApplicationisCreated_ReturnsApplicationDToForUser()
     {
         //Arrang
-        CreateApplicationRequest createRequest = _fixture.Build<CreateApplicationRequest>()
+        CreateApplicationRequest createRequest = _fixture.Build<CreateLocalDrivingLicenseApplicationRequest>()
                                                  .Create();
 
         Application application = _fixture.Build<Application>()

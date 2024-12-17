@@ -6,11 +6,11 @@ using System.Linq.Expressions;
 
 namespace Services.ApplicationServices.Fees;
 
-public class IDeleteServiceFeesService : IDeleteServiceFees
+public class DeleteServiceFeesService : IDeleteServiceFees
 {
     private readonly IDeleteRepository<ServiceFees> _deleteRepository;
 
-    public IDeleteServiceFeesService(IDeleteRepository<ServiceFees> deleteRepository)
+    public DeleteServiceFeesService(IDeleteRepository<ServiceFees> deleteRepository)
     {
         _deleteRepository = deleteRepository;
     }
