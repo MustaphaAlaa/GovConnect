@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using IRepository;
-using IServices.Application.IServiceCategoryApplications;
+using IServices.IApplicationServices.IServiceCategoryApplications;
 using IServices.IApplicationServices.User;
-using IServices.ILicencesServices;
 using ModelDTO.ApplicationDTOs.User;
-using ModelDTO.LicenseDTOs;
 using Models.ApplicationModels;
 using Models.LicenseModels;
+using Models.Users;
 using Services.ApplicationServices.Services.UserAppServices;
+using Services.ApplicationServices.Services.UserAppServices.IsFirstTime;
 using Services.Execptions;
 
 namespace Services.ApplicationServices.ServiceCategoryApplications;
@@ -18,7 +18,7 @@ public class CreateLocalDrivingLicenseApplicationService : ICreateLocalDrivingLi
     {
         _createApplicationService = createApplicationService;
         _localDrivingLicenseApplicationRepository = localDrivingLicenseApplicationRepository;
-        _validator = new CreateLocalDrivingLicenseApplicationValidator();
+        //_validator = new NewLocalDrivingLicenseApplicationValidator();
     }
 
     private readonly ICreateApplicationService _createApplicationService;
@@ -39,16 +39,16 @@ public class CreateLocalDrivingLicenseApplicationService : ICreateLocalDrivingLi
 }
 
 
-public class CreateLocalDrivingLicenseApplication : ICreateLocalDrivingLicenseApplication
+public class NewLocalDrivingLicenseApplication : INewLocalDrivingLicenseApplication
 {
-    public CreateLocalDrivingLicenseApplication(ICreateApplicationService createApplicationService,
+    public NewLocalDrivingLicenseApplication(ICreateApplicationService createApplicationService,
         ICreateRepository<LocalDrivingLicenseApplication> localDrivingLicenseApplicationRepository,
         IMapper mapper)
     {
         _createApplicationService = createApplicationService;
         _localDrivingLicenseApplicationRepository = localDrivingLicenseApplicationRepository;
-        _validator = new CreateLocalDrivingLicenseApplicationValidator();
-        mapper = _mapper;
+        //_validator = new NewLocalDrivingLicenseApplicationValidator();
+        _mapper = mapper;
     }
 
     private readonly ICreateApplicationService _createApplicationService;
@@ -68,13 +68,22 @@ public class CreateLocalDrivingLicenseApplication : ICreateLocalDrivingLicenseAp
 
 }
 
-public class CreateLocalDrivingLicenseApplicationValidator : CreateApplicationServiceValidator
+public class NewLocalDrivingLicenseApplicationValidator : CreateApplicationServiceValidator
 {
-    private readonly ICreateApplicationService _createApplicationService;
     private readonly ICheckApplicationExistenceService _checkApplicationExistenceService;
-    public readonly IGetLocalLicenseService _getLocalLicenseService;
-    public CreateLocalDrivingLicenseApplicationValidator()
+    private readonly IFirstTimeCheckable<CreateLocalDrivingLicenseApplicationRequest> _firstTimeChecker;
+    private readonly IPendingOrInProgressApplicationStatus _pendingOrInProgressApplicationStatus;
+
+    public NewLocalDrivingLicenseApplicationValidator(
+        IGetRepository<Application> getApplicationRepository,
+        IFirstTimeCheckable<CreateLocalDrivingLicenseApplicationRequest> firstTimeChecker,
+        ICheckApplicationExistenceService checkApplicationExistenceService,
+        IPendingOrInProgressApplicationStatus pendingOrInProgressApplicationStatus)
     {
+
+        _firstTimeChecker = firstTimeChecker;
+        _checkApplicationExistenceService = checkApplicationExistenceService;
+        _pendingOrInProgressApplicationStatus = pendingOrInProgressApplicationStatus;
 
     }
 
@@ -82,21 +91,25 @@ public class CreateLocalDrivingLicenseApplicationValidator : CreateApplicationSe
     {
         base.ValidateRequest(request);
 
-        await _checkApplicationExistenceService.CheckApplicationExistence(request);
+        var application = await _checkApplicationExistenceService.CheckApplicationExistence(request);
+
+        if (application != null)
+        {
+            _pendingOrInProgressApplicationStatus.CheckApplicationStatus((EnApplicationStatus)application.ApplicationStatus);
+        }
+
 
         CreateLocalDrivingLicenseApplicationRequest localDrivingLicenseApplicationRequest = request as CreateLocalDrivingLicenseApplicationRequest
-                                                                                            ?? throw new InvalidOperationException();
 
 
         if (!Enum.IsDefined(typeof(EnLicenseClasses), localDrivingLicenseApplicationRequest?.LicenseClassId))
             throw new DoesNotExistException("License class id does not exist");
-        //check if the applicant has already license class
 
-        var ldl = _getLocalLicenseService.GetByAsync(license => license.);
-        if (request.IsFirstTimeOnly)
-        {
 
-        }
+        var firstLocalDrivingLicense = await _firstTimeChecker.IsFirstTime(localDrivingLicenseApplicationRequest);
+
+        if (firstLocalDrivingLicense == false)
+            throw new AlreadyExistException("The applicant is Already has the license class ");
 
     }
 }

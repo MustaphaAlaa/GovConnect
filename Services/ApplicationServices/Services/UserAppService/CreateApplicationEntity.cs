@@ -28,7 +28,7 @@ public class CreateApplicationEntity : ICreateApplicationEntity
         newApplication.ApplicationDate = DateTime.Now;
         newApplication.LastStatusDate = DateTime.Now;
         newApplication.PaidFees = serviceFees.Fees;
-        newApplication.ApplicationStatus = ((byte)ApplicationStatus.InProgress);
+        newApplication.ApplicationStatus = ((byte)EnApplicationStatus.InProgress);
         newApplication.UpdatedByEmployeeId = null;
 
         /*i'll make class/method to create it and all application needed */

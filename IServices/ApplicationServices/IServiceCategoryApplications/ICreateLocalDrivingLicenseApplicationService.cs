@@ -1,7 +1,7 @@
 ﻿using ModelDTO.ApplicationDTOs.User;
 using Models.ApplicationModels;
 
-namespace IServices.Application.IServiceCategoryApplications;
+namespace IServices.IApplicationServices.IServiceCategoryApplications;
 
 public interface ICreateLocalDrivingLicenseApplicationService
 {

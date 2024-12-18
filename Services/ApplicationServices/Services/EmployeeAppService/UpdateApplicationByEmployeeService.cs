@@ -35,7 +35,7 @@ namespace Services.ApplicationServices.Services.EmployeeAppService
             if (updateRequest.ApplicantUserId == Guid.Empty)
                 throw new ArgumentException();
 
-            if (!Enum.IsDefined(typeof(ApplicationStatus), (ApplicationStatus)updateRequest.ApplicationStatus))
+            if (!Enum.IsDefined(typeof(EnApplicationStatus), (EnApplicationStatus)updateRequest.ApplicationStatus))
                 throw new DoesNotExistException();
 
             var existsApplication = await _getRepository.GetAsync(app => app.Id == updateRequest.Id)

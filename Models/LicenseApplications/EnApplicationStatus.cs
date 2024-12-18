@@ -1,6 +1,6 @@
 ﻿namespace Models.ApplicationModels;
 
-public enum ApplicationStatus
+public enum EnApplicationStatus
 {
     Finalized = 1,  //  The DrivingLicenseApplication has been completed (could be used if necessary)
     InProgress,    //   The DrivingLicenseApplication is being processed

@@ -122,10 +122,10 @@ public class CreateApplcationServiceTEST
     }
 
     [Theory]
-    [InlineData(ApplicationStatus.Finalized)]
-    [InlineData(ApplicationStatus.Pending)]
-    [InlineData(ApplicationStatus.InProgress)]
-    public async Task CreateAsync_ApplicationExistAndStatusIsNotApprovedOrRejected_ThrowsInvalidOperationException(ApplicationStatus statue)
+    [InlineData(EnApplicationStatus.Finalized)]
+    [InlineData(EnApplicationStatus.Pending)]
+    [InlineData(EnApplicationStatus.InProgress)]
+    public async Task CreateAsync_ApplicationExistAndStatusIsNotApprovedOrRejected_ThrowsInvalidOperationException(EnApplicationStatus statue)
     {
         //Arrang
         CreateApplicationRequest createRequest = _fixture.Build<CreateLocalDrivingLicenseApplicationRequest>()
@@ -133,7 +133,7 @@ public class CreateApplcationServiceTEST
 
         Application application = _fixture.Build<Application>()
             .With(app => app.UserId, createRequest.UserId)
-            .With(app => app.ApplicationStatus, (byte)statue)
+            .With(app => app.EnApplicationStatus, (byte)statue)
             .With(app => app.Employee, null as Employee)
             .With(app => app.User, null as Models.Users.User)
             .With(app => app.ServiceFees, null as ServiceFees)
@@ -195,7 +195,7 @@ public class CreateApplcationServiceTEST
              .With(app => app.Employee, null as Employee)
              .With(app => app.User, null as User)
              .With(app => app.ServiceFees, null as ServiceFees)
-             .With(app => app.ApplicationStatus, (byte)ApplicationStatus.Approved)
+             .With(app => app.EnApplicationStatus, (byte)EnApplicationStatus.Approved)
              .Create();
 
         _getApplicationRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))

@@ -2,6 +2,7 @@
 using IServices.IApplicationServices.User;
 using ModelDTO.ApplicationDTOs.User;
 using Models.ApplicationModels;
+using Services.Execptions;
 
 namespace Services.ApplicationServices.Services.UserAppServices;
 
@@ -14,18 +15,13 @@ public class CheckApplicationExistenceService : ICheckApplicationExistenceServic
         _getRepository = getRepository;
     }
 
-    public async Task CheckApplicationExistence(CreateApplicationRequest entity)
+    public async Task<Application?> CheckApplicationExistence(CreateApplicationRequest entity)
     {
         var existenceApplication = await _getRepository.GetAsync(app =>
             app.UserId == entity.UserId
             && app.ApplicationPurposeId == entity.ApplicationPurposeId
             && app.ServiceCategoryId == entity.ServiceCategoryId);
 
-        switch (existenceApplication?.ApplicationStatus)
-        {
-            case (byte)ApplicationStatus.InProgress:
-            case (byte)ApplicationStatus.Pending:
-                throw new InvalidOperationException();
-        }
+        return existenceApplication;
     }
 }

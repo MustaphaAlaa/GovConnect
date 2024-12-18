@@ -18,6 +18,10 @@ using IServices.IApplicationServices.Fees;
 using Services.ApplicationServices;
 using Services.ApplicationServices.Fees;
 using Services.ApplicationServices.For;
+using IServices.IApplicationServices.User;
+using ModelDTO.ApplicationDTOs.User;
+using Services.ApplicationServices.Services.UserAppServices.IsFirstTime;
+using Services.ApplicationServices.ServiceCategoryApplications;
 
 
 namespace Web;
@@ -37,12 +41,13 @@ public class Program
         builder.Services.AddScoped(typeof(IGetRepository<>), typeof(GetRepository<>));
         builder.Services.AddScoped(typeof(IGetAllRepository<>), typeof(GetAllRepository<>));
         builder.Services.AddScoped(typeof(ICreateRepository<>), typeof(CreateRepository<>));
-         builder.Services.AddScoped(typeof(IUpdateRepository<>), typeof(UpdateRepository<>));
-        builder.Services.AddScoped(typeof(IDeleteRepository<>), typeof(DeleteRepository<>)); 
+        builder.Services.AddScoped(typeof(IUpdateRepository<>), typeof(UpdateRepository<>));
+        builder.Services.AddScoped(typeof(IDeleteRepository<>), typeof(DeleteRepository<>));
 
         builder.Services.AddScoped<ICreateCountry, CreateCountryService>();
         builder.Services.AddScoped<IGetCountry, GetCountryService>();
         builder.Services.AddScoped<IGetAllCountries, GetAllCountriesService>();
+
 
         //@@ApplicationPurpose
         builder.Services.AddScoped<ICreateApplicationPurpose, CreateApplicationPurposeService>();
@@ -58,14 +63,18 @@ public class Program
         builder.Services.AddScoped<IUpdateServiceCategory, UpdateServiceCategoryService>();
         builder.Services.AddScoped<IDeleteServiceCategory, DeleteServiceCategoryService>();
 
+        builder.Services.AddScoped<IFirstTimeCheckable<CreateLocalDrivingLicenseApplicationRequest>, FirstTimeLocalDrivingLicense>();
+
+        builder.Services.AddScoped<IPendingOrInProgressApplicationStatus, PendingOrInProgressApplicationStatus>();
 
         //@@ServiceFees
-          builder.Services.AddScoped<ICreateServiceFees,  CreateServiceFeesService>();
-       builder.Services.AddScoped<IGetServiceFees, GetServiceFeesService>();
+        builder.Services.AddScoped<ICreateServiceFees, CreateServiceFeesService>();
+        builder.Services.AddScoped<IGetServiceFees, GetServiceFeesService>();
 
 
         builder.Services.AddScoped<IUpdateCountry, UpdateCountryService>();
         builder.Services.AddScoped<IDeleteCountry, DeleteCountryService>();
+
 
         // Add services to the container.
         /*builder.Services.AddAuthorization();
