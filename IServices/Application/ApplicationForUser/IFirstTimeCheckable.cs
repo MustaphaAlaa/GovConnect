@@ -2,7 +2,7 @@
 
 namespace IServices.IApplicationServices.User;
 
-public interface IFirstTimeCheckable
+public interface IFirstTimeCheckable < T> where T :  CreateApplicationRequest
 {
-    public Task<bool>  IsFirstTime(CreateApplicationRequest request);
+    public Task<bool>  IsFirstTime(T request);
 }

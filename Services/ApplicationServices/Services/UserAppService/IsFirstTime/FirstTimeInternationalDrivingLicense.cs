@@ -6,7 +6,7 @@ using Models.Users;
 
 namespace Services.ApplicationServices.Services.UserAppServices.IsFirstTime;
 
-public class FirstTimeInternationalDrivingLicense: IFirstTimeCheckable
+public class FirstTimeInternationalDrivingLicense: IFirstTimeCheckable<CreateInternationalDrivingLicenseApplicationRequest>
 {
     public FirstTimeInternationalDrivingLicense(IGetAllRepository<Driver> getAllDriversRepository, IGetAllRepository<InternationalDrivingLicense> getAllInternationalLicensesRepository)
     {
@@ -20,7 +20,7 @@ public class FirstTimeInternationalDrivingLicense: IFirstTimeCheckable
  
 
     
-    public async Task<bool> IsFirstTime(CreateApplicationRequest request)
+    public async Task<bool> IsFirstTime(CreateInternationalDrivingLicenseApplicationRequest request)
     {
         //code...
         return false;

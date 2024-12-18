@@ -3,9 +3,9 @@ using ModelDTO.ApplicationDTOs.User;
 
 namespace Services.ApplicationServices.Services.UserAppServices;
 
-public class CreateApplicationServiceValidator : ICreateApplicationServiceValidator
+public abstract  class CreateApplicationServiceValidator : ICreateApplicationServiceValidator
 {
-    public void ValidateRequest(CreateApplicationRequest request)
+    public virtual void ValidateRequest(CreateApplicationRequest request)
     {
         if (request is null)
             throw new ArgumentNullException("Create Request is null.");

@@ -18,7 +18,7 @@ public class CreateApplcationServiceTEST
     // CreateLocalDrivingLicenseApplicationRequest used because it's inhertied from CreateRequestApplication;
     private readonly IFixture _fixture;
 
-    private readonly ICreateApplication _createApplication;
+    private readonly ICreateApplicationService _createApplication;
     private readonly Mock<ICreateRepository<Application>> _createRepository;
     private readonly Mock<IGetRepository<Application>> _getApplicationRepository;
     private readonly Mock<IGetRepository<ServiceFees>> _getAppFeesRepository;
@@ -34,7 +34,7 @@ public class CreateApplcationServiceTEST
         _createRepository = new Mock<ICreateRepository<Application>>();
         _getApplicationRepository = new Mock<IGetRepository<Application>>();
 
-        _createApplication = new CreateApplicationService(_createRepository.Object,
+        _createApplication = new ICreateApplicationServiceService(_createRepository.Object,
                                 _getApplicationRepository.Object,
                                 _getAppFeesRepository.Object,
                                 _mapper.Object);

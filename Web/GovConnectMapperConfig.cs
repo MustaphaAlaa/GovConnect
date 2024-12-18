@@ -10,6 +10,7 @@ using Models.ApplicationModels;
 using Models.Types;
 using Models.Users;
 using ModelDTO.ApplicationDTOs.Employee;
+using Models.LicenseModels;
 
 namespace Web.Mapper;
 
@@ -40,6 +41,8 @@ public class GovConnectMapperConfig : Profile
         CreateMap<ServiceFeesDTO, ServiceCategory>().ReverseMap();
 
         //@@DrivingLicenseApplication
+        CreateMap<CreateLocalDrivingLicenseApplicationRequest, LocalDrivingLicenseApplication>().ReverseMap();
+        CreateMap<CreateInternationalDrivingLicenseApplicationRequest, InternationalDrivingLicenseApplication>().ReverseMap();
         //@@User
         CreateMap<Application, CreateApplicationRequest>().ReverseMap();
         CreateMap<Application, ApplicationDTOForUser>().ReverseMap();

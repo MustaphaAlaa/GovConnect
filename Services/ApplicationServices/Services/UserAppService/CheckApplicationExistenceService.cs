@@ -23,7 +23,6 @@ public class CheckApplicationExistenceService : ICheckApplicationExistenceServic
 
         switch (existenceApplication?.ApplicationStatus)
         {
-            case (byte)ApplicationStatus.Finalized:
             case (byte)ApplicationStatus.InProgress:
             case (byte)ApplicationStatus.Pending:
                 throw new InvalidOperationException();

@@ -17,7 +17,6 @@ public abstract class CreateApplicationRequest
     [Required] public Guid UserId { get; set; }
     [Required] public byte ApplicationPurposeId { get; set; }
     [Required]  public virtual short ServiceCategoryId { get; set; }
-    [Required] public short LicenseClassId { get; set; }
 
     private bool _isFirstTime = true;
 

@@ -13,7 +13,7 @@ using Models.Users;
 
 namespace Services.ApplicationServices.Services.UserAppServices;
 
-public class CreateApplicationService : ICreateApplication
+public class CreateApplicationServiceService : ICreateApplicationService
 {
     private readonly ICreateApplicationEntity _createApplicationEntity;
     private readonly IGetRepository<ServiceFees> _getApplicationFeesRepository;
@@ -23,7 +23,7 @@ public class CreateApplicationService : ICreateApplication
     private readonly ICreateApplicationServiceValidator _createApplicationServiceValidator;
     private readonly ICheckApplicationExistenceService _checkApplicationExistenceService;
 
-    public CreateApplicationService(  IGetRepository<ServiceFees> getFeesRepository,
+    public CreateApplicationServiceService(  IGetRepository<ServiceFees> getFeesRepository,
         IServiceCategoryService serviceCategoryService, 
         ICreateApplicationServiceValidator createApplicationServiceValidator,
         ICheckApplicationExistenceService checkApplicationExistenceService,
