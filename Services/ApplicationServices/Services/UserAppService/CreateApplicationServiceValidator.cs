@@ -1,9 +1,10 @@
 ﻿using IServices.IApplicationServices.User;
 using ModelDTO.ApplicationDTOs.User;
+using Models.ApplicationModels;
 
 namespace Services.ApplicationServices.Services.UserAppServices;
 
-public abstract  class CreateApplicationServiceValidator : ICreateApplicationServiceValidator
+public abstract class CreateApplicationServiceValidator : ICreateApplicationServiceValidator
 {
     public virtual void ValidateRequest(CreateApplicationRequest request)
     {
@@ -13,10 +14,11 @@ public abstract  class CreateApplicationServiceValidator : ICreateApplicationSer
         if (request.UserId == Guid.Empty)
             throw new ArgumentException();
 
-        if (request.ApplicationPurposeId <= 0)
-            throw new ArgumentOutOfRangeException("ApplicationPurposeId nust be greater than 0");
+        if (!(Enum.IsDefined(typeof(EnServicePurpose), request.ServicePurposeId)))
+            throw new ArgumentOutOfRangeException("ServicePurposeId must be contained in enum EnServicePurpose");
 
-        if (request.ServiceCategoryId <= 0)
-            throw new ArgumentOutOfRangeException("ServiceCategoryId nust be greater than 0");
+        if (!(Enum.IsDefined(typeof(EnServicePurpose), request.ServiceCategoryId)))
+            throw new ArgumentOutOfRangeException("ServiceCategoryId must be contained in enum EnServicePurpose");
+
     }
 }

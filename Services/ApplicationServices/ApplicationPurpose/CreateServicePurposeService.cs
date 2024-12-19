@@ -7,14 +7,14 @@ using Models.ApplicationModels;
 
 namespace Services.ApplicationServices.Purpose;
 
-public class CreateApplicationPurposeService : ICreateApplicationPurpose
+public class CreateServicePurposeService : ICreateServicePurpose
 {
-    private readonly ICreateRepository<ApplicationPurpose> _createApplicationPurposeRepository;
-    private readonly IGetRepository<ApplicationPurpose> _getApplicationPurposeRepository;
+    private readonly ICreateRepository<ServicePurpose> _createApplicationPurposeRepository;
+    private readonly IGetRepository<ServicePurpose> _getApplicationPurposeRepository;
     private readonly IMapper _mapper;
 
-    public CreateApplicationPurposeService(ICreateRepository<ApplicationPurpose> createApplicationPurposeRepository,
-        IGetRepository<ApplicationPurpose> getApplicationPurposeRepository, IMapper mapper)
+    public CreateServicePurposeService(ICreateRepository<ServicePurpose> createApplicationPurposeRepository,
+        IGetRepository<ServicePurpose> getApplicationPurposeRepository, IMapper mapper)
     {
         _createApplicationPurposeRepository = createApplicationPurposeRepository;
         _getApplicationPurposeRepository = getApplicationPurposeRepository;
@@ -22,10 +22,10 @@ public class CreateApplicationPurposeService : ICreateApplicationPurpose
     }
 
 
-    public async Task<ApplicationPurposeDTO> CreateAsync(CreateApplicationPurposeRequest entity)
+    public async Task<ServicePurposeDTO> CreateAsync(CreateServicePurposeRequest entity)
     {
         if (entity == null)
-            throw new ArgumentNullException($" {typeof(CreateApplicationPurposeRequest)} is Null");
+            throw new ArgumentNullException($" {typeof(CreateServicePurposeRequest)} is Null");
 
         if (string.IsNullOrEmpty(entity.Purpose))
             throw new ArgumentException($"DrivingLicenseApplication Purpose cannot by null.");
@@ -40,19 +40,19 @@ public class CreateApplicationPurposeService : ICreateApplicationPurpose
             throw new InvalidOperationException("This DrivingLicenseApplication type is already exist, cant duplicate types.");
 
 
-        var reqDtoToModel = _mapper.Map<ApplicationPurpose>(entity);
+        var reqDtoToModel = _mapper.Map<ServicePurpose>(entity);
 
         if (reqDtoToModel == null)
-            throw new AutoMapperMappingException($"failure mapping from '{entity.GetType().Name}' To 'ApplicationPurpose'");
+            throw new AutoMapperMappingException($"failure mapping from '{entity.GetType().Name}' To 'ServicePurpose'");
 
 
         var applicationType =
             await _createApplicationPurposeRepository.CreateAsync(reqDtoToModel);
 
-        var dto = _mapper.Map<ApplicationPurposeDTO>(applicationType);
+        var dto = _mapper.Map<ServicePurposeDTO>(applicationType);
 
         if (dto == null)
-            throw new AutoMapperMappingException($"failure mapping from '{reqDtoToModel.GetType().Name}' To 'ApplicationPurposeDTO'");
+            throw new AutoMapperMappingException($"failure mapping from '{reqDtoToModel.GetType().Name}' To 'ServicePurposeDTO'");
 
         return dto;
 

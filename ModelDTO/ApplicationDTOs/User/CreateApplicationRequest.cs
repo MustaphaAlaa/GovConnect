@@ -14,16 +14,16 @@ namespace ModelDTO.ApplicationDTOs.User;
 
 public abstract class CreateApplicationRequest
 {
-    [Required] public Guid UserId { get; set; }
-    [Required] public byte ApplicationPurposeId { get; set; }
-    [Required]  public virtual short ServiceCategoryId { get; set; }
+    [Required] public Guid UserId { get; set; } // i think it must be initned inside the controller (from cookie)
+    [Required] public byte ServicePurposeId { get; set; }
+    [Required] public virtual short ServiceCategoryId { get; set; }
 
     private bool _isFirstTime = true;
 
     public bool IsFirstTimeOnly
     {
         get { return _isFirstTime; }
-        set
+        private set
         {
             switch (ServiceCategoryId)
             {

@@ -19,7 +19,7 @@ public class CheckApplicationExistenceService : ICheckApplicationExistenceServic
     {
         var existenceApplication = await _getRepository.GetAsync(app =>
             app.UserId == entity.UserId
-            && app.ApplicationPurposeId == entity.ApplicationPurposeId
+            && app.ApplicationPurposeId == entity.ServicePurposeId
             && app.ServiceCategoryId == entity.ServiceCategoryId);
 
         return existenceApplication;

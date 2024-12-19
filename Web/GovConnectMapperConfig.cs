@@ -29,9 +29,9 @@ public class GovConnectMapperConfig : Profile
         CreateMap<CreateCountryRequest, Country>();
         CreateMap<Country, CreateCountryRequest>();
 
-        //@@ApplicationPurpose
-        CreateMap<ApplicationPurposeDTO, ApplicationPurpose>().ReverseMap();
-        CreateMap<CreateApplicationPurposeRequest, ApplicationPurpose>().ReverseMap();
+        //@@ServicePurpose
+        CreateMap<ServicePurposeDTO, ServicePurpose>().ReverseMap();
+        CreateMap<CreateServicePurposeRequest, ServicePurpose>().ReverseMap();
 
         //@@ServiceCategory
         CreateMap<ServiceCategoryDTO, ServiceCategory>().ReverseMap();

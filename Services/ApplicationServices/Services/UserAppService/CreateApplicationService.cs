@@ -13,25 +13,25 @@ using Models.Users;
 
 namespace Services.ApplicationServices.Services.UserAppServices;
 
-public class CreateApplicationServiceService : ICreateApplicationService
+public class CreateApplicationService : ICreateApplicationService
 {
     private readonly ICreateApplicationEntity _createApplicationEntity;
     private readonly IGetRepository<ServiceFees> _getApplicationFeesRepository;
     private readonly IServiceCategoryService _serviceCategoryService;
-     private readonly IMapper _mapper;
+    private readonly IMapper _mapper;
 
     private readonly ICreateApplicationServiceValidator _createApplicationServiceValidator;
     private readonly ICheckApplicationExistenceService _checkApplicationExistenceService;
 
-    public CreateApplicationServiceService(  IGetRepository<ServiceFees> getFeesRepository,
-        IServiceCategoryService serviceCategoryService, 
+    public CreateApplicationService(IGetRepository<ServiceFees> getFeesRepository,
+        IServiceCategoryService serviceCategoryService,
         ICreateApplicationServiceValidator createApplicationServiceValidator,
         ICheckApplicationExistenceService checkApplicationExistenceService,
         ICreateApplicationEntity createApplicationEntity,
         IMapper mapper)
     {
         _getApplicationFeesRepository = getFeesRepository;
-        _serviceCategoryService = serviceCategoryService; 
+        _serviceCategoryService = serviceCategoryService;
         _createApplicationServiceValidator = createApplicationServiceValidator;
         _checkApplicationExistenceService = checkApplicationExistenceService;
         _createApplicationEntity = createApplicationEntity;
@@ -43,7 +43,7 @@ public class CreateApplicationServiceService : ICreateApplicationService
         _createApplicationServiceValidator.ValidateRequest(entity);
 
         Expression<Func<ServiceFees, bool>> expression = appFees =>
-            (appFees.ApplicationTypeId == entity.ApplicationPurposeId
+            (appFees.ApplicationTypeId == entity.ServicePurposeId
              && appFees.ServiceCategoryId == entity.ServiceCategoryId);
 
         var applicationFees = await _getApplicationFeesRepository.GetAsync(expression)

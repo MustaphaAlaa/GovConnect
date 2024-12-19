@@ -3,7 +3,7 @@ using Models.ApplicationModels;
 
 namespace IServices.IApplicationServices.Purpose;
 
-public interface IGetAllApplicationPurpose :   IGetAllService<  ApplicationPurpose,ApplicationPurposeDTO >
+public interface IGetAllServicePurpose :   IGetAllService<  ServicePurpose,ServicePurposeDTO >
 {
     
 }

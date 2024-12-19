@@ -3,8 +3,8 @@
 namespace Models.ApplicationModels;
 
 //Maybe i'll move it to be generic with other applications
-public class ApplicationPurpose
+public class ServicePurpose
 {
-    public byte ApplicationPurposeId { get; set; }
+    public byte ServicePurposeId { get; set; }
     [Required] public string Purpose { get; set; }
 }

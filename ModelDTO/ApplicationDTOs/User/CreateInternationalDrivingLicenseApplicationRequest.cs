@@ -8,15 +8,15 @@ public class CreateInternationalDrivingLicenseApplicationRequest : CreateApplica
     [Required] public Guid UserId { get; set; }
     [Required] public Guid DriverId { get; set; }
 
-    private short _applicationForId;
+    private short _serviceCategoryId;
 
     public override short ServiceCategoryId
     {
-        get { return _applicationForId; }
-        set { _applicationForId = (short)EnServiceCategory.InternationalLicense; }
+        get { return _serviceCategoryId; }
+        set { _serviceCategoryId = (short)EnServiceCategory.InternationalLicense; }
     }
 
     //PassprotData....
-    
+
     [Required] public short LicenseClassId { get; set; }
 }

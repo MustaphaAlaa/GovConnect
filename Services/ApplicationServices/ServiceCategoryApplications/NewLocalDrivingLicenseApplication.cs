@@ -14,7 +14,8 @@ namespace Services.ApplicationServices.ServiceCategoryApplications;
 
 public class CreateLocalDrivingLicenseApplicationService : ICreateLocalDrivingLicenseApplicationService
 {
-    public CreateLocalDrivingLicenseApplicationService(ICreateApplicationService createApplicationService, ICreateRepository<LocalDrivingLicenseApplication> localDrivingLicenseApplicationRepository)
+    public CreateLocalDrivingLicenseApplicationService(ICreateApplicationService createApplicationService,
+        ICreateRepository<LocalDrivingLicenseApplication> localDrivingLicenseApplicationRepository)
     {
         _createApplicationService = createApplicationService;
         _localDrivingLicenseApplicationRepository = localDrivingLicenseApplicationRepository;
@@ -99,7 +100,7 @@ public class NewLocalDrivingLicenseApplicationValidator : CreateApplicationServi
         }
 
 
-        CreateLocalDrivingLicenseApplicationRequest localDrivingLicenseApplicationRequest = request as CreateLocalDrivingLicenseApplicationRequest
+        CreateLocalDrivingLicenseApplicationRequest localDrivingLicenseApplicationRequest = request as CreateLocalDrivingLicenseApplicationRequest;
 
 
         if (!Enum.IsDefined(typeof(EnLicenseClasses), localDrivingLicenseApplicationRequest?.LicenseClassId))

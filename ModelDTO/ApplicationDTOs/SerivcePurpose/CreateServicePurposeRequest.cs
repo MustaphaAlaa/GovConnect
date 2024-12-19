@@ -1,6 +1,6 @@
 ﻿namespace ModelDTO.ApplicationDTOs.Purpose;
 
-public class CreateApplicationPurposeRequest
+public class CreateServicePurposeRequest
 {
     public string Purpose { get; set; }
 }

@@ -7,12 +7,12 @@ using Models.ApplicationModels;
 
 namespace Services.ApplicationServices.Purpose;
 
-public class GetAllApplicationPurposesService : IGetAllApplicationPurpose
+public class GetAllApplicationPurposesService : IGetAllServicePurpose
 {
-    private readonly IGetAllRepository<ApplicationPurpose> _getAllApplicationPurposesRepository;
+    private readonly IGetAllRepository<ServicePurpose> _getAllApplicationPurposesRepository;
     private readonly IMapper _mapper;
 
-    public GetAllApplicationPurposesService(IGetAllRepository<ApplicationPurpose> getAllApplicationPurposesRepository,
+    public GetAllApplicationPurposesService(IGetAllRepository<ServicePurpose> getAllApplicationPurposesRepository,
         IMapper mapper)
     {
         _getAllApplicationPurposesRepository = getAllApplicationPurposesRepository;
@@ -20,19 +20,19 @@ public class GetAllApplicationPurposesService : IGetAllApplicationPurpose
     }
 
 
-    public async Task<List<ApplicationPurposeDTO>> GetAllAsync()
+    public async Task<List<ServicePurposeDTO>> GetAllAsync()
     {
         var applicationTypes = await _getAllApplicationPurposesRepository.GetAllAsync();
-        var typeList = applicationTypes.Select(type => _mapper.Map<ApplicationPurposeDTO>(type))
+        var typeList = applicationTypes.Select(type => _mapper.Map<ServicePurposeDTO>(type))
             .ToList();
 
         return typeList;
     }
 
-    public async Task<IQueryable<ApplicationPurposeDTO>> GetAllAsync(Expression<Func<ApplicationPurpose, bool>> predicate)
+    public async Task<IQueryable<ServicePurposeDTO>> GetAllAsync(Expression<Func<ServicePurpose, bool>> predicate)
     {
         var applicationTypes = await _getAllApplicationPurposesRepository.GetAllAsync(predicate);
-        var typeList = applicationTypes.Select(type => _mapper.Map<ApplicationPurposeDTO>(type));
+        var typeList = applicationTypes.Select(type => _mapper.Map<ServicePurposeDTO>(type));
 
         return typeList;
     }

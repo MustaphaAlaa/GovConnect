@@ -103,7 +103,7 @@ public class CreateServiceFeesServiceTest
         ServiceFeesDTO createReq = _fixture.Create<ServiceFeesDTO>();
         ServiceFees existServiceFees = _fixture.Build<ServiceFees>()
             .With(app => app.ServiceCategory, null as ServiceCategory)
-            .With(app => app.ApplicationPurpose, null as ApplicationPurpose)
+            .With(app => app.ApplicationPurpose, null as ServicePurpose)
             .With(app => app.Applications, null as ICollection<Application>)
             .Create();
 
@@ -145,7 +145,7 @@ public class CreateServiceFeesServiceTest
         ServiceFeesDTO createReq = _fixture.Create<ServiceFeesDTO>();
         ServiceFees mappedCreatedReq = _fixture.Build<ServiceFees>()
             .With(app => app.ServiceCategory, null as ServiceCategory)
-            .With(app => app.ApplicationPurpose, null as ApplicationPurpose)
+            .With(app => app.ApplicationPurpose, null as ServicePurpose)
             .With(app => app.Applications, null as ICollection<Application>)
             .Create();
 

@@ -22,6 +22,7 @@ using IServices.IApplicationServices.User;
 using ModelDTO.ApplicationDTOs.User;
 using Services.ApplicationServices.Services.UserAppServices.IsFirstTime;
 using Services.ApplicationServices.ServiceCategoryApplications;
+using Services.ApplicationServices.Services.UserAppServices;
 
 
 namespace Web;
@@ -49,12 +50,12 @@ public class Program
         builder.Services.AddScoped<IGetAllCountries, GetAllCountriesService>();
 
 
-        //@@ApplicationPurpose
-        builder.Services.AddScoped<ICreateApplicationPurpose, CreateApplicationPurposeService>();
-        builder.Services.AddScoped<IGetApplicationPurpose, GetApplicationPurposeService>();
-        builder.Services.AddScoped<IGetAllApplicationPurpose, GetAllApplicationPurposesService>();
-        builder.Services.AddScoped<IUpdateApplicationPurpose, UpdateApplicationPurposeService>();
-        builder.Services.AddScoped<IDeleteApplicationPurpose, DeleteApplicationPurposeService>();
+        //@@ServicePurpose
+        builder.Services.AddScoped<ICreateServicePurpose, CreateServicePurposeService>();
+        builder.Services.AddScoped<IGetServicePurpose, GetServicePurposeService>();
+        builder.Services.AddScoped<IGetAllServicePurpose, GetAllApplicationPurposesService>();
+        builder.Services.AddScoped<IUpdateServicePurpose, UpdateServicePurposeService>();
+        builder.Services.AddScoped<IDeleteServicePurpose, DeleteApplicationPurposeService>();
 
         //@@ServiceCategory
         builder.Services.AddScoped<ICreateServiceCategory, CreateServiceCategoryService>();
@@ -66,6 +67,8 @@ public class Program
         builder.Services.AddScoped<IFirstTimeCheckable<CreateLocalDrivingLicenseApplicationRequest>, FirstTimeLocalDrivingLicense>();
 
         builder.Services.AddScoped<IPendingOrInProgressApplicationStatus, PendingOrInProgressApplicationStatus>();
+
+        builder.Services.AddScoped<ICheckApplicationExistenceService, CheckApplicationExistenceService>();
 
         //@@ServiceFees
         builder.Services.AddScoped<ICreateServiceFees, CreateServiceFeesService>();

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using IRepository;
+using IServices.IApplicationServices.Category;
 using IServices.IApplicationServices.User;
 using ModelDTO.ApplicationDTOs.User;
 using Models.LicenseModels;
@@ -11,19 +12,12 @@ namespace Services.ApplicationServices.Services.UserAppServices.IsFirstTime;
 public class FirstTimeLocalDrivingLicense : IFirstTimeCheckable<CreateLocalDrivingLicenseApplicationRequest>
 {
 
-    public FirstTimeLocalDrivingLicense(IGetAllRepository<Driver> getAllDriversRepository,
-        IGetRepository<LocalDrivingLicense> getLocalLicenseRepository,
-        IGetAllRepository<LocalDrivingLicense> getAllLocalLicensesRepository,
-        IGetLocalDrivingLicneseByUserId getLocalDrivingLicneseByUserId)
+    public FirstTimeLocalDrivingLicense(IGetLocalDrivingLicneseByUserId getLocalDrivingLicneseByUserId)
     {
-        _getAllDriversRepository = getAllDriversRepository;
-        _getAllLocalLicensesRepository = getAllLocalLicensesRepository;
         _getLocalLicenseByUsrId = getLocalDrivingLicneseByUserId;
-
     }
 
-    private readonly IGetAllRepository<Driver> _getAllDriversRepository;
-    private readonly IGetAllRepository<LocalDrivingLicense> _getAllLocalLicensesRepository;
+
     private readonly IGetLocalDrivingLicneseByUserId _getLocalLicenseByUsrId;
 
 

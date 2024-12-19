@@ -2,8 +2,8 @@
 
 namespace ModelDTO.ApplicationDTOs.Purpose;
 
-public class ApplicationPurposeDTO
+public class ServicePurposeDTO
 {
-    public byte ApplicationPurposeId { get; set; }
+    public byte ServicePurposeId { get; set; }
     public string Purpose { get; set; }
 }

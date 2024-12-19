@@ -7,11 +7,11 @@ using ModelDTO.ApplicationDTOs.User;
 using Models.ApplicationModels;
 using Models.Users;
 using Moq;
-using Services.ApplicationServices.Services.UserAppServices;
+using Services.IApplicationServices.Services.UserAppServices;
 using Services.Execptions;
 using System.Linq.Expressions;
 
-namespace GovConnect_Tests.ApplicationServices.Services.UserTests;
+namespace GovConnect_Tests.IApplicationServices.Services.UserTests;
 
 public class CreateApplcationServiceTEST
 {
@@ -76,7 +76,7 @@ public class CreateApplcationServiceTEST
     {
         //Arrang
         CreateApplicationRequest createRequest = _fixture.Build<CreateLocalDrivingLicenseApplicationRequest>()
-                                                 .With(app => app.ApplicationPurposeId, Id)
+                                                 .With(app => app.ServicePurposeId, Id)
                                                  .Create();
         //Act
         Func<Task> action = async () => await _createApplication.CreateAsync(createRequest);
@@ -169,7 +169,7 @@ public class CreateApplcationServiceTEST
             .ReturnsAsync(new ServiceFees
             {
                 ServiceCategoryId = createRequest.ServiceCategoryId,
-                ApplicationTypeId = createRequest.ApplicationPurposeId,
+                ApplicationTypeId = createRequest.ServicePurposeId,
                 Fees = 44,
             });
 
@@ -205,7 +205,7 @@ public class CreateApplcationServiceTEST
            .ReturnsAsync(new ServiceFees
            {
                ServiceCategoryId = createRequest.ServiceCategoryId,
-               ApplicationTypeId = createRequest.ApplicationPurposeId,
+               ApplicationTypeId = createRequest.ServicePurposeId,
                Fees = 44,
            });
 
@@ -232,7 +232,7 @@ public class CreateApplcationServiceTEST
         Application application = _fixture.Build<Application>()
             .With(app => app.UserId, createRequest.UserId)
             .With(app => app.ServiceCategoryId, createRequest.ServiceCategoryId)
-            .With(app => app.ApplicationPurposeId, createRequest.ServiceCategoryId)
+            .With(app => app.ServicePurposeId, createRequest.ServiceCategoryId)
             .With(app => app.Employee, null as Employee)
             .With(app => app.User, null as Models.Users.User)
             .With(app => app.ServiceFees, null as ServiceFees)
@@ -245,7 +245,7 @@ public class CreateApplcationServiceTEST
            .ReturnsAsync(new ServiceFees
            {
                ServiceCategoryId = createRequest.ServiceCategoryId,
-               ApplicationTypeId = createRequest.ApplicationPurposeId,
+               ApplicationTypeId = createRequest.ServicePurposeId,
                Fees = 44,
            });
 
@@ -272,7 +272,7 @@ public class CreateApplcationServiceTEST
         Application application = _fixture.Build<Application>()
             .With(app => app.UserId, createRequest.UserId)
             .With(app => app.ServiceCategoryId, createRequest.ServiceCategoryId)
-            .With(app => app.ApplicationPurposeId, createRequest.ServiceCategoryId)
+            .With(app => app.ServicePurposeId, createRequest.ServiceCategoryId)
             .With(app => app.Employee, null as Employee)
             .With(app => app.User, null as Models.Users.User)
             .With(app => app.ServiceFees, null as ServiceFees)
@@ -281,7 +281,7 @@ public class CreateApplcationServiceTEST
         ApplicationDTOForUser applicationDtoForUser = _fixture.Build<ApplicationDTOForUser>()
             .With(app => app.ApplicantUserId, createRequest.UserId)
             .With(app => app.ServiceCategoryId, createRequest.ServiceCategoryId)
-            .With(app => app.ApplicationPurposeId, createRequest.ServiceCategoryId)
+            .With(app => app.ServicePurposeId, createRequest.ServiceCategoryId)
             .Create();
 
         _getApplicationRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Application, bool>>>()))
@@ -291,7 +291,7 @@ public class CreateApplcationServiceTEST
            .ReturnsAsync(new ServiceFees
            {
                ServiceCategoryId = createRequest.ServiceCategoryId,
-               ApplicationTypeId = createRequest.ApplicationPurposeId,
+               ApplicationTypeId = createRequest.ServicePurposeId,
                Fees = 44,
            });
 

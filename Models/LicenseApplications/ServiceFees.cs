@@ -6,7 +6,7 @@ namespace Models.ApplicationModels;
 
 public class ServiceFees
 {
-    [ForeignKey("ApplicationPurpose")]
+    [ForeignKey("ServicePurpose")]
     [Required]
     public byte ApplicationTypeId { get; set; }
 
@@ -18,7 +18,7 @@ public class ServiceFees
 
     [Required] public DateTime LastUpdate { get; set; }
 
-    public ApplicationPurpose ApplicationPurpose { get; set; }
+    public ServicePurpose ApplicationPurpose { get; set; }
     public ServiceCategory ServiceCategory { get; set; }
     public ICollection<Application> Applications { get; set; }
 }

@@ -4,11 +4,11 @@ using Models.ApplicationModels;
 
 namespace Services.ApplicationServices.Purpose;
 
-public class DeleteApplicationPurposeService : IDeleteApplicationPurpose
+public class DeleteApplicationPurposeService : IDeleteServicePurpose
 {
-    private readonly IDeleteRepository<ApplicationPurpose> _deleteRepository;
+    private readonly IDeleteRepository<ServicePurpose> _deleteRepository;
 
-    public DeleteApplicationPurposeService(IDeleteRepository<ApplicationPurpose> deleteRepository)
+    public DeleteApplicationPurposeService(IDeleteRepository<ServicePurpose> deleteRepository)
     {
         _deleteRepository = deleteRepository;
     }
@@ -18,7 +18,7 @@ public class DeleteApplicationPurposeService : IDeleteApplicationPurpose
         if (id <= 0)
             throw new ArgumentOutOfRangeException( );
 
-        var deleted = await _deleteRepository.DeleteAsync(t => t.ApplicationPurposeId == id);
+        var deleted = await _deleteRepository.DeleteAsync(t => t.ServicePurposeId == id);
 
         return deleted > 0;
     }

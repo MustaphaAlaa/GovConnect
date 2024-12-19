@@ -6,20 +6,20 @@ using Models.ApplicationModels;
 
 namespace Services.ApplicationServices.Purpose;
 
-public class GetApplicationPurposeService : IGetApplicationPurpose
+public class GetServicePurposeService : IGetServicePurpose
 {
 
-    private readonly IGetRepository<ApplicationPurpose> _getApplicationType;
+    private readonly IGetRepository<ServicePurpose> _getApplicationType;
     private IMapper _mapper;
 
-    public GetApplicationPurposeService(IGetRepository<ApplicationPurpose> getApplicationType, IMapper mapper)
+    public GetServicePurposeService(IGetRepository<ServicePurpose> getApplicationType, IMapper mapper)
     {
         _getApplicationType = getApplicationType;
         _mapper = mapper;
     }
 
 
-    public async Task<ApplicationPurpose> GetByAsync(Expression<Func<ApplicationPurpose, bool>> predicate)
+    public async Task<ServicePurpose> GetByAsync(Expression<Func<ServicePurpose, bool>> predicate)
     {
         var type = await _getApplicationType.GetAsync(predicate);
         return type;
