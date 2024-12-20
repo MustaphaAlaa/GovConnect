@@ -32,7 +32,7 @@ namespace Services.ApplicationServices.Services.UserAppServices
                    ?? throw new DoesNotExistException("The user does not exists.");
 
             return await _getRepository.GetAsync(app =>
-                                    app.Id == getApplicationByUser.ApplicationId
+                                    app.ApplicationId == getApplicationByUser.ApplicationId
                                     && app.UserId == getApplicationByUser.userId);
         }
 

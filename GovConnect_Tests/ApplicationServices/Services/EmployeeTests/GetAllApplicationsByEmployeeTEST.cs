@@ -76,7 +76,7 @@ public class GetAllApplicationsByEmployeeTEST
         _mapper.Setup(temp => temp.Map<ApplicationDTOForEmployee>(It.IsAny<Application>()))
             .Returns((Application source) => new ApplicationDTOForEmployee()
             {
-                Id = source.Id,
+                Id = source.ApplicationId,
                 ApplicantUserId = source.UserId,
                 ApplicationDate = source.ApplicationDate,
                 ServiceCategoryId = source.ServiceCategoryId,
@@ -114,7 +114,7 @@ public class GetAllApplicationsByEmployeeTEST
         _mapper.Setup(temp => temp.Map<ApplicationDTOForEmployee>(It.IsAny<Application>()))
             .Returns((Application source) => new ApplicationDTOForEmployee()
             {
-                Id = source.Id,
+                Id = source.ApplicationId,
                 ApplicantUserId = source.UserId,
                 ApplicationDate = source.ApplicationDate,
                 ServiceCategoryId = source.ServiceCategoryId,
@@ -161,7 +161,7 @@ public class GetAllApplicationsByEmployeeTEST
         _mapper.Setup(temp => temp.Map<ApplicationDTOForEmployee>(It.IsAny<Application>()))
             .Returns((Application source) => new ApplicationDTOForEmployee()
             {
-                Id = source.Id,
+                Id = source.ApplicationId,
                 ApplicantUserId = source.UserId,
                 ApplicationDate = source.ApplicationDate,
                 ServiceCategoryId = source.ServiceCategoryId,

@@ -48,17 +48,17 @@ namespace GovConnect_Tests.ApplicationServices
             //Arrange
             List<ServiceFees> applicationFeesList = new()
             {
-                new ServiceFees() { ApplicationTypeId = 1,  ServiceCategoryId = 2, Fees = 200, LastUpdate = DateTime.Now},
-                new ServiceFees() { ApplicationTypeId = 1,  ServiceCategoryId = 1, Fees = 300, LastUpdate = DateTime.Now},
-                new ServiceFees() { ApplicationTypeId = 3,  ServiceCategoryId = 2, Fees = 100, LastUpdate = DateTime.Now},
-                new ServiceFees() { ApplicationTypeId = 1,  ServiceCategoryId = 3, Fees = 500, LastUpdate = DateTime.Now},
+                new ServiceFees() { ServicePurposeId = 1,  ServiceCategoryId = 2, Fees = 200, LastUpdate = DateTime.Now},
+                new ServiceFees() { ServicePurposeId = 1,  ServiceCategoryId = 1, Fees = 300, LastUpdate = DateTime.Now},
+                new ServiceFees() { ServicePurposeId = 3,  ServiceCategoryId = 2, Fees = 100, LastUpdate = DateTime.Now},
+                new ServiceFees() { ServicePurposeId = 1,  ServiceCategoryId = 3, Fees = 500, LastUpdate = DateTime.Now},
             };
 
             List<ServiceFeesDTO> applicationFeesDTOs = applicationFeesList
                 .Select(appFees => new ServiceFeesDTO
                 {
                     ServiceCategoryId = appFees.ServiceCategoryId,
-                    ApplicationPuropseId = appFees.ApplicationTypeId,
+                    ApplicationPuropseId = appFees.ServicePurposeId,
                     Fees = appFees.Fees,
                     LastUpdate = appFees.LastUpdate
                 }).ToList();
@@ -70,7 +70,7 @@ namespace GovConnect_Tests.ApplicationServices
                 .Returns((ServiceFees source) => new ServiceFeesDTO
                 {
                     ServiceCategoryId = source.ServiceCategoryId,
-                    ApplicationPuropseId = source.ApplicationTypeId,
+                    ApplicationPuropseId = source.ServicePurposeId,
                     Fees = source.Fees,
                     LastUpdate = source.LastUpdate
                 });
@@ -105,10 +105,10 @@ namespace GovConnect_Tests.ApplicationServices
             //Arrange
             IQueryable<ServiceFees> applicationFeesQueryable = new List<ServiceFees>()
             {
-                new ServiceFees() { ApplicationTypeId = 1,  ServiceCategoryId = 2, Fees = 200, LastUpdate = DateTime.Now},
-                new ServiceFees() { ApplicationTypeId = 1,  ServiceCategoryId = 1, Fees = 300, LastUpdate = DateTime.Now},
-                new ServiceFees() { ApplicationTypeId = 3,  ServiceCategoryId = 2, Fees = 100, LastUpdate = DateTime.Now},
-                new ServiceFees() { ApplicationTypeId = 1,  ServiceCategoryId = 3, Fees = 500, LastUpdate = DateTime.Now},
+                new ServiceFees() { ServicePurposeId = 1,  ServiceCategoryId = 2, Fees = 200, LastUpdate = DateTime.Now},
+                new ServiceFees() { ServicePurposeId = 1,  ServiceCategoryId = 1, Fees = 300, LastUpdate = DateTime.Now},
+                new ServiceFees() { ServicePurposeId = 3,  ServiceCategoryId = 2, Fees = 100, LastUpdate = DateTime.Now},
+                new ServiceFees() { ServicePurposeId = 1,  ServiceCategoryId = 3, Fees = 500, LastUpdate = DateTime.Now},
             }.AsQueryable();
 
 
@@ -116,7 +116,7 @@ namespace GovConnect_Tests.ApplicationServices
                 .Select(appFees => new ServiceFeesDTO()
                 {
                     ServiceCategoryId = appFees.ServiceCategoryId,
-                    ApplicationPuropseId = appFees.ApplicationTypeId,
+                    ApplicationPuropseId = appFees.ServicePurposeId,
                     Fees = appFees.Fees,
                     LastUpdate = appFees.LastUpdate
                 }).AsQueryable();
@@ -125,7 +125,7 @@ namespace GovConnect_Tests.ApplicationServices
                 .Returns((ServiceFees source) => new ServiceFeesDTO
                 {
                     ServiceCategoryId = source.ServiceCategoryId,
-                    ApplicationPuropseId = source.ApplicationTypeId,
+                    ApplicationPuropseId = source.ServicePurposeId,
                     Fees = source.Fees,
                     LastUpdate = source.LastUpdate
 

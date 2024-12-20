@@ -6,3 +6,5 @@ public interface ICreateApplicationServiceValidator
 {
     public void ValidateRequest(CreateApplicationRequest entity);
 }
+
+

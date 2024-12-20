@@ -8,7 +8,7 @@ public class ServiceFees
 {
     [ForeignKey("ServicePurpose")]
     [Required]
-    public byte ApplicationTypeId { get; set; }
+    public byte ServicePurposeId { get; set; }
 
     [ForeignKey("ServiceCategory")]
     [Required]

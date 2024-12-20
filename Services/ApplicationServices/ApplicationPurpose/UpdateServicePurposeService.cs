@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using IRepository;
-using IServices.IApplicationServices.Purpose; 
+using IServices.IApplicationServices.IPurpose; 
 using ModelDTO.ApplicationDTOs.Purpose;
 using Models.ApplicationModels;
 
@@ -26,7 +26,7 @@ public class UpdateServicePurposeService : IUpdateServicePurpose
             throw new ArgumentNullException(nameof(updateRequest));
 
         if (String.IsNullOrWhiteSpace(updateRequest.Purpose))
-            throw new ArgumentException($"Purpose cannot be null or empty", nameof(updateRequest.Purpose));
+            throw new ArgumentException($"IPurpose cannot be null or empty", nameof(updateRequest.Purpose));
 
         if (updateRequest.ServicePurposeId <= 0)
             throw new ArgumentException($"InternationalDrivingLicenseId must be greater than 0");

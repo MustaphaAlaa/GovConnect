@@ -72,11 +72,11 @@ public class CreateApplcationServiceTEST
     [Theory]
     [InlineData(null)]
     [InlineData(0)]
-    public async Task CreateAsync_ApplicationTypeIdInvalid_ThrowsArgumentException(byte Id)
+    public async Task CreateAsync_ApplicationTypeIdInvalid_ThrowsArgumentException(byte ApplicationId)
     {
         //Arrang
         CreateApplicationRequest createRequest = _fixture.Build<CreateLocalDrivingLicenseApplicationRequest>()
-                                                 .With(app => app.ServicePurposeId, Id)
+                                                 .With(app => app.ServicePurposeId, ApplicationId)
                                                  .Create();
         //Act
         Func<Task> action = async () => await _createApplication.CreateAsync(createRequest);
@@ -90,11 +90,11 @@ public class CreateApplcationServiceTEST
     //[Theory]
     //[InlineData(0)]
     //[InlineData(-1)]
-    //public async Task CreateAsync_ServiceCategoryIdInvalid_ThrowsArgumentException(short Id)
+    //public async Task CreateAsync_ServiceCategoryIdInvalid_ThrowsArgumentException(short ApplicationId)
     //{
     //    //Arrang
     //    CreateApplicationRequest createRequest = _fixture.Build<CreateLocalDrivingLicenseApplicationRequest>()
-    //                                             .With(app => app.ServiceCategoryId, Id)
+    //                                             .With(app => app.ServiceCategoryId, ApplicationId)
     //                                             .Create();
     //    //Act
     //    Func<Task> action = async () => await _createApplication.CreateAsync(createRequest);
@@ -169,7 +169,7 @@ public class CreateApplcationServiceTEST
             .ReturnsAsync(new ServiceFees
             {
                 ServiceCategoryId = createRequest.ServiceCategoryId,
-                ApplicationTypeId = createRequest.ServicePurposeId,
+                ServicePurposeId = createRequest.ServicePurposeId,
                 Fees = 44,
             });
 
@@ -205,7 +205,7 @@ public class CreateApplcationServiceTEST
            .ReturnsAsync(new ServiceFees
            {
                ServiceCategoryId = createRequest.ServiceCategoryId,
-               ApplicationTypeId = createRequest.ServicePurposeId,
+               ServicePurposeId = createRequest.ServicePurposeId,
                Fees = 44,
            });
 
@@ -245,7 +245,7 @@ public class CreateApplcationServiceTEST
            .ReturnsAsync(new ServiceFees
            {
                ServiceCategoryId = createRequest.ServiceCategoryId,
-               ApplicationTypeId = createRequest.ServicePurposeId,
+               ServicePurposeId = createRequest.ServicePurposeId,
                Fees = 44,
            });
 
@@ -291,7 +291,7 @@ public class CreateApplcationServiceTEST
            .ReturnsAsync(new ServiceFees
            {
                ServiceCategoryId = createRequest.ServiceCategoryId,
-               ApplicationTypeId = createRequest.ServicePurposeId,
+               ServicePurposeId = createRequest.ServicePurposeId,
                Fees = 44,
            });
 

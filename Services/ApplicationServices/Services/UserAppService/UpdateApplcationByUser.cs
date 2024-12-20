@@ -41,7 +41,7 @@ public class UpdateApplcationByUserService : IUpdateApplicationByUser
         if (updateRequest.ServiceCategoryId <= 0)
             throw new ArgumentOutOfRangeException();
 
-        var existsApplication = await _getRepository.GetAsync(app => app.Id == updateRequest.Id)
+        var existsApplication = await _getRepository.GetAsync(app => app.ApplicationId == updateRequest.Id)
             ?? throw new DoesNotExistException();
 
         existsApplication.ServiceCategoryId = updateRequest.ServiceCategoryId;

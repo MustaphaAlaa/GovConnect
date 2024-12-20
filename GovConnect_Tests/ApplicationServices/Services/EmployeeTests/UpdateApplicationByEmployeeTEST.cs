@@ -152,7 +152,7 @@ public class UpdateApplicationByEmployeeTEST
 
         var dummyApplication = new Application
         {
-            Id = 1,
+            ApplicationId = 1,
             UserId = updateRequest.ApplicantUserId,
             ApplicationStatus = 5,
 
@@ -183,7 +183,7 @@ public class UpdateApplicationByEmployeeTEST
 
         var dummyApplication = new Application
         {
-            Id = 1,
+            ApplicationId = 1,
             UserId = updateRequest.ApplicantUserId,
             ApplicationStatus = 5,
 
@@ -220,7 +220,7 @@ public class UpdateApplicationByEmployeeTEST
 
         var dummyApplication = new Application
         {
-            Id = 1,
+            ApplicationId = 1,
             UserId = updateRequest.ApplicantUserId,
             ApplicationStatus = 5,
 

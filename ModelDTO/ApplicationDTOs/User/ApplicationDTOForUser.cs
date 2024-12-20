@@ -12,7 +12,7 @@ namespace ModelDTO.ApplicationDTOs.User;
 public class ApplicationDTOForUser
 {
 
-    [Key] public int Id { get; set; }
+    [Key] public int ApplicationId { get; set; }
 
     [Required] public Guid ApplicantUserId { get; set; }
 

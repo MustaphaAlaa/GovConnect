@@ -196,7 +196,7 @@ public class UpdateApplicationByUserTEST
 
         Application updatedApplication = new Application()
         {
-            Id = updateRequest.Id,
+            ApplicationId = updateRequest.Id,
             UserId = updateRequest.ApplicantUserId,
             ApplicationPurposeId = updateRequest.ApplicationPurposeId,
             ServiceCategoryId = updateRequest.ServiceCategoryId,
@@ -206,7 +206,7 @@ public class UpdateApplicationByUserTEST
 
         ApplicationDTOForUser applicationDTOForUser = new ApplicationDTOForUser()
         {
-            Id = updateRequest.Id,
+            ApplicationId = updateRequest.Id,
             ApplicantUserId = updatedApplication.UserId,
             ApplicationPurposeId = updatedApplication.ApplicationPurposeId,
             ServiceCategoryId = updatedApplication.ServiceCategoryId,

@@ -88,7 +88,7 @@ public class GetApplicationByUserSeriviceTEST
 
         Application application = new Application()
         {
-            Id = 2,
+            ApplicationId = 2,
             UserId = Guid.NewGuid(),
             ApplicationDate = DateTime.Now,
             PaidFees = 500

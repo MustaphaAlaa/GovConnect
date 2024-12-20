@@ -28,7 +28,7 @@ namespace Models.ApplicationModels;
  */
 public class Application
 {
-    [Key] public int Id { get; set; }
+    [Key] public int ApplicationId { get; set; }
 
     [Required][ForeignKey("User")] public Guid UserId { get; set; }
 

@@ -10,4 +10,8 @@
       <ProjectReference Include="..\ModelDTO\ModelDTO.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="IApplicationServices\IServiceCategoryApplications\IInternationalDrivingLicenseApplication\" />
+    </ItemGroup>
+
 </Project>

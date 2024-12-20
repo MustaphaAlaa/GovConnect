@@ -175,7 +175,7 @@ public class CreateServiceFeesServiceTest
         ServiceFees mappedCreatedReq = new()
         {
             ServiceCategoryId = createReq.ServiceCategoryId,
-            ApplicationTypeId = createReq.ApplicationPuropseId,
+            ServicePurposeId = createReq.ApplicationPuropseId,
             Fees = createReq.Fees,
             LastUpdate = createReq.LastUpdate
         };
@@ -209,7 +209,7 @@ public class CreateServiceFeesServiceTest
         ServiceFees mappedCreatedReq = new ServiceFees
         {
             ServiceCategoryId = createReq.ServiceCategoryId,
-            ApplicationTypeId = createReq.ApplicationPuropseId,
+            ServicePurposeId = createReq.ApplicationPuropseId,
             Fees = createReq.Fees,
             LastUpdate = createReq.LastUpdate
         };
@@ -228,7 +228,7 @@ public class CreateServiceFeesServiceTest
            .Returns((ServiceFees source) => new ServiceFeesDTO
            {
                ServiceCategoryId = source.ServiceCategoryId,
-               ApplicationPuropseId = source.ApplicationTypeId,
+               ApplicationPuropseId = source.ServicePurposeId,
                Fees = source.Fees,
                LastUpdate = source.LastUpdate
            });

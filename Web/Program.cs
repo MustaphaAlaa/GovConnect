@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using DataConfigurations;
 using IRepository;
-using IServices.IApplicationServices.Purpose;
+using IServices.IApplicationServices.IPurpose;
 using IServices.Country;
 using IServices.IApplicationServices.Category;
 using IServices.ICountryServices;
@@ -23,6 +23,7 @@ using ModelDTO.ApplicationDTOs.User;
 using Services.ApplicationServices.Services.UserAppServices.IsFirstTime;
 using Services.ApplicationServices.ServiceCategoryApplications;
 using Services.ApplicationServices.Services.UserAppServices;
+using IServices.IApplicationServices.IServiceCategoryApplications.ILocalDrivingLicenseApplication;
 
 
 namespace Web;
@@ -69,6 +70,10 @@ public class Program
         builder.Services.AddScoped<IPendingOrInProgressApplicationStatus, PendingOrInProgressApplicationStatus>();
 
         builder.Services.AddScoped<ICheckApplicationExistenceService, CheckApplicationExistenceService>();
+
+        builder.Services.AddScoped<IGetLocalDrivingLicneseByUserId, GetLocalDrivingLicneseByUserId>();
+
+        builder.Services.AddScoped<ICreateNewLocalDrivingLicenseApplication, CreateLocalDrivingLicenseApplication>();
 
         //@@ServiceFees
         builder.Services.AddScoped<ICreateServiceFees, CreateServiceFeesService>();

@@ -17,22 +17,16 @@ public class CreateApplicationService : ICreateApplicationService
 {
     private readonly ICreateApplicationEntity _createApplicationEntity;
     private readonly IGetRepository<ServiceFees> _getApplicationFeesRepository;
-    private readonly IServiceCategoryService _serviceCategoryService;
     private readonly IMapper _mapper;
 
-    private readonly ICreateApplicationServiceValidator _createApplicationServiceValidator;
     private readonly ICheckApplicationExistenceService _checkApplicationExistenceService;
 
     public CreateApplicationService(IGetRepository<ServiceFees> getFeesRepository,
-        IServiceCategoryService serviceCategoryService,
-        ICreateApplicationServiceValidator createApplicationServiceValidator,
         ICheckApplicationExistenceService checkApplicationExistenceService,
         ICreateApplicationEntity createApplicationEntity,
         IMapper mapper)
     {
         _getApplicationFeesRepository = getFeesRepository;
-        _serviceCategoryService = serviceCategoryService;
-        _createApplicationServiceValidator = createApplicationServiceValidator;
         _checkApplicationExistenceService = checkApplicationExistenceService;
         _createApplicationEntity = createApplicationEntity;
         _mapper = mapper;
@@ -40,10 +34,9 @@ public class CreateApplicationService : ICreateApplicationService
 
     public async Task<ApplicationDTOForUser> CreateAsync(CreateApplicationRequest entity)
     {
-        _createApplicationServiceValidator.ValidateRequest(entity);
 
         Expression<Func<ServiceFees, bool>> expression = appFees =>
-            (appFees.ApplicationTypeId == entity.ServicePurposeId
+            (appFees.ServicePurposeId == entity.ServicePurposeId
              && appFees.ServiceCategoryId == entity.ServiceCategoryId);
 
         var applicationFees = await _getApplicationFeesRepository.GetAsync(expression)
@@ -52,14 +45,8 @@ public class CreateApplicationService : ICreateApplicationService
 
         await _checkApplicationExistenceService.CheckApplicationExistence(entity);
 
-
-        bool isValidServiceCategory = await _serviceCategoryService.IsValidServiceCategory();
-
-        if (!isValidServiceCategory)
-            throw new Exception();
-
-
-        var applicationIsCreated = await _createApplicationEntity.CreateNewApplication(entity, applicationFees);
+        var applicationIsCreated = (await _createApplicationEntity.CreateNewApplication(entity, applicationFees))
+            ?? throw new FailedToCreateException();
 
         var applicationDToForUser = _mapper.Map<ApplicationDTOForUser>(applicationIsCreated)
                                     ?? throw new AutoMapperMappingException();

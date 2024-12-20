@@ -52,7 +52,7 @@ public class GetApplicationByEmployeeSeriviceTEST
 
         Application application = new Application()
         {
-            Id = 23,
+            ApplicationId = 23,
             UserId = Guid.NewGuid(),
             PaidFees = 500,
             ApplicationPurposeId = 1,
@@ -71,7 +71,7 @@ public class GetApplicationByEmployeeSeriviceTEST
         _mapper.Setup(temp => temp.Map<ApplicationDTOForEmployee>(It.IsAny<Application>()))
             .Returns((Application source) => new ApplicationDTOForEmployee()
             {
-                Id = source.Id,
+                Id = source.ApplicationId,
                 ApplicantUserId = source.UserId,
                 ApplicationPurposeId = source.ApplicationPurposeId,
                 ServiceCategoryId = source.ServiceCategoryId,

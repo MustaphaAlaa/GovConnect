@@ -46,7 +46,7 @@ public class GetApplicationFeesTest
         ServiceFees serviceFees = new()
         {
             ServiceCategoryId = 1,
-            ApplicationTypeId = 2,
+            ServicePurposeId = 2,
             Fees = 100,
             LastUpdate = DateTime.Now,
         };

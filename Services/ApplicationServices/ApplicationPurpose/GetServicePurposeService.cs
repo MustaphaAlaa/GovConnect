@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using AutoMapper;
 using IRepository;
-using IServices.IApplicationServices.Purpose;
+using IServices.IApplicationServices.IPurpose;
 using Models.ApplicationModels;
 
 namespace Services.ApplicationServices.Purpose;

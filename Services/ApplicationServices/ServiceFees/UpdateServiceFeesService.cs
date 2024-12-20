@@ -27,7 +27,7 @@ namespace Services.ApplicationServices.Fees
                 throw new ArgumentNullException($"Cannot update null request.");
 
             if (updateRequest.ApplicationPuropseId <= 0)
-                throw new ArgumentOutOfRangeException("Purpose id must be greater than 0");
+                throw new ArgumentOutOfRangeException("IPurpose id must be greater than 0");
 
             if (updateRequest.ServiceCategoryId <= 0)
                 throw new ArgumentOutOfRangeException("Category id must be greater than 0");
@@ -35,7 +35,7 @@ namespace Services.ApplicationServices.Fees
 
 
             var applicationFees = await _getRepository.GetAsync(appFees =>
-                  appFees.ApplicationTypeId == updateRequest.ApplicationPuropseId
+                  appFees.ServicePurposeId == updateRequest.ApplicationPuropseId
                   && appFees.ServiceCategoryId == updateRequest.ApplicationPuropseId);
 
             if (applicationFees == null)

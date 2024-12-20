@@ -28,7 +28,7 @@ public class CreateServiceFeesService : ICreateServiceFees
             throw new ArgumentNullException($"ServiceFeesDTo is null");
 
         if (entity.ApplicationPuropseId <= 0)
-            throw new ArgumentOutOfRangeException("Purpose id must be greater than 0");
+            throw new ArgumentOutOfRangeException("IPurpose id must be greater than 0");
 
         if (entity.ServiceCategoryId <= 0)
             throw new ArgumentOutOfRangeException("Category id must be greater than 0");
@@ -38,7 +38,7 @@ public class CreateServiceFeesService : ICreateServiceFees
 
 
         var applicationFees = await _getRepository.GetAsync(appFees =>
-              appFees.ApplicationTypeId == entity.ApplicationPuropseId && appFees.ServiceCategoryId == entity.ApplicationPuropseId);
+              appFees.ServicePurposeId == entity.ApplicationPuropseId && appFees.ServiceCategoryId == entity.ApplicationPuropseId);
 
         if (applicationFees != null)
             throw new Exception("ServiceFees is already exist you cannot recreate it only update it");

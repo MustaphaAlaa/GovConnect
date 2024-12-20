@@ -19,7 +19,7 @@ public class DeleteServiceFeesService : IDeleteServiceFees
     {
         Expression<Func<ServiceFees, bool>> expression =
             appFees => appFees.ServiceCategoryId == id.ServiceCategoryId
-                        && appFees.ApplicationTypeId == id.ApplicationPurposeId;
+                        && appFees.ServicePurposeId == id.ApplicationPurposeId;
 
         var deleted = await _deleteRepository.DeleteAsync(expression);
 

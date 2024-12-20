@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using IRepository;
-using IServices.IApplicationServices.Purpose;
+using IServices.IApplicationServices.IPurpose;
 using ModelDTO.ApplicationDTOs.Purpose;
 using Models.ApplicationModels;
 
@@ -28,7 +28,7 @@ public class CreateServicePurposeService : ICreateServicePurpose
             throw new ArgumentNullException($" {typeof(CreateServicePurposeRequest)} is Null");
 
         if (string.IsNullOrEmpty(entity.Purpose))
-            throw new ArgumentException($"DrivingLicenseApplication Purpose cannot by null.");
+            throw new ArgumentException($"DrivingLicenseApplication IPurpose cannot by null.");
 
 
         entity.Purpose = entity.Purpose?.Trim().ToLower();

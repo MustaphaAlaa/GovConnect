@@ -8,7 +8,7 @@ using Models.ApplicationModels;
 using Moq;
 using Services.ApplicationServices.Purpose;
 using System.Linq.Expressions;
-using IServices.IApplicationServices.Purpose;
+using IServices.IApplicationServices.IPurpose;
 using Web.Mapper;
 
 
