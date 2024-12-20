@@ -42,6 +42,7 @@ public class NewLocalDrivingLicenseApplicationValidator : CreateApplicationServi
 
         CreateLocalDrivingLicenseApplicationRequest localDrivingLicenseApplicationRequest = request as CreateLocalDrivingLicenseApplicationRequest;
 
+            localDrivingLicenseApplicationRequest.ServicePurposeId = (byte)EnServicePurpose.New;
 
         if (!Enum.IsDefined(typeof(EnLicenseClasses), localDrivingLicenseApplicationRequest?.LicenseClassId))
             throw new DoesNotExistException("License class id does not exist");

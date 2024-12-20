@@ -12,13 +12,13 @@ namespace Services.ApplicationServices.Services.UserAppServices.IsFirstTime;
 public class FirstTimeLocalDrivingLicense : IFirstTimeCheckable<CreateLocalDrivingLicenseApplicationRequest>
 {
 
-    public FirstTimeLocalDrivingLicense(IGetLocalDrivingLicneseByUserId getLocalDrivingLicneseByUserId)
+    public FirstTimeLocalDrivingLicense(IGetLocalDrivingLicenseByUserId getLocalDrivingLicneseByUserId)
     {
         _getLocalLicenseByUsrId = getLocalDrivingLicneseByUserId;
     }
 
 
-    private readonly IGetLocalDrivingLicneseByUserId _getLocalLicenseByUsrId;
+    private readonly IGetLocalDrivingLicenseByUserId _getLocalLicenseByUsrId;
 
 
     public async Task<bool> IsFirstTime(CreateLocalDrivingLicenseApplicationRequest request)

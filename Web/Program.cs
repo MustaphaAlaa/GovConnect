@@ -7,7 +7,6 @@ using IServices.IApplicationServices.Category;
 using IServices.ICountryServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using ModelDTO;
 using Models;
 using Models.Users;
 using Repositorties;
@@ -15,7 +14,6 @@ using Services.ApplicationServices.Purpose;
 using Services.CountryServices;
 using Web.Mapper;
 using IServices.IApplicationServices.Fees;
-using Services.ApplicationServices;
 using Services.ApplicationServices.Fees;
 using Services.ApplicationServices.For;
 using IServices.IApplicationServices.User;
@@ -71,7 +69,7 @@ public class Program
 
         builder.Services.AddScoped<ICheckApplicationExistenceService, CheckApplicationExistenceService>();
 
-        builder.Services.AddScoped<IGetLocalDrivingLicneseByUserId, GetLocalDrivingLicneseByUserId>();
+        builder.Services.AddScoped<IGetLocalDrivingLicenseByUserId, GetLocalDrivingLicneseByUserId>();
 
         builder.Services.AddScoped<ICreateNewLocalDrivingLicenseApplication, CreateLocalDrivingLicenseApplication>();
 

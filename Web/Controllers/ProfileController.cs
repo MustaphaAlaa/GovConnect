@@ -13,7 +13,7 @@ namespace Web.Controllers;
 
 [Route("profile")]
 [ApiController]
-public class ProfileController : Controller
+public class ProfileController : ControllerBase
 {
     private readonly UserManager<User> _userManager;
     private readonly IMapper _mapper;

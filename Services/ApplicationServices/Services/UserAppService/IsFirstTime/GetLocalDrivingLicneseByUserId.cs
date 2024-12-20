@@ -6,7 +6,7 @@ using Models.Users;
 
 namespace Services.ApplicationServices.Services.UserAppServices.IsFirstTime;
 
-public class GetLocalDrivingLicneseByUserId : IGetLocalDrivingLicneseByUserId
+public class GetLocalDrivingLicneseByUserId : IGetLocalDrivingLicenseByUserId
 {
     public GetLocalDrivingLicneseByUserId(IGetAllRepository<Driver> getAllDriversRepository,
        IGetRepository<LocalDrivingLicense> getLocalLicenseRepository,
