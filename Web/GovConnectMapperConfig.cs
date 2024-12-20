@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using ModelDTO.CountryDTOs;
 using ModelDTO.ApplicationDTOs.User;
-using ModelDTO.ApplicationDTOs;
 using ModelDTO.ApplicationDTOs.Fees;
 using ModelDTO.ApplicationDTOs.Category;
 using ModelDTO.ApplicationDTOs.Purpose;
@@ -11,6 +10,7 @@ using Models.Types;
 using Models.Users;
 using ModelDTO.ApplicationDTOs.Employee;
 using Models.LicenseModels;
+using ModelDTO.LicenseDTOs;
 
 namespace Web.Mapper;
 
@@ -21,8 +21,7 @@ public class GovConnectMapperConfig : Profile
         CreateMap<User, UserDTO>().ReverseMap();
         CreateMap<UpdateUserDTO, UserDTO>().ReverseMap();
         CreateMap<User, RegisterDTO>().ReverseMap();
-
-
+ 
         //@@CountryDTOs
         CreateMap<CountryDTO, Country>().ReverseMap();
         CreateMap<UpdateCountryRequest, Country>().ReverseMap();
@@ -43,13 +42,18 @@ public class GovConnectMapperConfig : Profile
         //@@DrivingLicenseApplication
         CreateMap<CreateLocalDrivingLicenseApplicationRequest, LocalDrivingLicenseApplication>().ReverseMap();
         CreateMap<CreateInternationalDrivingLicenseApplicationRequest, InternationalDrivingLicenseApplication>().ReverseMap();
+
+
         //@@User
         CreateMap<Application, CreateApplicationRequest>().ReverseMap();
         CreateMap<Application, ApplicationDTOForUser>().ReverseMap();
         CreateMap<Application, UpdateApplicationByUser>().ReverseMap();
         //@@Employees
         CreateMap<Application, ApplicationDTOForEmployee>().ReverseMap();
-        CreateMap<Application, UpdateApplicationByEmployee>().ReverseMap();
-
+        CreateMap<Application, UpdateApplicationByEmployee>().ReverseMap(); 
+ 
+        //@@License
+        CreateMap<LocalDrivingLicense, LocalDrivingLicenseDTO>().ReverseMap();
+        CreateMap<DetainedLicense, DetainedLicenseDTO>().ReverseMap();
     }
 }
