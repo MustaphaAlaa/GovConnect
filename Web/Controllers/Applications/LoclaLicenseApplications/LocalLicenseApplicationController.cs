@@ -25,6 +25,9 @@ public class LocalLicenseApplicationController : ControllerBase
     [HttpPost("new")]
     public async Task<ActionResult> New(CreateLocalDrivingLicenseApplicationRequest request)
     {
+
+        request.UserId = Guid.NewGuid();
+
         var ldlApp = await _createLocalDrivingLicenseApplicationService.Create(request, _newLocalDrivingLicenseApplicationValidator);
 
         var apiResponse = new ApiResponse();

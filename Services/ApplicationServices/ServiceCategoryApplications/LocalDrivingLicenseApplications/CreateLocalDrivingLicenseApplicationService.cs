@@ -22,7 +22,7 @@ public class CreateLocalDrivingLicenseApplicationService : ICreateLocalDrivingLi
 
     public async Task<LocalDrivingLicenseApplication> Create(CreateLocalDrivingLicenseApplicationRequest entity, ILocalDrivingLicenseApplicationServicePurposeValidator validator)
     {
-        validator.ValidateRequest(entity);
+        await validator.ValidateRequest(entity);
 
         var application = await _createApplicationService.CreateAsync(entity);
 

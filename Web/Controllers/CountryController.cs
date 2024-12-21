@@ -2,11 +2,13 @@
 using IServices.ICountryServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ModelDTO.API;
 using ModelDTO.CountryDTOs;
+using System.Net;
 
 namespace Web.Controllers;
- 
-[Route("CountryDTOs")]
+
+[Route("Country")]
 [ApiController]
 public class CountryController : ControllerBase
 {
@@ -14,9 +16,11 @@ public class CountryController : ControllerBase
     private readonly IGetCountry _getCountry;
     private readonly IGetAllCountries _getAllCountries;
 
-   
 
-    public CountryController(ICreateCountry createCountry, IGetCountry getCountry, IGetAllCountries getAllCountries)
+
+    public CountryController(ICreateCountry createCountry,
+        IGetCountry getCountry,
+        IGetAllCountries getAllCountries)
     {
         _createCountry = createCountry;
         _getCountry = getCountry;
@@ -35,14 +39,41 @@ public class CountryController : ControllerBase
         return Ok();
     }
 
-    [HttpGet("{InternationalDrivingLicenseId:int}")]
+
+
+    [HttpGet("{Id:int}")]
     public async Task<IActionResult> GetCountry([FromRoute] int Id)
 
     {
         var c = await _getCountry.GetByAsync(c => c.CountryId == Id);
 
         if (c == null)
-            return NotFound(); 
+            return NotFound();
         return Ok();
     }
+
+
+    [HttpGet("AllCounties")]
+    public async Task<IActionResult> GetAllCountries()
+
+    {
+        var c = await _getAllCountries.GetAllAsync();
+
+        if (c == null)
+            return NotFound();
+
+
+        var reponse = new ApiResponse()
+        {
+            ErrorMessages = null,
+            IsSuccess = true,
+            statusCode = HttpStatusCode.OK,
+            Result = c
+        };
+        return Ok(reponse);
+    }
+
+
+
+
 }

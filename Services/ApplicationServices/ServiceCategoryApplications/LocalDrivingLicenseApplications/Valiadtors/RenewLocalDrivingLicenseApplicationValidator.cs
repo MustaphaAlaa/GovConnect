@@ -31,9 +31,9 @@ public class RenewLocalDrivingLicenseApplicationValidator : CreateApplicationSer
         _getDetainLicense = getDetainLicense;
     }
 
-    public override async void ValidateRequest(CreateApplicationRequest request)
+    public override async Task ValidateRequest(CreateApplicationRequest request)
     {
-        base.ValidateRequest(request);
+        await base.ValidateRequest(request);
 
         var application = await _checkApplicationExistenceService.CheckApplicationExistence(request);
 

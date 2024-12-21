@@ -39,7 +39,9 @@ public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Gu
         base.OnConfiguring(optionsBuilder);
 
         //optionsBuilder.UseSqlServer("Data Source=MOSTAFA-ALAA\\MMMSERVER;database=GovConnectDB;Integrated Security=True;Trust Server Certificate=True");
-        optionsBuilder.UseSqlServer(_configuration.GetConnectionString("default"));
+        optionsBuilder.UseSqlServer(_configuration.GetConnectionString("default"),
+            sqlServerOptionsAction: SQLOptions =>
+            SQLOptions.CommandTimeout(60));
 
     }
 }

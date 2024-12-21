@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using System.Security.AccessControl;
 using GovConnect.IServices.ILicensesServices.IDetainLicenses;
 using IRepository;
 using IServices.IApplicationServices.Category;
@@ -13,7 +14,7 @@ using Services.Execptions;
 namespace Services.ApplicationServices.ServiceCategoryApplications;
 
 public class ReplacementForDamageLocalDrivingLicenseApplicationValidator : CreateApplicationServiceValidator, IReplacementForDamageLocalDrivingLicenseApplicationValidator
- {
+{
     private const byte replacementDamage = (byte)EnServicePurpose.ReplacementForDamage;
     private readonly ICheckApplicationExistenceService _checkApplicationExistenceService;
     private readonly IPendingOrInProgressApplicationStatus _pendingOrInProgressApplicationStatus;
@@ -31,9 +32,9 @@ public class ReplacementForDamageLocalDrivingLicenseApplicationValidator : Creat
         _getDetainLicense = getDetainLicense;
     }
 
-    public override async void ValidateRequest(CreateApplicationRequest request)
+    public override async Task ValidateRequest(CreateApplicationRequest request)
     {
-        base.ValidateRequest(request);
+        await base.ValidateRequest(request);
 
         var application = await _checkApplicationExistenceService.CheckApplicationExistence(request);
 

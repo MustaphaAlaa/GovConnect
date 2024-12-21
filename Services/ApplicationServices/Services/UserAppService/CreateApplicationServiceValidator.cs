@@ -6,7 +6,7 @@ namespace Services.ApplicationServices.Services.UserAppServices;
 
 public abstract class CreateApplicationServiceValidator : ICreateApplicationServiceValidator
 {
-    public virtual void ValidateRequest(CreateApplicationRequest request)
+    public virtual Task ValidateRequest(CreateApplicationRequest request)
     {
         if (request is null)
             throw new ArgumentNullException("Create Request is null.");
@@ -20,5 +20,6 @@ public abstract class CreateApplicationServiceValidator : ICreateApplicationServ
         if (!(Enum.IsDefined(typeof(EnServicePurpose), (int)request.ServiceCategoryId)))
             throw new ArgumentOutOfRangeException("ServiceCategoryId must be contained in enum EnServicePurpose");
 
+        return Task.CompletedTask;
     }
 }

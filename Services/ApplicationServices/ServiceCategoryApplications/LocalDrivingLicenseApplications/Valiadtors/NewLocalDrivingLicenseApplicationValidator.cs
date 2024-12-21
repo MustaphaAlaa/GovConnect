@@ -28,9 +28,9 @@ public class NewLocalDrivingLicenseApplicationValidator : CreateApplicationServi
 
     }
 
-    public override async void ValidateRequest(CreateApplicationRequest request)
+    public override async Task ValidateRequest(CreateApplicationRequest request)
     {
-        base.ValidateRequest(request);
+        await base.ValidateRequest(request);
 
         var application = await _checkApplicationExistenceService.CheckApplicationExistence(request);
 
@@ -42,9 +42,9 @@ public class NewLocalDrivingLicenseApplicationValidator : CreateApplicationServi
 
         CreateLocalDrivingLicenseApplicationRequest localDrivingLicenseApplicationRequest = request as CreateLocalDrivingLicenseApplicationRequest;
 
-            localDrivingLicenseApplicationRequest.ServicePurposeId = (byte)EnServicePurpose.New;
+        localDrivingLicenseApplicationRequest.ServicePurposeId = (byte)EnServicePurpose.New;
 
-        if (!Enum.IsDefined(typeof(EnLicenseClasses), localDrivingLicenseApplicationRequest?.LicenseClassId))
+        if (!Enum.IsDefined(typeof(EnLicenseClasses), (int)localDrivingLicenseApplicationRequest?.LicenseClassId))
             throw new DoesNotExistException("License class id does not exist");
 
 

@@ -23,6 +23,7 @@ using Services.ApplicationServices.ServiceCategoryApplications;
 using Services.ApplicationServices.Services.UserAppServices;
 using IServices.IApplicationServices.IServiceCategoryApplications.ILocalDrivingLicenseApplication;
 using GovConnect.IServices.ILicensesServices.IDetainLicenses;
+using Models.ApplicationModels;
 
 
 namespace Web;
@@ -39,6 +40,7 @@ public class Program
 
         // Register Repositories
         builder.Services.AddScoped(typeof(IGetRepository<>), typeof(GetRepository<>));
+        builder.Services.AddScoped<IGetRepository<Application>, GetRepository<Application>>();
         builder.Services.AddScoped(typeof(IGetAllRepository<>), typeof(GetAllRepository<>));
         builder.Services.AddScoped(typeof(ICreateRepository<>), typeof(CreateRepository<>));
         builder.Services.AddScoped(typeof(IUpdateRepository<>), typeof(UpdateRepository<>));
@@ -104,6 +106,12 @@ public class Program
         builder.Services.AddSwaggerGen();
 
         var app = builder.Build();
+
+        app.Logger.LogDebug("--------------------------$$$$$$$$$$$$$$$$$$$$$$$$$$$%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\n\n\\n\n\n\n\n\nIm not dying yet\n\n\n\\\n\n\n\n\n\n\\n\n\\n");
+        app.Logger.LogInformation("--------------------------$$$$$$$$$$$$$$$$$$$$$$$$$$$%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\n\n\\n\n\n\n\n\nIm not dying yet\n\n\n\\\n\n\n\n\n\n\\n\n\\n");
+        app.Logger.LogError("--------------------------$$$$$$$$$$$$$$$$$$$$$$$$$$$%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\n\n\\n\n\n\n\n\nIm not dying yet\n\n\n\\\n\n\n\n\n\n\\n\n\\n");
+        app.Logger.LogCritical("--------------------------$$$$$$$$$$$$$$$$$$$$$$$$$$$%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\n\n\\n\n\n\n\n\nIm not dying yet\n\n\n\\\n\n\n\n\n\n\\n\n\\n");
+        app.Logger.LogWarning("--------------------------$$$$$$$$$$$$$$$$$$$$$$$$$$$%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\n\n\\n\n\n\n\n\nIm not dying yet\n\n\n\\\n\n\n\n\n\n\\n\n\\n");
 
         // Configure the HTTP request pipeline
         if (app.Environment.IsDevelopment())
