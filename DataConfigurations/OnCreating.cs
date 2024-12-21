@@ -14,23 +14,23 @@ namespace DataConfigurations;
 public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Guid>
 {
 
-    public GovConnectDbContext(DbContextOptions<GovConnectDbContext> options) : base(options)
+    IConfiguration _configuration;
+
+    public GovConnectDbContext(DbContextOptions<GovConnectDbContext> options, IConfiguration configuration) : base(options)
     {
+        _configuration = configuration;
 
     }
 
-    public GovConnectDbContext()
-    {
 
-    }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        
+
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(GovConnectDbContext).Assembly);
-     
+
     }
 
 
@@ -38,7 +38,8 @@ public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Gu
     {
         base.OnConfiguring(optionsBuilder);
 
-        optionsBuilder.UseSqlServer("Data Source=MOSTAFA-ALAA\\MMMSERVER;database=GovConnectDB;Integrated Security=True;Trust Server Certificate=True");
+        //optionsBuilder.UseSqlServer("Data Source=MOSTAFA-ALAA\\MMMSERVER;database=GovConnectDB;Integrated Security=True;Trust Server Certificate=True");
+        optionsBuilder.UseSqlServer(_configuration.GetConnectionString("default"));
 
     }
 }
