@@ -1,25 +1,22 @@
-﻿using System.Runtime.CompilerServices;
 using GovConnect.IServices.ILicensesServices.IDetainLicenses;
-using IRepository;
 using IServices.IApplicationServices.Category;
 using IServices.IApplicationServices.IServiceCategoryApplications.ILocalDrivingLicenseApplication;
 using IServices.IApplicationServices.User;
 using ModelDTO.ApplicationDTOs.User;
 using Models.ApplicationModels;
-using Models.LicenseModels;
 using Services.ApplicationServices.Services.UserAppServices;
 using Services.Execptions;
 
 namespace Services.ApplicationServices.ServiceCategoryApplications;
 
-public class RenewLocalDrivingLicenseApplicationValidator : CreateApplicationServiceValidator, IRenewLocalDrivingLicenseApplicationValidator
+public class ReplacementForLostLocalDrivingLicenseApplicationValidator : CreateApplicationServiceValidator, IReplacementForLostLocalDrivingLicenseApplicationValidator
 {
-    private const byte renew = (byte)EnServicePurpose.Renew;
+    private const byte replacementLost = (byte)EnServicePurpose.ReplacementForLost;
     private readonly ICheckApplicationExistenceService _checkApplicationExistenceService;
     private readonly IPendingOrInProgressApplicationStatus _pendingOrInProgressApplicationStatus;
     private readonly IGetLocalDrivingLicenseByUserId _getLocalDrivingLicenseByUserId;
     private readonly IGetDetainLicense _getDetainLicense;
-    public RenewLocalDrivingLicenseApplicationValidator(
+    public ReplacementForLostLocalDrivingLicenseApplicationValidator(
         ICheckApplicationExistenceService checkApplicationExistenceService,
         IPendingOrInProgressApplicationStatus pendingOrInProgressApplicationStatus,
         IGetLocalDrivingLicenseByUserId getLocalDrivingLicenseByUserId,
@@ -47,8 +44,9 @@ public class RenewLocalDrivingLicenseApplicationValidator : CreateApplicationSer
 
         if (localDrivingLicenseApplicationRequest != null)
         {
-            localDrivingLicenseApplicationRequest.ServicePurposeId = renew;
+            localDrivingLicenseApplicationRequest.ServicePurposeId = replacementLost;
         }
+
 
         var licenses = await _getLocalDrivingLicenseByUserId.Get(localDrivingLicenseApplicationRequest.UserId);
 
@@ -60,9 +58,9 @@ public class RenewLocalDrivingLicenseApplicationValidator : CreateApplicationSer
             throw new DoesNotExistException("user does not have this license class");
         }
 
-        if (LDLicense.localDrivingLicense.ExpiryDate > DateTime.Now)
+        if (LDLicense.localDrivingLicense.ExpiryDate < DateTime.Now)
         {
-            throw new InvalidRequestException("license is not expired");
+            throw new InvalidRequestException("license is expired");
         }
 
         var detainedLicense = await _getDetainLicense.GetByAsync(licenses => licenses.LicenseId == LDLicense.localDrivingLicense.LocalDrivingLicenseId);

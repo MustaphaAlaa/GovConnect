@@ -50,7 +50,7 @@ public class NewLocalDrivingLicenseApplicationValidator : CreateApplicationServi
 
         var firstLocalDrivingLicense = await _firstTimeChecker.IsFirstTime(localDrivingLicenseApplicationRequest);
 
-        if (firstLocalDrivingLicense == false)
+        if (!firstLocalDrivingLicense)
             throw new AlreadyExistException("The applicant is Already has the license class ");
 
     }

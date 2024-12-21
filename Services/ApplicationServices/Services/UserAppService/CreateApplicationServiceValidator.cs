@@ -14,10 +14,10 @@ public abstract class CreateApplicationServiceValidator : ICreateApplicationServ
         if (request.UserId == Guid.Empty)
             throw new ArgumentException();
 
-        if (!(Enum.IsDefined(typeof(EnServicePurpose), request.ServicePurposeId)))
+        if (!(Enum.IsDefined(typeof(EnServicePurpose), (int)request.ServicePurposeId)))
             throw new ArgumentOutOfRangeException("ServicePurposeId must be contained in enum EnServicePurpose");
 
-        if (!(Enum.IsDefined(typeof(EnServicePurpose), request.ServiceCategoryId)))
+        if (!(Enum.IsDefined(typeof(EnServicePurpose), (int)request.ServiceCategoryId)))
             throw new ArgumentOutOfRangeException("ServiceCategoryId must be contained in enum EnServicePurpose");
 
     }

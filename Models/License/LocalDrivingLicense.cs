@@ -10,7 +10,7 @@ namespace Models.LicenseModels;
 public class LocalDrivingLicense
 {
     [Key] public int LocalDrivingLicenseId { get; set; }
-    
+
     public string Notes { get; set; }
 
     public bool IsActive { get; set; }
@@ -30,7 +30,7 @@ public class LocalDrivingLicense
     [Required][ForeignKey("Driver")] public Guid DriverId { get; set; }
     [Required]
     [ForeignKey("LicenseClass")]
-    public int LicenseClassId { get; set; }
+    public short LicenseClassId { get; set; }
 
     public Country Country { get; set; }
     public Employee Employee { get; set; }

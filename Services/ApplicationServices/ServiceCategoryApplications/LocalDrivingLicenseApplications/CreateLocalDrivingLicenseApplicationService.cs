@@ -7,21 +7,22 @@ namespace Services.ApplicationServices.ServiceCategoryApplications;
 
 public class CreateLocalDrivingLicenseApplicationService : ICreateLocalDrivingLicenseApplicationService
 {
+
     public CreateLocalDrivingLicenseApplicationService(ICreateApplicationService createApplicationService,
-        ICreateNewLocalDrivingLicenseApplication createLocalDrivingLicenseApplication, 
+        ICreateNewLocalDrivingLicenseApplication createLocalDrivingLicenseApplication,
         ICreateApplicationEntity createApplicatioEntity)
     {
         _createApplicationService = createApplicationService;
-        _createlocalDrivingLicenseApplication = createLocalDrivingLicenseApplication; 
+        _createlocalDrivingLicenseApplication = createLocalDrivingLicenseApplication;
     }
 
     private readonly ICreateApplicationService _createApplicationService;
-    private readonly ICreateNewLocalDrivingLicenseApplication _createlocalDrivingLicenseApplication; 
+    private readonly ICreateNewLocalDrivingLicenseApplication _createlocalDrivingLicenseApplication;
 
 
     public async Task<LocalDrivingLicenseApplication> Create(CreateLocalDrivingLicenseApplicationRequest entity, ILocalDrivingLicenseApplicationServicePurposeValidator validator)
     {
-         validator.ValidateRequest(entity);
+        validator.ValidateRequest(entity);
 
         var application = await _createApplicationService.CreateAsync(entity);
 
@@ -32,5 +33,5 @@ public class CreateLocalDrivingLicenseApplicationService : ICreateLocalDrivingLi
 
 
         return ldlApplication;
-    } 
+    }
 }

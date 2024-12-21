@@ -15,7 +15,7 @@ public class LocalDrivingLicenseApplication
 
     [Required]
     [ForeignKey("LicenseClass")]
-    public int LicenseClassId { get; set; }
+    public short LicenseClassId { get; set; }
 
     [Required]
     public EnServicePurpose ApplicationReason { get; set; }

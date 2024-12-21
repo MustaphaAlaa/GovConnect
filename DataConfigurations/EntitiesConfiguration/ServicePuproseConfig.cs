@@ -31,8 +31,8 @@ public class ServicePuproseConfig : IEntityTypeConfiguration<ServicePurpose>
             },
             new ServicePurpose()
             {
-                ServicePurposeId = (byte)EnServicePurpose.ReplacementForDamge,
-                Purpose = EnServicePurpose.ReplacementForDamge.ToString(),
+                ServicePurposeId = (byte)EnServicePurpose.ReplacementForDamage,
+                Purpose = EnServicePurpose.ReplacementForDamage.ToString(),
             },
             new ServicePurpose()
             {

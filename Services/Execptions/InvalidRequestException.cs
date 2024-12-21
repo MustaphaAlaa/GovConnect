@@ -1,4 +1,4 @@
-
+namespace Services.Execptions;
 public class InvalidRequestException : Exception
 {
     public InvalidRequestException()
