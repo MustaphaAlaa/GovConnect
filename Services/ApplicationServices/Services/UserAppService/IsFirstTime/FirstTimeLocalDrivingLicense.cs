@@ -23,8 +23,10 @@ public class FirstTimeLocalDrivingLicense : IFirstTimeCheckable<CreateLocalDrivi
 
     public async Task<bool> IsFirstTime(CreateLocalDrivingLicenseApplicationRequest request)
     {
-        var queryMethod = await _getLocalLicenseByUsrId.Get(request.UserId);
-        var isExists = queryMethod.Any(result => result.localDrivingLicense.LicenseClassId == request.LicenseClassId);
+        var driverIdLicenses = await _getLocalLicenseByUsrId.Get(request.UserId);
+
+        var isExists = driverIdLicenses is null ? false :
+                        driverIdLicenses.Any(result => result.localDrivingLicense.LicenseClassId == request.LicenseClassId);
 
         return !isExists;
     }

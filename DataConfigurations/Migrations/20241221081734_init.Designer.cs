@@ -139,7 +139,7 @@ namespace DataConfigurations.Migrations
                     b.Property<DateTime>("ApplicationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<byte>("ApplicationPurposeId")
+                    b.Property<byte>("ServicePurposeId")
                         .HasColumnType("tinyint");
 
                     b.Property<byte>("ApplicationStatus")
@@ -166,7 +166,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("ApplicationPurposeId", "ServiceCategoryId");
+                    b.HasIndex("ServicePurposeId", "ServiceCategoryId");
 
                     b.ToTable("Applicataions");
                 });
@@ -205,7 +205,7 @@ namespace DataConfigurations.Migrations
                     b.Property<int>("ApplicationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ApplicationReason")
+                    b.Property<int>("ReasonForTheApplication")
                         .HasColumnType("int");
 
                     b.Property<short>("LicenseClassId")
@@ -928,7 +928,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasOne("Models.ApplicationModels.ServiceFees", "ServiceFees")
                         .WithMany("Applications")
-                        .HasForeignKey("ApplicationPurposeId", "ServiceCategoryId")
+                        .HasForeignKey("ServicePurposeId", "ServiceCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

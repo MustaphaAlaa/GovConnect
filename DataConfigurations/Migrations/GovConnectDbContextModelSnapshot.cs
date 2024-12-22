@@ -136,9 +136,6 @@ namespace DataConfigurations.Migrations
                     b.Property<DateTime>("ApplicationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<byte>("ApplicationPurposeId")
-                        .HasColumnType("tinyint");
-
                     b.Property<byte>("ApplicationStatus")
                         .HasColumnType("tinyint");
 
@@ -150,6 +147,9 @@ namespace DataConfigurations.Migrations
 
                     b.Property<short>("ServiceCategoryId")
                         .HasColumnType("smallint");
+
+                    b.Property<byte>("ServicePurposeId")
+                        .HasColumnType("tinyint");
 
                     b.Property<Guid?>("UpdatedByEmployeeId")
                         .HasColumnType("uniqueidentifier");
@@ -163,9 +163,9 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("ApplicationPurposeId", "ServiceCategoryId");
+                    b.HasIndex("ServicePurposeId", "ServiceCategoryId");
 
-                    b.ToTable("Applicataions");
+                    b.ToTable("Applicataions", (string)null);
                 });
 
             modelBuilder.Entity("Models.ApplicationModels.InternationalDrivingLicenseApplication", b =>
@@ -191,7 +191,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("LocalDrivingLicenseId");
 
-                    b.ToTable("InternationalDrivingLicenseApplications");
+                    b.ToTable("InternationalDrivingLicenseApplications", (string)null);
                 });
 
             modelBuilder.Entity("Models.ApplicationModels.LocalDrivingLicenseApplication", b =>
@@ -205,11 +205,12 @@ namespace DataConfigurations.Migrations
                     b.Property<int>("ApplicationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ApplicationReason")
-                        .HasColumnType("int");
-
                     b.Property<short>("LicenseClassId")
                         .HasColumnType("smallint");
+
+                    b.Property<string>("ReasonForTheApplication")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -217,7 +218,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("LicenseClassId");
 
-                    b.ToTable("LocalDrivingLicenseApplications");
+                    b.ToTable("LocalDrivingLicenseApplications", (string)null);
                 });
 
             modelBuilder.Entity("Models.ApplicationModels.ServiceCategory", b =>
@@ -234,7 +235,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasKey("ServiceCategoryId");
 
-                    b.ToTable("ServiceCategories");
+                    b.ToTable("ServiceCategories", (string)null);
 
                     b.HasData(
                         new
@@ -277,7 +278,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("ServiceCategoryId");
 
-                    b.ToTable("ServicesFees");
+                    b.ToTable("ServicesFees", (string)null);
 
                     b.HasData(
                         new
@@ -502,7 +503,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("ReleasedByEmployee");
 
-                    b.ToTable("DetainedLicenses");
+                    b.ToTable("DetainedLicenses", (string)null);
                 });
 
             modelBuilder.Entity("Models.LicenseModels.InternationalDrivingLicense", b =>
@@ -528,7 +529,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("LocalDrivingLicenseId");
 
-                    b.ToTable("InternationalDrivingLicenses");
+                    b.ToTable("InternationalDrivingLicenses", (string)null);
                 });
 
             modelBuilder.Entity("Models.LicenseModels.LicenseClass", b =>
@@ -558,7 +559,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasKey("LicenseClassId");
 
-                    b.ToTable("LicenseClasses");
+                    b.ToTable("LicenseClasses", (string)null);
                 });
 
             modelBuilder.Entity("Models.LicenseModels.LicenseType", b =>
@@ -575,7 +576,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasKey("LicenseTypeId");
 
-                    b.ToTable("LicenseTypes");
+                    b.ToTable("LicenseTypes", (string)null);
 
                     b.HasData(
                         new
@@ -646,7 +647,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("LicenseClassId");
 
-                    b.ToTable("LocalDrivingLicenses");
+                    b.ToTable("LocalDrivingLicenses", (string)null);
                 });
 
             modelBuilder.Entity("Models.Test.Test", b =>
@@ -681,7 +682,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("TestTypeId");
 
-                    b.ToTable("Tests");
+                    b.ToTable("Tests", (string)null);
                 });
 
             modelBuilder.Entity("Models.Test.TestAppointment", b =>
@@ -726,7 +727,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("TestTypeId");
 
-                    b.ToTable("TestAppointments");
+                    b.ToTable("TestAppointments", (string)null);
                 });
 
             modelBuilder.Entity("Models.Test.TestType", b =>
@@ -750,7 +751,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasKey("TestTypeId");
 
-                    b.ToTable("TestTypes");
+                    b.ToTable("TestTypes", (string)null);
                 });
 
             modelBuilder.Entity("Models.Types.Country", b =>
@@ -1961,7 +1962,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasKey("EmployeeTypeId");
 
-                    b.ToTable("EmployeeTypes");
+                    b.ToTable("EmployeeTypes", (string)null);
                 });
 
             modelBuilder.Entity("Models.UserRoles", b =>
@@ -2011,7 +2012,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Admins");
+                    b.ToTable("Admins", (string)null);
                 });
 
             modelBuilder.Entity("Models.Users.Driver", b =>
@@ -2035,7 +2036,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Drivers");
+                    b.ToTable("Drivers", (string)null);
                 });
 
             modelBuilder.Entity("Models.Users.Employee", b =>
@@ -2064,7 +2065,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("Models.Users.User", b =>
@@ -2170,6 +2171,143 @@ namespace DataConfigurations.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                            AccessFailedCount = 0,
+                            Address = "Test Address 1",
+                            BirthDate = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "b3e27cb1-7bfb-4722-bc67-0c9c96c51d4e",
+                            CountryId = 1,
+                            Email = "test1@test.com",
+                            EmailConfirmed = true,
+                            FirstName = "Test",
+                            FourthName = "First",
+                            Gender = 0,
+                            ImagePath = "null",
+                            LockoutEnabled = true,
+                            NationalNo = "1111111111",
+                            NormalizedEmail = "TEST1@TEST.COM",
+                            NormalizedUserName = "TESTUSER1",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPahXcemRXGRxKE3LxhXh/jtLc5gQV31AVLNkX2GAh0xArP6aYtL2TFmDaxZHUXKQw==",
+                            PhoneNumber = "0777777771",
+                            PhoneNumberConfirmed = true,
+                            SecondName = "User",
+                            SecurityStamp = "K2MDKSUEXFG6QCHLCWJLVREVWT7545X2",
+                            ThirdName = "One",
+                            TwoFactorEnabled = false,
+                            UserName = "testuser1"
+                        },
+                        new
+                        {
+                            Id = new Guid("22222222-2222-2222-2222-222222222222"),
+                            AccessFailedCount = 0,
+                            Address = "Test Address 2",
+                            BirthDate = new DateTime(2000, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "44f69173-726f-44d8-b4b0-7695e4bec210",
+                            CountryId = 1,
+                            Email = "test2@test.com",
+                            EmailConfirmed = true,
+                            FirstName = "Test",
+                            FourthName = "Second",
+                            Gender = 1,
+                            ImagePath = "null",
+                            LockoutEnabled = true,
+                            NationalNo = "2222222222",
+                            NormalizedEmail = "TEST2@TEST.COM",
+                            NormalizedUserName = "TESTUSER2",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPahXcemRXGRxKE3LxhXh/jtLc5gQV31AVLNkX2GAh0xArP6aYtL2TFmDaxZHUXKQw==",
+                            PhoneNumber = "0777777772",
+                            PhoneNumberConfirmed = true,
+                            SecondName = "User",
+                            SecurityStamp = "K2MDKSUEXFG6QCHLCWJLVREVWT7545X3",
+                            ThirdName = "Two",
+                            TwoFactorEnabled = false,
+                            UserName = "testuser2"
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333333"),
+                            AccessFailedCount = 0,
+                            Address = "Test Address 3",
+                            BirthDate = new DateTime(2000, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "2f511f41-c3a1-4ebe-a55b-377487fac8b8",
+                            CountryId = 1,
+                            Email = "test3@test.com",
+                            EmailConfirmed = true,
+                            FirstName = "Test",
+                            FourthName = "Third",
+                            Gender = 0,
+                            ImagePath = "null",
+                            LockoutEnabled = true,
+                            NationalNo = "3333333333",
+                            NormalizedEmail = "TEST3@TEST.COM",
+                            NormalizedUserName = "TESTUSER3",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPahXcemRXGRxKE3LxhXh/jtLc5gQV31AVLNkX2GAh0xArP6aYtL2TFmDaxZHUXKQw==",
+                            PhoneNumber = "0777777773",
+                            PhoneNumberConfirmed = true,
+                            SecondName = "User",
+                            SecurityStamp = "K2MDKSUEXFG6QCHLCWJLVREVWT7545X4",
+                            ThirdName = "Three",
+                            TwoFactorEnabled = false,
+                            UserName = "testuser3"
+                        },
+                        new
+                        {
+                            Id = new Guid("44444444-4444-4444-4444-444444444444"),
+                            AccessFailedCount = 0,
+                            Address = "Test Address 4",
+                            BirthDate = new DateTime(2000, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "a98af5d4-731c-489b-851c-86f23c66b3d1",
+                            CountryId = 1,
+                            Email = "test4@test.com",
+                            EmailConfirmed = true,
+                            FirstName = "Test",
+                            FourthName = "Fourth",
+                            Gender = 1,
+                            ImagePath = "null",
+                            LockoutEnabled = true,
+                            NationalNo = "4444444444",
+                            NormalizedEmail = "TEST4@TEST.COM",
+                            NormalizedUserName = "TESTUSER4",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPahXcemRXGRxKE3LxhXh/jtLc5gQV31AVLNkX2GAh0xArP6aYtL2TFmDaxZHUXKQw==",
+                            PhoneNumber = "0777777774",
+                            PhoneNumberConfirmed = true,
+                            SecondName = "User",
+                            SecurityStamp = "K2MDKSUEXFG6QCHLCWJLVREVWT7545X5",
+                            ThirdName = "Four",
+                            TwoFactorEnabled = false,
+                            UserName = "testuser4"
+                        },
+                        new
+                        {
+                            Id = new Guid("55555555-5555-5555-5555-555555555555"),
+                            AccessFailedCount = 0,
+                            Address = "Test Address 5",
+                            BirthDate = new DateTime(2000, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "7c8f2e9b-4c1a-483d-b832-d35cb3f3f287",
+                            CountryId = 1,
+                            Email = "test5@test.com",
+                            EmailConfirmed = true,
+                            FirstName = "Test",
+                            FourthName = "Fifth",
+                            Gender = 0,
+                            ImagePath = "null",
+                            LockoutEnabled = true,
+                            NationalNo = "5555555555",
+                            NormalizedEmail = "TEST5@TEST.COM",
+                            NormalizedUserName = "TESTUSER5",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPahXcemRXGRxKE3LxhXh/jtLc5gQV31AVLNkX2GAh0xArP6aYtL2TFmDaxZHUXKQw==",
+                            PhoneNumber = "0777777775",
+                            PhoneNumberConfirmed = true,
+                            SecondName = "User",
+                            SecurityStamp = "K2MDKSUEXFG6QCHLCWJLVREVWT7545X6",
+                            ThirdName = "Five",
+                            TwoFactorEnabled = false,
+                            UserName = "testuser5"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -2237,7 +2375,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasOne("Models.ApplicationModels.ServiceFees", "ServiceFees")
                         .WithMany("Applications")
-                        .HasForeignKey("ApplicationPurposeId", "ServiceCategoryId")
+                        .HasForeignKey("ServicePurposeId", "ServiceCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -18,7 +18,7 @@ public class LocalDrivingLicenseApplication
     public short LicenseClassId { get; set; }
 
     [Required]
-    public EnServicePurpose ApplicationReason { get; set; }
+    public string ReasonForTheApplication { get; set; }
 
     public Application Application { get; set; }
     public LicenseClass LicenseClass { get; set; }

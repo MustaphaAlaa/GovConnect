@@ -23,14 +23,18 @@ public class GetLocalDrivingLicneseByUserId : IGetLocalDrivingLicenseByUserId
 
     public async Task<IEnumerable<DriverIdLicenseClassId>> Get(Guid usrId)
     {
-        var queryMethod = (await _getAllDriversRepository.GetAllAsync())
-           .Where(driver => driver.UserId == usrId)
+        var drivers = await _getAllDriversRepository.GetAllAsync();
+
+        var driverLicenses = drivers.Capacity > 0 ?
+           drivers.Where(driver => driver.UserId == usrId)
            .Join((await _getAllLocalLicensesRepository.GetAllAsync()),
                driver => driver.DriverId,
                license => license.DriverId,
                (driver, license) => new DriverIdLicenseClassId(driver.DriverId, license)
-           );
+           ) : null;
 
-        return queryMethod;
+
+
+        return driverLicenses;
     }
 }

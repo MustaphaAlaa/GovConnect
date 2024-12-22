@@ -25,7 +25,7 @@ public class CreateLocalDrivingLicenseApplication : ICreateNewLocalDrivingLicens
         {
             ApplicationId = entity.ApplicationId,
             LicenseClassId = entity.LicenseClassId,
-            ApplicationReason = (EnServicePurpose)entity.ServicePurposeId
+            ReasonForTheApplication = ((EnServicePurpose)entity.ServicePurposeId).ToString().Replace("_", " "),
         };
 
         var ldlApplciton = await _localDrivingLicenseApplicationRepository.CreateAsync(localDrivingLicenseApplication)

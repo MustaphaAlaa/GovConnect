@@ -14,45 +14,49 @@ using ModelDTO.LicenseDTOs;
 
 namespace Web.Mapper;
 
+/// <summary>
+/// Configuration for AutoMapper profiles in the GovConnect application.
+/// </summary>
 public class GovConnectMapperConfig : Profile
 {
     public GovConnectMapperConfig()
     {
+        // User mappings
         CreateMap<User, UserDTO>().ReverseMap();
         CreateMap<UpdateUserDTO, UserDTO>().ReverseMap();
         CreateMap<User, RegisterDTO>().ReverseMap();
- 
-        //@@CountryDTOs
+
+        // CountryDTOs mappings
         CreateMap<CountryDTO, Country>().ReverseMap();
         CreateMap<UpdateCountryRequest, Country>().ReverseMap();
         CreateMap<CreateCountryRequest, Country>();
-        CreateMap<Country, CreateCountryRequest>();
+        CreateMap<CreateCountryRequest, Country>();
 
-        //@@ServicePurpose
+        // ServicePurpose mappings
         CreateMap<ServicePurposeDTO, ServicePurpose>().ReverseMap();
         CreateMap<CreateServicePurposeRequest, ServicePurpose>().ReverseMap();
 
-        //@@ServiceCategory
+        // ServiceCategory mappings
         CreateMap<ServiceCategoryDTO, ServiceCategory>().ReverseMap();
         CreateMap<CreateServiceCategoryRequest, ServiceCategory>().ReverseMap();
 
-        //@@ServiceFees
+        // ServiceFees mappings
         CreateMap<ServiceFeesDTO, ServiceCategory>().ReverseMap();
 
-        //@@DrivingLicenseApplication
+        // DrivingLicenseApplication mappings
         CreateMap<CreateLocalDrivingLicenseApplicationRequest, LocalDrivingLicenseApplication>().ReverseMap();
         CreateMap<CreateInternationalDrivingLicenseApplicationRequest, InternationalDrivingLicenseApplication>().ReverseMap();
 
-
-        //@@User
+        // Application mappings for User
         CreateMap<Application, CreateApplicationRequest>().ReverseMap();
         CreateMap<Application, ApplicationDTOForUser>().ReverseMap();
         CreateMap<Application, UpdateApplicationByUser>().ReverseMap();
-        //@@Employees
+
+        // Application mappings for Employees
         CreateMap<Application, ApplicationDTOForEmployee>().ReverseMap();
-        CreateMap<Application, UpdateApplicationByEmployee>().ReverseMap(); 
- 
-        //@@License
+        CreateMap<Application, UpdateApplicationByEmployee>().ReverseMap();
+
+        // License mappings
         CreateMap<LocalDrivingLicense, LocalDrivingLicenseDTO>().ReverseMap();
         CreateMap<DetainedLicense, DetainedLicenseDTO>().ReverseMap();
     }
