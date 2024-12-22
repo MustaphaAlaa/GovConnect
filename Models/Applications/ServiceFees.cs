@@ -18,7 +18,7 @@ public class ServiceFees
 
     [Required] public DateTime LastUpdate { get; set; }
 
-    public ServicePurpose ApplicationPurpose { get; set; }
+    public ServicePurpose ServicePurpose { get; set; }
     public ServiceCategory ServiceCategory { get; set; }
     public ICollection<Application> Applications { get; set; }
 }

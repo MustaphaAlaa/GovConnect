@@ -240,12 +240,12 @@ namespace DataConfigurations.Migrations
                         new
                         {
                             ServiceCategoryId = (short)1,
-                            Category = "LocalLicense"
+                            Category = "Local_Driving_License"
                         },
                         new
                         {
                             ServiceCategoryId = (short)2,
-                            Category = "InternationalLicense"
+                            Category = "International_Driving_License"
                         },
                         new
                         {
@@ -255,7 +255,7 @@ namespace DataConfigurations.Migrations
                         new
                         {
                             ServiceCategoryId = (short)4,
-                            Category = "InternationalLicense"
+                            Category = "International_Driving_License"
                         });
                 });
 
@@ -312,17 +312,17 @@ namespace DataConfigurations.Migrations
                         new
                         {
                             ServicePurposeId = (byte)3,
-                            Purpose = "ReplacementForDamage"
+                            Purpose = "Replacement_For_Damage"
                         },
                         new
                         {
                             ServicePurposeId = (byte)4,
-                            Purpose = "ReplacementForLost"
+                            Purpose = "Replacement_For_Lost"
                         },
                         new
                         {
                             ServicePurposeId = (byte)6,
-                            Purpose = "RetakeTest"
+                            Purpose = "Retake_Test"
                         });
                 });
 
@@ -461,7 +461,7 @@ namespace DataConfigurations.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Models.LicenseModels.LocalDrivingLicense", b =>
+            modelBuilder.Entity("Models.LicenseModels.Local_Driving_License", b =>
                 {
                     b.Property<int>("LocalDrivingLicenseId")
                         .ValueGeneratedOnAdd()
@@ -2131,7 +2131,7 @@ namespace DataConfigurations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.LicenseModels.LocalDrivingLicense", "LocalDrivingLicense")
+                    b.HasOne("Models.LicenseModels.Local_Driving_License", "Local_Driving_License")
                         .WithMany()
                         .HasForeignKey("LicenseId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2139,7 +2139,7 @@ namespace DataConfigurations.Migrations
 
                     b.Navigation("Application");
 
-                    b.Navigation("LocalDrivingLicense");
+                    b.Navigation("Local_Driving_License");
                 });
 
             modelBuilder.Entity("Models.ApplicationModels.LocalDrivingLicenseApplication", b =>
@@ -2194,7 +2194,7 @@ namespace DataConfigurations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.LicenseModels.LocalDrivingLicense", "LocalDrivingLicense")
+                    b.HasOne("Models.LicenseModels.Local_Driving_License", "Local_Driving_License")
                         .WithMany()
                         .HasForeignKey("LicenseId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2210,7 +2210,7 @@ namespace DataConfigurations.Migrations
 
                     b.Navigation("CreatedBy");
 
-                    b.Navigation("LocalDrivingLicense");
+                    b.Navigation("Local_Driving_License");
 
                     b.Navigation("ReleasedBy");
                 });
@@ -2223,7 +2223,7 @@ namespace DataConfigurations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.LicenseModels.LocalDrivingLicense", "LocalDrivingLicense")
+                    b.HasOne("Models.LicenseModels.Local_Driving_License", "Local_Driving_License")
                         .WithMany()
                         .HasForeignKey("LocalDrivingLicenseId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2231,12 +2231,12 @@ namespace DataConfigurations.Migrations
 
                     b.Navigation("InternationalDrivingLicenseApplication");
 
-                    b.Navigation("LocalDrivingLicense");
+                    b.Navigation("Local_Driving_License");
                 });
 
-            modelBuilder.Entity("Models.LicenseModels.LocalDrivingLicense", b =>
+            modelBuilder.Entity("Models.LicenseModels.Local_Driving_License", b =>
                 {
-                    b.HasOne("Models.LicenseModels.LocalDrivingLicense", "DrivingLicenseApplication")
+                    b.HasOne("Models.LicenseModels.Local_Driving_License", "DrivingLicenseApplication")
                         .WithMany()
                         .HasForeignKey("ApplicationId")
                         .OnDelete(DeleteBehavior.Cascade)

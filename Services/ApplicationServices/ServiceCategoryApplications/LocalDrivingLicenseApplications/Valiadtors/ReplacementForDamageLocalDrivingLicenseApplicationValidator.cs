@@ -15,7 +15,7 @@ namespace Services.ApplicationServices.ServiceCategoryApplications;
 
 public class ReplacementForDamageLocalDrivingLicenseApplicationValidator : CreateApplicationServiceValidator, IReplacementForDamageLocalDrivingLicenseApplicationValidator
 {
-    private const byte replacementDamage = (byte)EnServicePurpose.ReplacementForDamage;
+    private const byte replacementDamage = (byte)EnServicePurpose.Replacement_For_Damage;
     private readonly ICheckApplicationExistenceService _checkApplicationExistenceService;
     private readonly IPendingOrInProgressApplicationStatus _pendingOrInProgressApplicationStatus;
     private readonly IGetLocalDrivingLicenseByUserId _getLocalDrivingLicenseByUserId;

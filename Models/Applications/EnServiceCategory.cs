@@ -8,10 +8,10 @@ namespace Models.ApplicationModels
 {
     public enum EnServiceCategory
     {
-        LocalLicense = 1,
-        InternationalLicense = 2,
+        Local_Driving_License = 1,
+        International_Driving_License = 2,
         Passport = 3,
-        NationalNumberId = 4,
+        National_Identity_Card = 4,
 
     }
 }

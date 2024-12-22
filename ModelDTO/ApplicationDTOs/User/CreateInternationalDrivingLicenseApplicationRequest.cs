@@ -13,7 +13,7 @@ public class CreateInternationalDrivingLicenseApplicationRequest : CreateApplica
     public override short ServiceCategoryId
     {
         get { return _serviceCategoryId; }
-        set { _serviceCategoryId = (short)EnServiceCategory.InternationalLicense; }
+        set { _serviceCategoryId = (short)EnServiceCategory.International_Driving_License; }
     }
 
     //PassprotData....

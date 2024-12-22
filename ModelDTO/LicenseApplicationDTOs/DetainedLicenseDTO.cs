@@ -9,7 +9,7 @@ public class DetainedLicenseDTO
 {
     public int DetainedLicenseId { get; set; }
 
-    [Required][ForeignKey("LocalDrivingLicense")] public int LicenseId { get; set; }
+    [Required][ForeignKey("Local_Driving_License")] public int LicenseId { get; set; }
 
     [Required] public DateTime DetainDate { get; set; }
 

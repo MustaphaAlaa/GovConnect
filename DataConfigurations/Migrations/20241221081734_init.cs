@@ -681,10 +681,10 @@ namespace DataConfigurations.Migrations
                 columns: new[] { "ServiceCategoryId", "Category" },
                 values: new object[,]
                 {
-                    { (short)1, "LocalLicense" },
-                    { (short)2, "InternationalLicense" },
+                    { (short)1, "Local Driving License" },
+                    { (short)2, "International Driving License" },
                     { (short)3, "Passport" },
-                    { (short)4, "InternationalLicense" }
+                    { (short)4, "International Driving License" }
                 });
 
             migrationBuilder.InsertData(
@@ -694,10 +694,10 @@ namespace DataConfigurations.Migrations
                 {
                     { (byte)1, "New" },
                     { (byte)2, "Renew" },
-                    { (byte)3, "ReplacementForDamage" },
-                    { (byte)4, "ReplacementForLost" },
+                    { (byte)3, "Replacement For Damage" },
+                    { (byte)4, "Replacement For Lost" },
                     { (byte)5, "Release" },
-                    { (byte)6, "RetakeTest" }
+                    { (byte)6, "Retake Test" }
                 });
 
             migrationBuilder.CreateIndex(

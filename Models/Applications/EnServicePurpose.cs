@@ -4,8 +4,8 @@ public enum EnServicePurpose
 {
     New = 1,
     Renew,
-    ReplacementForDamage,
-    ReplacementForLost,
+    Replacement_For_Damage,
+    Replacement_For_Lost,
     Release,
-    RetakeTest
+    Retake_Test
 }

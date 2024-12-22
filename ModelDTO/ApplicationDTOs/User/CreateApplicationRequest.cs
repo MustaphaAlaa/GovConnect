@@ -27,16 +27,16 @@ public abstract class CreateApplicationRequest
         {
             switch (ServiceCategoryId)
             {
-                case (short)EnServiceCategory.InternationalLicense:
+                case (short)EnServiceCategory.International_Driving_License:
                     _isFirstTime = true;
                     break;
-                case (short)EnServiceCategory.LocalLicense:
+                case (short)EnServiceCategory.Local_Driving_License:
                     _isFirstTime = true;
                     break;
                 case (short)EnServiceCategory.Passport:
                     _isFirstTime = true;
                     break;
-                case (short)EnServiceCategory.NationalNumberId:
+                case (short)EnServiceCategory.National_Identity_Card:
                     _isFirstTime = true;
                     break;
                 default:

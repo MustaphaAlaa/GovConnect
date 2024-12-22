@@ -20,7 +20,7 @@ public class InternationalDrivingLicense
         private set => value = LocalDrivingLicense.LicenseClass.LicenseClassId;
     }
 
-    [Required] [ForeignKey("LocalDrivingLicense")] public int LocalDrivingLicenseId { get; set; }
+    [Required] [ForeignKey("Local_Driving_License")] public int LocalDrivingLicenseId { get; set; }
 
     public InternationalDrivingLicenseApplication InternationalDrivingLicenseApplication { get; set; }
     public LocalDrivingLicense LocalDrivingLicense { get; set; }

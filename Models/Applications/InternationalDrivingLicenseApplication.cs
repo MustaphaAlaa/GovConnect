@@ -12,7 +12,7 @@ public class InternationalDrivingLicenseApplication
     [Key] public int Id { get; set; }
 
     [Required][ForeignKey("Application")] public int ApplicationId { get; set; }
-    [Required][ForeignKey("LocalDrivingLicense")] public int LicenseId { get; set; }
+    [Required][ForeignKey("Local_Driving_License")] public int LicenseId { get; set; }
     //[Required][ForeignKey("Passport")] public int PassportId { get; set; }
 
 

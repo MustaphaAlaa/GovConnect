@@ -54,7 +54,7 @@ namespace GovConnect_Tests.CountryServices
             };
 
             List<CountryDTO> countryDTOs = countries
-                              .Select(c => new CountryDTO { Id = c.CountryId, CountryName = c.CountryName })
+                              .Select(c => new CountryDTO { CountryCode = c.CountryCode, CountryName = c.CountryName })
                               .ToList();
 
             _getAllRepositoryMock.Setup(temp => temp.GetAllAsync()).ReturnsAsync(countries);
@@ -63,7 +63,7 @@ namespace GovConnect_Tests.CountryServices
                    .Returns((Country source) => new CountryDTO
                    {
                        CountryName = source.CountryName,
-                       Id = source.CountryId
+                       CountryCode = source.CountryCode
                    });
 
 
@@ -142,13 +142,13 @@ namespace GovConnect_Tests.CountryServices
             Expression<Func<Country, bool>> expression = country => country.CountryId > 45;
 
             _mapper.Setup(m => m.Map<CountryDTO>(It.IsAny<Country>()))
-                .Returns((Country countrySource) => new CountryDTO() { Id = countrySource.CountryId, CountryName = countrySource.CountryName });
+                .Returns((Country countrySource) => new CountryDTO() { CountryCode = countrySource.CountryCode, CountryName = countrySource.CountryName });
 
             IQueryable<Country> SelectedCountries = countries.AsQueryable().Where(expression);
 
             IQueryable<CountryDTO> Expected = countries.AsQueryable()
                                                         .Where(expression)
-                                                        .Select(c => new CountryDTO { Id = c.CountryId, CountryName = c.CountryName });
+                                                        .Select(c => new CountryDTO { CountryCode = c.CountryCode, CountryName = c.CountryName });
 
             _getAllRepositoryMock.Setup(temp => temp.GetAllAsync(expression)).ReturnsAsync(SelectedCountries);
 
@@ -178,7 +178,7 @@ namespace GovConnect_Tests.CountryServices
             IQueryable<Country> SelectedCountries = countries.AsQueryable().Where(expression);
 
             _mapper.Setup(m => m.Map<CountryDTO>(It.IsAny<Country>()))
-                .Returns((Country countrySource) => new CountryDTO() { Id = countrySource.CountryId, CountryName = countrySource.CountryName });
+                .Returns((Country countrySource) => new CountryDTO() { CountryCode = countrySource.CountryCode, CountryName = countrySource.CountryName });
 
             _getAllRepositoryMock.Setup(temp => temp.GetAllAsync(expression)).ReturnsAsync(SelectedCountries);
 

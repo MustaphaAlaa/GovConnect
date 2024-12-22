@@ -12,7 +12,7 @@ public class CreateLocalDrivingLicenseApplicationRequest : CreateApplicationRequ
     public override short ServiceCategoryId
     {
         get { return _serviceCategoryId; }
-        set { _serviceCategoryId = (short)EnServiceCategory.LocalLicense; }
+        set { _serviceCategoryId = (short)EnServiceCategory.Local_Driving_License; }
 
     }
 }
