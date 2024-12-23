@@ -40,7 +40,7 @@ public class Application
 
     public decimal PaidFees { get; set; }
 
-    [Required] public byte ApplicationPurposeId { get; set; }
+    [Required] public byte ServicePurposeId { get; set; }
     [Required] public short ServiceCategoryId { get; set; }
 
     [ForeignKey("Employee")] public Guid? UpdatedByEmployeeId { get; set; }

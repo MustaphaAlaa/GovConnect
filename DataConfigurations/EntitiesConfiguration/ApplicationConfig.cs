@@ -9,7 +9,7 @@ namespace DataConfigurations.EntitiesConfiguration
     {
         public void Configure(EntityTypeBuilder<Application> builder)
         {
-            builder.Property(app => app.ApplicationPurposeId).HasColumnName("ServicePurposeId");
+            builder.Property(app => app.ServicePurposeId).HasColumnName("ServicePurposeId");
         }
     }
 }

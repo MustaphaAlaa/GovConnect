@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataConfigurations.Migrations
 {
     [DbContext(typeof(GovConnectDbContext))]
-    [Migration("20241221101541_insert-all-countries")]
-    partial class insertallcountries
+    [Migration("20241223081713_insert-licnseClass-data")]
+    partial class insertlicnseClassdata
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -139,9 +139,6 @@ namespace DataConfigurations.Migrations
                     b.Property<DateTime>("ApplicationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<byte>("ServicePurposeId")
-                        .HasColumnType("tinyint");
-
                     b.Property<byte>("ApplicationStatus")
                         .HasColumnType("tinyint");
 
@@ -153,6 +150,10 @@ namespace DataConfigurations.Migrations
 
                     b.Property<short>("ServiceCategoryId")
                         .HasColumnType("smallint");
+
+                    b.Property<byte>("ServicePurposeId")
+                        .HasColumnType("tinyint")
+                        .HasColumnName("ServicePurposeId");
 
                     b.Property<Guid?>("UpdatedByEmployeeId")
                         .HasColumnType("uniqueidentifier");
@@ -185,11 +186,14 @@ namespace DataConfigurations.Migrations
                     b.Property<int>("LicenseId")
                         .HasColumnType("int");
 
+                    b.Property<int>("LocalDrivingLicenseId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationId");
 
-                    b.HasIndex("LicenseId");
+                    b.HasIndex("LocalDrivingLicenseId");
 
                     b.ToTable("InternationalDrivingLicenseApplications");
                 });
@@ -205,11 +209,12 @@ namespace DataConfigurations.Migrations
                     b.Property<int>("ApplicationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ReasonForTheApplication")
-                        .HasColumnType("int");
-
                     b.Property<short>("LicenseClassId")
                         .HasColumnType("smallint");
+
+                    b.Property<string>("ReasonForTheApplication")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -240,12 +245,12 @@ namespace DataConfigurations.Migrations
                         new
                         {
                             ServiceCategoryId = (short)1,
-                            Category = "Local_Driving_License"
+                            Category = "Local Driving License"
                         },
                         new
                         {
                             ServiceCategoryId = (short)2,
-                            Category = "International_Driving_License"
+                            Category = "International Driving License"
                         },
                         new
                         {
@@ -255,7 +260,7 @@ namespace DataConfigurations.Migrations
                         new
                         {
                             ServiceCategoryId = (short)4,
-                            Category = "International_Driving_License"
+                            Category = "National Identity Card"
                         });
                 });
 
@@ -278,6 +283,134 @@ namespace DataConfigurations.Migrations
                     b.HasIndex("ServiceCategoryId");
 
                     b.ToTable("ServicesFees");
+
+                    b.HasData(
+                        new
+                        {
+                            ServicePurposeId = (byte)1,
+                            ServiceCategoryId = (short)1,
+                            Fees = 0m,
+                            LastUpdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ServicePurposeId = (byte)2,
+                            ServiceCategoryId = (short)1,
+                            Fees = 0m,
+                            LastUpdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ServicePurposeId = (byte)5,
+                            ServiceCategoryId = (short)1,
+                            Fees = 0m,
+                            LastUpdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ServicePurposeId = (byte)6,
+                            ServiceCategoryId = (short)1,
+                            Fees = 0m,
+                            LastUpdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ServicePurposeId = (byte)3,
+                            ServiceCategoryId = (short)1,
+                            Fees = 0m,
+                            LastUpdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ServicePurposeId = (byte)4,
+                            ServiceCategoryId = (short)1,
+                            Fees = 0m,
+                            LastUpdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ServicePurposeId = (byte)1,
+                            ServiceCategoryId = (short)2,
+                            Fees = 0m,
+                            LastUpdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ServicePurposeId = (byte)2,
+                            ServiceCategoryId = (short)2,
+                            Fees = 0m,
+                            LastUpdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ServicePurposeId = (byte)3,
+                            ServiceCategoryId = (short)2,
+                            Fees = 0m,
+                            LastUpdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ServicePurposeId = (byte)4,
+                            ServiceCategoryId = (short)2,
+                            Fees = 0m,
+                            LastUpdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ServicePurposeId = (byte)1,
+                            ServiceCategoryId = (short)3,
+                            Fees = 0m,
+                            LastUpdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ServicePurposeId = (byte)2,
+                            ServiceCategoryId = (short)3,
+                            Fees = 0m,
+                            LastUpdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ServicePurposeId = (byte)3,
+                            ServiceCategoryId = (short)3,
+                            Fees = 0m,
+                            LastUpdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ServicePurposeId = (byte)4,
+                            ServiceCategoryId = (short)3,
+                            Fees = 0m,
+                            LastUpdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ServicePurposeId = (byte)1,
+                            ServiceCategoryId = (short)4,
+                            Fees = 0m,
+                            LastUpdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ServicePurposeId = (byte)2,
+                            ServiceCategoryId = (short)4,
+                            Fees = 0m,
+                            LastUpdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ServicePurposeId = (byte)3,
+                            ServiceCategoryId = (short)4,
+                            Fees = 0m,
+                            LastUpdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ServicePurposeId = (byte)4,
+                            ServiceCategoryId = (short)4,
+                            Fees = 0m,
+                            LastUpdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Models.ApplicationModels.ServicePurpose", b =>
@@ -306,23 +439,23 @@ namespace DataConfigurations.Migrations
                         },
                         new
                         {
+                            ServicePurposeId = (byte)3,
+                            Purpose = "Replacement For Damage"
+                        },
+                        new
+                        {
+                            ServicePurposeId = (byte)4,
+                            Purpose = "Replacement For Lost"
+                        },
+                        new
+                        {
                             ServicePurposeId = (byte)5,
                             Purpose = "Release"
                         },
                         new
                         {
-                            ServicePurposeId = (byte)3,
-                            Purpose = "Replacement_For_Damage"
-                        },
-                        new
-                        {
-                            ServicePurposeId = (byte)4,
-                            Purpose = "Replacement_For_Lost"
-                        },
-                        new
-                        {
                             ServicePurposeId = (byte)6,
-                            Purpose = "Retake_Test"
+                            Purpose = "Retake Test"
                         });
                 });
 
@@ -352,6 +485,9 @@ namespace DataConfigurations.Migrations
                     b.Property<int>("LicenseId")
                         .HasColumnType("int");
 
+                    b.Property<int>("LocalDrivingLicenseId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ReleaseApplicationId")
                         .HasColumnType("int");
 
@@ -367,7 +503,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("CreatedByEmployee");
 
-                    b.HasIndex("LicenseId");
+                    b.HasIndex("LocalDrivingLicenseId");
 
                     b.HasIndex("ReleasedByEmployee");
 
@@ -428,6 +564,107 @@ namespace DataConfigurations.Migrations
                     b.HasKey("LicenseClassId");
 
                     b.ToTable("LicenseClasses");
+
+                    b.HasData(
+                        new
+                        {
+                            LicenseClassId = (short)1,
+                            ClassDescription = "Permits non-professional drivers to operate private vehicles, tourist taxis, agricultural tractors for personal use, and light transport vehicles up to 2000 kg",
+                            ClassName = "Private Driver License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 120.00m,
+                            MinimumAllowedAge = (byte)18
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)2,
+                            ClassDescription = "For professional drivers to operate taxis and buses up to 17 passengers, in addition to all vehicles permitted under private license",
+                            ClassName = "Third Class License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 150.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)3,
+                            ClassDescription = "Permits operation of taxis, buses (17-26 passengers), transport vehicles, and heavy equipment. Requires 3 years experience with Third Class License",
+                            ClassName = "Second Class License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 180.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)4,
+                            ClassDescription = "Permits operation of all vehicle types. Requires 3 years experience with Second Class License",
+                            ClassName = "First Class License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 200.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)5,
+                            ClassDescription = "Permits operation of single tractors or those with agricultural trailers",
+                            ClassName = "Agricultural Tractor License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 100.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)6,
+                            ClassDescription = "Permits operation of metro trains and tram vehicles",
+                            ClassName = "Metro/Tram License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 150.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)7,
+                            ClassDescription = "Permits non-professional operation of motorcycles",
+                            ClassName = "Private Motorcycle License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 80.00m,
+                            MinimumAllowedAge = (byte)18
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)10,
+                            ClassDescription = "Permits operation of military vehicles, issued exclusively to armed forces personnel",
+                            ClassName = "Military License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 0.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)11,
+                            ClassDescription = "Permits operation of police vehicles, issued exclusively to police personnel",
+                            ClassName = "Police License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 0.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)12,
+                            ClassDescription = "Issued to individuals responsible for testing rapid transport vehicles",
+                            ClassName = "Test Driving License",
+                            DefaultValidityLengthInMonths = 12,
+                            LicenseClassFees = 100.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)13,
+                            ClassDescription = "Temporary permit for individuals learning to drive vehicles",
+                            ClassName = "Learner Permit",
+                            DefaultValidityLengthInMonths = 3,
+                            LicenseClassFees = 50.00m,
+                            MinimumAllowedAge = (byte)18
+                        });
                 });
 
             modelBuilder.Entity("Models.LicenseModels.LicenseType", b =>
@@ -461,7 +698,7 @@ namespace DataConfigurations.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Models.LicenseModels.Local_Driving_License", b =>
+            modelBuilder.Entity("Models.LicenseModels.LocalDrivingLicense", b =>
                 {
                     b.Property<int>("LocalDrivingLicenseId")
                         .ValueGeneratedOnAdd()
@@ -487,9 +724,6 @@ namespace DataConfigurations.Migrations
                     b.Property<DateTime>("ExpiryDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<byte>("IssueReason")
                         .HasColumnType("tinyint");
 
@@ -498,6 +732,9 @@ namespace DataConfigurations.Migrations
 
                     b.Property<short>("LicenseClassId")
                         .HasColumnType("smallint");
+
+                    b.Property<int>("LicenseStatus")
+                        .HasColumnType("int");
 
                     b.Property<string>("Notes")
                         .IsRequired()
@@ -1130,12 +1367,6 @@ namespace DataConfigurations.Migrations
                             CountryId = 81,
                             CountryCode = "IRL",
                             CountryName = "Ireland"
-                        },
-                        new
-                        {
-                            CountryId = 82,
-                            CountryCode = "ISR",
-                            CountryName = "Israel"
                         },
                         new
                         {
@@ -1919,9 +2150,6 @@ namespace DataConfigurations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("EmployeeTypeId")
-                        .HasColumnType("int");
-
                     b.Property<Guid>("HiredByAdmin")
                         .HasColumnType("uniqueidentifier");
 
@@ -1932,8 +2160,6 @@ namespace DataConfigurations.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EmployeeTypeId");
 
                     b.HasIndex("HiredByAdmin");
 
@@ -2045,6 +2271,143 @@ namespace DataConfigurations.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                            AccessFailedCount = 0,
+                            Address = "Test Address 1",
+                            BirthDate = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "b3e27cb1-7bfb-4722-bc67-0c9c96c51d4e",
+                            CountryId = 1,
+                            Email = "test1@test.com",
+                            EmailConfirmed = true,
+                            FirstName = "Test",
+                            FourthName = "First",
+                            Gender = 0,
+                            ImagePath = "null",
+                            LockoutEnabled = true,
+                            NationalNo = "1111111111",
+                            NormalizedEmail = "TEST1@TEST.COM",
+                            NormalizedUserName = "TESTUSER1",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPahXcemRXGRxKE3LxhXh/jtLc5gQV31AVLNkX2GAh0xArP6aYtL2TFmDaxZHUXKQw==",
+                            PhoneNumber = "0777777771",
+                            PhoneNumberConfirmed = true,
+                            SecondName = "User",
+                            SecurityStamp = "K2MDKSUEXFG6QCHLCWJLVREVWT7545X2",
+                            ThirdName = "One",
+                            TwoFactorEnabled = false,
+                            UserName = "testuser1"
+                        },
+                        new
+                        {
+                            Id = new Guid("22222222-2222-2222-2222-222222222222"),
+                            AccessFailedCount = 0,
+                            Address = "Test Address 2",
+                            BirthDate = new DateTime(2000, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "44f69173-726f-44d8-b4b0-7695e4bec210",
+                            CountryId = 1,
+                            Email = "test2@test.com",
+                            EmailConfirmed = true,
+                            FirstName = "Test",
+                            FourthName = "Second",
+                            Gender = 1,
+                            ImagePath = "null",
+                            LockoutEnabled = true,
+                            NationalNo = "2222222222",
+                            NormalizedEmail = "TEST2@TEST.COM",
+                            NormalizedUserName = "TESTUSER2",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPahXcemRXGRxKE3LxhXh/jtLc5gQV31AVLNkX2GAh0xArP6aYtL2TFmDaxZHUXKQw==",
+                            PhoneNumber = "0777777772",
+                            PhoneNumberConfirmed = true,
+                            SecondName = "User",
+                            SecurityStamp = "K2MDKSUEXFG6QCHLCWJLVREVWT7545X3",
+                            ThirdName = "Two",
+                            TwoFactorEnabled = false,
+                            UserName = "testuser2"
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333333"),
+                            AccessFailedCount = 0,
+                            Address = "Test Address 3",
+                            BirthDate = new DateTime(2000, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "2f511f41-c3a1-4ebe-a55b-377487fac8b8",
+                            CountryId = 1,
+                            Email = "test3@test.com",
+                            EmailConfirmed = true,
+                            FirstName = "Test",
+                            FourthName = "Third",
+                            Gender = 0,
+                            ImagePath = "null",
+                            LockoutEnabled = true,
+                            NationalNo = "3333333333",
+                            NormalizedEmail = "TEST3@TEST.COM",
+                            NormalizedUserName = "TESTUSER3",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPahXcemRXGRxKE3LxhXh/jtLc5gQV31AVLNkX2GAh0xArP6aYtL2TFmDaxZHUXKQw==",
+                            PhoneNumber = "0777777773",
+                            PhoneNumberConfirmed = true,
+                            SecondName = "User",
+                            SecurityStamp = "K2MDKSUEXFG6QCHLCWJLVREVWT7545X4",
+                            ThirdName = "Three",
+                            TwoFactorEnabled = false,
+                            UserName = "testuser3"
+                        },
+                        new
+                        {
+                            Id = new Guid("44444444-4444-4444-4444-444444444444"),
+                            AccessFailedCount = 0,
+                            Address = "Test Address 4",
+                            BirthDate = new DateTime(2000, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "a98af5d4-731c-489b-851c-86f23c66b3d1",
+                            CountryId = 1,
+                            Email = "test4@test.com",
+                            EmailConfirmed = true,
+                            FirstName = "Test",
+                            FourthName = "Fourth",
+                            Gender = 1,
+                            ImagePath = "null",
+                            LockoutEnabled = true,
+                            NationalNo = "4444444444",
+                            NormalizedEmail = "TEST4@TEST.COM",
+                            NormalizedUserName = "TESTUSER4",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPahXcemRXGRxKE3LxhXh/jtLc5gQV31AVLNkX2GAh0xArP6aYtL2TFmDaxZHUXKQw==",
+                            PhoneNumber = "0777777774",
+                            PhoneNumberConfirmed = true,
+                            SecondName = "User",
+                            SecurityStamp = "K2MDKSUEXFG6QCHLCWJLVREVWT7545X5",
+                            ThirdName = "Four",
+                            TwoFactorEnabled = false,
+                            UserName = "testuser4"
+                        },
+                        new
+                        {
+                            Id = new Guid("55555555-5555-5555-5555-555555555555"),
+                            AccessFailedCount = 0,
+                            Address = "Test Address 5",
+                            BirthDate = new DateTime(2000, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "7c8f2e9b-4c1a-483d-b832-d35cb3f3f287",
+                            CountryId = 1,
+                            Email = "test5@test.com",
+                            EmailConfirmed = true,
+                            FirstName = "Test",
+                            FourthName = "Fifth",
+                            Gender = 0,
+                            ImagePath = "null",
+                            LockoutEnabled = true,
+                            NationalNo = "5555555555",
+                            NormalizedEmail = "TEST5@TEST.COM",
+                            NormalizedUserName = "TESTUSER5",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPahXcemRXGRxKE3LxhXh/jtLc5gQV31AVLNkX2GAh0xArP6aYtL2TFmDaxZHUXKQw==",
+                            PhoneNumber = "0777777775",
+                            PhoneNumberConfirmed = true,
+                            SecondName = "User",
+                            SecurityStamp = "K2MDKSUEXFG6QCHLCWJLVREVWT7545X6",
+                            ThirdName = "Five",
+                            TwoFactorEnabled = false,
+                            UserName = "testuser5"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -2101,11 +2464,11 @@ namespace DataConfigurations.Migrations
             modelBuilder.Entity("Models.ApplicationModels.Application", b =>
                 {
                     b.HasOne("Models.Users.Employee", "Employee")
-                        .WithMany()
+                        .WithMany("Applications")
                         .HasForeignKey("UpdatedByEmployeeId");
 
                     b.HasOne("Models.Users.User", "User")
-                        .WithMany()
+                        .WithMany("Applications")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2131,15 +2494,15 @@ namespace DataConfigurations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.LicenseModels.Local_Driving_License", "Local_Driving_License")
+                    b.HasOne("Models.LicenseModels.LocalDrivingLicense", "LocalDrivingLicense")
                         .WithMany()
-                        .HasForeignKey("LicenseId")
+                        .HasForeignKey("LocalDrivingLicenseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Application");
 
-                    b.Navigation("Local_Driving_License");
+                    b.Navigation("LocalDrivingLicense");
                 });
 
             modelBuilder.Entity("Models.ApplicationModels.LocalDrivingLicenseApplication", b =>
@@ -2169,15 +2532,15 @@ namespace DataConfigurations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.ApplicationModels.ServicePurpose", "ApplicationPurpose")
+                    b.HasOne("Models.ApplicationModels.ServicePurpose", "ServicePurpose")
                         .WithMany()
                         .HasForeignKey("ServicePurposeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ApplicationPurpose");
-
                     b.Navigation("ServiceCategory");
+
+                    b.Navigation("ServicePurpose");
                 });
 
             modelBuilder.Entity("Models.LicenseModels.DetainedLicense", b =>
@@ -2194,9 +2557,9 @@ namespace DataConfigurations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.LicenseModels.Local_Driving_License", "Local_Driving_License")
+                    b.HasOne("Models.LicenseModels.LocalDrivingLicense", "LocalDrivingLicense")
                         .WithMany()
-                        .HasForeignKey("LicenseId")
+                        .HasForeignKey("LocalDrivingLicenseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2210,7 +2573,7 @@ namespace DataConfigurations.Migrations
 
                     b.Navigation("CreatedBy");
 
-                    b.Navigation("Local_Driving_License");
+                    b.Navigation("LocalDrivingLicense");
 
                     b.Navigation("ReleasedBy");
                 });
@@ -2223,7 +2586,7 @@ namespace DataConfigurations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.LicenseModels.Local_Driving_License", "Local_Driving_License")
+                    b.HasOne("Models.LicenseModels.LocalDrivingLicense", "LocalDrivingLicense")
                         .WithMany()
                         .HasForeignKey("LocalDrivingLicenseId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2231,19 +2594,19 @@ namespace DataConfigurations.Migrations
 
                     b.Navigation("InternationalDrivingLicenseApplication");
 
-                    b.Navigation("Local_Driving_License");
+                    b.Navigation("LocalDrivingLicense");
                 });
 
-            modelBuilder.Entity("Models.LicenseModels.Local_Driving_License", b =>
+            modelBuilder.Entity("Models.LicenseModels.LocalDrivingLicense", b =>
                 {
-                    b.HasOne("Models.LicenseModels.Local_Driving_License", "DrivingLicenseApplication")
+                    b.HasOne("Models.LicenseModels.LocalDrivingLicense", "DrivingLicenseApplication")
                         .WithMany()
                         .HasForeignKey("ApplicationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Models.Types.Country", "Country")
-                        .WithMany()
+                        .WithMany("localDrivingLicenses")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2367,12 +2730,8 @@ namespace DataConfigurations.Migrations
 
             modelBuilder.Entity("Models.Users.Employee", b =>
                 {
-                    b.HasOne("Models.Types.EmployeeType", null)
-                        .WithMany("Employee")
-                        .HasForeignKey("EmployeeTypeId");
-
                     b.HasOne("Models.Users.Admin", "Admin")
-                        .WithMany()
+                        .WithMany("employees")
                         .HasForeignKey("HiredByAdmin")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2412,11 +2771,23 @@ namespace DataConfigurations.Migrations
             modelBuilder.Entity("Models.Types.Country", b =>
                 {
                     b.Navigation("Users");
+
+                    b.Navigation("localDrivingLicenses");
                 });
 
-            modelBuilder.Entity("Models.Types.EmployeeType", b =>
+            modelBuilder.Entity("Models.Users.Admin", b =>
                 {
-                    b.Navigation("Employee");
+                    b.Navigation("employees");
+                });
+
+            modelBuilder.Entity("Models.Users.Employee", b =>
+                {
+                    b.Navigation("Applications");
+                });
+
+            modelBuilder.Entity("Models.Users.User", b =>
+                {
+                    b.Navigation("Applications");
                 });
 #pragma warning restore 612, 618
         }

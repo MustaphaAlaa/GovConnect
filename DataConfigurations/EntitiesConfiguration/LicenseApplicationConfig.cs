@@ -10,7 +10,7 @@ public class LicenseApplicationConfig : IEntityTypeConfiguration<Application>
     {
         builder.HasOne(app => app.ServiceFees)
             .WithMany(fees => fees.Applications)
-            .HasForeignKey(appFees => new { ApplicationTypeId = appFees.ApplicationPurposeId, ApplicationForId = appFees.ServiceCategoryId });
+            .HasForeignKey(appFees => new { ApplicationTypeId = appFees.ServicePurposeId, ApplicationForId = appFees.ServiceCategoryId });
 
     }
 }

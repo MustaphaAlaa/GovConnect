@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Models.LicenseModels;
 using Models.Users;
 
 namespace Models.Types;
@@ -9,5 +10,6 @@ public class Country
     public int CountryId { get; set; }
     [Required] public string CountryName { get; set; }
     [Required] public string CountryCode { get; set; }
-    public List<User> Users { get; set; }
+    public IEnumerable<User> Users { get; set; }
+    public IEnumerable<LocalDrivingLicense> localDrivingLicenses { get; set; }
 }

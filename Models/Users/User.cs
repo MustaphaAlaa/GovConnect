@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
+using Models.ApplicationModels;
 using Models.Drivers;
 using Models.Types;
 
@@ -24,4 +25,5 @@ public class User : IdentityUser<Guid>
     public DateTime BirthDate { get; set; }
 
     public Country Country { get; set; }
+    public IEnumerable<Application> Applications { get; set; }
 }

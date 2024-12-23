@@ -198,7 +198,7 @@ public class UpdateApplicationByUserTEST
         {
             ApplicationId = updateRequest.Id,
             UserId = updateRequest.ApplicantUserId,
-            ApplicationPurposeId = updateRequest.ApplicationPurposeId,
+            ServicePurposeId = updateRequest.ApplicationPurposeId,
             ServiceCategoryId = updateRequest.ServiceCategoryId,
         };
 
@@ -208,7 +208,7 @@ public class UpdateApplicationByUserTEST
         {
             ApplicationId = updateRequest.Id,
             ApplicantUserId = updatedApplication.UserId,
-            ApplicationPurposeId = updatedApplication.ApplicationPurposeId,
+            ApplicationPurposeId = updatedApplication.ServicePurposeId,
             ServiceCategoryId = updatedApplication.ServiceCategoryId,
             LastStatusDate = updatedApplication.LastStatusDate,
             ApplicationStatus = updatedApplication.ApplicationStatus,

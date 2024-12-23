@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataConfigurations.Migrations
 {
     [DbContext(typeof(GovConnectDbContext))]
-    [Migration("20241222162657_Insert-user-Fake-Data")]
-    partial class InsertuserFakeData
+    [Migration("20241223081018_drop-isActive-and-create-LicenseStatusColumn")]
+    partial class dropisActiveandcreateLicenseStatusColumn
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -139,9 +139,6 @@ namespace DataConfigurations.Migrations
                     b.Property<DateTime>("ApplicationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<byte>("ServicePurposeId")
-                        .HasColumnType("tinyint");
-
                     b.Property<byte>("ApplicationStatus")
                         .HasColumnType("tinyint");
 
@@ -153,6 +150,10 @@ namespace DataConfigurations.Migrations
 
                     b.Property<short>("ServiceCategoryId")
                         .HasColumnType("smallint");
+
+                    b.Property<byte>("ServicePurposeId")
+                        .HasColumnType("tinyint")
+                        .HasColumnName("ServicePurposeId");
 
                     b.Property<Guid?>("UpdatedByEmployeeId")
                         .HasColumnType("uniqueidentifier");
@@ -208,11 +209,12 @@ namespace DataConfigurations.Migrations
                     b.Property<int>("ApplicationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ReasonForTheApplication")
-                        .HasColumnType("int");
-
                     b.Property<short>("LicenseClassId")
                         .HasColumnType("smallint");
+
+                    b.Property<string>("ReasonForTheApplication")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -621,9 +623,6 @@ namespace DataConfigurations.Migrations
                     b.Property<DateTime>("ExpiryDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<byte>("IssueReason")
                         .HasColumnType("tinyint");
 
@@ -632,6 +631,9 @@ namespace DataConfigurations.Migrations
 
                     b.Property<short>("LicenseClassId")
                         .HasColumnType("smallint");
+
+                    b.Property<int>("LicenseStatus")
+                        .HasColumnType("int");
 
                     b.Property<string>("Notes")
                         .IsRequired()
@@ -2047,9 +2049,6 @@ namespace DataConfigurations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("EmployeeTypeId")
-                        .HasColumnType("int");
-
                     b.Property<Guid>("HiredByAdmin")
                         .HasColumnType("uniqueidentifier");
 
@@ -2060,8 +2059,6 @@ namespace DataConfigurations.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EmployeeTypeId");
 
                     b.HasIndex("HiredByAdmin");
 
@@ -2366,11 +2363,11 @@ namespace DataConfigurations.Migrations
             modelBuilder.Entity("Models.ApplicationModels.Application", b =>
                 {
                     b.HasOne("Models.Users.Employee", "Employee")
-                        .WithMany()
+                        .WithMany("Applications")
                         .HasForeignKey("UpdatedByEmployeeId");
 
                     b.HasOne("Models.Users.User", "User")
-                        .WithMany()
+                        .WithMany("Applications")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2508,7 +2505,7 @@ namespace DataConfigurations.Migrations
                         .IsRequired();
 
                     b.HasOne("Models.Types.Country", "Country")
-                        .WithMany()
+                        .WithMany("localDrivingLicenses")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2632,12 +2629,8 @@ namespace DataConfigurations.Migrations
 
             modelBuilder.Entity("Models.Users.Employee", b =>
                 {
-                    b.HasOne("Models.Types.EmployeeType", null)
-                        .WithMany("Employee")
-                        .HasForeignKey("EmployeeTypeId");
-
                     b.HasOne("Models.Users.Admin", "Admin")
-                        .WithMany()
+                        .WithMany("employees")
                         .HasForeignKey("HiredByAdmin")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2677,11 +2670,23 @@ namespace DataConfigurations.Migrations
             modelBuilder.Entity("Models.Types.Country", b =>
                 {
                     b.Navigation("Users");
+
+                    b.Navigation("localDrivingLicenses");
                 });
 
-            modelBuilder.Entity("Models.Types.EmployeeType", b =>
+            modelBuilder.Entity("Models.Users.Admin", b =>
                 {
-                    b.Navigation("Employee");
+                    b.Navigation("employees");
+                });
+
+            modelBuilder.Entity("Models.Users.Employee", b =>
+                {
+                    b.Navigation("Applications");
+                });
+
+            modelBuilder.Entity("Models.Users.User", b =>
+                {
+                    b.Navigation("Applications");
                 });
 #pragma warning restore 612, 618
         }

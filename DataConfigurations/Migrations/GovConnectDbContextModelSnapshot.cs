@@ -149,7 +149,8 @@ namespace DataConfigurations.Migrations
                         .HasColumnType("smallint");
 
                     b.Property<byte>("ServicePurposeId")
-                        .HasColumnType("tinyint");
+                        .HasColumnType("tinyint")
+                        .HasColumnName("ServicePurposeId");
 
                     b.Property<Guid?>("UpdatedByEmployeeId")
                         .HasColumnType("uniqueidentifier");
@@ -165,7 +166,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("ServicePurposeId", "ServiceCategoryId");
 
-                    b.ToTable("Applicataions", (string)null);
+                    b.ToTable("Applicataions");
                 });
 
             modelBuilder.Entity("Models.ApplicationModels.InternationalDrivingLicenseApplication", b =>
@@ -191,7 +192,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("LocalDrivingLicenseId");
 
-                    b.ToTable("InternationalDrivingLicenseApplications", (string)null);
+                    b.ToTable("InternationalDrivingLicenseApplications");
                 });
 
             modelBuilder.Entity("Models.ApplicationModels.LocalDrivingLicenseApplication", b =>
@@ -218,7 +219,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("LicenseClassId");
 
-                    b.ToTable("LocalDrivingLicenseApplications", (string)null);
+                    b.ToTable("LocalDrivingLicenseApplications");
                 });
 
             modelBuilder.Entity("Models.ApplicationModels.ServiceCategory", b =>
@@ -235,7 +236,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasKey("ServiceCategoryId");
 
-                    b.ToTable("ServiceCategories", (string)null);
+                    b.ToTable("ServiceCategories");
 
                     b.HasData(
                         new
@@ -278,7 +279,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("ServiceCategoryId");
 
-                    b.ToTable("ServicesFees", (string)null);
+                    b.ToTable("ServicesFees");
 
                     b.HasData(
                         new
@@ -503,7 +504,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("ReleasedByEmployee");
 
-                    b.ToTable("DetainedLicenses", (string)null);
+                    b.ToTable("DetainedLicenses");
                 });
 
             modelBuilder.Entity("Models.LicenseModels.InternationalDrivingLicense", b =>
@@ -529,7 +530,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("LocalDrivingLicenseId");
 
-                    b.ToTable("InternationalDrivingLicenses", (string)null);
+                    b.ToTable("InternationalDrivingLicenses");
                 });
 
             modelBuilder.Entity("Models.LicenseModels.LicenseClass", b =>
@@ -559,7 +560,108 @@ namespace DataConfigurations.Migrations
 
                     b.HasKey("LicenseClassId");
 
-                    b.ToTable("LicenseClasses", (string)null);
+                    b.ToTable("LicenseClasses");
+
+                    b.HasData(
+                        new
+                        {
+                            LicenseClassId = (short)1,
+                            ClassDescription = "Permits non-professional drivers to operate private vehicles, tourist taxis, agricultural tractors for personal use, and light transport vehicles up to 2000 kg",
+                            ClassName = "Private Driver License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 120.00m,
+                            MinimumAllowedAge = (byte)18
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)2,
+                            ClassDescription = "For professional drivers to operate taxis and buses up to 17 passengers, in addition to all vehicles permitted under private license",
+                            ClassName = "Third Class License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 150.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)3,
+                            ClassDescription = "Permits operation of taxis, buses (17-26 passengers), transport vehicles, and heavy equipment. Requires 3 years experience with Third Class License",
+                            ClassName = "Second Class License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 180.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)4,
+                            ClassDescription = "Permits operation of all vehicle types. Requires 3 years experience with Second Class License",
+                            ClassName = "First Class License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 200.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)5,
+                            ClassDescription = "Permits operation of single tractors or those with agricultural trailers",
+                            ClassName = "Agricultural Tractor License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 100.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)6,
+                            ClassDescription = "Permits operation of metro trains and tram vehicles",
+                            ClassName = "Metro/Tram License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 150.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)7,
+                            ClassDescription = "Permits non-professional operation of motorcycles",
+                            ClassName = "Private Motorcycle License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 80.00m,
+                            MinimumAllowedAge = (byte)18
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)10,
+                            ClassDescription = "Permits operation of military vehicles, issued exclusively to armed forces personnel",
+                            ClassName = "Military License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 0.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)11,
+                            ClassDescription = "Permits operation of police vehicles, issued exclusively to police personnel",
+                            ClassName = "Police License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 0.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)12,
+                            ClassDescription = "Issued to individuals responsible for testing rapid transport vehicles",
+                            ClassName = "Test Driving License",
+                            DefaultValidityLengthInMonths = 12,
+                            LicenseClassFees = 100.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)13,
+                            ClassDescription = "Temporary permit for individuals learning to drive vehicles",
+                            ClassName = "Learner Permit",
+                            DefaultValidityLengthInMonths = 3,
+                            LicenseClassFees = 50.00m,
+                            MinimumAllowedAge = (byte)18
+                        });
                 });
 
             modelBuilder.Entity("Models.LicenseModels.LicenseType", b =>
@@ -576,7 +678,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasKey("LicenseTypeId");
 
-                    b.ToTable("LicenseTypes", (string)null);
+                    b.ToTable("LicenseTypes");
 
                     b.HasData(
                         new
@@ -619,9 +721,6 @@ namespace DataConfigurations.Migrations
                     b.Property<DateTime>("ExpiryDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<byte>("IssueReason")
                         .HasColumnType("tinyint");
 
@@ -630,6 +729,9 @@ namespace DataConfigurations.Migrations
 
                     b.Property<short>("LicenseClassId")
                         .HasColumnType("smallint");
+
+                    b.Property<int>("LicenseStatus")
+                        .HasColumnType("int");
 
                     b.Property<string>("Notes")
                         .IsRequired()
@@ -647,7 +749,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("LicenseClassId");
 
-                    b.ToTable("LocalDrivingLicenses", (string)null);
+                    b.ToTable("LocalDrivingLicenses");
                 });
 
             modelBuilder.Entity("Models.Test.Test", b =>
@@ -682,7 +784,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("TestTypeId");
 
-                    b.ToTable("Tests", (string)null);
+                    b.ToTable("Tests");
                 });
 
             modelBuilder.Entity("Models.Test.TestAppointment", b =>
@@ -727,7 +829,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("TestTypeId");
 
-                    b.ToTable("TestAppointments", (string)null);
+                    b.ToTable("TestAppointments");
                 });
 
             modelBuilder.Entity("Models.Test.TestType", b =>
@@ -751,7 +853,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasKey("TestTypeId");
 
-                    b.ToTable("TestTypes", (string)null);
+                    b.ToTable("TestTypes");
                 });
 
             modelBuilder.Entity("Models.Types.Country", b =>
@@ -1962,7 +2064,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasKey("EmployeeTypeId");
 
-                    b.ToTable("EmployeeTypes", (string)null);
+                    b.ToTable("EmployeeTypes");
                 });
 
             modelBuilder.Entity("Models.UserRoles", b =>
@@ -2012,7 +2114,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Admins", (string)null);
+                    b.ToTable("Admins");
                 });
 
             modelBuilder.Entity("Models.Users.Driver", b =>
@@ -2036,7 +2138,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Drivers", (string)null);
+                    b.ToTable("Drivers");
                 });
 
             modelBuilder.Entity("Models.Users.Employee", b =>
@@ -2044,9 +2146,6 @@ namespace DataConfigurations.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("EmployeeTypeId")
-                        .HasColumnType("int");
 
                     b.Property<Guid>("HiredByAdmin")
                         .HasColumnType("uniqueidentifier");
@@ -2059,13 +2158,11 @@ namespace DataConfigurations.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeTypeId");
-
                     b.HasIndex("HiredByAdmin");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Employees", (string)null);
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("Models.Users.User", b =>
@@ -2364,11 +2461,11 @@ namespace DataConfigurations.Migrations
             modelBuilder.Entity("Models.ApplicationModels.Application", b =>
                 {
                     b.HasOne("Models.Users.Employee", "Employee")
-                        .WithMany()
+                        .WithMany("Applications")
                         .HasForeignKey("UpdatedByEmployeeId");
 
                     b.HasOne("Models.Users.User", "User")
-                        .WithMany()
+                        .WithMany("Applications")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2506,7 +2603,7 @@ namespace DataConfigurations.Migrations
                         .IsRequired();
 
                     b.HasOne("Models.Types.Country", "Country")
-                        .WithMany()
+                        .WithMany("localDrivingLicenses")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2630,12 +2727,8 @@ namespace DataConfigurations.Migrations
 
             modelBuilder.Entity("Models.Users.Employee", b =>
                 {
-                    b.HasOne("Models.Types.EmployeeType", null)
-                        .WithMany("Employee")
-                        .HasForeignKey("EmployeeTypeId");
-
                     b.HasOne("Models.Users.Admin", "Admin")
-                        .WithMany()
+                        .WithMany("employees")
                         .HasForeignKey("HiredByAdmin")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2675,11 +2768,23 @@ namespace DataConfigurations.Migrations
             modelBuilder.Entity("Models.Types.Country", b =>
                 {
                     b.Navigation("Users");
+
+                    b.Navigation("localDrivingLicenses");
                 });
 
-            modelBuilder.Entity("Models.Types.EmployeeType", b =>
+            modelBuilder.Entity("Models.Users.Admin", b =>
                 {
-                    b.Navigation("Employee");
+                    b.Navigation("employees");
+                });
+
+            modelBuilder.Entity("Models.Users.Employee", b =>
+                {
+                    b.Navigation("Applications");
+                });
+
+            modelBuilder.Entity("Models.Users.User", b =>
+                {
+                    b.Navigation("Applications");
                 });
 #pragma warning restore 612, 618
         }

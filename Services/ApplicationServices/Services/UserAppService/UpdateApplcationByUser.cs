@@ -45,7 +45,7 @@ public class UpdateApplcationByUserService : IUpdateApplicationByUser
             ?? throw new DoesNotExistException();
 
         existsApplication.ServiceCategoryId = updateRequest.ServiceCategoryId;
-        existsApplication.ApplicationPurposeId = updateRequest.ApplicationPurposeId;
+        existsApplication.ServicePurposeId = updateRequest.ApplicationPurposeId;
         existsApplication.ApplicationDate = DateTime.Now;
 
         var updatedApplication = await _updateRepository.UpdateAsync(existsApplication)
