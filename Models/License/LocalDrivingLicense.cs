@@ -1,9 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Reflection.Emit;
-using Models.Types;
+using Models.Countries;
 using Models.Users;
-using Models.ApplicationModels;
 using Models.License;
 
 namespace Models.LicenseModels;

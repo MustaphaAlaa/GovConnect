@@ -1,8 +1,7 @@
 ﻿ 
 using ModelDTO.CountryDTOs;
 
-namespace IServices.Country;
-
+namespace IServices.ICountryServices;
 public interface ICreateCountry : ICreateService<CreateCountryRequest, CountryDTO>
 {
 

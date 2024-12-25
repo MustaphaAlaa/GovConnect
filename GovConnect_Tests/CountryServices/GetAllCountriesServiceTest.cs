@@ -2,19 +2,16 @@ using AutoFixture;
 using AutoMapper;
 using DataConfigurations;
 using FluentAssertions;
-using IRepository;
-using IServices.Country;
-using IServices.ICountryServices;
-using Microsoft.EntityFrameworkCore;
+using IRepository; 
+using IServices.ICountryServices; 
 using ModelDTO.CountryDTOs;
-using Models.Types;
+using Models.Countries;
 using Models.Users;
-using Moq;
-using Repositorties;
-using Services.CountryServices;
-using System.Diagnostics.Metrics;
+using Moq; 
+using Services.CountryServices; 
 using System.Linq.Expressions;
-using Web.Mapper;
+using Models.LicenseModels;
+
 namespace GovConnect_Tests.CountryServices
 {
     public class GetAllCountriesSeviceTest
@@ -45,14 +42,32 @@ namespace GovConnect_Tests.CountryServices
         public async Task GetAll_DbHasData_ReturnListData()
         {
             //Arrange
+            
             List<Country> countries = new(){
-                    _fixture.Build<Country>().With(c=>c.Users, null as List<User>).Create(),
-                    _fixture.Build<Country>().With(c=>c.Users, null as List<User>).Create(),
-                    _fixture.Build<Country>().With(c=>c.Users, null as List<User>).Create(),
-                    _fixture.Build<Country>().With(c=>c.Users, null as List<User>).Create(),
-
+                
+                 _fixture.Build<Country>()
+                .With(c => c.Users, null as List<User>)
+                .With(c => c.Users, null as List<User>)
+                .With(c => c.localDrivingLicenses, null as List<LocalDrivingLicense>)
+                .Create(), _fixture.Build<Country>()
+                .With(c => c.Users, null as List<User>)
+                .With(c => c.Users, null as List<User>)
+                .With(c => c.localDrivingLicenses, null as List<LocalDrivingLicense>)
+                .Create(), _fixture.Build<Country>()
+                .With(c => c.Users, null as List<User>)
+                .With(c => c.Users, null as List<User>)
+                .With(c => c.localDrivingLicenses, null as List<LocalDrivingLicense>)
+                .Create(), _fixture.Build<Country>()
+                .With(c => c.Users, null as List<User>)
+                .With(c => c.Users, null as List<User>)
+                .With(c => c.localDrivingLicenses, null as List<LocalDrivingLicense>)
+                .Create(),
+                
+ 
             };
 
+            
+            
             List<CountryDTO> countryDTOs = countries
                               .Select(c => new CountryDTO { CountryCode = c.CountryCode, CountryName = c.CountryName })
                               .ToList();
@@ -129,15 +144,24 @@ namespace GovConnect_Tests.CountryServices
         [Fact]
         public async Task GetAllExpr_MatchExpression_ReturnQueryablefMatchedCountries()
         {
-            //Arrange
-            List<Country> countries = new() {
-                _fixture.Build<Country>().With( c => c.CountryId, 10).With(c=>c.Users, null as List<User>).Create(),
-                _fixture.Build<Country>().With( c => c.CountryId, 50).With(c=>c.Users, null as List<User>).Create(),
-                _fixture.Build<Country>().With( c => c.CountryId, 90).With(c=>c.Users, null as List<User>).Create(),
-                _fixture.Build<Country>().With( c => c.CountryId, 80).With(c=>c.Users, null as List<User>).Create(),
-                _fixture.Build<Country>().With( c => c.CountryId, 16).With(c=>c.Users, null as List<User>).Create(),
+            //Arrange 
+            List<Country> countries = new(){
+                
+                _fixture.Build<Country>()
+                    .With(c => c.Users, null as List<User>) 
+                    .With(c => c.localDrivingLicenses, null as List<LocalDrivingLicense>)
+                    .Create(), _fixture.Build<Country>()
+                    .With(c => c.Users, null as List<User>) 
+                    .With(c => c.localDrivingLicenses, null as List<LocalDrivingLicense>)
+                    .Create(), _fixture.Build<Country>()
+                    .With(c => c.Users, null as List<User>) 
+                    .With(c => c.localDrivingLicenses, null as List<LocalDrivingLicense>)
+                    .Create(), _fixture.Build<Country>()
+                    .With(c => c.Users, null as List<User>) 
+                    .With(c => c.localDrivingLicenses, null as List<LocalDrivingLicense>)
+                    .Create() 
             };
-
+ 
 
             Expression<Func<Country, bool>> expression = country => country.CountryId > 45;
 
@@ -164,15 +188,14 @@ namespace GovConnect_Tests.CountryServices
         public async Task GetAllExpr_DoesnotMatchExpression_ReturnEmptyQueryableCountries()
         {
             //Arrange
-            List<Country> countries = new() {
-                _fixture.Build<Country>().With( c => c.CountryId, 10).With(c=>c.Users, null as List<User>).Create(),
-                _fixture.Build<Country>().With( c => c.CountryId, 50).With(c=>c.Users, null as List<User>).Create(),
-                _fixture.Build<Country>().With( c => c.CountryId, 90).With(c=>c.Users, null as List<User>).Create(),
-                _fixture.Build<Country>().With( c => c.CountryId, 80).With(c=>c.Users, null as List<User>).Create(),
-                _fixture.Build<Country>().With( c => c.CountryId, 16).With(c=>c.Users, null as List<User>).Create(),
-            };
-
-
+                   
+            List<Country> countries = new(){
+                
+                
+                
+ 
+            }; 
+            
             Expression<Func<Country, bool>> expression = country => country.CountryId > 145;
 
             IQueryable<Country> SelectedCountries = countries.AsQueryable().Where(expression);

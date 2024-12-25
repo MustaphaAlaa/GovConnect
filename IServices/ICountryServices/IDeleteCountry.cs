@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace IServices.Country;
+namespace IServices.ICountryServices;
 
 public interface IDeleteCountry : IDeleteService<int>
  {

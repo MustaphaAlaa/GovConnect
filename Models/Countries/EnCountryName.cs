@@ -1,5 +1,4 @@
-﻿namespace Models.Types;
-
+﻿namespace Models.Countries;
 public enum EnCountryName
 {
     Afghanistan = 1,

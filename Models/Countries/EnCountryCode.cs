@@ -4,16 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.Types;
-
-
-
-
-
-
-
-
-public enum EnCountryCode
+namespace Models.Countries;
+ public enum EnCountryCode
 {
     AFG = 1,
     ALB = 2,

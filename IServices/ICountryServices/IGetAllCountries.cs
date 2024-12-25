@@ -1,10 +1,9 @@
 ﻿using System.Linq.Expressions;
- 
 using ModelDTO.CountryDTOs;
- 
-namespace IServices.Country;
+using Models.Countries;
 
-public   interface IGetAllCountries : IGetAllService< Models.Types.Country,CountryDTO  >
+namespace IServices.ICountryServices;
+
+public interface IGetAllCountries : IGetAllService<Models.Countries.Country, CountryDTO>
 {
-     
 }

@@ -3,9 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Models;
 using Models.ApplicationModels;
 using Models.LicenseModels;
-using Models.Test;
+using Models.Tests;
 using Models.Types;
 using Models.Users;
+using Models.Countries;
 
 namespace DataConfigurations;
 

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Models.Users;
 
-namespace Models.Test;
+namespace Models.Tests;
 
 public class Test
 {

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 using Models.ApplicationModels;
 using Models.Drivers;
-using Models.Types;
+using Models.Countries;
 
 namespace Models.Users;
 

@@ -1,12 +1,11 @@
-﻿using IServices.Country;
-using IServices.ICountryServices;
+﻿using IServices.ICountryServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ModelDTO.API;
 using ModelDTO.CountryDTOs;
-using Models.Types;
+using Models.Countries;
+using IServices.ICountryServices;
 using System.Net;
-using System.Text;
 
 namespace Web.Controllers;
 
@@ -43,7 +42,6 @@ public class CountryController : ControllerBase
     }
 
 
-
     [HttpGet("{Id:int}")]
     public async Task<IActionResult> GetCountry([FromRoute] int Id)
 
@@ -78,12 +76,8 @@ public class CountryController : ControllerBase
         };
 
 
-
         _logger.LogInformation("-----------------------------All Countries Fetched.");
 
         return Ok(response);
     }
-
-
-
 }

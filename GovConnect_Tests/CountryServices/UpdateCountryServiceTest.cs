@@ -2,19 +2,17 @@ using AutoFixture;
 using AutoMapper;
 using DataConfigurations;
 using FluentAssertions;
-using IRepository;
-using IServices.Country;
-using IServices.ICountryServices;
-using Microsoft.EntityFrameworkCore;
+using IRepository; 
+using IServices.ICountryServices; 
 using ModelDTO.CountryDTOs;
-using Models.Types;
+using Models.Countries;
 using Models.Users;
-using Moq;
-using Repositorties;
-using Services.CountryServices;
-using System.Diagnostics.Metrics;
+using Moq; 
+using Services.CountryServices; 
 using System.Linq.Expressions;
+using Models.LicenseModels;
 using Web.Mapper;
+
 namespace GovConnect_Tests.CountryServices
 {
     public class UpdateCountrySeviceTest
@@ -124,7 +122,10 @@ namespace GovConnect_Tests.CountryServices
         public async Task UpdateAsync_CountryExist_Return()
         {
             //Arrange 
-            Country country = _fixture.Build<Country>().With(c => c.Users, null as List<User>).Create();
+            Country country = _fixture.Build<Country>()
+                .With(c => c.Users, null as List<User>)
+                .With(c=> c.localDrivingLicenses, null as List<LocalDrivingLicense>) 
+                .Create();
 
             _getRepositoryMock.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<Country, bool>>>())).ReturnsAsync(country);
 

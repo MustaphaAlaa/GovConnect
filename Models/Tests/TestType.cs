@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Models.Test;
+namespace Models.Tests;
 
 public class TestType
 {

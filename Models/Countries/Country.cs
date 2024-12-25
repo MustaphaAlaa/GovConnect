@@ -2,7 +2,7 @@
 using Models.LicenseModels;
 using Models.Users;
 
-namespace Models.Types;
+namespace Models.Countries;
 
 public class Country
 {

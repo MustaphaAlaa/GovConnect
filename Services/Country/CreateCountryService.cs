@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using IRepository;
-using IServices.Country;
-using IServices.ICountryServices;
+using IServices.ICountryServices; 
 using ModelDTO.CountryDTOs;
-using Models.Types;
+using Models.Countries; 
 
 namespace Services.CountryServices;
 

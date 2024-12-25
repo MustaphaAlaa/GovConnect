@@ -2,18 +2,14 @@ using AutoFixture;
 using AutoMapper;
 using DataConfigurations;
 using FluentAssertions;
-using IRepository;
-using IServices.Country;
-using IServices.ICountryServices;
-using Microsoft.EntityFrameworkCore;
-using ModelDTO;
-using Models.Types;
-using Moq;
-using Repositorties;
-using Services.CountryServices;
-using System.Diagnostics.Metrics;
+using IRepository; 
+using IServices.ICountryServices; 
+using Models.Countries;
+using Moq; 
+using Services.CountryServices; 
 using System.Linq.Expressions;
 using Web.Mapper;
+
 namespace GovConnect_Tests.CountryServices
 {
     public class GetCountrySeviceTest
