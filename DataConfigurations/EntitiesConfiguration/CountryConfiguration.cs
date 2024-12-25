@@ -4,7 +4,7 @@ using Models.Countries;
 
 namespace DataConfigurations.EntitiesConfiguration
 {
-    public class CountryConfig : IEntityTypeConfiguration<Country>
+    public class CountryConfiguration : IEntityTypeConfiguration<Country>
     {
 
 

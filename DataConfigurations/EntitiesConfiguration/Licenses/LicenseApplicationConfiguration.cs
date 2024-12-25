@@ -4,7 +4,7 @@ using Models.ApplicationModels;
 
 namespace DataConfigurations.EntitiesConfiguration;
 
-public class LicenseApplicationConfig : IEntityTypeConfiguration<Application>
+public class LicenseApplicationConfiguration : IEntityTypeConfiguration<Application>
 {
     public void Configure(EntityTypeBuilder<Application> builder)
     {

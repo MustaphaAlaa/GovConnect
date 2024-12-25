@@ -10,5 +10,5 @@ public class TestType
     public string TestTypeDescription { get; set; }
     [Required] public decimal TestTypeFees { get; set; }
     
-    public IList<Test> Tests { get; set; }
+    public IEnumerable<Test> Tests { get; set; }
 }

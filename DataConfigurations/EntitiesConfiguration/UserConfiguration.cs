@@ -5,7 +5,7 @@ using Models.Users;
 
 namespace DataConfigurations.EntitiesConfiguration
 {
-    public class UserConfig : IEntityTypeConfiguration<User>
+    public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {

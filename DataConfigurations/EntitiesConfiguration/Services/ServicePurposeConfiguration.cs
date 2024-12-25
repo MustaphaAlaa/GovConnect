@@ -4,7 +4,7 @@ using Models.ApplicationModels;
 
 namespace DataConfigurations.EntitiesConfiguration;
 
-public class ServicePuproseConfig : IEntityTypeConfiguration<ServicePurpose>
+public class ServicePurposeConfiguration : IEntityTypeConfiguration<ServicePurpose>
 {
     public void Configure(EntityTypeBuilder<ServicePurpose> builder)
     {

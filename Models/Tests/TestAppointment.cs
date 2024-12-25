@@ -15,6 +15,10 @@ public class TestAppointment
     [Required]
     public int LocalDrivingLicenseApplicationId { get; set; }
 
+    [ForeignKey("TimeInterval")]
+    [Required]
+    public int TimeIntervalId { get; set; }
+
     public DateTime AppointmentDate { get; set; }
     [Required] public decimal PaidFees { get; set; }
 
@@ -25,6 +29,7 @@ public class TestAppointment
    
 
     public LocalDrivingLicenseApplication LocalDrivingLicenseApplication { get; set; }
+    public TimeInterval TimeInterval { get; set; }
     public Employee Employee { get; set; }
     public Application Application { get; set; }
     public TestType TestType { get; set; }

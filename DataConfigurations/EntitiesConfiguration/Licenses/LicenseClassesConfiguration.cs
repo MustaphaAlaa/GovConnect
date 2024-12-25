@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataConfigurations.EntitiesConfiguration
 {
-    public class LicenseClassesConfig : IEntityTypeConfiguration<LicenseClass>
+    public class LicenseClassesConfiguration : IEntityTypeConfiguration<LicenseClass>
     {
         public void Configure(EntityTypeBuilder<LicenseClass> builder)
         {

@@ -4,7 +4,7 @@ using Models.ApplicationModels;
 
 namespace DataConfigurations.EntitiesConfiguration;
 
-public class ServiceFeesConfig : IEntityTypeConfiguration<ServiceFees>
+public class ServiceFeesConfiguration : IEntityTypeConfiguration<ServiceFees>
 {
     public void Configure(EntityTypeBuilder<ServiceFees> builder)
     {

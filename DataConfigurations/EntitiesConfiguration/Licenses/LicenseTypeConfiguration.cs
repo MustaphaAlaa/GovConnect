@@ -4,7 +4,7 @@ using Models.LicenseModels;
 
 namespace DataConfigurations.EntitiesConfiguration;
 
-public class LicenseTypeConfig: IEntityTypeConfiguration<LicenseType>   
+public class LicenseTypeConfiguration: IEntityTypeConfiguration<LicenseType>   
 {
     public void Configure(EntityTypeBuilder<LicenseType> builder)
     {

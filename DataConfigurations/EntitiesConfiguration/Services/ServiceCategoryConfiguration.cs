@@ -4,7 +4,7 @@ using Models.ApplicationModels;
 
 namespace DataConfigurations.EntitiesConfiguration;
 
-public class ServiceCategoryConfig : IEntityTypeConfiguration<ServiceCategory>
+public class ServiceCategoryConfiguration : IEntityTypeConfiguration<ServiceCategory>
 {
     public void Configure(EntityTypeBuilder<ServiceCategory> builder)
     {
