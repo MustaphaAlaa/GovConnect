@@ -2,6 +2,7 @@ using GovConnect.IServices.ILicensesServices.IDetainLicenses;
 using IServices.IApplicationServices.Category;
 using IServices.IApplicationServices.IServiceCategoryApplications.ILocalDrivingLicenseApplication;
 using IServices.IApplicationServices.User;
+using Microsoft.Extensions.Logging;
 using ModelDTO.ApplicationDTOs.User;
 using Models.ApplicationModels;
 using Services.ApplicationServices.Services.UserAppServices;
@@ -16,16 +17,20 @@ public class ReplacementForLostLocalDrivingLicenseApplicationValidator : CreateA
     private readonly IPendingOrInProgressApplicationStatus _pendingOrInProgressApplicationStatus;
     private readonly IGetLocalDrivingLicenseByUserId _getLocalDrivingLicenseByUserId;
     private readonly IGetDetainLicense _getDetainLicense;
+    private readonly ILogger<ReplacementForLostLocalDrivingLicenseApplicationValidator> _logger;
+
     public ReplacementForLostLocalDrivingLicenseApplicationValidator(
         ICheckApplicationExistenceService checkApplicationExistenceService,
         IPendingOrInProgressApplicationStatus pendingOrInProgressApplicationStatus,
         IGetLocalDrivingLicenseByUserId getLocalDrivingLicenseByUserId,
-        IGetDetainLicense getDetainLicense)
+        IGetDetainLicense getDetainLicense,
+        ILogger<ReplacementForLostLocalDrivingLicenseApplicationValidator> logger) : base(logger)
     {
         _checkApplicationExistenceService = checkApplicationExistenceService;
         _pendingOrInProgressApplicationStatus = pendingOrInProgressApplicationStatus;
         _getLocalDrivingLicenseByUserId = getLocalDrivingLicenseByUserId;
         _getDetainLicense = getDetainLicense;
+        _logger = logger;
     }
 
     public override async Task ValidateRequest(CreateApplicationRequest request)

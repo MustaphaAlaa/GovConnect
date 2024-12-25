@@ -24,7 +24,8 @@ using Services.ApplicationServices.Services.UserAppServices;
 using IServices.IApplicationServices.IServiceCategoryApplications.ILocalDrivingLicenseApplication;
 using GovConnect.IServices.ILicensesServices.IDetainLicenses;
 using Models.ApplicationModels;
-
+using Microsoft.AspNetCore.HttpLogging;
+using Serilog;
 
 namespace Web;
 
@@ -33,6 +34,25 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        //Serilog
+
+        builder.Host.UseSerilog();
+        // Configure Serilog
+        Log.Logger = new LoggerConfiguration()
+            // .WriteTo.Console() // Write logs to the console
+            .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day) // Write logs to a file
+            .CreateLogger();
+
+        // Use Serilog as the logging provider  
+        builder.Host.UseSerilog((HostBuilderContext context, IServiceProvider serviceProvider,
+            LoggerConfiguration loggerConfiguration) =>
+        {
+            // Read Serilog configuration from appsettings.json
+            loggerConfiguration.ReadFrom.Configuration(context.Configuration)
+            // Read Serilog configuration from the registered services 
+            .ReadFrom.Services(serviceProvider);
+        });
 
         // Configure DbContext
         builder.Services.AddDbContext<GovConnectDbContext>(options =>
@@ -105,13 +125,15 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        builder.Services.AddHttpLogging(opt =>
+        {
+            opt.LoggingFields = HttpLoggingFields.RequestPropertiesAndHeaders | HttpLoggingFields.ResponsePropertiesAndHeaders
+                                | HttpLoggingFields.ResponseBody | HttpLoggingFields.RequestBody;
+
+        });
+
         var app = builder.Build();
 
-        app.Logger.LogDebug("--------------------------$$$$$$$$$$$$$$$$$$$$$$$$$$$%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\n\n\\n\n\n\n\n\nIm not dying yet\n\n\n\\\n\n\n\n\n\n\\n\n\\n");
-        app.Logger.LogInformation("--------------------------$$$$$$$$$$$$$$$$$$$$$$$$$$$%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\n\n\\n\n\n\n\n\nIm not dying yet\n\n\n\\\n\n\n\n\n\n\\n\n\\n");
-        app.Logger.LogError("--------------------------$$$$$$$$$$$$$$$$$$$$$$$$$$$%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\n\n\\n\n\n\n\n\nIm not dying yet\n\n\n\\\n\n\n\n\n\n\\n\n\\n");
-        app.Logger.LogCritical("--------------------------$$$$$$$$$$$$$$$$$$$$$$$$$$$%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\n\n\\n\n\n\n\n\nIm not dying yet\n\n\n\\\n\n\n\n\n\n\\n\n\\n");
-        app.Logger.LogWarning("--------------------------$$$$$$$$$$$$$$$$$$$$$$$$$$$%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\n\n\\n\n\n\n\n\nIm not dying yet\n\n\n\\\n\n\n\n\n\n\\n\n\\n");
 
         // Configure the HTTP request pipeline
         if (app.Environment.IsDevelopment())
@@ -119,7 +141,8 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-
+        app.UseHttpLogging();
+        Log.Information("----------------------------------Starting application");
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.MapControllers();

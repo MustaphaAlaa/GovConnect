@@ -28,10 +28,10 @@ public class CreateLocalDrivingLicenseApplication : ICreateNewLocalDrivingLicens
             ReasonForTheApplication = ((EnServicePurpose)entity.ServicePurposeId).ToString().Replace("_", " "),
         };
 
-        var ldlApplciton = await _localDrivingLicenseApplicationRepository.CreateAsync(localDrivingLicenseApplication)
+        var ldlApplication = await _localDrivingLicenseApplicationRepository.CreateAsync(localDrivingLicenseApplication)
              ?? throw new FailedToCreateException();
 
-        return ldlApplciton;
+        return ldlApplication;
     }
 
 

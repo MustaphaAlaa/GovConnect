@@ -13,11 +13,11 @@ public class CreateLocalDrivingLicenseApplicationService : ICreateLocalDrivingLi
         ICreateApplicationEntity createApplicatioEntity)
     {
         _createApplicationService = createApplicationService;
-        _createlocalDrivingLicenseApplication = createLocalDrivingLicenseApplication;
+        _createLocalDrivingLicenseApplication = createLocalDrivingLicenseApplication;
     }
 
     private readonly ICreateApplicationService _createApplicationService;
-    private readonly ICreateNewLocalDrivingLicenseApplication _createlocalDrivingLicenseApplication;
+    private readonly ICreateNewLocalDrivingLicenseApplication _createLocalDrivingLicenseApplication;
 
 
     public async Task<LocalDrivingLicenseApplication> Create(CreateLocalDrivingLicenseApplicationRequest entity, ILocalDrivingLicenseApplicationServicePurposeValidator validator)
@@ -29,7 +29,7 @@ public class CreateLocalDrivingLicenseApplicationService : ICreateLocalDrivingLi
         entity.ApplicationId = application.ApplicationId;
 
 
-        var ldlApplication = await _createlocalDrivingLicenseApplication.CreateAsync(entity);
+        var ldlApplication = await _createLocalDrivingLicenseApplication.CreateAsync(entity);
 
 
         return ldlApplication;

@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ModelDTO.API;
 using ModelDTO.CountryDTOs;
+using Models.Types;
 using System.Net;
+using System.Text;
 
 namespace Web.Controllers;
 
@@ -15,16 +17,17 @@ public class CountryController : ControllerBase
     private readonly ICreateCountry _createCountry;
     private readonly IGetCountry _getCountry;
     private readonly IGetAllCountries _getAllCountries;
-
+    private readonly ILogger<Country> _logger;
 
 
     public CountryController(ICreateCountry createCountry,
         IGetCountry getCountry,
-        IGetAllCountries getAllCountries)
+        IGetAllCountries getAllCountries, ILogger<Country> logger)
     {
         _createCountry = createCountry;
         _getCountry = getCountry;
         _getAllCountries = getAllCountries;
+        _logger = logger;
     }
 
     [Authorize(Roles = "admin")]
@@ -55,24 +58,31 @@ public class CountryController : ControllerBase
 
     [HttpGet("AllCounties")]
     public async Task<IActionResult> GetAllCountries()
-
     {
+        _logger.LogInformation("------------------------------Started processing request to fetch all countries.");
         var c = await _getAllCountries.GetAllAsync();
 
         if (c == null)
+        {
+            _logger.LogWarning("----------------------------------No Countries are Found.");
             return NotFound();
+        }
 
 
-        var reponse = new ApiResponse()
+        var response = new ApiResponse()
         {
             ErrorMessages = null,
             IsSuccess = true,
             statusCode = HttpStatusCode.OK,
             Result = c
         };
-        return Ok(reponse);
-    }
 
+
+
+        _logger.LogInformation("-----------------------------All Countries Fetched.");
+
+        return Ok(response);
+    }
 
 
 

@@ -8,12 +8,19 @@ public class PendingOrInProgressApplicationStatus : IPendingOrInProgressApplicat
 {
     public void CheckApplicationStatus(EnApplicationStatus enApplicationStatus)
     {
-        switch (enApplicationStatus)
+        try
         {
-            case EnApplicationStatus.Pending:
-            case EnApplicationStatus.InProgress:
-                throw new ApplicationStatusInProgressOrPendingException();
+            switch (enApplicationStatus)
+            {
+                case EnApplicationStatus.Pending:
+                case EnApplicationStatus.InProgress:
+                    throw new ApplicationStatusInProgressOrPendingException();
 
+            }
+        }
+        catch (ApplicationStatusInProgressOrPendingException ex)
+        {
+            throw;
         }
     }
 }
