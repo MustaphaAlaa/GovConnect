@@ -17,12 +17,12 @@ public class TimeIntervalConfiguration : IEntityTypeConfiguration<TimeInterval>
     private static TimeInterval[] CreateTimeIntervals()
     {
         var timeIntervals =  new List<TimeInterval>() ;
-       
+        int id = 1;
         foreach (var hour in Enum.GetValues(typeof(EnHour)))
         {
             foreach (var stage in Enum.GetValues(typeof(EnHourStage)))
             {
-                timeIntervals.Add(  new TimeInterval { Hour = (int)hour, Minute = (int)stage });
+                timeIntervals.Add(  new TimeInterval { TimeIntervalId = id++ ,Hour = (int)hour, Minute = (int)stage });
             }
 
         }
