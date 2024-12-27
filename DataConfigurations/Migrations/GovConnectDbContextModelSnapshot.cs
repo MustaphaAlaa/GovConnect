@@ -1947,60 +1947,52 @@ namespace DataConfigurations.Migrations
                     b.ToTable("LocalDrivingLicenses");
                 });
 
-            modelBuilder.Entity("Models.Tests.Test", b =>
+            modelBuilder.Entity("Models.Tests.Appointment", b =>
                 {
-                    b.Property<int>("TestId")
+                    b.Property<int>("AppointmentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TestId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AppointmentId"));
 
-                    b.Property<Guid>("CreatedByEmployee")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<DateOnly>("AppointmentDay")
+                        .HasColumnType("Date");
 
-                    b.Property<string>("Notes")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TestAppointmentId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("TestResult")
+                    b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("TestTypeId")
+                    b.Property<int>("TestTypeId")
                         .HasColumnType("int");
 
-                    b.HasKey("TestId");
+                    b.Property<int>("TimeIntervalId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("CreatedByEmployee");
-
-                    b.HasIndex("TestAppointmentId");
+                    b.HasKey("AppointmentId");
 
                     b.HasIndex("TestTypeId");
 
-                    b.ToTable("Tests");
+                    b.HasIndex("TimeIntervalId");
+
+                    b.ToTable("Appointments");
                 });
 
-            modelBuilder.Entity("Models.Tests.TestAppointment", b =>
+            modelBuilder.Entity("Models.Tests.Booking", b =>
                 {
-                    b.Property<int>("TestAppointmentId")
+                    b.Property<int>("BookinId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TestAppointmentId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookinId"));
 
-                    b.Property<int>("ApplicationId")
+                    b.Property<int>("AppointmentId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("AppointmentDate")
-                        .HasColumnType("Date");
+                    b.Property<DateTime>("BookingDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<Guid>("CreatedByEmployeeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("bit");
+                    b.Property<string>("BookingStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("LocalDrivingLicenseApplicationId")
                         .HasColumnType("int");
@@ -2011,25 +2003,50 @@ namespace DataConfigurations.Migrations
                     b.Property<int>("RetakeTestApplicationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TestTypeId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("TimeIntervalId")
-                        .HasColumnType("int");
+                    b.HasKey("BookinId");
 
-                    b.HasKey("TestAppointmentId");
-
-                    b.HasIndex("ApplicationId");
-
-                    b.HasIndex("CreatedByEmployeeId");
+                    b.HasIndex("AppointmentId");
 
                     b.HasIndex("LocalDrivingLicenseApplicationId");
 
-                    b.HasIndex("TestTypeId");
+                    b.HasIndex("RetakeTestApplicationId");
 
-                    b.HasIndex("TimeIntervalId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("TestAppointments");
+                    b.ToTable("Bookings");
+                });
+
+            modelBuilder.Entity("Models.Tests.Test", b =>
+                {
+                    b.Property<int>("TestId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TestId"));
+
+                    b.Property<int>("BookingId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("CreatedByEmployee")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TestResult")
+                        .HasColumnType("bit");
+
+                    b.HasKey("TestId");
+
+                    b.HasIndex("BookingId");
+
+                    b.HasIndex("CreatedByEmployee");
+
+                    b.ToTable("Tests");
                 });
 
             modelBuilder.Entity("Models.Tests.TestType", b =>
@@ -2041,7 +2058,6 @@ namespace DataConfigurations.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TestTypeId"));
 
                     b.Property<string>("TestTypeDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("TestTypeFees")
@@ -2068,7 +2084,7 @@ namespace DataConfigurations.Migrations
                             TestTypeId = 2,
                             TestTypeDescription = "This test assesses the applicant's knowledge of traffic rules, road signs, and driving regulations. It typically consists of multiple-choice questions, and the applicant must select the correct answer(s). The written test aims to ensure that the applicant understands the rules of the road and can apply them in various driving scenarios.",
                             TestTypeFees = 150m,
-                            TestTypeTitle = "Written Therory"
+                            TestTypeTitle = "Written Theory"
                         },
                         new
                         {
@@ -2095,7 +2111,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasKey("TimeIntervalId");
 
-                    b.ToTable("TimeInterval");
+                    b.ToTable("TimeIntervals");
 
                     b.HasData(
                         new
@@ -2345,6 +2361,9 @@ namespace DataConfigurations.Migrations
 
                     b.Property<DateTime>("HiredDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -2830,40 +2849,30 @@ namespace DataConfigurations.Migrations
                     b.Navigation("LicenseClass");
                 });
 
-            modelBuilder.Entity("Models.Tests.Test", b =>
+            modelBuilder.Entity("Models.Tests.Appointment", b =>
                 {
-                    b.HasOne("Models.Users.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("CreatedByEmployee")
+                    b.HasOne("Models.Tests.TestType", "TestType")
+                        .WithMany("Appointments")
+                        .HasForeignKey("TestTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.Tests.TestAppointment", "TestAppointment")
-                        .WithMany()
-                        .HasForeignKey("TestAppointmentId")
+                    b.HasOne("Models.TimeInterval", "TimeInterval")
+                        .WithMany("Appointments")
+                        .HasForeignKey("TimeIntervalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.Tests.TestType", null)
-                        .WithMany("Tests")
-                        .HasForeignKey("TestTypeId");
+                    b.Navigation("TestType");
 
-                    b.Navigation("Employee");
-
-                    b.Navigation("TestAppointment");
+                    b.Navigation("TimeInterval");
                 });
 
-            modelBuilder.Entity("Models.Tests.TestAppointment", b =>
+            modelBuilder.Entity("Models.Tests.Booking", b =>
                 {
-                    b.HasOne("Models.ApplicationModels.Application", "Application")
+                    b.HasOne("Models.Tests.Appointment", "Appointment")
                         .WithMany()
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.Users.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("CreatedByEmployeeId")
+                        .HasForeignKey("AppointmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2873,27 +2882,44 @@ namespace DataConfigurations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.Tests.TestType", "TestType")
+                    b.HasOne("Models.ApplicationModels.Application", "Application")
                         .WithMany()
-                        .HasForeignKey("TestTypeId")
+                        .HasForeignKey("RetakeTestApplicationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.TimeInterval", "TimeInterval")
-                        .WithMany("TestAppointments")
-                        .HasForeignKey("TimeIntervalId")
+                    b.HasOne("Models.Users.User", "User")
+                        .WithMany("Bookings")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Application");
 
-                    b.Navigation("Employee");
+                    b.Navigation("Appointment");
 
                     b.Navigation("LocalDrivingLicenseApplication");
 
-                    b.Navigation("TestType");
+                    b.Navigation("User");
+                });
 
-                    b.Navigation("TimeInterval");
+            modelBuilder.Entity("Models.Tests.Test", b =>
+                {
+                    b.HasOne("Models.Tests.Booking", "Booking")
+                        .WithMany()
+                        .HasForeignKey("BookingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.Users.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("CreatedByEmployee")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Booking");
+
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("Models.Users.Admin", b =>
@@ -2970,12 +2996,12 @@ namespace DataConfigurations.Migrations
 
             modelBuilder.Entity("Models.Tests.TestType", b =>
                 {
-                    b.Navigation("Tests");
+                    b.Navigation("Appointments");
                 });
 
             modelBuilder.Entity("Models.TimeInterval", b =>
                 {
-                    b.Navigation("TestAppointments");
+                    b.Navigation("Appointments");
                 });
 
             modelBuilder.Entity("Models.Users.Admin", b =>
@@ -2991,6 +3017,8 @@ namespace DataConfigurations.Migrations
             modelBuilder.Entity("Models.Users.User", b =>
                 {
                     b.Navigation("Applications");
+
+                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }

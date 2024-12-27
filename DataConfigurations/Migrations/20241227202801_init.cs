@@ -116,12 +116,26 @@ namespace DataConfigurations.Migrations
                     TestTypeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TestTypeTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TestTypeDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TestTypeDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TestTypeFees = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TestTypes", x => x.TestTypeId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TimeIntervals",
+                columns: table => new
+                {
+                    TimeIntervalId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Hour = table.Column<int>(type: "int", nullable: false),
+                    Minute = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TimeIntervals", x => x.TimeIntervalId);
                 });
 
             migrationBuilder.CreateTable(
@@ -183,7 +197,7 @@ namespace DataConfigurations.Migrations
                         column: x => x.CountryId,
                         principalTable: "Countries",
                         principalColumn: "CountryId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -203,13 +217,41 @@ namespace DataConfigurations.Migrations
                         column: x => x.ServiceCategoryId,
                         principalTable: "ServiceCategories",
                         principalColumn: "ServiceCategoryId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ServicesFees_ServicesPurposes_ServicePurposeId",
                         column: x => x.ServicePurposeId,
                         principalTable: "ServicesPurposes",
                         principalColumn: "ServicePurposeId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Appointments",
+                columns: table => new
+                {
+                    AppointmentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TestTypeId = table.Column<int>(type: "int", nullable: false),
+                    TimeIntervalId = table.Column<int>(type: "int", nullable: false),
+                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
+                    AppointmentDay = table.Column<DateOnly>(type: "Date", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Appointments", x => x.AppointmentId);
+                    table.ForeignKey(
+                        name: "FK_Appointments_TestTypes_TestTypeId",
+                        column: x => x.TestTypeId,
+                        principalTable: "TestTypes",
+                        principalColumn: "TestTypeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Appointments_TimeIntervals_TimeIntervalId",
+                        column: x => x.TimeIntervalId,
+                        principalTable: "TimeIntervals",
+                        principalColumn: "TimeIntervalId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -322,6 +364,7 @@ namespace DataConfigurations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     HiredByAdmin = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     HiredDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -430,7 +473,7 @@ namespace DataConfigurations.Migrations
                         column: x => x.LicenseClassId,
                         principalTable: "LicenseClasses",
                         principalColumn: "LicenseClassId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -440,7 +483,7 @@ namespace DataConfigurations.Migrations
                     LocalDrivingLicenseId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Notes = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    LicenseStatus = table.Column<int>(type: "int", nullable: false),
                     IssueReason = table.Column<byte>(type: "tinyint", nullable: false),
                     IssuingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -459,7 +502,7 @@ namespace DataConfigurations.Migrations
                         column: x => x.CountryId,
                         principalTable: "Countries",
                         principalColumn: "CountryId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_LocalDrivingLicenses_Drivers_DriverId",
                         column: x => x.DriverId,
@@ -487,47 +530,46 @@ namespace DataConfigurations.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TestAppointments",
+                name: "Bookings",
                 columns: table => new
                 {
-                    TestAppointmentId = table.Column<int>(type: "int", nullable: false)
+                    BookinId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TestTypeId = table.Column<int>(type: "int", nullable: false),
-                    LocalDrivingLicenseApplicationId = table.Column<int>(type: "int", nullable: false),
-                    AppointmentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BookingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PaidFees = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    IsLocked = table.Column<bool>(type: "bit", nullable: false),
-                    RetakeTestApplicationId = table.Column<int>(type: "int", nullable: false),
-                    CreatedByEmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ApplicationId = table.Column<int>(type: "int", nullable: false)
+                    BookingStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AppointmentId = table.Column<int>(type: "int", nullable: false),
+                    LocalDrivingLicenseApplicationId = table.Column<int>(type: "int", nullable: false),
+                    RetakeTestApplicationId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TestAppointments", x => x.TestAppointmentId);
+                    table.PrimaryKey("PK_Bookings", x => x.BookinId);
                     table.ForeignKey(
-                        name: "FK_TestAppointments_Applicataions_ApplicationId",
-                        column: x => x.ApplicationId,
+                        name: "FK_Bookings_Applicataions_RetakeTestApplicationId",
+                        column: x => x.RetakeTestApplicationId,
                         principalTable: "Applicataions",
                         principalColumn: "ApplicationId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TestAppointments_Employees_CreatedByEmployeeId",
-                        column: x => x.CreatedByEmployeeId,
-                        principalTable: "Employees",
+                        name: "FK_Bookings_Appointments_AppointmentId",
+                        column: x => x.AppointmentId,
+                        principalTable: "Appointments",
+                        principalColumn: "AppointmentId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Bookings_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TestAppointments_LocalDrivingLicenseApplications_LocalDrivingLicenseApplicationId",
+                        name: "FK_Bookings_LocalDrivingLicenseApplications_LocalDrivingLicenseApplicationId",
                         column: x => x.LocalDrivingLicenseApplicationId,
                         principalTable: "LocalDrivingLicenseApplications",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_TestAppointments_TestTypes_TestTypeId",
-                        column: x => x.TestTypeId,
-                        principalTable: "TestTypes",
-                        principalColumn: "TestTypeId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -609,32 +651,26 @@ namespace DataConfigurations.Migrations
                 {
                     TestId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TestAppointmentId = table.Column<int>(type: "int", nullable: false),
                     TestResult = table.Column<bool>(type: "bit", nullable: false),
+                    BookingId = table.Column<int>(type: "int", nullable: false),
                     Notes = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedByEmployee = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TestTypeId = table.Column<int>(type: "int", nullable: true)
+                    CreatedByEmployee = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tests", x => x.TestId);
+                    table.ForeignKey(
+                        name: "FK_Tests_Bookings_BookingId",
+                        column: x => x.BookingId,
+                        principalTable: "Bookings",
+                        principalColumn: "BookinId",
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Tests_Employees_CreatedByEmployee",
                         column: x => x.CreatedByEmployee,
                         principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_Tests_TestAppointments_TestAppointmentId",
-                        column: x => x.TestAppointmentId,
-                        principalTable: "TestAppointments",
-                        principalColumn: "TestAppointmentId",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_Tests_TestTypes_TestTypeId",
-                        column: x => x.TestTypeId,
-                        principalTable: "TestTypes",
-                        principalColumn: "TestTypeId");
                 });
 
             migrationBuilder.CreateTable(
@@ -867,6 +903,24 @@ namespace DataConfigurations.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "LicenseClasses",
+                columns: new[] { "LicenseClassId", "ClassDescription", "ClassName", "DefaultValidityLengthInMonths", "LicenseClassFees", "MinimumAllowedAge" },
+                values: new object[,]
+                {
+                    { (short)1, "Permits non-professional drivers to operate private vehicles, tourist taxis, agricultural tractors for personal use, and light transport vehicles up to 2000 kg", "Private Driver License", 60, 120.00m, (byte)18 },
+                    { (short)2, "For professional drivers to operate taxis and buses up to 17 passengers, in addition to all vehicles permitted under private license", "Third Class License", 60, 150.00m, (byte)21 },
+                    { (short)3, "Permits operation of taxis, buses (17-26 passengers), transport vehicles, and heavy equipment. Requires 3 years experience with Third Class License", "Second Class License", 60, 180.00m, (byte)21 },
+                    { (short)4, "Permits operation of all vehicle types. Requires 3 years experience with Second Class License", "First Class License", 60, 200.00m, (byte)21 },
+                    { (short)5, "Permits operation of single tractors or those with agricultural trailers", "Agricultural Tractor License", 60, 100.00m, (byte)21 },
+                    { (short)6, "Permits operation of metro trains and tram vehicles", "Metro/Tram License", 60, 150.00m, (byte)21 },
+                    { (short)7, "Permits non-professional operation of motorcycles", "Private Motorcycle License", 60, 80.00m, (byte)18 },
+                    { (short)10, "Permits operation of military vehicles, issued exclusively to armed forces personnel", "Military License", 60, 0.00m, (byte)21 },
+                    { (short)11, "Permits operation of police vehicles, issued exclusively to police personnel", "Police License", 60, 0.00m, (byte)21 },
+                    { (short)12, "Issued to individuals responsible for testing rapid transport vehicles", "Test Driving License", 12, 100.00m, (byte)21 },
+                    { (short)13, "Temporary permit for individuals learning to drive vehicles", "Learner Permit", 3, 50.00m, (byte)18 }
+                });
+
+            migrationBuilder.InsertData(
                 table: "LicenseTypes",
                 columns: new[] { "LicenseTypeId", "Fees", "Title" },
                 values: new object[,]
@@ -897,6 +951,47 @@ namespace DataConfigurations.Migrations
                     { (byte)4, "Replacement For Lost" },
                     { (byte)5, "Release" },
                     { (byte)6, "Retake Test" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TestTypes",
+                columns: new[] { "TestTypeId", "TestTypeDescription", "TestTypeFees", "TestTypeTitle" },
+                values: new object[,]
+                {
+                    { 1, "This assesses the applicant's visual acuity to ensure they have sufficient vision to drive safely.", 100m, "Vision" },
+                    { 2, "This test assesses the applicant's knowledge of traffic rules, road signs, and driving regulations. It typically consists of multiple-choice questions, and the applicant must select the correct answer(s). The written test aims to ensure that the applicant understands the rules of the road and can apply them in various driving scenarios.", 150m, "Written Theory" },
+                    { 3, "This test evaluates the applicant's driving skills and ability to operate a motor vehicle safely on public roads. A licensed examiner accompanies the applicant in the vehicle and observes their driving performance.", 250m, "Practical Street" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TimeIntervals",
+                columns: new[] { "TimeIntervalId", "Hour", "Minute" },
+                values: new object[,]
+                {
+                    { 1, 9, 0 },
+                    { 2, 9, 15 },
+                    { 3, 9, 30 },
+                    { 4, 9, 45 },
+                    { 5, 10, 0 },
+                    { 6, 10, 15 },
+                    { 7, 10, 30 },
+                    { 8, 10, 45 },
+                    { 9, 11, 0 },
+                    { 10, 11, 15 },
+                    { 11, 11, 30 },
+                    { 12, 11, 45 },
+                    { 13, 12, 0 },
+                    { 14, 12, 15 },
+                    { 15, 12, 30 },
+                    { 16, 12, 45 },
+                    { 17, 13, 0 },
+                    { 18, 13, 15 },
+                    { 19, 13, 30 },
+                    { 20, 13, 45 },
+                    { 21, 14, 0 },
+                    { 22, 14, 15 },
+                    { 23, 14, 30 },
+                    { 24, 14, 45 }
                 });
 
             migrationBuilder.InsertData(
@@ -957,6 +1052,16 @@ namespace DataConfigurations.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Appointments_TestTypeId",
+                table: "Appointments",
+                column: "TestTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Appointments_TimeIntervalId",
+                table: "Appointments",
+                column: "TimeIntervalId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
@@ -999,6 +1104,26 @@ namespace DataConfigurations.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bookings_AppointmentId",
+                table: "Bookings",
+                column: "AppointmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bookings_LocalDrivingLicenseApplicationId",
+                table: "Bookings",
+                column: "LocalDrivingLicenseApplicationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bookings_RetakeTestApplicationId",
+                table: "Bookings",
+                column: "RetakeTestApplicationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bookings_UserId",
+                table: "Bookings",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DetainedLicenses_ApplicationId",
@@ -1101,39 +1226,14 @@ namespace DataConfigurations.Migrations
                 column: "ServiceCategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TestAppointments_ApplicationId",
-                table: "TestAppointments",
-                column: "ApplicationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TestAppointments_CreatedByEmployeeId",
-                table: "TestAppointments",
-                column: "CreatedByEmployeeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TestAppointments_LocalDrivingLicenseApplicationId",
-                table: "TestAppointments",
-                column: "LocalDrivingLicenseApplicationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TestAppointments_TestTypeId",
-                table: "TestAppointments",
-                column: "TestTypeId");
+                name: "IX_Tests_BookingId",
+                table: "Tests",
+                column: "BookingId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tests_CreatedByEmployee",
                 table: "Tests",
                 column: "CreatedByEmployee");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tests_TestAppointmentId",
-                table: "Tests",
-                column: "TestAppointmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tests_TestTypeId",
-                table: "Tests",
-                column: "TestTypeId");
         }
 
         /// <inheritdoc />
@@ -1176,19 +1276,25 @@ namespace DataConfigurations.Migrations
                 name: "InternationalDrivingLicenseApplications");
 
             migrationBuilder.DropTable(
-                name: "TestAppointments");
+                name: "Bookings");
 
             migrationBuilder.DropTable(
                 name: "LocalDrivingLicenses");
 
             migrationBuilder.DropTable(
+                name: "Appointments");
+
+            migrationBuilder.DropTable(
                 name: "LocalDrivingLicenseApplications");
+
+            migrationBuilder.DropTable(
+                name: "Drivers");
 
             migrationBuilder.DropTable(
                 name: "TestTypes");
 
             migrationBuilder.DropTable(
-                name: "Drivers");
+                name: "TimeIntervals");
 
             migrationBuilder.DropTable(
                 name: "Applicataions");

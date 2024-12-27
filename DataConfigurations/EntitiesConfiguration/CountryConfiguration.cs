@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Models.Countries;
+using Models.Countries; 
 
 namespace DataConfigurations.EntitiesConfiguration
 {
@@ -8,6 +8,7 @@ namespace DataConfigurations.EntitiesConfiguration
     {
         public void Configure(EntityTypeBuilder<Country> builder)
         {
+                
             builder.ToTable("Countries"); // Optional: explicitly set the table CountryName
             builder.HasKey(c => c.CountryId);
             builder.Property(c => c.CountryName).IsRequired().HasMaxLength(100);

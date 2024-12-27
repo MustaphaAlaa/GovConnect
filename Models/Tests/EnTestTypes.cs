@@ -3,6 +3,6 @@
 public enum EnTestTypes
 {
     Vision = 1,
-    Written_Therory = 2,
+    Written_Theory = 2,
     Practical_Street = 3,
 }

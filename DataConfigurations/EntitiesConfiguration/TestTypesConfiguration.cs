@@ -19,8 +19,8 @@ public class TestTypesConfiguration : IEntityTypeConfiguration<TestType>
             },
             new TestType()
             {
-                TestTypeId = (int)EnTestTypes.Written_Therory,
-                TestTypeTitle = EnTestTypes.Written_Therory.ToString().Replace("_"," "),
+                TestTypeId = (int)EnTestTypes.Written_Theory,
+                TestTypeTitle = EnTestTypes.Written_Theory.ToString().Replace("_"," "),
                 TestTypeDescription =  "This test assesses the applicant's knowledge of traffic rules, road signs, and driving regulations. It typically consists of multiple-choice questions, and the applicant must select the correct answer(s). The written test aims to ensure that the applicant understands the rules of the road and can apply them in various driving scenarios.",
                 TestTypeFees = 150 
             },

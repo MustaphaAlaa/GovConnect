@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataConfigurations.Migrations
 {
     [DbContext(typeof(GovConnectDbContext))]
-    [Migration("20241223081713_insert-licnseClass-data")]
-    partial class insertlicnseClassdata
+    [Migration("20241227202801_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -459,407 +459,7 @@ namespace DataConfigurations.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Models.LicenseModels.DetainedLicense", b =>
-                {
-                    b.Property<int>("DetainedLicenseId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DetainedLicenseId"));
-
-                    b.Property<int>("ApplicationId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("CreatedByEmployee")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DetainDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("FineFees")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<bool>("IsReleased")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("LicenseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LocalDrivingLicenseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ReleaseApplicationId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("ReleasedByEmployee")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("ReleasedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("DetainedLicenseId");
-
-                    b.HasIndex("ApplicationId");
-
-                    b.HasIndex("CreatedByEmployee");
-
-                    b.HasIndex("LocalDrivingLicenseId");
-
-                    b.HasIndex("ReleasedByEmployee");
-
-                    b.ToTable("DetainedLicenses");
-                });
-
-            modelBuilder.Entity("Models.LicenseModels.InternationalDrivingLicense", b =>
-                {
-                    b.Property<int>("InternationalDrivingLicenseId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InternationalDrivingLicenseId"));
-
-                    b.Property<int>("InternationalDrivingLicenseApplicationID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LicenseClassId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LocalDrivingLicenseId")
-                        .HasColumnType("int");
-
-                    b.HasKey("InternationalDrivingLicenseId");
-
-                    b.HasIndex("InternationalDrivingLicenseApplicationID");
-
-                    b.HasIndex("LocalDrivingLicenseId");
-
-                    b.ToTable("InternationalDrivingLicenses");
-                });
-
-            modelBuilder.Entity("Models.LicenseModels.LicenseClass", b =>
-                {
-                    b.Property<short>("LicenseClassId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("LicenseClassId"));
-
-                    b.Property<string>("ClassDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClassName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DefaultValidityLengthInMonths")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("LicenseClassFees")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<byte>("MinimumAllowedAge")
-                        .HasColumnType("tinyint");
-
-                    b.HasKey("LicenseClassId");
-
-                    b.ToTable("LicenseClasses");
-
-                    b.HasData(
-                        new
-                        {
-                            LicenseClassId = (short)1,
-                            ClassDescription = "Permits non-professional drivers to operate private vehicles, tourist taxis, agricultural tractors for personal use, and light transport vehicles up to 2000 kg",
-                            ClassName = "Private Driver License",
-                            DefaultValidityLengthInMonths = 60,
-                            LicenseClassFees = 120.00m,
-                            MinimumAllowedAge = (byte)18
-                        },
-                        new
-                        {
-                            LicenseClassId = (short)2,
-                            ClassDescription = "For professional drivers to operate taxis and buses up to 17 passengers, in addition to all vehicles permitted under private license",
-                            ClassName = "Third Class License",
-                            DefaultValidityLengthInMonths = 60,
-                            LicenseClassFees = 150.00m,
-                            MinimumAllowedAge = (byte)21
-                        },
-                        new
-                        {
-                            LicenseClassId = (short)3,
-                            ClassDescription = "Permits operation of taxis, buses (17-26 passengers), transport vehicles, and heavy equipment. Requires 3 years experience with Third Class License",
-                            ClassName = "Second Class License",
-                            DefaultValidityLengthInMonths = 60,
-                            LicenseClassFees = 180.00m,
-                            MinimumAllowedAge = (byte)21
-                        },
-                        new
-                        {
-                            LicenseClassId = (short)4,
-                            ClassDescription = "Permits operation of all vehicle types. Requires 3 years experience with Second Class License",
-                            ClassName = "First Class License",
-                            DefaultValidityLengthInMonths = 60,
-                            LicenseClassFees = 200.00m,
-                            MinimumAllowedAge = (byte)21
-                        },
-                        new
-                        {
-                            LicenseClassId = (short)5,
-                            ClassDescription = "Permits operation of single tractors or those with agricultural trailers",
-                            ClassName = "Agricultural Tractor License",
-                            DefaultValidityLengthInMonths = 60,
-                            LicenseClassFees = 100.00m,
-                            MinimumAllowedAge = (byte)21
-                        },
-                        new
-                        {
-                            LicenseClassId = (short)6,
-                            ClassDescription = "Permits operation of metro trains and tram vehicles",
-                            ClassName = "Metro/Tram License",
-                            DefaultValidityLengthInMonths = 60,
-                            LicenseClassFees = 150.00m,
-                            MinimumAllowedAge = (byte)21
-                        },
-                        new
-                        {
-                            LicenseClassId = (short)7,
-                            ClassDescription = "Permits non-professional operation of motorcycles",
-                            ClassName = "Private Motorcycle License",
-                            DefaultValidityLengthInMonths = 60,
-                            LicenseClassFees = 80.00m,
-                            MinimumAllowedAge = (byte)18
-                        },
-                        new
-                        {
-                            LicenseClassId = (short)10,
-                            ClassDescription = "Permits operation of military vehicles, issued exclusively to armed forces personnel",
-                            ClassName = "Military License",
-                            DefaultValidityLengthInMonths = 60,
-                            LicenseClassFees = 0.00m,
-                            MinimumAllowedAge = (byte)21
-                        },
-                        new
-                        {
-                            LicenseClassId = (short)11,
-                            ClassDescription = "Permits operation of police vehicles, issued exclusively to police personnel",
-                            ClassName = "Police License",
-                            DefaultValidityLengthInMonths = 60,
-                            LicenseClassFees = 0.00m,
-                            MinimumAllowedAge = (byte)21
-                        },
-                        new
-                        {
-                            LicenseClassId = (short)12,
-                            ClassDescription = "Issued to individuals responsible for testing rapid transport vehicles",
-                            ClassName = "Test Driving License",
-                            DefaultValidityLengthInMonths = 12,
-                            LicenseClassFees = 100.00m,
-                            MinimumAllowedAge = (byte)21
-                        },
-                        new
-                        {
-                            LicenseClassId = (short)13,
-                            ClassDescription = "Temporary permit for individuals learning to drive vehicles",
-                            ClassName = "Learner Permit",
-                            DefaultValidityLengthInMonths = 3,
-                            LicenseClassFees = 50.00m,
-                            MinimumAllowedAge = (byte)18
-                        });
-                });
-
-            modelBuilder.Entity("Models.LicenseModels.LicenseType", b =>
-                {
-                    b.Property<byte>("LicenseTypeId")
-                        .HasColumnType("tinyint");
-
-                    b.Property<decimal>("Fees")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("LicenseTypeId");
-
-                    b.ToTable("LicenseTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            LicenseTypeId = (byte)2,
-                            Fees = 100m,
-                            Title = "International"
-                        },
-                        new
-                        {
-                            LicenseTypeId = (byte)1,
-                            Fees = 20m,
-                            Title = "Local"
-                        });
-                });
-
-            modelBuilder.Entity("Models.LicenseModels.LocalDrivingLicense", b =>
-                {
-                    b.Property<int>("LocalDrivingLicenseId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LocalDrivingLicenseId"));
-
-                    b.Property<int>("ApplicationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CountryId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("CreatedByEmployee")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("DriverId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("ExpiryDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<byte>("IssueReason")
-                        .HasColumnType("tinyint");
-
-                    b.Property<DateTime>("IssuingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<short>("LicenseClassId")
-                        .HasColumnType("smallint");
-
-                    b.Property<int>("LicenseStatus")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Notes")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("LocalDrivingLicenseId");
-
-                    b.HasIndex("ApplicationId");
-
-                    b.HasIndex("CountryId");
-
-                    b.HasIndex("CreatedByEmployee");
-
-                    b.HasIndex("DriverId");
-
-                    b.HasIndex("LicenseClassId");
-
-                    b.ToTable("LocalDrivingLicenses");
-                });
-
-            modelBuilder.Entity("Models.Test.Test", b =>
-                {
-                    b.Property<int>("TestId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TestId"));
-
-                    b.Property<Guid>("CreatedByEmployee")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Notes")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TestAppointmentId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("TestResult")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("TestTypeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("TestId");
-
-                    b.HasIndex("CreatedByEmployee");
-
-                    b.HasIndex("TestAppointmentId");
-
-                    b.HasIndex("TestTypeId");
-
-                    b.ToTable("Tests");
-                });
-
-            modelBuilder.Entity("Models.Test.TestAppointment", b =>
-                {
-                    b.Property<int>("TestAppointmentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TestAppointmentId"));
-
-                    b.Property<int>("ApplicationId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("AppointmentDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("CreatedByEmployeeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("LocalDrivingLicenseApplicationId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("PaidFees")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("RetakeTestApplicationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TestTypeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("TestAppointmentId");
-
-                    b.HasIndex("ApplicationId");
-
-                    b.HasIndex("CreatedByEmployeeId");
-
-                    b.HasIndex("LocalDrivingLicenseApplicationId");
-
-                    b.HasIndex("TestTypeId");
-
-                    b.ToTable("TestAppointments");
-                });
-
-            modelBuilder.Entity("Models.Test.TestType", b =>
-                {
-                    b.Property<int>("TestTypeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TestTypeId"));
-
-                    b.Property<string>("TestTypeDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("TestTypeFees")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("TestTypeTitle")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TestTypeId");
-
-                    b.ToTable("TestTypes");
-                });
-
-            modelBuilder.Entity("Models.Types.Country", b =>
+            modelBuilder.Entity("Models.Countries.Country", b =>
                 {
                     b.Property<int>("CountryId")
                         .ValueGeneratedOnAdd()
@@ -2054,6 +1654,615 @@ namespace DataConfigurations.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Models.LicenseModels.DetainedLicense", b =>
+                {
+                    b.Property<int>("DetainedLicenseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DetainedLicenseId"));
+
+                    b.Property<int>("ApplicationId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("CreatedByEmployee")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DetainDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("FineFees")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("IsReleased")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LicenseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LocalDrivingLicenseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReleaseApplicationId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ReleasedByEmployee")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ReleasedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("DetainedLicenseId");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.HasIndex("CreatedByEmployee");
+
+                    b.HasIndex("LocalDrivingLicenseId");
+
+                    b.HasIndex("ReleasedByEmployee");
+
+                    b.ToTable("DetainedLicenses");
+                });
+
+            modelBuilder.Entity("Models.LicenseModels.InternationalDrivingLicense", b =>
+                {
+                    b.Property<int>("InternationalDrivingLicenseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InternationalDrivingLicenseId"));
+
+                    b.Property<int>("InternationalDrivingLicenseApplicationID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LicenseClassId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LocalDrivingLicenseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("InternationalDrivingLicenseId");
+
+                    b.HasIndex("InternationalDrivingLicenseApplicationID");
+
+                    b.HasIndex("LocalDrivingLicenseId");
+
+                    b.ToTable("InternationalDrivingLicenses");
+                });
+
+            modelBuilder.Entity("Models.LicenseModels.LicenseClass", b =>
+                {
+                    b.Property<short>("LicenseClassId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("LicenseClassId"));
+
+                    b.Property<string>("ClassDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClassName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DefaultValidityLengthInMonths")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("LicenseClassFees")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<byte>("MinimumAllowedAge")
+                        .HasColumnType("tinyint");
+
+                    b.HasKey("LicenseClassId");
+
+                    b.ToTable("LicenseClasses");
+
+                    b.HasData(
+                        new
+                        {
+                            LicenseClassId = (short)1,
+                            ClassDescription = "Permits non-professional drivers to operate private vehicles, tourist taxis, agricultural tractors for personal use, and light transport vehicles up to 2000 kg",
+                            ClassName = "Private Driver License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 120.00m,
+                            MinimumAllowedAge = (byte)18
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)2,
+                            ClassDescription = "For professional drivers to operate taxis and buses up to 17 passengers, in addition to all vehicles permitted under private license",
+                            ClassName = "Third Class License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 150.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)3,
+                            ClassDescription = "Permits operation of taxis, buses (17-26 passengers), transport vehicles, and heavy equipment. Requires 3 years experience with Third Class License",
+                            ClassName = "Second Class License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 180.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)4,
+                            ClassDescription = "Permits operation of all vehicle types. Requires 3 years experience with Second Class License",
+                            ClassName = "First Class License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 200.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)5,
+                            ClassDescription = "Permits operation of single tractors or those with agricultural trailers",
+                            ClassName = "Agricultural Tractor License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 100.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)6,
+                            ClassDescription = "Permits operation of metro trains and tram vehicles",
+                            ClassName = "Metro/Tram License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 150.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)7,
+                            ClassDescription = "Permits non-professional operation of motorcycles",
+                            ClassName = "Private Motorcycle License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 80.00m,
+                            MinimumAllowedAge = (byte)18
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)10,
+                            ClassDescription = "Permits operation of military vehicles, issued exclusively to armed forces personnel",
+                            ClassName = "Military License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 0.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)11,
+                            ClassDescription = "Permits operation of police vehicles, issued exclusively to police personnel",
+                            ClassName = "Police License",
+                            DefaultValidityLengthInMonths = 60,
+                            LicenseClassFees = 0.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)12,
+                            ClassDescription = "Issued to individuals responsible for testing rapid transport vehicles",
+                            ClassName = "Test Driving License",
+                            DefaultValidityLengthInMonths = 12,
+                            LicenseClassFees = 100.00m,
+                            MinimumAllowedAge = (byte)21
+                        },
+                        new
+                        {
+                            LicenseClassId = (short)13,
+                            ClassDescription = "Temporary permit for individuals learning to drive vehicles",
+                            ClassName = "Learner Permit",
+                            DefaultValidityLengthInMonths = 3,
+                            LicenseClassFees = 50.00m,
+                            MinimumAllowedAge = (byte)18
+                        });
+                });
+
+            modelBuilder.Entity("Models.LicenseModels.LicenseType", b =>
+                {
+                    b.Property<byte>("LicenseTypeId")
+                        .HasColumnType("tinyint");
+
+                    b.Property<decimal>("Fees")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("LicenseTypeId");
+
+                    b.ToTable("LicenseTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            LicenseTypeId = (byte)2,
+                            Fees = 100m,
+                            Title = "International"
+                        },
+                        new
+                        {
+                            LicenseTypeId = (byte)1,
+                            Fees = 20m,
+                            Title = "Local"
+                        });
+                });
+
+            modelBuilder.Entity("Models.LicenseModels.LocalDrivingLicense", b =>
+                {
+                    b.Property<int>("LocalDrivingLicenseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LocalDrivingLicenseId"));
+
+                    b.Property<int>("ApplicationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("CreatedByEmployee")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("DriverId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte>("IssueReason")
+                        .HasColumnType("tinyint");
+
+                    b.Property<DateTime>("IssuingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<short>("LicenseClassId")
+                        .HasColumnType("smallint");
+
+                    b.Property<int>("LicenseStatus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("LocalDrivingLicenseId");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("CreatedByEmployee");
+
+                    b.HasIndex("DriverId");
+
+                    b.HasIndex("LicenseClassId");
+
+                    b.ToTable("LocalDrivingLicenses");
+                });
+
+            modelBuilder.Entity("Models.Tests.Appointment", b =>
+                {
+                    b.Property<int>("AppointmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AppointmentId"));
+
+                    b.Property<DateOnly>("AppointmentDay")
+                        .HasColumnType("Date");
+
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TestTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TimeIntervalId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AppointmentId");
+
+                    b.HasIndex("TestTypeId");
+
+                    b.HasIndex("TimeIntervalId");
+
+                    b.ToTable("Appointments");
+                });
+
+            modelBuilder.Entity("Models.Tests.Booking", b =>
+                {
+                    b.Property<int>("BookinId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookinId"));
+
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("BookingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("BookingStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LocalDrivingLicenseApplicationId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PaidFees")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("RetakeTestApplicationId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("BookinId");
+
+                    b.HasIndex("AppointmentId");
+
+                    b.HasIndex("LocalDrivingLicenseApplicationId");
+
+                    b.HasIndex("RetakeTestApplicationId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Bookings");
+                });
+
+            modelBuilder.Entity("Models.Tests.Test", b =>
+                {
+                    b.Property<int>("TestId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TestId"));
+
+                    b.Property<int>("BookingId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("CreatedByEmployee")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TestResult")
+                        .HasColumnType("bit");
+
+                    b.HasKey("TestId");
+
+                    b.HasIndex("BookingId");
+
+                    b.HasIndex("CreatedByEmployee");
+
+                    b.ToTable("Tests");
+                });
+
+            modelBuilder.Entity("Models.Tests.TestType", b =>
+                {
+                    b.Property<int>("TestTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TestTypeId"));
+
+                    b.Property<string>("TestTypeDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("TestTypeFees")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("TestTypeTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TestTypeId");
+
+                    b.ToTable("TestTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            TestTypeId = 1,
+                            TestTypeDescription = "This assesses the applicant's visual acuity to ensure they have sufficient vision to drive safely.",
+                            TestTypeFees = 100m,
+                            TestTypeTitle = "Vision"
+                        },
+                        new
+                        {
+                            TestTypeId = 2,
+                            TestTypeDescription = "This test assesses the applicant's knowledge of traffic rules, road signs, and driving regulations. It typically consists of multiple-choice questions, and the applicant must select the correct answer(s). The written test aims to ensure that the applicant understands the rules of the road and can apply them in various driving scenarios.",
+                            TestTypeFees = 150m,
+                            TestTypeTitle = "Written Theory"
+                        },
+                        new
+                        {
+                            TestTypeId = 3,
+                            TestTypeDescription = "This test evaluates the applicant's driving skills and ability to operate a motor vehicle safely on public roads. A licensed examiner accompanies the applicant in the vehicle and observes their driving performance.",
+                            TestTypeFees = 250m,
+                            TestTypeTitle = "Practical Street"
+                        });
+                });
+
+            modelBuilder.Entity("Models.TimeInterval", b =>
+                {
+                    b.Property<int>("TimeIntervalId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TimeIntervalId"));
+
+                    b.Property<int>("Hour")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Minute")
+                        .HasColumnType("int");
+
+                    b.HasKey("TimeIntervalId");
+
+                    b.ToTable("TimeIntervals");
+
+                    b.HasData(
+                        new
+                        {
+                            TimeIntervalId = 1,
+                            Hour = 9,
+                            Minute = 0
+                        },
+                        new
+                        {
+                            TimeIntervalId = 2,
+                            Hour = 9,
+                            Minute = 15
+                        },
+                        new
+                        {
+                            TimeIntervalId = 3,
+                            Hour = 9,
+                            Minute = 30
+                        },
+                        new
+                        {
+                            TimeIntervalId = 4,
+                            Hour = 9,
+                            Minute = 45
+                        },
+                        new
+                        {
+                            TimeIntervalId = 5,
+                            Hour = 10,
+                            Minute = 0
+                        },
+                        new
+                        {
+                            TimeIntervalId = 6,
+                            Hour = 10,
+                            Minute = 15
+                        },
+                        new
+                        {
+                            TimeIntervalId = 7,
+                            Hour = 10,
+                            Minute = 30
+                        },
+                        new
+                        {
+                            TimeIntervalId = 8,
+                            Hour = 10,
+                            Minute = 45
+                        },
+                        new
+                        {
+                            TimeIntervalId = 9,
+                            Hour = 11,
+                            Minute = 0
+                        },
+                        new
+                        {
+                            TimeIntervalId = 10,
+                            Hour = 11,
+                            Minute = 15
+                        },
+                        new
+                        {
+                            TimeIntervalId = 11,
+                            Hour = 11,
+                            Minute = 30
+                        },
+                        new
+                        {
+                            TimeIntervalId = 12,
+                            Hour = 11,
+                            Minute = 45
+                        },
+                        new
+                        {
+                            TimeIntervalId = 13,
+                            Hour = 12,
+                            Minute = 0
+                        },
+                        new
+                        {
+                            TimeIntervalId = 14,
+                            Hour = 12,
+                            Minute = 15
+                        },
+                        new
+                        {
+                            TimeIntervalId = 15,
+                            Hour = 12,
+                            Minute = 30
+                        },
+                        new
+                        {
+                            TimeIntervalId = 16,
+                            Hour = 12,
+                            Minute = 45
+                        },
+                        new
+                        {
+                            TimeIntervalId = 17,
+                            Hour = 13,
+                            Minute = 0
+                        },
+                        new
+                        {
+                            TimeIntervalId = 18,
+                            Hour = 13,
+                            Minute = 15
+                        },
+                        new
+                        {
+                            TimeIntervalId = 19,
+                            Hour = 13,
+                            Minute = 30
+                        },
+                        new
+                        {
+                            TimeIntervalId = 20,
+                            Hour = 13,
+                            Minute = 45
+                        },
+                        new
+                        {
+                            TimeIntervalId = 21,
+                            Hour = 14,
+                            Minute = 0
+                        },
+                        new
+                        {
+                            TimeIntervalId = 22,
+                            Hour = 14,
+                            Minute = 15
+                        },
+                        new
+                        {
+                            TimeIntervalId = 23,
+                            Hour = 14,
+                            Minute = 30
+                        },
+                        new
+                        {
+                            TimeIntervalId = 24,
+                            Hour = 14,
+                            Minute = 45
+                        });
+                });
+
             modelBuilder.Entity("Models.Types.EmployeeType", b =>
                 {
                     b.Property<int>("EmployeeTypeId")
@@ -2155,6 +2364,9 @@ namespace DataConfigurations.Migrations
 
                     b.Property<DateTime>("HiredDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -2605,7 +2817,7 @@ namespace DataConfigurations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.Types.Country", "Country")
+                    b.HasOne("Models.Countries.Country", "Country")
                         .WithMany("localDrivingLicenses")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2640,40 +2852,30 @@ namespace DataConfigurations.Migrations
                     b.Navigation("LicenseClass");
                 });
 
-            modelBuilder.Entity("Models.Test.Test", b =>
+            modelBuilder.Entity("Models.Tests.Appointment", b =>
                 {
-                    b.HasOne("Models.Users.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("CreatedByEmployee")
+                    b.HasOne("Models.Tests.TestType", "TestType")
+                        .WithMany("Appointments")
+                        .HasForeignKey("TestTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.Test.TestAppointment", "TestAppointment")
-                        .WithMany()
-                        .HasForeignKey("TestAppointmentId")
+                    b.HasOne("Models.TimeInterval", "TimeInterval")
+                        .WithMany("Appointments")
+                        .HasForeignKey("TimeIntervalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.Test.TestType", null)
-                        .WithMany("Tests")
-                        .HasForeignKey("TestTypeId");
+                    b.Navigation("TestType");
 
-                    b.Navigation("Employee");
-
-                    b.Navigation("TestAppointment");
+                    b.Navigation("TimeInterval");
                 });
 
-            modelBuilder.Entity("Models.Test.TestAppointment", b =>
+            modelBuilder.Entity("Models.Tests.Booking", b =>
                 {
-                    b.HasOne("Models.ApplicationModels.Application", "Application")
+                    b.HasOne("Models.Tests.Appointment", "Appointment")
                         .WithMany()
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.Users.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("CreatedByEmployeeId")
+                        .HasForeignKey("AppointmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2683,19 +2885,44 @@ namespace DataConfigurations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.Test.TestType", "TestType")
+                    b.HasOne("Models.ApplicationModels.Application", "Application")
                         .WithMany()
-                        .HasForeignKey("TestTypeId")
+                        .HasForeignKey("RetakeTestApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.Users.User", "User")
+                        .WithMany("Bookings")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Application");
 
-                    b.Navigation("Employee");
+                    b.Navigation("Appointment");
 
                     b.Navigation("LocalDrivingLicenseApplication");
 
-                    b.Navigation("TestType");
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Models.Tests.Test", b =>
+                {
+                    b.HasOne("Models.Tests.Booking", "Booking")
+                        .WithMany()
+                        .HasForeignKey("BookingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.Users.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("CreatedByEmployee")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Booking");
+
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("Models.Users.Admin", b =>
@@ -2749,7 +2976,7 @@ namespace DataConfigurations.Migrations
 
             modelBuilder.Entity("Models.Users.User", b =>
                 {
-                    b.HasOne("Models.Types.Country", "Country")
+                    b.HasOne("Models.Countries.Country", "Country")
                         .WithMany("Users")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2763,16 +2990,21 @@ namespace DataConfigurations.Migrations
                     b.Navigation("Applications");
                 });
 
-            modelBuilder.Entity("Models.Test.TestType", b =>
-                {
-                    b.Navigation("Tests");
-                });
-
-            modelBuilder.Entity("Models.Types.Country", b =>
+            modelBuilder.Entity("Models.Countries.Country", b =>
                 {
                     b.Navigation("Users");
 
                     b.Navigation("localDrivingLicenses");
+                });
+
+            modelBuilder.Entity("Models.Tests.TestType", b =>
+                {
+                    b.Navigation("Appointments");
+                });
+
+            modelBuilder.Entity("Models.TimeInterval", b =>
+                {
+                    b.Navigation("Appointments");
                 });
 
             modelBuilder.Entity("Models.Users.Admin", b =>
@@ -2788,6 +3020,8 @@ namespace DataConfigurations.Migrations
             modelBuilder.Entity("Models.Users.User", b =>
                 {
                     b.Navigation("Applications");
+
+                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }

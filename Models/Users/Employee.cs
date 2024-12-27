@@ -9,11 +9,14 @@ public class Employee
 {
     [Key] public Guid Id { get; set; }
 
+    public bool IsActive { get; set; }
     [ForeignKey("user")][Required] public Guid UserId { get; set; }
 
     [ForeignKey("Admin")][Required] public Guid HiredByAdmin { get; set; }
 
     public DateTime HiredDate { get; set; }
+
+
 
     /*[ForeignKey("EmpType")] public int EmployeeTypeId { get; set; }*/
 
