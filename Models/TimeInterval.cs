@@ -17,8 +17,8 @@ public class TimeInterval
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int TimeIntervalId { get; set; }
 
-    public int Hour { get; set; }
-    public int Minute { get; set; }
+    public EnHour Hour { get; set; }
+    public EnHourStage Minute { get; set; }
 
     /// <summary>
     /// The Collection of appointments associated to the time interval, this is a Navigation property

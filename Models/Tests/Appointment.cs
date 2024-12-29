@@ -41,7 +41,7 @@ public class Appointment
     public DateOnly AppointmentDay { get; set; }
 
     /// <summary>
-    /// The Navigation Property representing the time interval for this appointment..
+    /// The Navigation Property representing the time interval for this appointment.
     /// </summary>
     public TimeInterval TimeInterval { get; set; }
 
