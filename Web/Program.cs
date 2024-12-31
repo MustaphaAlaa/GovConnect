@@ -8,7 +8,7 @@ using IServices.ICountryServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Models;
-using Models.Users;  
+using Models.Users;
 using Repositorties;
 using Services.ApplicationServices.Purpose;
 using Services.CountryServices;
@@ -134,6 +134,13 @@ public class Program
 
         var app = builder.Build();
 
+
+        //Crerating stored procedure for the database
+        using (var scope = app.Services.CreateScope())
+        {
+            var services = scope.ServiceProvider;
+            Sp_InsertAppointment.Create(services);
+        }
 
         // Configure the HTTP request pipeline
         if (app.Environment.IsDevelopment())

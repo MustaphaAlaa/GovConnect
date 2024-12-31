@@ -8,6 +8,7 @@ using System.Runtime.InteropServices.Marshalling;
 using Models.ApplicationModels;
 using Microsoft.Extensions.Configuration;
 using Models.LicenseModels;
+using Microsoft.Extensions.Options;
 
 namespace DataConfigurations;
 
