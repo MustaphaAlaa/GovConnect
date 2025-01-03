@@ -2,90 +2,72 @@ using AutoFixture;
 using AutoMapper;
 using DataConfigurations;
 using FluentAssertions;
-using IRepository; 
-using IServices.ICountryServices; 
+using IRepository;
+using IServices.ICountryServices;
 using Models.Countries;
-using Moq; 
-using Services.CountryServices; 
+using Moq;
+using Services.CountryServices;
 using System.Linq.Expressions;
 using Web.Mapper;
 
-namespace GovConnect_Tests.CountryServices
+namespace GovConnect_Tests.CountryServices;
+
+public class GetCountryServiceTest
 {
-    public class GetCountrySeviceTest
+    private readonly IGetCountry _getCountry;
+    private readonly Mock<IGetRepository<Country>> _getRepositoryMock;
+    private readonly IMapper _mapper;
+
+    public GetCountryServiceTest()
     {
-        private readonly IFixture _fixture;
+        var mapperCfg = new MapperConfiguration(cfg => cfg.AddProfile(typeof(GovConnectMapperConfig)));
+        _mapper = new Mapper(mapperCfg);
 
-        private readonly IGetCountry _getCountry;
-        private readonly IGetRepository<Country> _getCountryRepository;
-        private readonly Mock<IGetRepository<Country>> _getRepositoryMock;
+        _getRepositoryMock = new Mock<IGetRepository<Country>>();
+        _getCountry = new GetCountryService(_getRepositoryMock.Object, _mapper);
+    }
 
-        private readonly IMapper _mapper;
-        public GetCountrySeviceTest()
-        {
-            _fixture = new Fixture();
+    [Fact]
+    public async Task GetCountryAsync_CountryDoesNotExist_ReturnsNull()
+    {
+        // Arrange
+        Expression<Func<Country?, bool>> predicate = c => c.CountryId == 0;
+        _getRepositoryMock.Setup(temp => temp.GetAsync(predicate)).ReturnsAsync(null as Country);
 
+        // Act
+        var result = await _getCountry.GetByAsync(predicate);
 
+        // Assert
+        result.Should().BeNull();
+    }
 
-            var dbContextMock = new Mock<DataConfigurations.GovConnectDbContext>();
-            var mapperCfg = new MapperConfiguration(cfg => cfg.AddProfile(typeof(GovConnectMapperConfig)));
+    [Fact]
+    public async Task GetCountryAsync_CountryExists_ReturnsCountryObject()
+    {
+        // Arrange
+        Country country = new Country() { CountryName = "Russia", CountryId = 5555 };
+        Expression<Func<Country?, bool>> predicate = c => c.CountryId == country.CountryId;
+        _getRepositoryMock.Setup(temp => temp.GetAsync(predicate)).ReturnsAsync(country);
 
-            _getRepositoryMock = new Mock<IGetRepository<Country>>();
+        // Act
+        var result = await _getCountry.GetByAsync(predicate);
 
-            _getCountry = new GetCountryService(_getRepositoryMock.Object, new Mapper(mapperCfg));
+        // Assert
+        result.Should().BeEquivalentTo(country);
+    }
 
-        }
+    [Fact]
+    public async Task GetCountryAsync_ThrowsException()
+    {
+        // Arrange
+        Country country = new Country() { CountryName = "Russia", CountryId = 5555 };
+        Expression<Func<Country?, bool>> predicate = c => c.CountryId == country.CountryId;
+        _getRepositoryMock.Setup(temp => temp.GetAsync(predicate)).ThrowsAsync(new Exception());
 
-        [Fact]
-        public async Task GetCountryAsync_CountryDoesNotExist_returnNull()
-        {
-            //Arrange
-            Expression<Func<Country?, bool>> predicate = c => c.CountryId == 0;
+        // Act
+        Func<Task> result = async () => await _getCountry.GetByAsync(predicate);
 
-            _getRepositoryMock.Setup(temp => temp.GetAsync(predicate)).ReturnsAsync(null as Country);
-
-            //Act
-            var result = await _getCountry.GetByAsync(predicate);
-
-            //Assert
-            result.Should().BeNull();
-        }
-
-        [Fact]
-        public async Task GetCountry_CountryIsExist_returnCountryObj()
-        {
-            //Arrange
-            Country country = new Country() { CountryName = "Russia", CountryId = 5555 };
-
-            Expression<Func<Country?, bool>> predicate = c => c.CountryId == country.CountryId;
-
-            _getRepositoryMock.Setup(temp => temp.GetAsync(predicate)).ReturnsAsync(country);
-
-
-            //act
-            var result = await _getCountry.GetByAsync(predicate);
-
-            //Assert
-            result.Should().BeEquivalentTo(country);
-        }
-
-        [Fact]
-        public async Task GetCountry_CountryObj_ThrowException()
-        {
-            //Arrange
-            Country country = new Country() { CountryName = "Russia", CountryId = 5555 };
-
-            Expression<Func<Country?, bool>> predicate = c => c.CountryId == country.CountryId;
-
-            _getRepositoryMock.Setup(temp => temp.GetAsync(predicate)).ThrowsAsync(new Exception());
-
-
-            //act
-            Func<Task> result = async () => await _getCountry.GetByAsync(predicate);
-
-            //Assert
-            await result.Should().ThrowAsync<Exception>();
-        }
-
+        // Assert
+        await result.Should().ThrowAsync<Exception>();
     }
 }

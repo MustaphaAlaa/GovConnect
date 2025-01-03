@@ -1,4 +1,4 @@
-﻿namespace Models.Tests;
+﻿namespace Models.Tests.Enums;
 
 public enum EnTestTypes
 {

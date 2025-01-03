@@ -12,6 +12,8 @@ using ModelDTO.ApplicationDTOs.Employee;
 using Models.LicenseModels;
 using ModelDTO.LicenseDTOs;
 using Models.Countries;
+using Models.Tests;
+using ModelDTO.TestsDTOs;
 
 namespace Web.Mapper;
 
@@ -60,5 +62,8 @@ public class GovConnectMapperConfig : Profile
         // License mappings
         CreateMap<LocalDrivingLicense, LocalDrivingLicenseDTO>().ReverseMap();
         CreateMap<DetainedLicense, DetainedLicenseDTO>().ReverseMap();
+
+        // Test mappings
+        CreateMap<TestType, TestTypeDTO>().ReverseMap();
     }
 }

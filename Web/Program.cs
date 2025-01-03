@@ -4,7 +4,6 @@ using IRepository;
 using IServices.IApplicationServices.IPurpose;
 using IServices.ICountryServices;
 using IServices.IApplicationServices.Category;
-using IServices.ICountryServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Models;
@@ -26,6 +25,9 @@ using GovConnect.IServices.ILicensesServices.IDetainLicenses;
 using Models.ApplicationModels;
 using Microsoft.AspNetCore.HttpLogging;
 using Serilog;
+using IServices.ITests;
+using Services;
+using Services.TestServices;
 
 namespace Web;
 
@@ -108,6 +110,10 @@ public class Program
         // Register ServiceFees Services
         builder.Services.AddScoped<ICreateServiceFees, CreateServiceFeesService>();
         builder.Services.AddScoped<IGetServiceFees, GetServiceFeesService>();
+
+        //Register Tests Services
+        builder.Services.AddScoped<IGetTestTypeService, GetTestTypesService>();
+        builder.Services.AddScoped<IGetAllTestTypesService, GetAllTestTypesService>();
 
         // Add services to the container
         builder.Services.AddControllers();

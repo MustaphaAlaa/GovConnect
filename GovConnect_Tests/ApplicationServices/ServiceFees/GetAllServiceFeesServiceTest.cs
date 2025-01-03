@@ -12,14 +12,14 @@ using System.Linq.Expressions;
 
 namespace GovConnect_Tests.ApplicationServices
 {
-    public class GetAllApplicationFeesServiceTest
+    public class GetAllServiceFeesServiceTest
     {
         private readonly IFixture _fixture;
         private readonly IGetAllServiceFees _iGetAllServiceFees;
         private readonly Mock<IGetAllRepository<ServiceFees>> _getAllRepository;
         private readonly Mock<IMapper> _mapper;
 
-        public GetAllApplicationFeesServiceTest()
+        public GetAllServiceFeesServiceTest()
         {
             _fixture = new Fixture();
             _getAllRepository = new Mock<IGetAllRepository<ServiceFees>>();

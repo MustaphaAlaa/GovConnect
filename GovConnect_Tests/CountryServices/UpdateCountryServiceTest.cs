@@ -23,7 +23,7 @@ namespace GovConnect_Tests.CountryServices
         private readonly IUpdateRepository<Country> _updateCountryRepository;
         private readonly Mock<IUpdateRepository<Country>> _updateRepositoryMock;
 
-        //private readonly IGetCountry _getCountry;
+        //private readonly IGetCountry _getTestType;
         private readonly IGetRepository<Country> _getCountryRepository;
         private readonly Mock<IGetRepository<Country>> _getRepositoryMock;
 

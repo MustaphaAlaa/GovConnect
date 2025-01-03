@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Models;
-using Models.Tests;
+using Models.Tests.Enums;
 
 namespace DataConfigurations.EntitiesConfiguration;
 

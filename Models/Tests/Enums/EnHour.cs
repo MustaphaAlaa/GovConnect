@@ -1,4 +1,4 @@
-﻿namespace Models.Tests;
+﻿namespace Models.Tests.Enums;
 
 public enum EnHour
 {
@@ -8,4 +8,4 @@ public enum EnHour
     Twelve = 12,
     Thirteen = 13,
     Fourteen = 14,
-} 
+}
