@@ -18,6 +18,7 @@ public abstract class CreateApplicationServiceValidator : ICreateApplicationServ
 
     public virtual Task ValidateRequest(CreateApplicationRequest request)
     {
+        _logger.LogInformation("---------------- Validation processes for creating new application is starting ");
         try
         {
             if (request is null)

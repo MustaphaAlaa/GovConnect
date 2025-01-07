@@ -13,7 +13,7 @@ public class ApiResponse
     {
         this.ErrorMessages = new List<string>();
     }
-    public HttpStatusCode statusCode { get; set; }
+    public HttpStatusCode StatusCode { get; set; }
     public bool IsSuccess { get; set; }
     public List<string> ErrorMessages { get; set; }
     public Object Result { get; set; }

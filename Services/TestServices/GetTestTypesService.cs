@@ -10,13 +10,14 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Services;
+namespace Services.TestServices;
 public class GetTestTypesService : IGetTestTypeService
 {
     private readonly IGetRepository<TestType> _getTestTypeRepository;
-    private ILogger<TestType> _logger;
-    private IMapper _mapper;
+    private readonly ILogger<TestType> _logger;
+    private readonly IMapper _mapper;
     public GetTestTypesService(IGetRepository<TestType> testTypeRepository, ILogger<TestType> logger, IMapper mapper)
     {
         _getTestTypeRepository = testTypeRepository;
@@ -26,7 +27,7 @@ public class GetTestTypesService : IGetTestTypeService
 
     public async Task<TestTypeDTO> GetByAsync(Expression<Func<TestType, bool>> predicate)
     {
-        _logger.LogInformation("Get TestType by Expression");
+        _logger.LogInformation($"{this.GetType().Name} --- Get TestType by Expression");
 
         var testType = await _getTestTypeRepository.GetAsync(predicate);
 

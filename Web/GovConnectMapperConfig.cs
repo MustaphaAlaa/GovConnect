@@ -9,11 +9,13 @@ using Models.ApplicationModels;
 using Models.Types;
 using Models.Users;
 using ModelDTO.ApplicationDTOs.Employee;
+using ModelDTO.Appointments;
 using Models.LicenseModels;
 using ModelDTO.LicenseDTOs;
 using Models.Countries;
 using Models.Tests;
 using ModelDTO.TestsDTOs;
+using Models;
 
 namespace Web.Mapper;
 
@@ -65,5 +67,10 @@ public class GovConnectMapperConfig : Profile
 
         // Test mappings
         CreateMap<TestType, TestTypeDTO>().ReverseMap();
+        
+        //Appointment mappings
+        CreateMap<Appointment, AppointmentDTO>().ReverseMap();
+        CreateMap<Appointment, CreateAppointmentsRequest>().ReverseMap();
+        CreateMap<TimeInterval, TimeIntervalDTO>().ReverseMap();
     }
 }

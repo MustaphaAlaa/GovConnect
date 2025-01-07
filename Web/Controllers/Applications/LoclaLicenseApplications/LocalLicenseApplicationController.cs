@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using IServices.IApplicationServices.IServiceCategoryApplications.ILocalDrivingLicenseApplication;
+ using IServices.IValidtors.ILocalDrivingLicenseApplications;
 using Microsoft.AspNetCore.Mvc;
 using ModelDTO.API;
 using ModelDTO.ApplicationDTOs.User;
@@ -48,7 +49,7 @@ public class LocalLicenseApplicationController : ControllerBase
         var apiResponse = new ApiResponse();
         apiResponse.ErrorMessages = null;
         apiResponse.IsSuccess = true;
-        apiResponse.statusCode = HttpStatusCode.Created;
+        apiResponse.StatusCode = HttpStatusCode.Created;
         apiResponse.Result = ldlApp;
 
         return Ok(apiResponse);
@@ -66,7 +67,7 @@ public class LocalLicenseApplicationController : ControllerBase
         var apiResponse = new ApiResponse();
         apiResponse.ErrorMessages = null;
         apiResponse.IsSuccess = true;
-        apiResponse.statusCode = HttpStatusCode.Created;
+        apiResponse.StatusCode = HttpStatusCode.Created;
         apiResponse.Result = ldlApp;
 
         return Ok(apiResponse);

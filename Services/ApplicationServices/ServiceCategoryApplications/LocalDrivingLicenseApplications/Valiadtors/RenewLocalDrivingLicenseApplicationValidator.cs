@@ -1,13 +1,10 @@
-﻿using System.Runtime.CompilerServices;
-using GovConnect.IServices.ILicensesServices.IDetainLicenses;
-using IRepository;
+﻿using GovConnect.IServices.ILicensesServices.IDetainLicenses;
 using IServices.IApplicationServices.Category;
-using IServices.IApplicationServices.IServiceCategoryApplications.ILocalDrivingLicenseApplication;
 using IServices.IApplicationServices.User;
+using IServices.IValidtors.ILocalDrivingLicenseApplications;
 using Microsoft.Extensions.Logging;
 using ModelDTO.ApplicationDTOs.User;
 using Models.ApplicationModels;
-using Models.LicenseModels;
 using Services.ApplicationServices.Services.UserAppServices;
 using Services.Execptions;
 

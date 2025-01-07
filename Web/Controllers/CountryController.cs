@@ -71,7 +71,7 @@ public class CountryController : ControllerBase
         {
             ErrorMessages = null,
             IsSuccess = true,
-            statusCode = HttpStatusCode.OK,
+            StatusCode = HttpStatusCode.OK,
             Result = c
         };
 

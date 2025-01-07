@@ -21,7 +21,7 @@ public class UserRegistrationService
         
         if (!modelState.IsValid)
         {
-             response.statusCode = System.Net.HttpStatusCode.Conflict;
+             response.StatusCode = System.Net.HttpStatusCode.Conflict;
              response.IsSuccess = false;
 
             modelState.Values
@@ -34,7 +34,7 @@ public class UserRegistrationService
         
         if (register == null)
         {
-            response.statusCode = System.Net.HttpStatusCode.BadRequest;
+            response.StatusCode = System.Net.HttpStatusCode.BadRequest;
             response.IsSuccess = false;
             response.ErrorMessages.Add("Cannot work without a register.");
             
@@ -45,7 +45,7 @@ public class UserRegistrationService
 
         if (age < 18)
         {
-            response.statusCode = System.Net.HttpStatusCode.BadRequest;
+            response.StatusCode = System.Net.HttpStatusCode.BadRequest;
             response.IsSuccess = false;
             response.ErrorMessages.Add("Minimum age must be at least 18 years old.");
 
@@ -57,7 +57,7 @@ public class UserRegistrationService
 
         if (UserExist != null)
         {
-            response.statusCode = System.Net.HttpStatusCode.Conflict;
+            response.StatusCode = System.Net.HttpStatusCode.Conflict;
             response.IsSuccess = false;
             response.ErrorMessages.Add("Email Is Already Exist.");
             

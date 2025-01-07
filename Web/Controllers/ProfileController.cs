@@ -31,7 +31,7 @@ public class ProfileController : ControllerBase
     {
         if (Id == Guid.Empty)
         {
-            _response.statusCode = HttpStatusCode.BadRequest;
+            _response.StatusCode = HttpStatusCode.BadRequest;
             _response.IsSuccess = false;
             _response.ErrorMessages.Add("Not a valid id");
             return BadRequest(_response);
@@ -41,14 +41,14 @@ public class ProfileController : ControllerBase
 
         if (user == null)
         {
-            _response.statusCode = HttpStatusCode.NotFound;
+            _response.StatusCode = HttpStatusCode.NotFound;
             _response.IsSuccess = true;
             _response.ErrorMessages.Add("User does not exist");
             return NotFound(_response);
         }
         var userDTO = _mapper.Map<UserDTO>(user);
 
-        _response.statusCode = HttpStatusCode.OK;
+        _response.StatusCode = HttpStatusCode.OK;
         _response.IsSuccess = true;
         _response.Result = userDTO;
         return Ok(_response);
@@ -61,7 +61,7 @@ public class ProfileController : ControllerBase
     {
         if (updateUserRequest is null)
         {
-            _response.statusCode = HttpStatusCode.BadRequest;
+            _response.StatusCode = HttpStatusCode.BadRequest;
             _response.IsSuccess = false;
             _response.ErrorMessages.Add("objecet is null");
             return BadRequest(_response);
@@ -71,7 +71,7 @@ public class ProfileController : ControllerBase
 
         if (userReqId.Value != updateUserRequest.Id.ToString())
         {
-            _response.statusCode = HttpStatusCode.Unauthorized;
+            _response.StatusCode = HttpStatusCode.Unauthorized;
             _response.IsSuccess = false;
             _response.ErrorMessages.Add("Unauthorized user");
             return Unauthorized(_response);
@@ -81,7 +81,7 @@ public class ProfileController : ControllerBase
 
         if (user == null)
         {
-            _response.statusCode = HttpStatusCode.NotFound;
+            _response.StatusCode = HttpStatusCode.NotFound;
             _response.IsSuccess = true;
             _response.ErrorMessages.Add("User does not exist");
             return NotFound(_response);
@@ -104,7 +104,7 @@ public class ProfileController : ControllerBase
 
         if (!u.Succeeded)
         {
-            _response.statusCode = HttpStatusCode.BadRequest;
+            _response.StatusCode = HttpStatusCode.BadRequest;
             _response.IsSuccess = false;
 
             foreach (var item in u.Errors)
@@ -115,7 +115,7 @@ public class ProfileController : ControllerBase
             return BadRequest(_response);
         }
 
-        _response.statusCode = HttpStatusCode.OK;
+        _response.StatusCode = HttpStatusCode.OK;
         _response.IsSuccess = true;
         _response.ErrorMessages = null;
         var userMapped = _mapper.Map<UserDTO>(u);

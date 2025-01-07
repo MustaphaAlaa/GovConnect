@@ -32,6 +32,8 @@ namespace Services.TestServices
 
         public async Task<IQueryable<TestTypeDTO>> GetAllAsync(Expression<Func<TestType, bool>> predicate)
         {
+            _logger.LogInformation($"{this.GetType().Name} --- GetAllAsync By Expression");
+
             var lst = await _getTestTypeRepository.GetAllAsync(predicate);
 
             return lst.Select(tt => _mapper.Map<TestTypeDTO>(tt));
@@ -39,6 +41,7 @@ namespace Services.TestServices
 
         public async Task<List<TestTypeDTO>> GetAllAsync()
         {
+            _logger.LogInformation($"{this.GetType().Name} --- GetAllAsync");
             var lst = await _getTestTypeRepository.GetAllAsync();
 
             var lstMap = lst.Select(tt => _mapper.Map<TestTypeDTO>(tt));

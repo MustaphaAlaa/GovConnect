@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.JavaScript;
 using Microsoft.EntityFrameworkCore;
 using DataConfigurations;
 using IRepository;
@@ -22,14 +23,21 @@ using Services.ApplicationServices.ServiceCategoryApplications;
 using Services.ApplicationServices.Services.UserAppServices;
 using IServices.IApplicationServices.IServiceCategoryApplications.ILocalDrivingLicenseApplication;
 using GovConnect.IServices.ILicensesServices.IDetainLicenses;
+using IServices.IAppointments;
 using Models.ApplicationModels;
 using Microsoft.AspNetCore.HttpLogging;
 using Serilog;
 using IServices.ITests;
-using Services;
+using IServices.ITimeIntervalService;
+using IServices.IValidators;
+using Services.AppointmentsService;
 using Services.TestServices;
+using Services.TimeIntervalServices;
+ using IServices.IValidtors.ILocalDrivingLicenseApplications;
+ using Models.Tests;
+ using Services.ApplicationServices.Validators;
 
-namespace Web;
+ namespace Web;
 
 public class Program
 {
@@ -43,7 +51,8 @@ public class Program
         // Configure Serilog
         Log.Logger = new LoggerConfiguration()
             // .WriteTo.Console() // Write logs to the console
-            .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day) // Write logs to a file
+            .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day, outputTemplate: "+_+_+_+_+_[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext}: {Message:lj}{NewLine}{Exception}") // Write logs to a file
+
             .CreateLogger();
 
         // Use Serilog as the logging provider  
@@ -115,6 +124,18 @@ public class Program
         builder.Services.AddScoped<IGetTestTypeService, GetTestTypesService>();
         builder.Services.AddScoped<IGetAllTestTypesService, GetAllTestTypesService>();
 
+        // Register Appointment Service
+        builder.Services.AddScoped<ICreateAppointmentService, CreateAppointmentsService>();
+        builder.Services.AddScoped<IGetAppointmentService, GetAppointmentService>();
+        builder.Services.AddScoped<IGetAllAppointmentsService, GetAllAppointmentsService>();
+        builder.Services.AddScoped<IGetTimeIntervalService, GetTimeIntervalService>();
+        builder.Services.AddScoped<IGetAllTimeIntervalService, GetAllTimeIntervalService>();
+
+        // Register Validators Service
+        builder.Services.AddScoped<IDateValidator,  CreateDateValidator>();
+        builder.Services.AddScoped<ITestTypeValidator,  TestTypeValidator>();
+        
+        
         // Add services to the container
         builder.Services.AddControllers();
 

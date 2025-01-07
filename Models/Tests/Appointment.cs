@@ -35,9 +35,12 @@ public class Appointment
     /// </summary>
     public bool IsAvailable { get; set; }
 
+
     /// <summary>
     /// The specific day of the appointment.
     /// </summary>
+    [Required]
+    [RegularExpression(@"^\d{2}/\d{2}/\d{4}", ErrorMessage = "Invalid Date Fromat")]
     public DateOnly AppointmentDay { get; set; }
 
     /// <summary>

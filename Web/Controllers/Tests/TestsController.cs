@@ -32,7 +32,7 @@ namespace Web.Controllers.Tests
         [HttpGet("/types")]
         public async Task<IActionResult> GetTypes()
         {
-            _logger.LogInformation($"Get All Test Types.");
+            _logger.LogInformation($"{this.GetType().Name} --- GetTypes Action.");
             var tts = await _getAllTestTypesService.GetAllAsync();
             return Ok(tts);
         }

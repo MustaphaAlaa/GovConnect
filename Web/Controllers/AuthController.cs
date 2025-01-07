@@ -68,14 +68,14 @@ public class AuthController : ControllerBase
         {
             var UserDTO = _mapper.Map<UserDTO>(user);
 
-            _response.statusCode = System.Net.HttpStatusCode.OK;
+            _response.StatusCode = System.Net.HttpStatusCode.OK;
             _response.IsSuccess = true;
             _response.Result = UserDTO;
             _response.ErrorMessages = null;
             return Ok(_response);
         }
 
-        _response.statusCode = System.Net.HttpStatusCode.Forbidden;
+        _response.StatusCode = System.Net.HttpStatusCode.Forbidden;
         _response.IsSuccess = false;
 
         foreach (var err in result.Errors)
@@ -102,12 +102,12 @@ public class AuthController : ControllerBase
         if (user != null)
         {
             var u = await _userManager.IsInRoleAsync(user, "user");
-            _response.statusCode = System.Net.HttpStatusCode.OK;
+            _response.StatusCode = System.Net.HttpStatusCode.OK;
             _response.IsSuccess = true;
             _response.Result = _mapper.Map<UserDTO>(user);
         }
 
-        _response.statusCode = System.Net.HttpStatusCode.OK;
+        _response.StatusCode = System.Net.HttpStatusCode.OK;
         _response.IsSuccess = true;
         _response.Result = _mapper.Map<UserDTO>(user);
 */

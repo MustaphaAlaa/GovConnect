@@ -1,6 +1,6 @@
 ﻿using IRepository;
-using IServices.IApplicationServices.IServiceCategoryApplications.ILocalDrivingLicenseApplication;
 using IServices.IApplicationServices.User;
+using IServices.IValidtors.ILocalDrivingLicenseApplications;
 using Microsoft.Extensions.Logging;
 using ModelDTO.ApplicationDTOs.User;
 using Models.ApplicationModels;

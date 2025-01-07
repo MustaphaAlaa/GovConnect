@@ -1,20 +1,17 @@
-using System.Runtime.CompilerServices;
-using System.Security.AccessControl;
 using GovConnect.IServices.ILicensesServices.IDetainLicenses;
-using IRepository;
 using IServices.IApplicationServices.Category;
-using IServices.IApplicationServices.IServiceCategoryApplications.ILocalDrivingLicenseApplication;
 using IServices.IApplicationServices.User;
+using IServices.IValidtors.ILocalDrivingLicenseApplications;
 using Microsoft.Extensions.Logging;
 using ModelDTO.ApplicationDTOs.User;
 using Models.ApplicationModels;
-using Models.LicenseModels;
 using Services.ApplicationServices.Services.UserAppServices;
 using Services.Execptions;
 
 namespace Services.ApplicationServices.ServiceCategoryApplications;
 
-public class ReplacementForDamageLocalDrivingLicenseApplicationValidator : CreateApplicationServiceValidator, IReplacementForDamageLocalDrivingLicenseApplicationValidator
+public class ReplacementForDamageLocalDrivingLicenseApplicationValidator : CreateApplicationServiceValidator,
+    IReplacementForDamageLocalDrivingLicenseApplicationValidator
 {
     private const byte replacementDamage = (byte)EnServicePurpose.Replacement_For_Damage;
     private readonly ICheckApplicationExistenceService _checkApplicationExistenceService;
@@ -22,6 +19,7 @@ public class ReplacementForDamageLocalDrivingLicenseApplicationValidator : Creat
     private readonly IGetLocalDrivingLicenseByUserId _getLocalDrivingLicenseByUserId;
     private readonly IGetDetainLicense _getDetainLicense;
     private readonly ILogger<ReplacementForDamageLocalDrivingLicenseApplicationValidator> _logger;
+
     public ReplacementForDamageLocalDrivingLicenseApplicationValidator(
         ICheckApplicationExistenceService checkApplicationExistenceService,
         IPendingOrInProgressApplicationStatus pendingOrInProgressApplicationStatus,
@@ -44,11 +42,13 @@ public class ReplacementForDamageLocalDrivingLicenseApplicationValidator : Creat
 
         if (application != null)
         {
-            _pendingOrInProgressApplicationStatus.CheckApplicationStatus((EnApplicationStatus)application.ApplicationStatus);
+            _pendingOrInProgressApplicationStatus.CheckApplicationStatus(
+                (EnApplicationStatus)application.ApplicationStatus);
         }
 
 
-        CreateLocalDrivingLicenseApplicationRequest? localDrivingLicenseApplicationRequest = request as CreateLocalDrivingLicenseApplicationRequest;
+        CreateLocalDrivingLicenseApplicationRequest? localDrivingLicenseApplicationRequest =
+            request as CreateLocalDrivingLicenseApplicationRequest;
 
         if (localDrivingLicenseApplicationRequest != null)
         {
@@ -59,7 +59,7 @@ public class ReplacementForDamageLocalDrivingLicenseApplicationValidator : Creat
         var licenses = await _getLocalDrivingLicenseByUserId.Get(localDrivingLicenseApplicationRequest.UserId);
 
         var LDLicense = licenses.FirstOrDefault(l =>
-         l.localDrivingLicense.LicenseClassId == localDrivingLicenseApplicationRequest.LicenseClassId);
+            l.localDrivingLicense.LicenseClassId == localDrivingLicenseApplicationRequest.LicenseClassId);
 
         if (LDLicense == null)
         {
@@ -71,7 +71,8 @@ public class ReplacementForDamageLocalDrivingLicenseApplicationValidator : Creat
             throw new InvalidRequestException("license is expired");
         }
 
-        var detainedLicense = await _getDetainLicense.GetByAsync(licenses => licenses.LicenseId == LDLicense.localDrivingLicense.LocalDrivingLicenseId);
+        var detainedLicense = await _getDetainLicense.GetByAsync(licenses =>
+            licenses.LicenseId == LDLicense.localDrivingLicense.LocalDrivingLicenseId);
 
         if (detainedLicense != null)
             throw new DetainedLicenseException("license is detained");
