@@ -59,27 +59,27 @@ public class CreateAppointmentsService : ICreateAppointmentService
         AppointmentCreationResponse response = new();
 
 
-        foreach (var day in entity.AppointmentDay)
+        foreach (var item in entity.Appointments)
         {
             try
             {
-                _dateValidator.Validate(day);
+                _dateValidator.Validate(item.Key);
             }
             catch (Exception e)
             {
                 _logger.LogInformation($"{this.GetType().Name} CreateAsync Error: {e.Message}");
 
                 var res = new AppointmentResult();
-                res.Date = day;
+                res.Date = item.Key;
                 res.Reason = e.Message;
                 res.Status = "Failed";
-                res.TimeIntervalIds = entity.TimeIntervalIds;
+                res.TimeIntervalIds = item.Value;
 
                 response.FailedAppointments.Add(res);
                 continue;
             }
 
-            foreach (var timeInterval in entity.TimeIntervalIds)
+            foreach (var timeInterval in item.Value)
             {
                 var tI = await _getTimeIntervalService.GetByAsync(TI => TI.TimeIntervalId == timeInterval);
                 if (tI is null)
@@ -99,7 +99,7 @@ public class CreateAppointmentsService : ICreateAppointmentService
                 var isAppointmentExist = await _getRepository.GetAsync(app =>
                     app.TestTypeId == entity.TestTypeId &&
                     app.TimeIntervalId == timeInterval &&
-                    DateOnly.FromDateTime(day) == app.AppointmentDay);
+                    DateOnly.FromDateTime(item.Key) == app.AppointmentDay);
 
                 if (isAppointmentExist != null)
                 {
@@ -108,7 +108,7 @@ public class CreateAppointmentsService : ICreateAppointmentService
                     var res = new AppointmentResult();
                     res.Date = new DateTime();
                     res.TimeIntervalIds = new List<int>() { timeInterval };
-                    res.Reason = $"Time Interval With Id : {timeInterval} Not Found";
+                    res.Reason = $" Appointment is already Exist";
                     res.Status = "Failed";
 
                     response.FailedAppointments.Add(res);
@@ -118,7 +118,7 @@ public class CreateAppointmentsService : ICreateAppointmentService
 
                 var createAppointmentReq = new Appointment()
                 {
-                    AppointmentDay = DateOnly.FromDateTime(day),
+                    AppointmentDay = DateOnly.FromDateTime(item.Key),
                     TimeIntervalId = timeInterval,
                     TestTypeId = entity.TestTypeId,
                     IsAvailable = true
