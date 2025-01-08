@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using ModelDTO.Appointments;
 using Models;
 using Models.Tests;
 using Models.Users;
 namespace DataConfigurations
 {
-    /// <summary>
-    /// Provides methods to create the stored procedure StoredProcedure_GetAvailableDays.
-    /// </summary>
+
     public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Guid>
     {
         public async Task<List<DateOnly>> SP_GetAvailableDays(int TestTypeId)
@@ -23,5 +22,26 @@ namespace DataConfigurations
 
     }
 
+    public interface ISP_GetTestTypeDayTimeInterval
+    {
+        public Task<IQueryable<List<TimeIntervalDTO>>> SP_GetTestTypeDayTimeInterval(int TestTypeId, DateOnly day);
+
+    }
+    public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Guid>
+    {
+        public async Task<List<TimeIntervalDTO>> SP_GetTestTypeDayTimeInterval(int TestTypeId, DateOnly day)
+        {
+            SqlParameter[] parameter = new[]{
+                                       new SqlParameter("@TestTypeId", TestTypeId),
+                                       new SqlParameter("@Day", day) };
+
+            var exec = await Database
+                .SqlQueryRaw<TimeIntervalDTO>(@"EXECUTE SP_GetTestTypeDayTimeInterval @TestTypeId, @Day", parameter)
+                .ToListAsync();
+            return exec;
+        }
+
+
+    }
 
 }

@@ -9,6 +9,7 @@ using System.Net;
 using ModelDTO.API;
 using ModelDTO.Appointments;
 using DataConfigurations;
+using IServices.ITimeIntervalService;
 
 namespace Web.Controllers.Appoinments;
 
@@ -22,6 +23,7 @@ public class AppointmentController : ControllerBase
     private readonly IMapper _mapper;
     private readonly IGetAppointmentService _getAppointmentService;
     private readonly IGetAllAppointmentsService _getAllAppointmentService;
+    private readonly IGetAllTimeIntervalService _getAllTimeIntervalService;
     private readonly ICreateAppointmentService _createAppointmentService;
     private readonly GovConnectDbContext _context;
 
@@ -29,6 +31,7 @@ public class AppointmentController : ControllerBase
         IGetAllTestTypesService getAllTestTypesService,
         IGetAppointmentService getAppointmentService,
         IGetAllAppointmentsService getAllAppointmentService,
+        IGetAllTimeIntervalService getAllTimeIntervalService,
         ICreateAppointmentService createAppointmentService,
         ILogger<Appointment> logger,
         IMapper mapper,
@@ -40,6 +43,7 @@ public class AppointmentController : ControllerBase
         _getAllTestTypesService = getAllTestTypesService;
         _getAppointmentService = getAppointmentService;
         _getAllAppointmentService = getAllAppointmentService;
+        _getAllTimeIntervalService = getAllTimeIntervalService;
         _createAppointmentService = createAppointmentService;
         _context = context;
     }
@@ -52,7 +56,7 @@ public class AppointmentController : ControllerBase
     /// <param name="day">the date for which to retrive info. dd/mm/yyyy</param>
     /// <returns>A list of appointments scheduled for the specified test type and day.</returns>
     [HttpGet("type/{TypeId}")]
-    public IActionResult GetTypeAppointment(int TypeId, string day)
+    public IActionResult GetTypeAppointments(int TypeId, string day)
     {
         _logger.LogInformation($"Get Appointments for TestType by id:{TypeId} and day:{day}");
         //validate for get and create
@@ -165,12 +169,8 @@ public class AppointmentController : ControllerBase
 
         try
         {
-            // Call the service to create the appointment
-            // var res = await _getAppointmentService.GetByAsync(app => app.TestTypeId == TypeId && app.IsAvailable == true);
-            //var res2 = await _getAllAppointmentService.GetAllAsync(app => app.TestTypeId == TypeId && app.IsAvailable == true);
-            //var days = res2.Select(x => x.AppointmentDay).Distinct();
             var days = await _context.SP_GetAvailableDays(TypeId);
-            // Return a success response
+
             var response = new ApiResponse
             {
                 Result = days,
@@ -193,5 +193,85 @@ public class AppointmentController : ControllerBase
             });
         }
     }
+
+
+    [HttpGet("type/{TypeId:int}/Time-Interval")]
+    public async Task<IActionResult> GetDays([FromRoute] int TypeId, [FromQuery] DateOnly day)
+    {
+        _logger.LogInformation($"Get available days for appointments For TestTypeId: {TypeId}");
+
+        var appti = await _getAllAppointmentService.GetAllAsync(app => app.AppointmentDay == day && app.TestTypeId == TypeId);
+
+        // var gg2 = await _getAllTimeIntervalService.GetTimeIntervalsDictionaryAsync(ti => ti.TimeIntervalId > 0);
+        //var gg = await _getAllTimeIntervalService.GetAllAsync();
+
+        //var koko = appti.Join(gg, a => a.TimeIntervalId,
+        //    t => t.TimeIntervalId,
+        //    (a, t) => new
+        //    {
+        //        Id = t.TimeIntervalId,
+        //        Hour = t.Hour,
+        //        Minute = t.Minute
+        //    });
+        //.Select(t =>
+        //    new TimeIntervalDTO
+        //    {
+        //        TimeIntervalId = t.Id,
+        //        Hour = t.Hour,
+        //        Minute = t.Minute
+        //    }).ToList();
+
+
+        var koko = await _context.SP_GetTestTypeDayTimeInterval(TypeId, day);
+        var dict = new Dictionary<int, List<TimeIntervalDTO>>();
+        foreach (var t in koko)
+        {
+            if (!dict.TryAdd((int)t.Hour, new List<TimeIntervalDTO>() { t }))
+            {
+                dict[(int)t.Hour].Add(t);
+            }
+        }
+        return Ok(dict);
+        // Validate the request body
+        //if (TypeId <= 0)
+        //{
+        //    return BadRequest(new ApiResponse
+        //    {
+        //        IsSuccess = false,
+        //        StatusCode = HttpStatusCode.BadRequest,
+        //        ErrorMessages = new List<string> { "Invalid Test Type Id" }
+        //    });
+        //}
+
+
+        //try
+        //{
+        //    var days = await _context.SP_GetAvailableDays(TypeId);
+
+        //    var response = new ApiResponse
+        //    {
+        //        Result = days,
+        //        StatusCode = HttpStatusCode.OK,
+        //        IsSuccess = true
+        //    };
+
+        //    return Ok(response);
+        //}
+        //catch (Exception ex)
+        //{
+        //    _logger.LogError(ex, "An error occurred while creating the appointment.");
+
+        //    // Return an error response
+        //    return StatusCode((int)HttpStatusCode.InternalServerError, new ApiResponse
+        //    {
+        //        IsSuccess = false,
+        //        StatusCode = HttpStatusCode.InternalServerError,
+        //        ErrorMessages = new List<string> { "An error occurred while processing your request." }
+        //    });
+        //}
+    }
+
+
+
 
 }

@@ -2,6 +2,7 @@
 using AutoMapper;
 using IRepository;
 using IServices.ITimeIntervalService;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ModelDTO.Appointments;
 using Models;
@@ -40,5 +41,17 @@ public class GetAllTimeIntervalService : IGetAllTimeIntervalService
         var timeIntervalDTOs = timeIntervals != null ? timeIntervals.Select(ti => _mapper.Map<TimeIntervalDTO>(ti)).ToList() : null;
         return timeIntervalDTOs.AsQueryable();
 
+    }
+
+    public async Task<Dictionary<int, List<TimeIntervalDTO>>> GetTimeIntervalsDictionaryAsync(Expression<Func<TimeInterval, bool>> predict)
+    {
+        _logger.LogInformation($"{this.GetType().Name} ---- GetTimeIntervalsDictionaryAsync");
+
+        IQueryable<TimeInterval> timeIntervals = await _getAllTimeIntervalService.GetAllAsync(predict);
+
+
+        var timeIntervalsDictionary = timeIntervals.GroupBy(ti => ti.Hour).ToDictionary(ti => (int)ti.Key, ti => ti.Select(t => _mapper.Map<TimeIntervalDTO>(t)).ToList());
+
+        return timeIntervalsDictionary;
     }
 }
