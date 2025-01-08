@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices.JavaScript;
 using Microsoft.EntityFrameworkCore;
 using DataConfigurations;
 using IRepository;
@@ -34,7 +33,6 @@ using Services.AppointmentsService;
 using Services.TestServices;
 using Services.TimeIntervalServices;
 using IServices.IValidtors.ILocalDrivingLicenseApplications;
-using Models.Tests;
 using Services.ApplicationServices.Validators;
 
 namespace Web;
@@ -69,9 +67,9 @@ public class Program
         builder.Services.AddDbContext<GovConnectDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("default")));
 
-        // Register StoredProcedure_GetAvailableDays
-        //builder.Services.AddScoped<StoredProcedure_GetAvailableDays>();
-        //builder.Services.AddScoped<StoredProcedure_InsertAppointment>();
+        // Register StoredProcedure 
+        builder.Services.AddScoped<ISP_GetTestTypeDayTimeInterval, GovConnectDbContext>();
+
 
 
         // Register Repositories

@@ -17,16 +17,20 @@ namespace Web.Controllers.Appoinments;
 [Route("api/Appointments")]
 public class AppointmentController : ControllerBase
 {
-    private readonly IGetTestTypeService _getTestTypes;
-    private readonly IGetAllTestTypesService _getAllTestTypesService;
     private readonly ILogger<Appointment> _logger;
     private readonly IMapper _mapper;
+
     private readonly IGetAppointmentService _getAppointmentService;
     private readonly IGetAllAppointmentsService _getAllAppointmentService;
-    private readonly IGetAllTimeIntervalService _getAllTimeIntervalService;
     private readonly ICreateAppointmentService _createAppointmentService;
-    private readonly GovConnectDbContext _context;
 
+    private readonly IGetTestTypeService _getTestTypes;
+    private readonly IGetAllTestTypesService _getAllTestTypesService;
+
+    private readonly IGetAllTimeIntervalService _getAllTimeIntervalService;
+
+    private readonly GovConnectDbContext _context;
+    private readonly ISP_GetTestTypeDayTimeInterval _SP_GetTestTypeDayTimeInterval;
     public AppointmentController(IGetTestTypeService getTestTypes,
         IGetAllTestTypesService getAllTestTypesService,
         IGetAppointmentService getAppointmentService,
@@ -35,6 +39,7 @@ public class AppointmentController : ControllerBase
         ICreateAppointmentService createAppointmentService,
         ILogger<Appointment> logger,
         IMapper mapper,
+        ISP_GetTestTypeDayTimeInterval SP_GetTestTypeDayTimeInterval,
         GovConnectDbContext context)
     {
         _logger = logger;
@@ -46,6 +51,7 @@ public class AppointmentController : ControllerBase
         _getAllTimeIntervalService = getAllTimeIntervalService;
         _createAppointmentService = createAppointmentService;
         _context = context;
+        _SP_GetTestTypeDayTimeInterval = SP_GetTestTypeDayTimeInterval;
     }
 
 
@@ -222,7 +228,7 @@ public class AppointmentController : ControllerBase
         //    }).ToList();
 
 
-        var koko = await _context.SP_GetTestTypeDayTimeInterval(TypeId, day);
+        var koko = await _SP_GetTestTypeDayTimeInterval.SP_GetTestTypeDayTimeInterval(TypeId, day);
         var dict = new Dictionary<int, List<TimeIntervalDTO>>();
         foreach (var t in koko)
         {

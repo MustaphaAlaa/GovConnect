@@ -8,8 +8,13 @@ using Models.Users;
 
 namespace DataConfigurations;
 
-public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Guid>
+
+/// <summary>
+/// Represents the database context for the GovConnect application, including identity and custom entities.
+/// </summary>
+public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Guid>, ISP_InsertAppointment
 {
+    /// <inheritdoc />
 
     public async Task<int> SP_InsertAppointment(Appointment appointment)
     {
