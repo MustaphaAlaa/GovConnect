@@ -33,11 +33,11 @@ using IServices.IValidators;
 using Services.AppointmentsService;
 using Services.TestServices;
 using Services.TimeIntervalServices;
- using IServices.IValidtors.ILocalDrivingLicenseApplications;
- using Models.Tests;
- using Services.ApplicationServices.Validators;
+using IServices.IValidtors.ILocalDrivingLicenseApplications;
+using Models.Tests;
+using Services.ApplicationServices.Validators;
 
- namespace Web;
+namespace Web;
 
 public class Program
 {
@@ -68,6 +68,11 @@ public class Program
         // Configure DbContext
         builder.Services.AddDbContext<GovConnectDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("default")));
+
+        // Register StoredProcedure_GetAvailableDays
+        //builder.Services.AddScoped<StoredProcedure_GetAvailableDays>();
+        //builder.Services.AddScoped<StoredProcedure_InsertAppointment>();
+
 
         // Register Repositories
         builder.Services.AddScoped(typeof(IGetRepository<>), typeof(GetRepository<>));
@@ -132,10 +137,10 @@ public class Program
         builder.Services.AddScoped<IGetAllTimeIntervalService, GetAllTimeIntervalService>();
 
         // Register Validators Service
-        builder.Services.AddScoped<IDateValidator,  CreateDateValidator>();
-        builder.Services.AddScoped<ITestTypeValidator,  TestTypeValidator>();
-        
-        
+        builder.Services.AddScoped<IDateValidator, CreateDateValidator>();
+        builder.Services.AddScoped<ITestTypeValidator, TestTypeValidator>();
+
+
         // Add services to the container
         builder.Services.AddControllers();
 
@@ -162,12 +167,7 @@ public class Program
         var app = builder.Build();
 
 
-        //Crerating stored procedure for the database
-        using (var scope = app.Services.CreateScope())
-        {
-            var services = scope.ServiceProvider;
-            Sp_InsertAppointment.Create(services);
-        }
+
 
         // Configure the HTTP request pipeline
         if (app.Environment.IsDevelopment())

@@ -10,6 +10,9 @@ using Models.Countries;
 
 namespace DataConfigurations;
 
+
+
+
 public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Guid>
 {
     //@@Users

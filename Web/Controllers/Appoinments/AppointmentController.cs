@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Net;
 using ModelDTO.API;
 using ModelDTO.Appointments;
+using DataConfigurations;
 
 namespace Web.Controllers.Appoinments;
 
@@ -22,6 +23,7 @@ public class AppointmentController : ControllerBase
     private readonly IGetAppointmentService _getAppointmentService;
     private readonly IGetAllAppointmentsService _getAllAppointmentService;
     private readonly ICreateAppointmentService _createAppointmentService;
+    private readonly GovConnectDbContext _context;
 
     public AppointmentController(IGetTestTypeService getTestTypes,
         IGetAllTestTypesService getAllTestTypesService,
@@ -29,7 +31,8 @@ public class AppointmentController : ControllerBase
         IGetAllAppointmentsService getAllAppointmentService,
         ICreateAppointmentService createAppointmentService,
         ILogger<Appointment> logger,
-        IMapper mapper)
+        IMapper mapper,
+        GovConnectDbContext context)
     {
         _logger = logger;
         _mapper = mapper;
@@ -38,6 +41,7 @@ public class AppointmentController : ControllerBase
         _getAppointmentService = getAppointmentService;
         _getAllAppointmentService = getAllAppointmentService;
         _createAppointmentService = createAppointmentService;
+        _context = context;
     }
 
 
@@ -75,22 +79,6 @@ public class AppointmentController : ControllerBase
         {
             return BadRequest($"Invalid Date Format, {ex.Message}");
         }
-    }
-
-    [HttpPost("type/{TypeId}/CreateAppointment22")]
-    public async Task<IActionResult> CreateAppointment22([FromRoute] int TypeId, [FromBody] CreateAppointmentsRequest req)
-    {
-        _logger.LogInformation($"Create Appointments for TestType by id:{TypeId}");
-        req.TestTypeId = TypeId;
-        var res = await _createAppointmentService.CreateAsync(req);
-
-        ApiResponse response = new ApiResponse();
-
-        response.Result = res;
-        response.StatusCode = HttpStatusCode.OK;
-        response.IsSuccess = true;
-
-        return Ok(response);
     }
 
 
@@ -138,6 +126,54 @@ public class AppointmentController : ControllerBase
             var response = new ApiResponse
             {
                 Result = res,
+                StatusCode = HttpStatusCode.OK,
+                IsSuccess = true
+            };
+
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An error occurred while creating the appointment.");
+
+            // Return an error response
+            return StatusCode((int)HttpStatusCode.InternalServerError, new ApiResponse
+            {
+                IsSuccess = false,
+                StatusCode = HttpStatusCode.InternalServerError,
+                ErrorMessages = new List<string> { "An error occurred while processing your request." }
+            });
+        }
+    }
+
+    [HttpGet("type/{TypeId}/available-days")]
+    public async Task<IActionResult> GetDays([FromRoute] int TypeId)
+    {
+        _logger.LogInformation($"Get available days for appointments For TestTypeId: {TypeId}");
+
+        // Validate the request body
+        if (TypeId <= 0)
+        {
+            return BadRequest(new ApiResponse
+            {
+                IsSuccess = false,
+                StatusCode = HttpStatusCode.BadRequest,
+                ErrorMessages = new List<string> { "Invalid Test Type Id" }
+            });
+        }
+
+
+        try
+        {
+            // Call the service to create the appointment
+            // var res = await _getAppointmentService.GetByAsync(app => app.TestTypeId == TypeId && app.IsAvailable == true);
+            //var res2 = await _getAllAppointmentService.GetAllAsync(app => app.TestTypeId == TypeId && app.IsAvailable == true);
+            //var days = res2.Select(x => x.AppointmentDay).Distinct();
+            var days = await _context.SP_GetAvailableDays(TypeId);
+            // Return a success response
+            var response = new ApiResponse
+            {
+                Result = days,
                 StatusCode = HttpStatusCode.OK,
                 IsSuccess = true
             };
