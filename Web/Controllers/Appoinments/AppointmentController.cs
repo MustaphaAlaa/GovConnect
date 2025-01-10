@@ -10,6 +10,7 @@ using ModelDTO.API;
 using ModelDTO.Appointments;
 using DataConfigurations;
 using IServices.ITimeIntervalService;
+using DataConfigurations.TVFs.ITVFs;
 
 namespace Web.Controllers.Appoinments;
 
@@ -28,9 +29,8 @@ public class AppointmentController : ControllerBase
     private readonly IGetAllTestTypesService _getAllTestTypesService;
 
     private readonly IGetAllTimeIntervalService _getAllTimeIntervalService;
-
-    private readonly GovConnectDbContext _context;
-    private readonly ISP_GetTestTypeDayTimeInterval _SP_GetTestTypeDayTimeInterval;
+    private readonly ITVF_GetTestTypeDayTimeInterval _TVF_GetTestTypeDayTimeInterval;
+    private readonly ITVF_GetAvailableDays _TVF_GetAvailableDays;
     public AppointmentController(IGetTestTypeService getTestTypes,
         IGetAllTestTypesService getAllTestTypesService,
         IGetAppointmentService getAppointmentService,
@@ -39,8 +39,8 @@ public class AppointmentController : ControllerBase
         ICreateAppointmentService createAppointmentService,
         ILogger<Appointment> logger,
         IMapper mapper,
-        ISP_GetTestTypeDayTimeInterval SP_GetTestTypeDayTimeInterval,
-        GovConnectDbContext context)
+        ITVF_GetTestTypeDayTimeInterval TVF_GetTestTypeDayTimeInterval,
+        ITVF_GetAvailableDays TVF_GetAvailable)
     {
         _logger = logger;
         _mapper = mapper;
@@ -50,8 +50,8 @@ public class AppointmentController : ControllerBase
         _getAllAppointmentService = getAllAppointmentService;
         _getAllTimeIntervalService = getAllTimeIntervalService;
         _createAppointmentService = createAppointmentService;
-        _context = context;
-        _SP_GetTestTypeDayTimeInterval = SP_GetTestTypeDayTimeInterval;
+        _TVF_GetTestTypeDayTimeInterval = TVF_GetTestTypeDayTimeInterval;
+        _TVF_GetAvailableDays = TVF_GetAvailable;
     }
 
 
@@ -175,7 +175,7 @@ public class AppointmentController : ControllerBase
 
         try
         {
-            var days = await _context.SP_GetAvailableDays(TypeId);
+            var days = await _TVF_GetAvailableDays.GetAvailableDays(TypeId);
 
             var response = new ApiResponse
             {
@@ -228,7 +228,7 @@ public class AppointmentController : ControllerBase
         //    }).ToList();
 
 
-        var koko = await _SP_GetTestTypeDayTimeInterval.SP_GetTestTypeDayTimeInterval(TypeId, day);
+        var koko = await _TVF_GetTestTypeDayTimeInterval.GetTestTypeDayTimeInterval(TypeId, day);
         var dict = new Dictionary<int, List<TimeIntervalDTO>>();
         foreach (var t in koko)
         {
@@ -252,7 +252,7 @@ public class AppointmentController : ControllerBase
 
         //try
         //{
-        //    var days = await _context.SP_GetAvailableDays(TypeId);
+        //    var days = await _context.GetAvailableDays(TypeId);
 
         //    var response = new ApiResponse
         //    {

@@ -11,7 +11,7 @@ namespace DataConfigurations.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             string sqlCommand = @"
-                    CREATE FUNCTION GetTestTypeDayTimeInterval 
+                    CREATE FUNCTION ITVF_GetTestTypeDayTimeInterval 
                     (
                         @TestTypeId INT, 
                         @Day DATE
@@ -38,7 +38,7 @@ namespace DataConfigurations.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("DROP FUNCTION GetTestTypeDayTimeInterval");
+            migrationBuilder.Sql("DROP FUNCTION ITVF_GetTestTypeDayTimeInterval");
         }
     }
 }

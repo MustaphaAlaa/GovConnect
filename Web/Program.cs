@@ -34,6 +34,7 @@ using Services.TestServices;
 using Services.TimeIntervalServices;
 using IServices.IValidtors.ILocalDrivingLicenseApplications;
 using Services.ApplicationServices.Validators;
+using DataConfigurations.TVFs.ITVFs;
 
 namespace Web;
 
@@ -68,9 +69,11 @@ public class Program
             options.UseSqlServer(builder.Configuration.GetConnectionString("default")));
 
         // Register StoredProcedure 
-        builder.Services.AddScoped<ISP_GetTestTypeDayTimeInterval, GovConnectDbContext>();
+        builder.Services.AddScoped<ISP_InsertAppointment, GovConnectDbContext>();
 
-
+        // Register Function
+        builder.Services.AddScoped<ITVF_GetTestTypeDayTimeInterval, GovConnectDbContext>();
+        builder.Services.AddScoped<ITVF_GetAvailableDays, GovConnectDbContext>();
 
         // Register Repositories
         builder.Services.AddScoped(typeof(IGetRepository<>), typeof(GetRepository<>));

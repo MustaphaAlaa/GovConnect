@@ -11,7 +11,7 @@ namespace DataConfigurations.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             string sql = @" 
-                         CREATE PROCEDURE SP_GetAvailableDays
+                         CREATE PROCEDURE GetAvailableDays
                         @TestTypeId INT
                     AS
                     BEGIN
@@ -26,7 +26,7 @@ namespace DataConfigurations.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            var sql = "DROP PROCEDURE SP_GetAvailableDays";
+            var sql = "DROP PROCEDURE GetAvailableDays";
             migrationBuilder.Sql(sql);
         }
     }
