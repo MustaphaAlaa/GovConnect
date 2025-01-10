@@ -15,7 +15,7 @@ public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Gu
 {
     /// <inheritdoc />
 
-    public async Task<List<TimeIntervalDTO>> GetTestTypeDayTimeInterval(int TestTypeId, DateOnly day)
+    public async Task<List<TimeIntervalForADayDTO>> GetTestTypeDayTimeInterval(int TestTypeId, DateOnly day)
     {
         SqlParameter[] parameter = new[]
         {
@@ -24,7 +24,7 @@ public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Gu
         };
 
         var result = await Database
-            .SqlQueryRaw<TimeIntervalDTO>(@"SELECT * FROM GetTestTypeDayTimeInterval(@TestTypeId, @Day)", parameter)
+            .SqlQueryRaw<TimeIntervalForADayDTO>(@"SELECT * FROM GetTestTypeDayTimeInterval(@TestTypeId, @Day)", parameter)
             .ToListAsync();
         return result;
     }

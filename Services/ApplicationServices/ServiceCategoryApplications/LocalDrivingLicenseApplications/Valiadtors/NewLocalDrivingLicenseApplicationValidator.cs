@@ -13,12 +13,12 @@ namespace Services.ApplicationServices.ServiceCategoryApplications;
 public class NewLocalDrivingLicenseApplicationValidator : CreateApplicationServiceValidator, INewLocalDrivingLicenseApplicationValidator
 {
     private readonly ICheckApplicationExistenceService _checkApplicationExistenceService;
-    private readonly IFirstTimeCheckable<CreateLocalDrivingLicenseApplicationRequest> _firstTimeChecker;
+    private readonly IFirstTimeApplicationCheckable<CreateLocalDrivingLicenseApplicationRequest> _firstTimeChecker;
     private readonly IPendingOrInProgressApplicationStatus _pendingOrInProgressApplicationStatus;
     private readonly ILogger<INewLocalDrivingLicenseApplicationValidator> _logger;
     public NewLocalDrivingLicenseApplicationValidator(
         IGetRepository<Application> getApplicationRepository,
-        IFirstTimeCheckable<CreateLocalDrivingLicenseApplicationRequest> firstTimeChecker,
+        IFirstTimeApplicationCheckable<CreateLocalDrivingLicenseApplicationRequest> firstTimeChecker,
         ICheckApplicationExistenceService checkApplicationExistenceService,
         IPendingOrInProgressApplicationStatus pendingOrInProgressApplicationStatus,
         ILogger<INewLocalDrivingLicenseApplicationValidator> logger) : base(logger)
@@ -52,8 +52,8 @@ public class NewLocalDrivingLicenseApplicationValidator : CreateApplicationServi
             CreateLocalDrivingLicenseApplicationRequest localDrivingLicenseApplicationRequest = request as CreateLocalDrivingLicenseApplicationRequest;
 
             if (localDrivingLicenseApplicationRequest != null)
-             localDrivingLicenseApplicationRequest.ServicePurposeId = (byte)EnServicePurpose.New; 
-             
+                localDrivingLicenseApplicationRequest.ServicePurposeId = (byte)EnServicePurpose.New;
+
             if (!Enum.IsDefined(typeof(EnLicenseClasses), (int)localDrivingLicenseApplicationRequest?.LicenseClassId))
             {
                 _logger.LogError("!!! License class id does not exist");

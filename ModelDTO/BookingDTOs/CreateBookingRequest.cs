@@ -10,21 +10,10 @@ namespace ModelDTO.BookingDTOs
     public class CreateBookingRequest
     {
         /// <summary>
-        /// The date when this field is recorded, in timestamp.
-        /// </summary>
-        public DateTime BookingDate { get; set; }
-
-        /// <summary>
         /// The fees paid by the user for the booking.
         /// </summary>
         [Required]
         public decimal PaidFees { get; set; }
-
-        /// <summary>
-        /// The status of the booking.
-        /// Pending, Completed, Canceled
-        /// </summary>
-        public string BookingStatus { get; set; } // its value must be in EnBookingStatus.
 
         /// <summary>
         /// The user who made the booking.

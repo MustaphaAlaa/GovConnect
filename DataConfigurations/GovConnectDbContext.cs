@@ -7,6 +7,7 @@ using Models.Tests;
 using Models.Types;
 using Models.Users;
 using Models.Countries;
+using Models.Applications;
 
 namespace DataConfigurations;
 
@@ -34,6 +35,7 @@ public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Gu
     //@@Test
     public DbSet<Test> Tests { get; set; }
     public DbSet<TestType> TestTypes { get; set; }
+    public DbSet<RetakeTestApplication> RetakeTestApplications { get; set; }
 
     //@@Appointments
     public DbSet<Appointment> TestAppointments { get; set; }

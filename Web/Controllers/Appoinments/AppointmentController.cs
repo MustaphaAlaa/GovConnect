@@ -202,7 +202,7 @@ public class AppointmentController : ControllerBase
 
 
     [HttpGet("type/{TypeId:int}/Time-Interval")]
-    public async Task<IActionResult> GetDays([FromRoute] int TypeId, [FromQuery] DateOnly day)
+    public async Task<IActionResult> GetTimeIntervals([FromRoute] int TypeId, [FromQuery] DateOnly day)
     {
         _logger.LogInformation($"Get available days for appointments For TestTypeId: {TypeId}");
 
@@ -220,6 +220,7 @@ public class AppointmentController : ControllerBase
 
         try
         {
+
             var testTypeDayTimeIntervals = await _TVF_GetTestTypeDayTimeInterval.GetTestTypeDayTimeInterval(TypeId, day);
 
             var response = new ApiResponse

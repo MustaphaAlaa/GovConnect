@@ -40,12 +40,14 @@ public class Application
 
     public decimal PaidFees { get; set; }
 
-    [Required] public byte ServicePurposeId { get; set; }
-    [Required] public short ServiceCategoryId { get; set; }
+    [Required][ForeignKey("ServicePurpose")] public byte ServicePurposeId { get; set; }
+    [Required][ForeignKey("ServiceCategory")] public short ServiceCategoryId { get; set; }
 
     [ForeignKey("Employee")] public Guid? UpdatedByEmployeeId { get; set; }
 
     public User User { get; set; }
     public ServiceFees ServiceFees { get; set; }
+    public ServicePurpose ServicePurpose { get; set; }
+    public ServiceCategory ServiceCategory { get; set; }
     public Employee Employee { get; set; }
 }

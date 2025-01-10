@@ -11,6 +11,8 @@ namespace DataConfigurations.EntitiesConfiguration
         {
             builder.Property(app => app.ServicePurposeId).HasColumnName("ServicePurposeId");
             builder.Property(app => app.ApplicationStatus).HasColumnType("tinyint");
+
+
         }
     }
 }

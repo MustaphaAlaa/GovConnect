@@ -4,6 +4,7 @@ using DataConfigurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataConfigurations.Migrations
 {
     [DbContext(typeof(GovConnectDbContext))]
-    partial class GovConnectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250110150458_Add_ServiceCategory_ForigenKey_to_Applications_table")]
+    partial class Add_ServiceCategory_ForigenKey_to_Applications_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -456,34 +459,6 @@ namespace DataConfigurations.Migrations
                             ServicePurposeId = (byte)6,
                             Purpose = "Retake Test"
                         });
-                });
-
-            modelBuilder.Entity("Models.Applications.RetakeTestApplication", b =>
-                {
-                    b.Property<int>("RetakeTestApplicationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RetakeTestApplicationId"));
-
-                    b.Property<int>("ApplicationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LocalDrivingLicenseApplicationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TestTypeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RetakeTestApplicationId");
-
-                    b.HasIndex("ApplicationId");
-
-                    b.HasIndex("LocalDrivingLicenseApplicationId");
-
-                    b.HasIndex("TestTypeId");
-
-                    b.ToTable("RetakeTestApplications");
                 });
 
             modelBuilder.Entity("Models.Countries.Country", b =>
@@ -2796,33 +2771,6 @@ namespace DataConfigurations.Migrations
                     b.Navigation("ServiceCategory");
 
                     b.Navigation("ServicePurpose");
-                });
-
-            modelBuilder.Entity("Models.Applications.RetakeTestApplication", b =>
-                {
-                    b.HasOne("Models.ApplicationModels.Application", "Application")
-                        .WithMany()
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.ApplicationModels.LocalDrivingLicenseApplication", "LocalDrivingLicenseApplication")
-                        .WithMany()
-                        .HasForeignKey("LocalDrivingLicenseApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.Tests.TestType", "TestType")
-                        .WithMany()
-                        .HasForeignKey("TestTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Application");
-
-                    b.Navigation("LocalDrivingLicenseApplication");
-
-                    b.Navigation("TestType");
                 });
 
             modelBuilder.Entity("Models.LicenseModels.DetainedLicense", b =>

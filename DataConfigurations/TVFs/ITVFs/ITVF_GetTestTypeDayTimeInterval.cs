@@ -12,7 +12,7 @@ namespace DataConfigurations.TVFs.ITVFs
         /// </summary>
         /// <param name="TestTypeId">The ID of the test type.</param>
         /// <param name="day">The specific day to retrieve time intervals for.</param>
-        /// <returns>A list of TimeIntervalDTO objects.</returns>
-        public Task<List<TimeIntervalDTO>> GetTestTypeDayTimeInterval(int TestTypeId, DateOnly day);
+        /// <returns>A list of TimeIntervalForADayDTO objects.</returns>
+        public Task<List<TimeIntervalForADayDTO>> GetTestTypeDayTimeInterval(int TestTypeId, DateOnly day);
     }
 }

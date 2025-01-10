@@ -105,7 +105,7 @@ public class Program
         builder.Services.AddScoped<IDeleteServiceCategory, DeleteServiceCategoryService>();
 
         // Register Local Driving License Services
-        builder.Services.AddScoped<IFirstTimeCheckable<CreateLocalDrivingLicenseApplicationRequest>, FirstTimeLocalDrivingLicense>();
+        builder.Services.AddScoped<IFirstTimeApplicationCheckable<CreateLocalDrivingLicenseApplicationRequest>, FirstTimeLocalDrivingLicense>();
         builder.Services.AddScoped<IPendingOrInProgressApplicationStatus, PendingOrInProgressApplicationStatus>();
         builder.Services.AddScoped<ICheckApplicationExistenceService, CheckApplicationExistenceService>();
         builder.Services.AddScoped<IGetLocalDrivingLicenseByUserId, GetLocalDrivingLicneseByUserId>();

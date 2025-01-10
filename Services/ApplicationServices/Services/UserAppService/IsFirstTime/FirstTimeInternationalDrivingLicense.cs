@@ -6,7 +6,7 @@ using Models.Users;
 
 namespace Services.ApplicationServices.Services.UserAppServices.IsFirstTime;
 
-public class FirstTimeInternationalDrivingLicense : IFirstTimeCheckable<CreateInternationalDrivingLicenseApplicationRequest>
+public class FirstTimeInternationalDrivingLicense : IFirstTimeApplicationCheckable<CreateInternationalDrivingLicenseApplicationRequest>
 {
     public FirstTimeInternationalDrivingLicense(IGetAllRepository<Driver> getAllDriversRepository, IGetAllRepository<InternationalDrivingLicense> getAllInternationalLicensesRepository)
     {

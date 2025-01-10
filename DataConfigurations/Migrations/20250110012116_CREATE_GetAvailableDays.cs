@@ -21,7 +21,8 @@ namespace DataConfigurations.Migrations
                     (
                         SELECT DISTINCT AppointmentDay
                         FROM Appointments
-                        WHERE TestTypeId = @TestTypeId
+                        WHERE TestTypeId = @TestTypeId 
+                        AND IsAvailable  = 1
                     );";
 
             migrationBuilder.Sql(sql);

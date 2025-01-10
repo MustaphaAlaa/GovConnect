@@ -23,7 +23,8 @@ namespace DataConfigurations.Migrations
                         SELECT 
                             TimeInterval.TimeIntervalId, 
                             TimeInterval.Hour, 
-                            TimeInterval.Minute 
+                            TimeInterval.Minute,
+                            Appointment.AppointmentId
                         FROM Appointments AS Appointment
                         INNER JOIN TimeIntervals AS TimeInterval
                             ON TimeInterval.TimeIntervalId = Appointment.TimeIntervalId

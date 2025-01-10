@@ -9,7 +9,7 @@ using Models.Users;
 namespace Services.ApplicationServices.Services.UserAppServices.IsFirstTime;
 
 
-public class FirstTimeLocalDrivingLicense : IFirstTimeCheckable<CreateLocalDrivingLicenseApplicationRequest>
+public class FirstTimeLocalDrivingLicense : IFirstTimeApplicationCheckable<CreateLocalDrivingLicenseApplicationRequest>
 {
 
     public FirstTimeLocalDrivingLicense(IGetLocalDrivingLicenseByUserId getLocalDrivingLicneseByUserId)
