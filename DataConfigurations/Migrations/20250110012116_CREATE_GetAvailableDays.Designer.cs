@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataConfigurations.Migrations
 {
     [DbContext(typeof(GovConnectDbContext))]
-    [Migration("20250108194037_Create_SP_GetTestTypeDayTimeInterval")]
-    partial class Create_SP_GetTestTypeDayTimeInterval
+    [Migration("20250110012116_CREATE_GetAvailableDays")]
+    partial class CREATE_GetAvailableDays
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

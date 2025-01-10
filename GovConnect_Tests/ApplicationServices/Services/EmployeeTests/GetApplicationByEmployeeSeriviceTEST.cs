@@ -57,7 +57,7 @@ public class GetApplicationByEmployeeSeriviceTEST
             PaidFees = 500,
             ServicePurposeId = 1,
             ServiceCategoryId = 2,
-            ApplicationStatus = (byte)EnApplicationStatus.InProgress,
+            ApplicationStatus = EnApplicationStatus.InProgress,
             ApplicationDate = new DateTime(2023, 1, 5),
             LastStatusDate = new DateTime(2023, 2, 5),
             UpdatedByEmployeeId = Guid.NewGuid()
@@ -76,7 +76,7 @@ public class GetApplicationByEmployeeSeriviceTEST
                 ApplicationPurposeId = source.ServicePurposeId,
                 ServiceCategoryId = source.ServiceCategoryId,
                 PaidFees = source.PaidFees,
-                ApplicationStatus = source.ApplicationStatus,
+                ApplicationStatus = (byte)source.ApplicationStatus,
                 ApplicationDate = source.ApplicationDate,
                 LastStatusDate = source.LastStatusDate,
                 UpdatedByEmployeeId = source.UpdatedByEmployeeId

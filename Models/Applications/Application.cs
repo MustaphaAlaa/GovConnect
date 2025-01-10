@@ -32,7 +32,7 @@ public class Application
 
     [Required][ForeignKey("User")] public Guid UserId { get; set; }
 
-    public byte ApplicationStatus { get; set; }
+    public EnApplicationStatus ApplicationStatus { get; set; }
 
     public DateTime ApplicationDate { get; set; }
 

@@ -8,3 +8,4 @@ public interface ICreateLocalDrivingLicenseApplicationService
 {
     Task<LocalDrivingLicenseApplication> Create(CreateLocalDrivingLicenseApplicationRequest request, ILocalDrivingLicenseApplicationServicePurposeValidator validator);
 }
+

@@ -44,7 +44,7 @@ namespace Services.ApplicationServices.Services.EmployeeAppService
             if (existsApplication.UserId != updateRequest.ApplicantUserId)
                 throw new InvalidOperationException();
 
-            existsApplication.ApplicationStatus = updateRequest.ApplicationStatus;
+            existsApplication.ApplicationStatus = (EnApplicationStatus)updateRequest.ApplicationStatus;
             existsApplication.UpdatedByEmployeeId = updateRequest.UpdatedByEmployeeId;
             existsApplication.LastStatusDate = DateTime.Now;
 

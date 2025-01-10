@@ -154,7 +154,7 @@ public class UpdateApplicationByEmployeeTEST
         {
             ApplicationId = 1,
             UserId = updateRequest.ApplicantUserId,
-            ApplicationStatus = 5,
+            ApplicationStatus = (EnApplicationStatus)5,
 
         };
 
@@ -185,7 +185,7 @@ public class UpdateApplicationByEmployeeTEST
         {
             ApplicationId = 1,
             UserId = updateRequest.ApplicantUserId,
-            ApplicationStatus = 5,
+            ApplicationStatus = (EnApplicationStatus)5,
 
         };
 
@@ -222,7 +222,7 @@ public class UpdateApplicationByEmployeeTEST
         {
             ApplicationId = 1,
             UserId = updateRequest.ApplicantUserId,
-            ApplicationStatus = 5,
+            ApplicationStatus = (EnApplicationStatus)5,
 
         };
 

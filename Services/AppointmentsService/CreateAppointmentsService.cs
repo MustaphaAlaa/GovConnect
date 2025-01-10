@@ -13,7 +13,6 @@ namespace Services.AppointmentsService;
 public class CreateAppointmentsService : ICreateAppointmentService
 {
     private readonly ICreateRepository<Appointment> _createRepository;
-    //private readonly ICreateAppointmentValidator _createAppointmentValidator;
     private readonly IGetRepository<Appointment> _getRepository;
     private readonly IMapper _mapper;
     private readonly ILogger<Appointment> _logger;
@@ -23,8 +22,7 @@ public class CreateAppointmentsService : ICreateAppointmentService
 
     public CreateAppointmentsService(ICreateRepository<Appointment> createRepository,
         IGetRepository<Appointment> getRepository,
-        //ICreateAppointmentValidator createAppointmentValidator,
-        IMapper mapper,
+         IMapper mapper,
         ILogger<Appointment> logger,
         IDateValidator dateValidator,
         ITestTypeValidator testTypeValidator,
@@ -32,7 +30,6 @@ public class CreateAppointmentsService : ICreateAppointmentService
     {
         _createRepository = createRepository;
         _getRepository = getRepository;
-        //_createAppointmentValidator = createAppointmentValidator;
         _mapper = mapper;
         _logger = logger;
         _dateValidator = dateValidator;
@@ -65,7 +62,7 @@ public class CreateAppointmentsService : ICreateAppointmentService
             {
                 _dateValidator.Validate(item.Key);
             }
-            catch (Exception e)
+            catch (ArgumentOutOfRangeException e)
             {
                 _logger.LogInformation($"{this.GetType().Name} CreateAsync Error: {e.Message}");
 
@@ -87,7 +84,7 @@ public class CreateAppointmentsService : ICreateAppointmentService
                     _logger.LogInformation($"{this.GetType().Name} CreateAsync Error: Time Interval Not Found");
 
                     var res = new AppointmentResult();
-                    res.Date = new DateTime();
+                    res.Date = item.Key;
                     res.Reason = $"Time Interval With Id : {timeInterval} Not Found";
                     res.Status = "Failed";
                     res.TimeIntervalIds = new List<int>() { timeInterval };
@@ -105,12 +102,13 @@ public class CreateAppointmentsService : ICreateAppointmentService
                 {
                     _logger.LogInformation($"{this.GetType().Name} CreateAsync Error: Appointment Exists");
 
-                    var res = new AppointmentResult();
-                    res.Date = new DateTime();
-                    res.TimeIntervalIds = new List<int>() { timeInterval };
-                    res.Reason = $" Appointment is already Exist";
-                    res.Status = "Failed";
-
+                    var res = new AppointmentResult()
+                    {
+                        Date = item.Key,
+                        Status = "Failed",
+                        Reason = $" Appointment is already Exist",
+                        TimeIntervalIds = new List<int>() { timeInterval },
+                    };
                     response.FailedAppointments.Add(res);
                     continue;
                 }

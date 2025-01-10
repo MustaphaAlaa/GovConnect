@@ -34,4 +34,16 @@ public class AppointmentDTO
     [RegularExpression(@"^\d{2}/\d{2}/\d{4}", ErrorMessage = "Invalid Date Fromat")]
     public DateOnly AppointmentDay { get; set; }
 
+    public override bool Equals(object? obj)
+    {
+        AppointmentDTO appointmentDTO = obj as AppointmentDTO;
+
+        if (appointmentDTO == null) return false;
+
+        return appointmentDTO.TimeIntervalId == this.TimeIntervalId &&
+               appointmentDTO.AppointmentId == this.AppointmentId &&
+               appointmentDTO.IsAvailable == this.IsAvailable &&
+               appointmentDTO.TestTypeId == this.TestTypeId;
+    }
+
 }

@@ -5,17 +5,21 @@
 namespace DataConfigurations.Migrations
 {
     /// <inheritdoc />
-    public partial class Create_SP_GetTestTypeDayTimeInterval : Migration
+    public partial class CREATE_GetTestTypeDayTimeInterval : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             string sqlCommand = @"
-                    CREATE PROCEDURE SP_GetTestTypeDayTimeInterval 
-                        @TestTypeId int, 
-                        @Day Date 
+                    CREATE FUNCTION GetTestTypeDayTimeInterval 
+                    (
+                        @TestTypeId INT, 
+                        @Day DATE
+                    ) 
+                    RETURNS TABLE 
                     AS 
-                    BEGIN
+                    RETURN 
+                    (
                         SELECT 
                             TimeInterval.TimeIntervalId, 
                             TimeInterval.Hour, 
@@ -25,8 +29,8 @@ namespace DataConfigurations.Migrations
                             ON TimeInterval.TimeIntervalId = Appointment.TimeIntervalId
                         WHERE 
                             AppointmentDay = @Day 
-                            AND TestTypeId = @TestTypeId;
-                    END";
+                            AND TestTypeId = @TestTypeId
+                    );";
 
             migrationBuilder.Sql(sqlCommand);
         }
@@ -34,7 +38,7 @@ namespace DataConfigurations.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("DROP PROCEDURE SP_GetTestTypeDayTimeInterval");
+            migrationBuilder.Sql("DROP FUNCTION GetTestTypeDayTimeInterval");
         }
     }
 }

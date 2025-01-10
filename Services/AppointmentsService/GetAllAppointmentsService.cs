@@ -23,12 +23,15 @@ namespace Services.AppointmentsService
             _mapper = mapper;
         }
 
+
+
         public async Task<List<AppointmentDTO>> GetAllAsync()
         {
             _logger.LogInformation($"{this.GetType().Name} GetAllAsync");
+
             var lst = await _getAllRepository.GetAllAsync();
 
-            var lstDTO = (lst != null || lst.Count > 0)
+            var lstDTO = lst.Count > 0
                 ? lst.Select(x => _mapper.Map<AppointmentDTO>(x)).ToList()
                 : null;
 
@@ -45,5 +48,7 @@ namespace Services.AppointmentsService
 
             return lstDTO;
         }
+
+
     }
 }

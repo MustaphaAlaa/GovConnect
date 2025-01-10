@@ -13,9 +13,9 @@ public class CreateDateValidator : IDateValidator
             if ((day < DateTime.Now) || (day > DateTime.Now.AddDays(14)))
                 throw new ArgumentOutOfRangeException("Invalid Date Range");
         }
-        catch (Exception ex)
+        catch
         {
-            throw new Exception(ex.Message, ex);
+            throw;
         }
     }
 }

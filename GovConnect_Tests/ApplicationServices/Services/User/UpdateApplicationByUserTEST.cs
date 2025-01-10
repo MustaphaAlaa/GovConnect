@@ -211,7 +211,7 @@ public class UpdateApplicationByUserTEST
             ApplicationPurposeId = updatedApplication.ServicePurposeId,
             ServiceCategoryId = updatedApplication.ServiceCategoryId,
             LastStatusDate = updatedApplication.LastStatusDate,
-            ApplicationStatus = updatedApplication.ApplicationStatus,
+            ApplicationStatus = (byte)updatedApplication.ApplicationStatus,
             ApplicationDate = updatedApplication.ApplicationDate,
             PaidFees = updatedApplication.PaidFees,
         };
