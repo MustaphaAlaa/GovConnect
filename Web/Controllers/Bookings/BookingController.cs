@@ -1,30 +1,54 @@
-﻿using IServices.ITimeIntervalService;
+﻿using IServices.IBookingServices;
+using IServices.ITimeIntervalService;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ModelDTO.Appointments;
+using ModelDTO.BookingDTOs;
 using Models.Tests.Enums;
 
 namespace Web.Controllers.Bookingss
 {
+    /*
+     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     !!!!!!!!!!!!!!!!!!!!!!!!!!
+     * I'll clean and and restructre all endpoints later these for testing purpose
+     *
+     */
     [Route("api/Bookings")]
     [ApiController]
     public class BookingController : ControllerBase
     {
-        private readonly IGetTimeIntervalService _getTimeIntervalService;
         private readonly IGetAllTimeIntervalService _getAllTimeIntervalService;
+        private readonly IGetTimeIntervalService _getTimeIntervalService;
         private readonly ILogger<BookingController> _logger;
+        private readonly IFirstTimeBookingAnAppointment _firstTimeBookingAnAppointment;
+
 
         public BookingController(IGetTimeIntervalService getTimeIntervalService,
-            IGetAllTimeIntervalService getAllTimeIntervalService,
-            ILogger<BookingController> logger)
+                         IGetAllTimeIntervalService getAllTimeIntervalService,
+                         IFirstTimeBookingAnAppointment firstTimeBookingAnAppointment,
+                         ILogger<BookingController> logger)
         {
             _getTimeIntervalService = getTimeIntervalService;
             _getAllTimeIntervalService = getAllTimeIntervalService;
+            _firstTimeBookingAnAppointment = firstTimeBookingAnAppointment;
             _logger = logger;
         }
 
 
+
+
+        [HttpPost("create-dub-luba")]
+        public async Task<IActionResult> BookingAnAppointment([FromBody] CreateBookingRequest createBookingRequest)
+        {
+
+            var isFirstTime = await _firstTimeBookingAnAppointment.IsFirstTime(createBookingRequest);
+
+            return Ok($"-is first time?/n-{isFirstTime}");
+        }
 
         [HttpGet("TimeInterval/{id:int}")]
         public async Task<IActionResult> GetTimeInterval(int id)
@@ -67,6 +91,8 @@ namespace Web.Controllers.Bookingss
         [HttpGet("Appointment")]
         public IActionResult GetAppointments()
         {
+
+
             return Ok();
         }
 

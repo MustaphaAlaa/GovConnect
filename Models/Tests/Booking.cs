@@ -47,6 +47,7 @@ public class Booking
     /// The field is required.
     /// </summary>
     [ForeignKey("Appointment")][Required] public int AppointmentId { get; set; }
+    [ForeignKey("TestType")][Required] public int TestTypeId { get; set; }
 
     /// <summary>
     /// Foreign key reference to the local driving license application table that appointment is booked for.
@@ -62,6 +63,7 @@ public class Booking
 
     public User User { get; set; }
     public LocalDrivingLicenseApplication LocalDrivingLicenseApplication { get; set; }
+    public TestType TestType { get; set; }
     public Appointment Appointment { get; set; }
     public Application Application { get; set; }
 

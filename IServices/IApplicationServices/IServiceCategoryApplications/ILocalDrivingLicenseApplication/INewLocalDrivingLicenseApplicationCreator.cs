@@ -3,7 +3,7 @@ using Models.ApplicationModels;
 
 namespace IServices.IApplicationServices.IServiceCategoryApplications.ILocalDrivingLicenseApplication;
 
-public interface ICreateNewLocalDrivingLicenseApplication : ICreateService<CreateLocalDrivingLicenseApplicationRequest, LocalDrivingLicenseApplication>
+public interface INewLocalDrivingLicenseApplicationCreator : ICreateService<CreateLocalDrivingLicenseApplicationRequest, LocalDrivingLicenseApplication>
 {
 
 }

@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <Folder Include="IApplicationServices\IServiceCategoryApplications\IInternationalDrivingLicenseApplication\" />
+      <Folder Include="IApplicationServices\IServiceCategoryApplications\IRetakeTestApplication\" />
     </ItemGroup>
 
 </Project>

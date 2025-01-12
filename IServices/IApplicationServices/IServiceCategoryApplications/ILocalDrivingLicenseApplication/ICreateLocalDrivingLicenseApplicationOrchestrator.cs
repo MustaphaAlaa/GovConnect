@@ -4,8 +4,12 @@ using Models.ApplicationModels;
 
 namespace IServices.IApplicationServices.IServiceCategoryApplications.ILocalDrivingLicenseApplication;
 
-public interface ICreateLocalDrivingLicenseApplicationService
+
+
+ 
+public interface ICreateLocalDrivingLicenseApplicationOrchestrator
 {
+    
     Task<LocalDrivingLicenseApplication> Create(CreateLocalDrivingLicenseApplicationRequest request, ILocalDrivingLicenseApplicationServicePurposeValidator validator);
 }
 

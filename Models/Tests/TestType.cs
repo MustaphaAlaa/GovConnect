@@ -34,4 +34,6 @@ public class TestType
     /// The Collection of appointments for test's type, this is navigation property.
     /// </summary> 
     public IEnumerable<Appointment> Appointments { get; set; }
+    public IEnumerable<Booking> Bookings { get; set; }
+
 }

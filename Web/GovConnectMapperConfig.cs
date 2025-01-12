@@ -16,6 +16,7 @@ using Models.Countries;
 using Models.Tests;
 using ModelDTO.TestsDTOs;
 using Models;
+using ModelDTO.BookingDTOs;
 
 namespace Web.Mapper;
 
@@ -67,10 +68,16 @@ public class GovConnectMapperConfig : Profile
 
         // Test mappings
         CreateMap<TestType, TestTypeDTO>().ReverseMap();
-        
+
         //Appointment mappings
         CreateMap<Appointment, AppointmentDTO>().ReverseMap();
         CreateMap<Appointment, CreateAppointmentsRequest>().ReverseMap();
         CreateMap<TimeInterval, TimeIntervalDTO>().ReverseMap();
+
+
+
+        // Booking mappings
+        CreateMap<Booking, CreateBookingRequest>().ReverseMap();
+        CreateMap<Booking, BookingDTO>().ReverseMap();
     }
 }

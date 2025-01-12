@@ -6,6 +6,9 @@ using Services.Execptions;
 
 namespace Services.ApplicationServices.Services.UserAppServices;
 
+/// <summary>
+/// shared validation that every application record regradless its category or puprpose will implement
+/// </summary>
 public abstract class CreateApplicationServiceValidator : ICreateApplicationServiceValidator
 {
     ILogger<ICreateApplicationServiceValidator> _logger;
@@ -16,6 +19,15 @@ public abstract class CreateApplicationServiceValidator : ICreateApplicationServ
         _logger = logger;
     }
 
+
+    /// <summary>
+    /// Validate the request for creating an application record in database
+    /// </summary>
+    /// <param name="request">The request object containing the details for the new CreateApplicationRequest.</param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="DoesNotExistException"></exception>
     public virtual Task ValidateRequest(CreateApplicationRequest request)
     {
         _logger.LogInformation("---------------- Validation processes for creating new application is starting ");

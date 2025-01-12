@@ -14,6 +14,16 @@ using DataConfigurations.TVFs.ITVFs;
 
 namespace Web.Controllers.Appoinments;
 
+/*
+     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     !!!!!!!!!!!!!!!!!!!!!!!!!!
+     * I'll clean and and restructre all endpoints later these for testing purpose
+     *
+     */
+
+
 [ApiController]
 [Route("api/Appointments")]
 public class AppointmentController : ControllerBase

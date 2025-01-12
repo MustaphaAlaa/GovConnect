@@ -35,6 +35,8 @@ using Services.TimeIntervalServices;
 using IServices.IValidtors.ILocalDrivingLicenseApplications;
 using Services.ApplicationServices.Validators;
 using DataConfigurations.TVFs.ITVFs;
+using IServices.IBookingServices;
+using Services.BookingServices;
 
 namespace Web;
 
@@ -109,8 +111,8 @@ public class Program
         builder.Services.AddScoped<IPendingOrInProgressApplicationStatus, PendingOrInProgressApplicationStatus>();
         builder.Services.AddScoped<ICheckApplicationExistenceService, CheckApplicationExistenceService>();
         builder.Services.AddScoped<IGetLocalDrivingLicenseByUserId, GetLocalDrivingLicneseByUserId>();
-        builder.Services.AddScoped<ICreateNewLocalDrivingLicenseApplication, CreateLocalDrivingLicenseApplication>();
-        builder.Services.AddScoped<ICreateLocalDrivingLicenseApplicationService, CreateLocalDrivingLicenseApplicationService>();
+        builder.Services.AddScoped<INewLocalDrivingLicenseApplicationCreator, LocalDrivingLicenseApplicationCreator>();
+        builder.Services.AddScoped<ICreateLocalDrivingLicenseApplicationOrchestrator, CreateLocalLicenseApplicationOrchestrator>();
         builder.Services.AddScoped<INewLocalDrivingLicenseApplicationValidator, NewLocalDrivingLicenseApplicationValidator>();
         builder.Services.AddScoped<IRenewLocalDrivingLicenseApplicationValidator, RenewLocalDrivingLicenseApplicationValidator>();
         builder.Services.AddScoped<IReplacementForDamageLocalDrivingLicenseApplicationValidator, ReplacementForDamageLocalDrivingLicenseApplicationValidator>();
@@ -126,7 +128,7 @@ public class Program
         builder.Services.AddScoped<ICreateServiceFees, CreateServiceFeesService>();
         builder.Services.AddScoped<IGetServiceFees, GetServiceFeesService>();
 
-        //Register Tests Services
+        // Register Tests Services
         builder.Services.AddScoped<IGetTestTypeService, GetTestTypesService>();
         builder.Services.AddScoped<IGetAllTestTypesService, GetAllTestTypesService>();
 
@@ -140,6 +142,9 @@ public class Program
         // Register Validators Service
         builder.Services.AddScoped<IDateValidator, CreateDateValidator>();
         builder.Services.AddScoped<ITestTypeValidator, TestTypeValidator>();
+
+        // Register Booking Service
+        builder.Services.AddScoped<IFirstTimeBookingAnAppointment, FirstTimeBookingAnAppointment>();
 
 
         // Add services to the container

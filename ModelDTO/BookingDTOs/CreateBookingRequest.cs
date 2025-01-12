@@ -37,6 +37,9 @@ namespace ModelDTO.BookingDTOs
         [Required]
         public int LocalDrivingLicenseApplicationId { get; set; }
 
+        [Required]
+        public int TestTypeId { get; set; }
+
         /// <summary>
         /// Foreign key reference to the application table for retake test application.
         /// </summary>
