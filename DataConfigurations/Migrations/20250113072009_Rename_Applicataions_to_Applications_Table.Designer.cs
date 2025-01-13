@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataConfigurations.Migrations
 {
     [DbContext(typeof(GovConnectDbContext))]
-    [Migration("20250110012613_CREATE_GetTestTypeDayTimeInterval")]
-    partial class CREATE_GetTestTypeDayTimeInterval
+    [Migration("20250113072009_Rename_Applicataions_to_Applications_Table")]
+    partial class Rename_Applicataions_to_Applications_Table
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -163,13 +163,15 @@ namespace DataConfigurations.Migrations
 
                     b.HasKey("ApplicationId");
 
+                    b.HasIndex("ServiceCategoryId");
+
                     b.HasIndex("UpdatedByEmployeeId");
 
                     b.HasIndex("UserId");
 
                     b.HasIndex("ServicePurposeId", "ServiceCategoryId");
 
-                    b.ToTable("Applications");
+                    b.ToTable("Applications", (string)null);
                 });
 
             modelBuilder.Entity("Models.ApplicationModels.InternationalDrivingLicenseApplication", b =>
@@ -457,6 +459,34 @@ namespace DataConfigurations.Migrations
                             ServicePurposeId = (byte)6,
                             Purpose = "Retake Test"
                         });
+                });
+
+            modelBuilder.Entity("Models.Applications.RetakeTestApplication", b =>
+                {
+                    b.Property<int>("RetakeTestApplicationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RetakeTestApplicationId"));
+
+                    b.Property<int>("ApplicationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LocalDrivingLicenseApplicationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TestTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RetakeTestApplicationId");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.HasIndex("LocalDrivingLicenseApplicationId");
+
+                    b.HasIndex("TestTypeId");
+
+                    b.ToTable("RetakeTestApplications");
                 });
 
             modelBuilder.Entity("Models.Countries.Country", b =>
@@ -2006,6 +2036,9 @@ namespace DataConfigurations.Migrations
                     b.Property<int?>("RetakeTestApplicationId")
                         .HasColumnType("int");
 
+                    b.Property<int>("TestTypeId")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
@@ -2016,6 +2049,8 @@ namespace DataConfigurations.Migrations
                     b.HasIndex("LocalDrivingLicenseApplicationId");
 
                     b.HasIndex("RetakeTestApplicationId");
+
+                    b.HasIndex("TestTypeId");
 
                     b.HasIndex("UserId");
 
@@ -2675,6 +2710,18 @@ namespace DataConfigurations.Migrations
 
             modelBuilder.Entity("Models.ApplicationModels.Application", b =>
                 {
+                    b.HasOne("Models.ApplicationModels.ServiceCategory", "ServiceCategory")
+                        .WithMany("Applications")
+                        .HasForeignKey("ServiceCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.ApplicationModels.ServicePurpose", "ServicePurpose")
+                        .WithMany("Applications")
+                        .HasForeignKey("ServicePurposeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Models.Users.Employee", "Employee")
                         .WithMany("Applications")
                         .HasForeignKey("UpdatedByEmployeeId");
@@ -2693,7 +2740,11 @@ namespace DataConfigurations.Migrations
 
                     b.Navigation("Employee");
 
+                    b.Navigation("ServiceCategory");
+
                     b.Navigation("ServiceFees");
+
+                    b.Navigation("ServicePurpose");
 
                     b.Navigation("User");
                 });
@@ -2753,6 +2804,33 @@ namespace DataConfigurations.Migrations
                     b.Navigation("ServiceCategory");
 
                     b.Navigation("ServicePurpose");
+                });
+
+            modelBuilder.Entity("Models.Applications.RetakeTestApplication", b =>
+                {
+                    b.HasOne("Models.ApplicationModels.Application", "Application")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.ApplicationModels.LocalDrivingLicenseApplication", "LocalDrivingLicenseApplication")
+                        .WithMany()
+                        .HasForeignKey("LocalDrivingLicenseApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.Tests.TestType", "TestType")
+                        .WithMany()
+                        .HasForeignKey("TestTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Application");
+
+                    b.Navigation("LocalDrivingLicenseApplication");
+
+                    b.Navigation("TestType");
                 });
 
             modelBuilder.Entity("Models.LicenseModels.DetainedLicense", b =>
@@ -2889,6 +2967,12 @@ namespace DataConfigurations.Migrations
                         .WithMany()
                         .HasForeignKey("RetakeTestApplicationId");
 
+                    b.HasOne("Models.Tests.TestType", "TestType")
+                        .WithMany("Bookings")
+                        .HasForeignKey("TestTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Models.Users.User", "User")
                         .WithMany("Bookings")
                         .HasForeignKey("UserId")
@@ -2900,6 +2984,8 @@ namespace DataConfigurations.Migrations
                     b.Navigation("Appointment");
 
                     b.Navigation("LocalDrivingLicenseApplication");
+
+                    b.Navigation("TestType");
 
                     b.Navigation("User");
                 });
@@ -2983,7 +3069,17 @@ namespace DataConfigurations.Migrations
                     b.Navigation("Country");
                 });
 
+            modelBuilder.Entity("Models.ApplicationModels.ServiceCategory", b =>
+                {
+                    b.Navigation("Applications");
+                });
+
             modelBuilder.Entity("Models.ApplicationModels.ServiceFees", b =>
+                {
+                    b.Navigation("Applications");
+                });
+
+            modelBuilder.Entity("Models.ApplicationModels.ServicePurpose", b =>
                 {
                     b.Navigation("Applications");
                 });
@@ -2998,6 +3094,8 @@ namespace DataConfigurations.Migrations
             modelBuilder.Entity("Models.Tests.TestType", b =>
                 {
                     b.Navigation("Appointments");
+
+                    b.Navigation("Bookings");
                 });
 
             modelBuilder.Entity("Models.TimeInterval", b =>

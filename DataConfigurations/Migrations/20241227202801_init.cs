@@ -387,7 +387,7 @@ namespace DataConfigurations.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Applicataions",
+                name: "Applications",
                 columns: table => new
                 {
                     ApplicationId = table.Column<int>(type: "int", nullable: false)
@@ -465,7 +465,7 @@ namespace DataConfigurations.Migrations
                     table.ForeignKey(
                         name: "FK_LocalDrivingLicenseApplications_Applicataions_ApplicationId",
                         column: x => x.ApplicationId,
-                        principalTable: "Applicataions",
+                        principalTable: "Applications",
                         principalColumn: "ApplicationId",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
@@ -549,7 +549,7 @@ namespace DataConfigurations.Migrations
                     table.ForeignKey(
                         name: "FK_Bookings_Applicataions_RetakeTestApplicationId",
                         column: x => x.RetakeTestApplicationId,
-                        principalTable: "Applicataions",
+                        principalTable: "Applications",
                         principalColumn: "ApplicationId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -595,7 +595,7 @@ namespace DataConfigurations.Migrations
                     table.ForeignKey(
                         name: "FK_DetainedLicenses_Applicataions_ApplicationId",
                         column: x => x.ApplicationId,
-                        principalTable: "Applicataions",
+                        principalTable: "Applications",
                         principalColumn: "ApplicationId",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
@@ -634,7 +634,7 @@ namespace DataConfigurations.Migrations
                     table.ForeignKey(
                         name: "FK_InternationalDrivingLicenseApplications_Applicataions_ApplicationId",
                         column: x => x.ApplicationId,
-                        principalTable: "Applicataions",
+                        principalTable: "Applications",
                         principalColumn: "ApplicationId",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
@@ -1038,17 +1038,17 @@ namespace DataConfigurations.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Applicataions_ServicePurposeId_ServiceCategoryId",
-                table: "Applicataions",
+                table: "Applications",
                 columns: new[] { "ServicePurposeId", "ServiceCategoryId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Applicataions_UpdatedByEmployeeId",
-                table: "Applicataions",
+                table: "Applications",
                 column: "UpdatedByEmployeeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Applicataions_UserId",
-                table: "Applicataions",
+                table: "Applications",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -1297,7 +1297,7 @@ namespace DataConfigurations.Migrations
                 name: "TimeIntervals");
 
             migrationBuilder.DropTable(
-                name: "Applicataions");
+                name: "Applications");
 
             migrationBuilder.DropTable(
                 name: "LicenseClasses");

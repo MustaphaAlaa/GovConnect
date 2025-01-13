@@ -168,7 +168,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("ServicePurposeId", "ServiceCategoryId");
 
-                    b.ToTable("Applicataions");
+                    b.ToTable("Applications", (string)null);
                 });
 
             modelBuilder.Entity("Models.ApplicationModels.InternationalDrivingLicenseApplication", b =>

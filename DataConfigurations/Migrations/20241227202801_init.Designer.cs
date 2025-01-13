@@ -169,7 +169,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("ServicePurposeId", "ServiceCategoryId");
 
-                    b.ToTable("Applicataions");
+                    b.ToTable("Applications");
                 });
 
             modelBuilder.Entity("Models.ApplicationModels.InternationalDrivingLicenseApplication", b =>

@@ -26,6 +26,7 @@ namespace Models.ApplicationModels;
      public LicenseType LicenseType  { get; set; }
     
  */
+[Table("Applications")]
 public class Application
 {
     [Key] public int ApplicationId { get; set; }

@@ -26,7 +26,7 @@ namespace DataConfigurations.Migrations
                     table.ForeignKey(
                         name: "FK_RetakeTestApplications_Applicataions_ApplicationId",
                         column: x => x.ApplicationId,
-                        principalTable: "Applicataions",
+                        principalTable: "Applications",
                         principalColumn: "ApplicationId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(

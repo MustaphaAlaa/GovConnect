@@ -29,7 +29,6 @@ public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Gu
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(GovConnectDbContext).Assembly);
 
     }

@@ -12,12 +12,12 @@ namespace DataConfigurations.Migrations
         {
             migrationBuilder.CreateIndex(
                 name: "IX_Applicataions_ServiceCategoryId",
-                table: "Applicataions",
+                table: "Applications",
                 column: "ServiceCategoryId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Applicataions_ServiceCategories_ServiceCategoryId",
-                table: "Applicataions",
+                table: "Applications",
                 column: "ServiceCategoryId",
                 principalTable: "ServiceCategories",
                 principalColumn: "ServiceCategoryId",
@@ -29,11 +29,11 @@ namespace DataConfigurations.Migrations
         {
             migrationBuilder.DropForeignKey(
                 name: "FK_Applicataions_ServiceCategories_ServiceCategoryId",
-                table: "Applicataions");
+                table: "Applications");
 
             migrationBuilder.DropIndex(
                 name: "IX_Applicataions_ServiceCategoryId",
-                table: "Applicataions");
+                table: "Applications");
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace IServices.IBookingServices;
 
-public interface ICreateBookingService : ICreateService<CreateBookingRequest, BookingDTO>
+public interface ICreateBookingService : ICreateService<CreateBookingRequest, BookingDTO?>
 {
 
 }

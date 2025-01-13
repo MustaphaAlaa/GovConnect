@@ -36,13 +36,22 @@ public class CreateBookingService : ICreateBookingService
         _mapper = mapper;
     }
 
-    public async Task<BookingDTO> CreateAsync(CreateBookingRequest entity)
+    public async Task<BookingDTO?> CreateAsync(CreateBookingRequest entity)
     {
+        _logger.LogInformation($"{this.GetType().Name} ---- CreateAsync");
 
+
+        //step 1: validate the test type order
+
+        //step 2: check if it first time to book an appointemnt
         var isFirstTime = await _firstTimeBookingAnAppointment.IsFirstTime(entity);
         BookingDTO bookingDTO = null;
+
+
         if (isFirstTime)
         {
+            _logger.LogInformation($"{this.GetType().Name} ---- CreateAsync --- FirstTime");
+
             // Book the appointment
             // 
             var testType = await _getTestTypeRepository.GetAsync(tt => tt.TestTypeId == entity.TestTypeId);
@@ -67,11 +76,21 @@ public class CreateBookingService : ICreateBookingService
 
         }
 
-        //Validate The RetakeTestApplication
+
+
+        //step 3: valiadte if it already pass
+
+
+
+
+        //step 4: Validate The RetakeTestApplication
+
+        _logger.LogInformation($"{this.GetType().Name} ---- CreateAsync --- RetakeTestValidation");
+
         //is exist
         // not included in any Booking
 
-
+        //step 5: return the DTO
 
 
         return bookingDTO;

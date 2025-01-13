@@ -48,10 +48,8 @@ public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Gu
     public DbSet<DetainedLicense> DetainedLicenses { get; set; }
 
     //@@DrivingLicenseApplication
-    public DbSet<Application> Applicataions { get; set; }
+    public DbSet<Application> Applications { get; set; }
     public DbSet<LocalDrivingLicenseApplication> LocalDrivingLicenseApplications { get; set; }
     public DbSet<InternationalDrivingLicenseApplication> InternationalDrivingLicenseApplications { get; set; }
-
-
 }
 

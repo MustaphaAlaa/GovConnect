@@ -12,7 +12,7 @@ namespace DataConfigurations.Migrations
         {
             migrationBuilder.AddForeignKey(
                 name: "FK_Applicataions_ServicesPurposes_ServicePurposeId",
-                table: "Applicataions",
+                table: "Applications",
                 column: "ServicePurposeId",
                 principalTable: "ServicesPurposes",
                 principalColumn: "ServicePurposeId",
@@ -24,7 +24,7 @@ namespace DataConfigurations.Migrations
         {
             migrationBuilder.DropForeignKey(
                 name: "FK_Applicataions_ServicesPurposes_ServicePurposeId",
-                table: "Applicataions");
+                table: "Applications");
         }
     }
 }

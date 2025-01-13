@@ -26,7 +26,7 @@ namespace DataConfigurations.Migrations
                 name: "FK_Bookings_Applicataions_RetakeTestApplicationId",
                 table: "Bookings",
                 column: "RetakeTestApplicationId",
-                principalTable: "Applicataions",
+                principalTable: "Applications",
                 principalColumn: "ApplicationId");
         }
 
@@ -51,7 +51,7 @@ namespace DataConfigurations.Migrations
                 name: "FK_Bookings_Applicataions_RetakeTestApplicationId",
                 table: "Bookings",
                 column: "RetakeTestApplicationId",
-                principalTable: "Applicataions",
+                principalTable: "Applications",
                 principalColumn: "ApplicationId",
                 onDelete: ReferentialAction.Cascade);
         }
