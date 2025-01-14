@@ -24,14 +24,14 @@ public class GetApplicationByUserSeriviceTEST
     private readonly Mock<IGetRepository<Application>> _getRepository;
     private readonly Mock<IGetRepository<User>> _getUserRepository;
 
-    private readonly IGetApplicationByUser _getApplication;
+    private readonly IApplicationRetrieverByUser _iApplicationRetriever;
 
     public GetApplicationByUserSeriviceTEST()
     {
         _getRepository = new Mock<IGetRepository<Application>>();
         _getUserRepository = new Mock<IGetRepository<Models.Users.User>>();
 
-        _getApplication = new GetApplicationByUserService(_getRepository.Object,
+        _iApplicationRetriever = new IApplicationRetrieverByUserService(_getRepository.Object,
                         _getUserRepository.Object);
     }
 
@@ -39,7 +39,7 @@ public class GetApplicationByUserSeriviceTEST
     public async Task GetAsync_WhenApplicationIdIsInvalid_RetunsArgumentOutOfRangeException()
     {
 
-        Func<Task> action = async () => await _getApplication.GetByAsync(new GetApplicationByUser(0, Guid.NewGuid()));
+        Func<Task> action = async () => await _iApplicationRetriever.GetByAsync(new GetApplicationByUser(0, Guid.NewGuid()));
 
 
         await action.Should().ThrowAsync<ArgumentOutOfRangeException>();
@@ -48,7 +48,7 @@ public class GetApplicationByUserSeriviceTEST
     [Fact]
     public async Task GetAsync_WhenApplicantUserIdIsInvalid_RetunsInvalidOperationException()
     {
-        Func<Task> action = async () => await _getApplication.GetByAsync(new GetApplicationByUser(1, Guid.Empty));
+        Func<Task> action = async () => await _iApplicationRetriever.GetByAsync(new GetApplicationByUser(1, Guid.Empty));
 
         await action.Should().ThrowAsync<InvalidOperationException>();
     }
@@ -60,7 +60,7 @@ public class GetApplicationByUserSeriviceTEST
         _getUserRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<User, bool>>>()))
             .ReturnsAsync(null as User);
 
-        Func<Task> action = async () => await _getApplication.GetByAsync(new GetApplicationByUser(1, Guid.NewGuid()));
+        Func<Task> action = async () => await _iApplicationRetriever.GetByAsync(new GetApplicationByUser(1, Guid.NewGuid()));
 
 
 
@@ -75,7 +75,7 @@ public class GetApplicationByUserSeriviceTEST
         _getUserRepository.Setup(temp => temp.GetAsync(It.IsAny<Expression<Func<User, bool>>>()))
             .ReturnsAsync(new User());
 
-        var result = await _getApplication.GetByAsync(new GetApplicationByUser(1, Guid.NewGuid()));
+        var result = await _iApplicationRetriever.GetByAsync(new GetApplicationByUser(1, Guid.NewGuid()));
 
 
 
@@ -100,7 +100,7 @@ public class GetApplicationByUserSeriviceTEST
            .ReturnsAsync(new User());
 
 
-        var result = await _getApplication.GetByAsync(new GetApplicationByUser(55, Guid.NewGuid()));
+        var result = await _iApplicationRetriever.GetByAsync(new GetApplicationByUser(55, Guid.NewGuid()));
 
 
         result.Should().BeEquivalentTo(application);

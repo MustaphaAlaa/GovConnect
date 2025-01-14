@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 
 namespace Services.ApplicationServices.Fees;
 
-public class GetAllServicesFeesService : IGetAllServiceFees
+public class GetAllServicesFeesService : IAsyncAllServiceFeesRetrieverService
 {
 
     private readonly IGetAllRepository<ServiceFees> _getAllRepository;

@@ -7,13 +7,13 @@ using System.Linq.Expressions;
 
 namespace Services.ApplicationServices.Services.EmployeeAppService;
 
-public class GetAllApplicationsByEmployeeService : IGetAllApplicationsEmp
+public class IAsyncAllApplicationsByEmployeeService : IAsyncAllApplicationsEmpRetrieverService
 {
 
     private readonly IMapper _mapper;
     private readonly IGetAllRepository<Application> _getAllRepository;
 
-    public GetAllApplicationsByEmployeeService(IGetAllRepository<Application> getAllRepository, IMapper mapper)
+    public IAsyncAllApplicationsByEmployeeService(IGetAllRepository<Application> getAllRepository, IMapper mapper)
     {
         _mapper = mapper;
         _getAllRepository = getAllRepository;

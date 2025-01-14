@@ -3,7 +3,7 @@ using Models;
 
 namespace IServices.ITimeIntervalService;
 
-public interface IGetTimeIntervalService : IGetWhenService<TimeInterval,TimeIntervalDTO>
+public interface IGetTimeIntervalService : IAsyncRetrieveService<TimeInterval,TimeIntervalDTO>
 {
     
 }

@@ -1,5 +1,4 @@
-﻿
-using IServices.ITests;
+﻿using IServices.ITests.ITestTypes;
 using Microsoft.AspNetCore.Mvc;
 using Models.Tests;
 
@@ -22,11 +21,11 @@ namespace Web.Controllers.Tests
     public class TestsController : ControllerBase
     {
 
-        private readonly IGetTestTypeService _getTestTypes;
-        private readonly IGetAllTestTypesService _getAllTestTypesService;
+        private readonly ITestTypeRetrievalService _getTestTypes;
+        private readonly IAsyncAllTestTypesRetrieverService _getAllTestTypesService;
         private readonly ILogger<TestType> _logger;
 
-        public TestsController(IGetTestTypeService getTestTypes, IGetAllTestTypesService getAllTestTypesService, ILogger<TestType> logger)
+        public TestsController(ITestTypeRetrievalService getTestTypes, IAsyncAllTestTypesRetrieverService getAllTestTypesService, ILogger<TestType> logger)
         {
             _getTestTypes = getTestTypes;
             _logger = logger;

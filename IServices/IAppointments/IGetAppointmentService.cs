@@ -8,6 +8,6 @@ using System.Threading.Tasks;
 
 namespace IServices.IAppointments;
 
-public interface IGetAppointmentService : IGetWhenService<Appointment, AppointmentDTO>
+public interface IGetAppointmentService : IAsyncRetrieveService<Appointment, AppointmentDTO>
 {
 }

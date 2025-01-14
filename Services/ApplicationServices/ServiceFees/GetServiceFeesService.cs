@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace Services.ApplicationServices.Fees;
 
-public class GetServiceFeesService : IGetServiceFees
+public class GetServiceFeesService : IServiceFeeRetrieverService
 {
     private readonly IGetRepository<ServiceFees> _getRepository;
     private readonly IMapper _mapper;

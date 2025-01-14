@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace IServices.ITimeIntervalService;
 
-public interface IGetAllTimeIntervalService : IGetAllService<TimeInterval, TimeIntervalDTO>
+public interface IGetAllTimeIntervalService : IAsyncAllRecordsRetrieverService<TimeInterval, TimeIntervalDTO>
 {
     public Task<Dictionary<int, List<TimeIntervalDTO>>> GetTimeIntervalsDictionaryAsync(Expression<Func<TimeInterval, bool>> predict);
 }

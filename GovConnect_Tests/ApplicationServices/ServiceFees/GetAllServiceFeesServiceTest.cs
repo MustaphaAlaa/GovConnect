@@ -15,7 +15,7 @@ namespace GovConnect_Tests.ApplicationServices
     public class GetAllServiceFeesServiceTest
     {
         private readonly IFixture _fixture;
-        private readonly IGetAllServiceFees _iGetAllServiceFees;
+        private readonly IAsyncAllServiceFeesRetrieverService _iGetAllServiceFees;
         private readonly Mock<IGetAllRepository<ServiceFees>> _getAllRepository;
         private readonly Mock<IMapper> _mapper;
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IServices.IAppointments;
 
-public interface IGetAllAppointmentsService : IGetAllService<Appointment, AppointmentDTO>
+public interface IGetAllAppointmentsService : IAsyncAllRecordsRetrieverService<Appointment, AppointmentDTO>
 {
 
 }

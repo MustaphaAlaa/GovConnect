@@ -6,9 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IServices.ITests
+namespace IServices.ITests.ITestTypes;
+
+public interface IAsyncAllTestTypesRetrieverService : IAsyncAllRecordsRetrieverService<TestType, TestTypeDTO>
 {
-    public interface IGetTestTypeService : IGetWhenService<TestType, TestTypeDTO>
-    {
-    }
 }

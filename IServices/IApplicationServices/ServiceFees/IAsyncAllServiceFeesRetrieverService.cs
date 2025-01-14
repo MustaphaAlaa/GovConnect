@@ -4,7 +4,7 @@ using Models.ApplicationModels;
 
 namespace IServices.IApplicationServices.Fees;
 
-public interface IGetAllServiceFees : IGetAllService<ServiceFees,ServiceFeesDTO>
+public interface IAsyncAllServiceFeesRetrieverService : IAsyncAllRecordsRetrieverService<ServiceFees,ServiceFeesDTO>
 {
 
 }

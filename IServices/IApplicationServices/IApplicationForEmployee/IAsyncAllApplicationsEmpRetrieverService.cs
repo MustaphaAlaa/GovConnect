@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace IServices.IApplicationServices.Employee;
 
-public interface IGetAllApplicationsEmp : IGetAllService< Application,ApplicationDTOForEmployee >
+public interface IAsyncAllApplicationsEmpRetrieverService : IAsyncAllRecordsRetrieverService< Application,ApplicationDTOForEmployee >
 {
 }
+

@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 
 namespace Services.ApplicationServices.Services.EmployeeAppService;
 
-public class GetApplicationByEmployeeService : IGetApplcationForEmployee
+public class GetApplicationByEmployeeService : IAsyncApplicationRetrieverService
 {
 
     private readonly IGetRepository<Application> _getReposiory;

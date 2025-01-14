@@ -2,8 +2,7 @@
 using Models.ApplicationModels;
 
 namespace IServices.IApplicationServices.Category;
-
-public interface IGetServiceCategory : IGeWhenService<ServiceCategory>
+public interface IGetServiceCategory : IAsyncRetrieveService<ServiceCategory, ServiceCategory>
 {
 
 }

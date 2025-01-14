@@ -11,7 +11,7 @@ namespace IServices.IApplicationServices.User;
 
 
 
-public interface IGetApplicationByUser : IGetByService<GetApplicationByUser, Models.ApplicationModels.Application?>
+public interface IApplicationRetrieverByUser : IRetrieveByTypeService<GetApplicationByUser, Models.ApplicationModels.Application?>
 
 {
 

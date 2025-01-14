@@ -3,7 +3,7 @@ using Models.ApplicationModels;
 
 namespace IServices.IApplicationServices.Employee;
 
-public interface IGetApplcationForEmployee : IGetWhenService<Application, ApplicationDTOForEmployee?>
+public interface IAsyncApplicationRetrieverService : IAsyncRetrieveService<Application, ApplicationDTOForEmployee?>
 {
 
 }

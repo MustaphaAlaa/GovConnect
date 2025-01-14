@@ -3,11 +3,10 @@ using Models.Countries;
 
 namespace IServices.ICountryServices;
 
-public interface IGetCountry : IGeWhenService<  Country?>
+public interface IGetCountry : IAsyncRetrieveService<Country?, Country?>
 {
-    
+
 }
 
 
 
- 

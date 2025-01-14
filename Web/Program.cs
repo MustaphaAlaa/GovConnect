@@ -26,7 +26,6 @@ using IServices.IAppointments;
 using Models.ApplicationModels;
 using Microsoft.AspNetCore.HttpLogging;
 using Serilog;
-using IServices.ITests;
 using IServices.ITimeIntervalService;
 using IServices.IValidators;
 using Services.AppointmentsService;
@@ -37,6 +36,8 @@ using Services.ApplicationServices.Validators;
 using DataConfigurations.TVFs.ITVFs;
 using IServices.IBookingServices;
 using Services.BookingServices;
+using IServices.ITests.ITestTypes;
+using IServices.ITests;
 
 namespace Web;
 
@@ -126,11 +127,11 @@ public class Program
 
         // Register ServiceFees Services
         builder.Services.AddScoped<ICreateServiceFees, CreateServiceFeesService>();
-        builder.Services.AddScoped<IGetServiceFees, GetServiceFeesService>();
+        builder.Services.AddScoped<IServiceFeeRetrieverService, GetServiceFeesService>();
 
         // Register Tests Services
-        builder.Services.AddScoped<IGetTestTypeService, GetTestTypesService>();
-        builder.Services.AddScoped<IGetAllTestTypesService, GetAllTestTypesService>();
+        builder.Services.AddScoped<ITestTypeRetrievalService, GetTestTypesService>();
+        builder.Services.AddScoped<IAsyncAllTestTypesRetrieverService, GetAllTestTypesService>();
 
         // Register Appointment Service
         builder.Services.AddScoped<ICreateAppointmentService, CreateAppointmentsService>();

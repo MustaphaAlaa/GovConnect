@@ -7,14 +7,14 @@ using Services.Execptions;
 
 namespace Services.ApplicationServices.Services.UserAppServices
 {
-    public class GetApplicationByUserService : IGetApplicationByUser
+    public class IApplicationRetrieverByUserService : IApplicationRetrieverByUser
     {
 
         private readonly IGetRepository<Application> _getRepository;
         private readonly IGetRepository<User> _getUserRepository;
 
 
-        public GetApplicationByUserService(IGetRepository<Application> getRepository, IGetRepository<User> getUserRepository)
+        public IApplicationRetrieverByUserService(IGetRepository<Application> getRepository, IGetRepository<User> getUserRepository)
         {
             _getRepository = getRepository;
             _getUserRepository = getUserRepository;

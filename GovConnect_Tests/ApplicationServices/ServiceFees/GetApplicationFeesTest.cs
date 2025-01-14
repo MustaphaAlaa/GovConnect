@@ -16,7 +16,7 @@ public class GetApplicationFeesTest
     private readonly Mock<IMapper> _mapper;
 
     private readonly Mock<IGetRepository<ServiceFees>> _getRepository;
-    private readonly IGetServiceFees _iGetServiceFees;
+    private readonly IServiceFeeRetrieverService _iGetServiceFees;
     public GetApplicationFeesTest()
     {
         _mapper = new Mock<IMapper>();

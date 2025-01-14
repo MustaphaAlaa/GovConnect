@@ -3,7 +3,7 @@ using Models.LicenseModels;
 
 namespace IServices.ILicencesServices;
 
-public interface IGetLocalLicenseService : IGetWhenService<LocalDrivingLicense,LocalDrivingLicenseDTO>
+public interface IGetLocalLicenseService : IAsyncRetrieveService<LocalDrivingLicense,LocalDrivingLicenseDTO>
 {
     
 }

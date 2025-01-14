@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FluentAssertions;
 using IRepository;
-using IServices.ITests;
+using IServices.ITests.ITestTypes;
 using Microsoft.Extensions.Logging;
 using ModelDTO.TestsDTOs;
 using Models.Tests;
@@ -13,7 +13,7 @@ namespace GovConnect_Tests.TestServices.TestTypesServices
 {
     public class GetAllTestTypesServiceTEST
     {
-        private readonly IGetAllTestTypesService _getAllTestTypes;
+        private readonly IAsyncAllTestTypesRetrieverService _getAllTestTypes;
         private readonly Mock<IGetAllRepository<TestType>> _getAllRepository;
         private readonly Mock<IMapper> _mapper;
         private readonly Mock<ILogger<TestType>> _logger;

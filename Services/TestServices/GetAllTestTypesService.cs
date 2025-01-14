@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using IRepository;
 using IServices;
-using IServices.ITests;
+using IServices.ITests.ITestTypes;
 using Microsoft.Extensions.Logging;
 using ModelDTO.TestsDTOs;
 using Models.Tests;
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Services.TestServices
 {
-    public class GetAllTestTypesService : IGetAllTestTypesService
+    public class GetAllTestTypesService : IAsyncAllTestTypesRetrieverService
     {
 
         private readonly IGetAllRepository<TestType> _getTestTypeRepository;

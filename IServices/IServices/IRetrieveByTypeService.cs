@@ -1,6 +1,6 @@
 ﻿namespace IServices;
 
-public interface IGetByService<T, TResult>
+public interface IRetrieveByTypeService<T, TResult>
 {
     Task<TResult> GetByAsync(T typeDTO);
 }

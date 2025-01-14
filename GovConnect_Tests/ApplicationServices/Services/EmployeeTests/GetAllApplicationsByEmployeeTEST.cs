@@ -24,7 +24,7 @@ public class GetAllApplicationsByEmployeeTEST
     private readonly IFixture _fixture;
     private readonly Mock<IMapper> _mapper;
     private readonly Mock<IGetAllRepository<Application>> _getAllRepository;
-    private readonly IGetAllApplicationsEmp _getAllApplicationsEmp;
+    private readonly IAsyncAllApplicationsEmpRetrieverService _iAsyncAllApplicationsEmpRetrieverService;
 
 
     public GetAllApplicationsByEmployeeTEST()
@@ -33,7 +33,7 @@ public class GetAllApplicationsByEmployeeTEST
         _mapper = new Mock<IMapper>();
 
         _getAllRepository = new Mock<IGetAllRepository<Application>>();
-        _getAllApplicationsEmp = new GetAllApplicationsByEmployeeService(_getAllRepository.Object, _mapper.Object);
+        _iAsyncAllApplicationsEmpRetrieverService = new IAsyncAllApplicationsByEmployeeService(_getAllRepository.Object, _mapper.Object);
     }
 
 
@@ -45,7 +45,7 @@ public class GetAllApplicationsByEmployeeTEST
         _getAllRepository.Setup(x => x.GetAllAsync()).ReturnsAsync(applications);
 
         //Act
-        List<ApplicationDTOForEmployee> result = await _getAllApplicationsEmp.GetAllAsync();
+        List<ApplicationDTOForEmployee> result = await _iAsyncAllApplicationsEmpRetrieverService.GetAllAsync();
 
         //Assert
         result.Should().BeEmpty();
@@ -95,7 +95,7 @@ public class GetAllApplicationsByEmployeeTEST
         _getAllRepository.Setup(x => x.GetAllAsync()).ReturnsAsync(applicationList);
 
         //Act
-        List<ApplicationDTOForEmployee> result = await _getAllApplicationsEmp.GetAllAsync();
+        List<ApplicationDTOForEmployee> result = await _iAsyncAllApplicationsEmpRetrieverService.GetAllAsync();
 
         //Assert
         result.Should().BeEquivalentTo(applicationDTOs);
@@ -129,7 +129,7 @@ public class GetAllApplicationsByEmployeeTEST
         _getAllRepository.Setup(x => x.GetAllAsync(It.IsAny<Expression<Func<Application, bool>>>()))
              .ReturnsAsync(applicationList.AsQueryable());
         //Act
-        var result = await _getAllApplicationsEmp.GetAllAsync(It.IsAny<Expression<Func<Application, bool>>>());
+        var result = await _iAsyncAllApplicationsEmpRetrieverService.GetAllAsync(It.IsAny<Expression<Func<Application, bool>>>());
 
         //Assert
         result.Should().BeEquivalentTo(applicationDTOs);
@@ -182,7 +182,7 @@ public class GetAllApplicationsByEmployeeTEST
           .ReturnsAsync(applicationList.AsQueryable());
 
         //Act
-        var result = await _getAllApplicationsEmp.GetAllAsync(It.IsAny<Expression<Func<Application, bool>>>());
+        var result = await _iAsyncAllApplicationsEmpRetrieverService.GetAllAsync(It.IsAny<Expression<Func<Application, bool>>>());
 
         //Assert
         result.Should().BeEquivalentTo(applicationDTOs);

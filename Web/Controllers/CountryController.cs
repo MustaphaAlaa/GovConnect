@@ -50,7 +50,8 @@ public class CountryController : ControllerBase
 
         if (c == null)
             return NotFound();
-        return Ok();
+        ApiResponse apiResponse = new() { ErrorMessages = null, IsSuccess = true, Result = c, StatusCode = HttpStatusCode.OK };
+        return Ok(apiResponse);
     }
 
 

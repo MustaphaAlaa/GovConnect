@@ -6,7 +6,7 @@ using Models.LicenseModels;
 
 namespace GovConnect.IServices.ILicensesServices.IDetainLicenses;
 
-public interface IGetDetainLicense : IGetWhenService<DetainedLicense, DetainedLicenseDTO>
+public interface IGetDetainLicense : IAsyncRetrieveService<DetainedLicense, DetainedLicenseDTO>
 {
 
 } 

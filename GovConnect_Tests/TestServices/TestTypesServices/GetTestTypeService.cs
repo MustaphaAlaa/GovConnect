@@ -2,7 +2,6 @@
 using FluentAssertions;
 using IRepository;
 using IServices.ICountryServices;
-using IServices.ITests;
 using Microsoft.Extensions.Logging;
 using ModelDTO.TestsDTOs;
 using Models.Countries;
@@ -11,13 +10,14 @@ using Moq;
 using Services;
 using System.Linq.Expressions;
 using Services.TestServices;
+using IServices.ITests.ITestTypes;
 
 namespace GovConnect_Tests.TestServices.TestTypesServices;
 
 public class GetTestTypeServiceTEST
 {
 
-    private readonly IGetTestTypeService _getTestType;
+    private readonly ITestTypeRetrievalService _getTestType;
     private readonly Mock<IGetRepository<TestType>> _getRepositoryMock;
     private readonly Mock<IMapper> _mapper;
     private readonly Mock<ILogger<TestType>> _logger;

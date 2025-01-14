@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using IServices.IAppointments;
-using IServices.ITests;
 using Microsoft.AspNetCore.Mvc;
 using Models.Tests;
 using Models.Tests.Enums;
@@ -11,6 +10,8 @@ using ModelDTO.Appointments;
 using DataConfigurations;
 using IServices.ITimeIntervalService;
 using DataConfigurations.TVFs.ITVFs;
+using IServices.ITests.ITestTypes;
+using IServices.ITests;
 
 namespace Web.Controllers.Appoinments;
 
@@ -35,14 +36,14 @@ public class AppointmentController : ControllerBase
     private readonly IGetAllAppointmentsService _getAllAppointmentService;
     private readonly ICreateAppointmentService _createAppointmentService;
 
-    private readonly IGetTestTypeService _getTestTypes;
-    private readonly IGetAllTestTypesService _getAllTestTypesService;
+    private readonly ITestTypeRetrievalService _getTestTypes;
+    private readonly IAsyncAllTestTypesRetrieverService _getAllTestTypesService;
 
     private readonly IGetAllTimeIntervalService _getAllTimeIntervalService;
     private readonly ITVF_GetTestTypeDayTimeInterval _TVF_GetTestTypeDayTimeInterval;
     private readonly ITVF_GetAvailableDays _TVF_GetAvailableDays;
-    public AppointmentController(IGetTestTypeService getTestTypes,
-        IGetAllTestTypesService getAllTestTypesService,
+    public AppointmentController(ITestTypeRetrievalService getTestTypes,
+        IAsyncAllTestTypesRetrieverService getAllTestTypesService,
         IGetAppointmentService getAppointmentService,
         IGetAllAppointmentsService getAllAppointmentService,
         IGetAllTimeIntervalService getAllTimeIntervalService,
