@@ -12,7 +12,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.TestServices
+namespace Services.TestTypeServices
 {
     public class GetAllTestTypesService : IAsyncAllTestTypesRetrieverService
     {
@@ -32,7 +32,7 @@ namespace Services.TestServices
 
         public async Task<IQueryable<TestTypeDTO>> GetAllAsync(Expression<Func<TestType, bool>> predicate)
         {
-            _logger.LogInformation($"{this.GetType().Name} --- GetAllAsync By Expression");
+            _logger.LogInformation($"{GetType().Name} --- GetAllAsync By Expression");
 
             var lst = await _getTestTypeRepository.GetAllAsync(predicate);
 
@@ -41,7 +41,7 @@ namespace Services.TestServices
 
         public async Task<List<TestTypeDTO>> GetAllAsync()
         {
-            _logger.LogInformation($"{this.GetType().Name} --- GetAllAsync");
+            _logger.LogInformation($"{GetType().Name} --- GetAllAsync");
             var lst = await _getTestTypeRepository.GetAllAsync();
 
             var lstMap = lst.Select(tt => _mapper.Map<TestTypeDTO>(tt));

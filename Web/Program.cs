@@ -29,7 +29,6 @@ using Serilog;
 using IServices.ITimeIntervalService;
 using IServices.IValidators;
 using Services.AppointmentsService;
-using Services.TestServices;
 using Services.TimeIntervalServices;
 using IServices.IValidtors.ILocalDrivingLicenseApplications;
 using Services.ApplicationServices.Validators;
@@ -38,6 +37,9 @@ using IServices.IBookingServices;
 using Services.BookingServices;
 using IServices.ITests.ITestTypes;
 using IServices.ITests;
+using Services.TestTypeServices;
+using IServices.ITests.ILDLApplicationsAllowedToRetakeATestServices;
+using Services.LDLApplicationsAllowedToRetakeATestServices;
 
 namespace Web;
 
@@ -77,6 +79,10 @@ public class Program
         // Register Function
         builder.Services.AddScoped<ITVF_GetTestTypeDayTimeInterval, GovConnectDbContext>();
         builder.Services.AddScoped<ITVF_GetAvailableDays, GovConnectDbContext>();
+        builder.Services.AddScoped<ITVF_GetTestResult, GovConnectDbContext>();
+        builder.Services.AddScoped<ITVF_GetTestResultForABookingId, GovConnectDbContext>();
+        builder.Services.AddScoped<ITVF_GetLDLAppsAllowedToRetakATest, GovConnectDbContext>();
+
 
         // Register Repositories
         builder.Services.AddScoped(typeof(IGetRepository<>), typeof(GetRepository<>));
@@ -146,6 +152,10 @@ public class Program
 
         // Register Booking Service
         builder.Services.AddScoped<IFirstTimeBookingAnAppointment, FirstTimeBookingAnAppointment>();
+
+        //Register RetakeTest Service
+        builder.Services.AddScoped<LDLTestRetakeApplicationCreatorBase, LDLTestRetakeApplicationCreator>();
+        builder.Services.AddScoped<ILDLTestRetakeApplicationCreationValidator, LDLTestRetakeApplicationValidator>();
 
 
         // Add services to the container

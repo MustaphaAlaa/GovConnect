@@ -2,5 +2,5 @@
 
 public interface ITestTypeValidator
 {
-    public void  Validate(int testTypeId); 
+    public void Validate(int testTypeId);
 }

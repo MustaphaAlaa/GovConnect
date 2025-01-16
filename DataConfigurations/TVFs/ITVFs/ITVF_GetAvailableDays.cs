@@ -1,9 +1,13 @@
 ﻿namespace DataConfigurations.TVFs.ITVFs;
 
+
+/// <summary>
+/// Interface for the table-valued function GetAvailableDays.
+/// </summary>
 public interface ITVF_GetAvailableDays
 {
     /// <summary>
-    /// Executes the stored procedure GetAvailableDays to retrieve available days for a given test type.
+    /// Executes the table-valued function GetAvailableDays to retrieve available days for a given test type.
     /// </summary>
     /// <param name="TestTypeId">The ID of the test type.</param>
     /// <returns>A list of available days as DateOnly objects.</returns>

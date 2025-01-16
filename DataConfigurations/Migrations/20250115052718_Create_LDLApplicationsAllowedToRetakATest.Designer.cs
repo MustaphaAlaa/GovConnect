@@ -4,6 +4,7 @@ using DataConfigurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataConfigurations.Migrations
 {
     [DbContext(typeof(GovConnectDbContext))]
-    partial class GovConnectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250115052718_Create_LDLApplicationsAllowedToRetakATest")]
+    partial class Create_LDLApplicationsAllowedToRetakATest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2068,12 +2071,15 @@ namespace DataConfigurations.Migrations
                     b.Property<int>("LocalDrivingApplicationId")
                         .HasColumnType("int");
 
+                    b.Property<int>("LocalDrivingLicenseApplicationId")
+                        .HasColumnType("int");
+
                     b.Property<int>("TestTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LocalDrivingApplicationId");
+                    b.HasIndex("LocalDrivingLicenseApplicationId");
 
                     b.HasIndex("TestTypeId");
 
@@ -3017,7 +3023,7 @@ namespace DataConfigurations.Migrations
                 {
                     b.HasOne("Models.ApplicationModels.LocalDrivingLicenseApplication", "LocalDrivingLicenseApplication")
                         .WithMany("LDLApplicationsAllowedToRetakeATests")
-                        .HasForeignKey("LocalDrivingApplicationId")
+                        .HasForeignKey("LocalDrivingLicenseApplicationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

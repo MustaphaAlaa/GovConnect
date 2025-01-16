@@ -36,7 +36,7 @@ public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Gu
     public DbSet<Test> Tests { get; set; }
     public DbSet<TestType> TestTypes { get; set; }
     public DbSet<RetakeTestApplication> RetakeTestApplications { get; set; }
-
+    public DbSet<LDLApplicationsAllowedToRetakeATest> LDLApplicationsAllowedToRetakeATests { get; set; }
     //@@Appointments
     public DbSet<Appointment> TestAppointments { get; set; }
     public DbSet<Booking> Bookings { get; set; }

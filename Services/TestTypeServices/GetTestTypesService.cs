@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using IServices.ITests.ITestTypes;
 using IServices.ITests;
 
-namespace Services.TestServices;
+namespace Services.TestTypeServices;
 public class GetTestTypesService : ITestTypeRetrievalService
 {
     private readonly IGetRepository<TestType> _getTestTypeRepository;
@@ -28,7 +28,7 @@ public class GetTestTypesService : ITestTypeRetrievalService
 
     public async Task<TestTypeDTO> GetByAsync(Expression<Func<TestType, bool>> predicate)
     {
-        _logger.LogInformation($"{this.GetType().Name} --- Get TestType by Expression");
+        _logger.LogInformation($"{GetType().Name} --- Get TestType by Expression");
 
         var testType = await _getTestTypeRepository.GetAsync(predicate);
 

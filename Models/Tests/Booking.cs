@@ -14,7 +14,7 @@ public class Booking
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int BookinId { get; set; }
+    public int BookingId { get; set; }
 
     /// <summary>
     /// The date when this field is recorded, in timestamp.

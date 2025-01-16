@@ -1,17 +1,17 @@
-﻿using DataConfigurations.TVFs.ITVFs;
+﻿using AutoMapper.QueryableExtensions;
+using DataConfigurations.TVFs.ITVFs;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using ModelDTO.Appointments;
+using ModelDTO.TestsDTO;
 using Models;
 using Models.Tests;
 using Models.Users;
 
 namespace DataConfigurations;
 
-/// <summary>
-/// Represents the database context for the GovConnect application, including identity and custom entities.
-/// </summary>
+
 public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Guid>, ITVF_GetAvailableDays
 {
     /// <inheritdoc/>
@@ -24,5 +24,8 @@ public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Gu
         return result;
     }
 }
+
+
+
 
 

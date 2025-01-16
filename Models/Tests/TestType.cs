@@ -35,5 +35,6 @@ public class TestType
     /// </summary> 
     public IEnumerable<Appointment> Appointments { get; set; }
     public IEnumerable<Booking> Bookings { get; set; }
+    public IEnumerable<LDLApplicationsAllowedToRetakeATest> LDLApplicationsAllowedToRetakeATests { get; set; }
 
 }

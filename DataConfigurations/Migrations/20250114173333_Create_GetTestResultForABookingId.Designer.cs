@@ -4,6 +4,7 @@ using DataConfigurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataConfigurations.Migrations
 {
     [DbContext(typeof(GovConnectDbContext))]
-    partial class GovConnectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250114173333_Create_GetTestResultForABookingId")]
+    partial class Create_GetTestResultForABookingId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2054,32 +2057,6 @@ namespace DataConfigurations.Migrations
                     b.ToTable("Bookings");
                 });
 
-            modelBuilder.Entity("Models.Tests.LDLApplicationsAllowedToRetakeATest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsAllowedToRetakeATest")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("LocalDrivingApplicationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TestTypeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LocalDrivingApplicationId");
-
-                    b.HasIndex("TestTypeId");
-
-                    b.ToTable("LDLApplicationsAllowedToRetakeATests");
-                });
-
             modelBuilder.Entity("Models.Tests.Test", b =>
                 {
                     b.Property<int>("TestId")
@@ -3013,25 +2990,6 @@ namespace DataConfigurations.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Models.Tests.LDLApplicationsAllowedToRetakeATest", b =>
-                {
-                    b.HasOne("Models.ApplicationModels.LocalDrivingLicenseApplication", "LocalDrivingLicenseApplication")
-                        .WithMany("LDLApplicationsAllowedToRetakeATests")
-                        .HasForeignKey("LocalDrivingApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.Tests.TestType", "TestType")
-                        .WithMany("LDLApplicationsAllowedToRetakeATests")
-                        .HasForeignKey("TestTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("LocalDrivingLicenseApplication");
-
-                    b.Navigation("TestType");
-                });
-
             modelBuilder.Entity("Models.Tests.Test", b =>
                 {
                     b.HasOne("Models.Tests.Booking", "Booking")
@@ -3111,11 +3069,6 @@ namespace DataConfigurations.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("Models.ApplicationModels.LocalDrivingLicenseApplication", b =>
-                {
-                    b.Navigation("LDLApplicationsAllowedToRetakeATests");
-                });
-
             modelBuilder.Entity("Models.ApplicationModels.ServiceCategory", b =>
                 {
                     b.Navigation("Applications");
@@ -3143,8 +3096,6 @@ namespace DataConfigurations.Migrations
                     b.Navigation("Appointments");
 
                     b.Navigation("Bookings");
-
-                    b.Navigation("LDLApplicationsAllowedToRetakeATests");
                 });
 
             modelBuilder.Entity("Models.TimeInterval", b =>

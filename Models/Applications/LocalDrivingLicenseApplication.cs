@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Models.LicenseModels;
+using Models.Tests;
 using Models.Types;
 
 namespace Models.ApplicationModels;
@@ -44,4 +45,6 @@ public class LocalDrivingLicenseApplication
     /// Navigation property for the associated license class.
     /// </summary>
     public LicenseClass LicenseClass { get; set; }
+
+    public IEnumerable<LDLApplicationsAllowedToRetakeATest> LDLApplicationsAllowedToRetakeATests { get; set; }
 }

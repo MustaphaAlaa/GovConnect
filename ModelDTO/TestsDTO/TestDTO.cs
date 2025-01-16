@@ -16,28 +16,40 @@ public class TestDTO
     /// <summary>
     /// the unique identifier for the test
     /// </summary>
-    [Key] public int TestId { get; set; }
+    public int TestId { get; set; }
 
     /// <summary>
     /// The result of the test, it's onlt can be true (for pass) or false (for failure)
     /// The field is required
     /// </summary>
-    [Required] public bool TestResult { get; set; }
+    public bool TestResult { get; set; }
 
     /// <summary>
     /// The forign key for the booked appointment
     /// The field is required
     /// </summary>
-    [Required] public int BookingId { get; set; }
+    public int BookingId { get; set; }
+
+    /// <summary>
+    /// The forign key for the Local Driving License Application Id
+    /// The field is required
+    /// </summary>
+    public int LDLApplicationId { get; set; }
 
     /// <summary>
     /// if there any notes about the result
     /// The field is optional
     /// </summary>
     public string Notes { get; set; }
+    /// <summary>
+    /// The unique identifier for test type.
+    /// </summary>
+    public int TestTypeId { get; set; }
 
     /// <summary>
-    /// The Employee who create the result
+    /// The name of the test type.
+    /// The field is required.
     /// </summary>
-    [Required] public Guid CreatedByEmployee { get; set; }
+    public string TestTypeTitle { get; set; }
+
 }
