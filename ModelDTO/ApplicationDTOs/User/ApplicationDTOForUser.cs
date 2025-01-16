@@ -14,7 +14,7 @@ public class ApplicationDTOForUser
 
     [Key] public int ApplicationId { get; set; }
 
-    [Required] public Guid ApplicantUserId { get; set; }
+    [Required] public Guid UserId { get; set; }
 
     public byte ApplicationStatus { get; set; }
 
@@ -24,7 +24,7 @@ public class ApplicationDTOForUser
 
     public decimal PaidFees { get; set; }
 
-    [Required] public byte ApplicationPurposeId { get; set; }
+    [Required] public byte ServicePurposeId { get; set; }
     [Required] public short ServiceCategoryId { get; set; }
 
 }

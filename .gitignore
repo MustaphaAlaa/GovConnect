@@ -366,3 +366,4 @@ FodyWeavers.xsd
 # Ignore IDE-specific folders
 .vscode/
 .idea/
+.vs/

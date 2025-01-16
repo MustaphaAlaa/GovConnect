@@ -52,7 +52,7 @@ public class CreateServiceFeesServiceTest
     {
         //Arrange
         ServiceFeesDTO createReq = _fixture.Build<ServiceFeesDTO>()
-            .With(app => app.ApplicationPuropseId, id)
+            .With(app => app.ServicePurposeId, id)
             .Create();
         //Act
         Func<Task> action = async () => await _iCreateServiceFees.CreateAsync(createReq);
@@ -175,7 +175,7 @@ public class CreateServiceFeesServiceTest
         ServiceFees mappedCreatedReq = new()
         {
             ServiceCategoryId = createReq.ServiceCategoryId,
-            ServicePurposeId = createReq.ApplicationPuropseId,
+            ServicePurposeId = createReq.ServicePurposeId,
             Fees = createReq.Fees,
             LastUpdate = createReq.LastUpdate
         };
@@ -209,7 +209,7 @@ public class CreateServiceFeesServiceTest
         ServiceFees mappedCreatedReq = new ServiceFees
         {
             ServiceCategoryId = createReq.ServiceCategoryId,
-            ServicePurposeId = createReq.ApplicationPuropseId,
+            ServicePurposeId = createReq.ServicePurposeId,
             Fees = createReq.Fees,
             LastUpdate = createReq.LastUpdate
         };
@@ -228,7 +228,7 @@ public class CreateServiceFeesServiceTest
            .Returns((ServiceFees source) => new ServiceFeesDTO
            {
                ServiceCategoryId = source.ServiceCategoryId,
-               ApplicationPuropseId = source.ServicePurposeId,
+               ServicePurposeId = source.ServicePurposeId,
                Fees = source.Fees,
                LastUpdate = source.LastUpdate
            });

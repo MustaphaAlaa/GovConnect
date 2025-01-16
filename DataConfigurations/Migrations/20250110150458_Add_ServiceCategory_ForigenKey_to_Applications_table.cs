@@ -11,12 +11,12 @@ namespace DataConfigurations.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateIndex(
-                name: "IX_Applicataions_ServiceCategoryId",
+                name: "IX_Applications_ServiceCategoryId",
                 table: "Applications",
                 column: "ServiceCategoryId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Applicataions_ServiceCategories_ServiceCategoryId",
+                name: "FK_Applications_ServiceCategories_ServiceCategoryId",
                 table: "Applications",
                 column: "ServiceCategoryId",
                 principalTable: "ServiceCategories",
@@ -28,11 +28,11 @@ namespace DataConfigurations.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Applicataions_ServiceCategories_ServiceCategoryId",
+                name: "FK_Applications_ServiceCategories_ServiceCategoryId",
                 table: "Applications");
 
             migrationBuilder.DropIndex(
-                name: "IX_Applicataions_ServiceCategoryId",
+                name: "IX_Applications_ServiceCategoryId",
                 table: "Applications");
         }
     }

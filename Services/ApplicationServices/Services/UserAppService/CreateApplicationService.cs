@@ -10,6 +10,7 @@ using System.Reflection.Metadata.Ecma335;
 using IServices.IApplicationServices.Category;
 using Models.LicenseModels;
 using Models.Users;
+using Microsoft.Extensions.Logging;
 
 namespace Services.ApplicationServices.Services.UserAppServices;
 
@@ -18,17 +19,19 @@ public class CreateApplicationService : ICreateApplicationService
     private readonly ICreateApplicationEntity _createApplicationEntity;
     private readonly IGetRepository<ServiceFees> _getApplicationFeesRepository;
     private readonly IMapper _mapper;
-
+    private readonly ILogger<CreateApplicationService> _logger;
     private readonly ICheckApplicationExistenceService _checkApplicationExistenceService;
 
     public CreateApplicationService(IGetRepository<ServiceFees> getFeesRepository,
         ICheckApplicationExistenceService checkApplicationExistenceService,
         ICreateApplicationEntity createApplicationEntity,
+        ILogger<CreateApplicationService> logger,
         IMapper mapper)
     {
         _getApplicationFeesRepository = getFeesRepository;
         _checkApplicationExistenceService = checkApplicationExistenceService;
         _createApplicationEntity = createApplicationEntity;
+        _logger = logger;
         _mapper = mapper;
     }
 
@@ -39,18 +42,56 @@ public class CreateApplicationService : ICreateApplicationService
             (appFees.ServicePurposeId == entity.ServicePurposeId
              && appFees.ServiceCategoryId == entity.ServiceCategoryId);
 
-        var applicationFees = await _getApplicationFeesRepository.GetAsync(expression)
-                              ?? throw new DoesNotExistException("ServiceFees Doesn't Exist");
+        try
+        {
+            var applicationFees = await _getApplicationFeesRepository.GetAsync(expression)
+                                  ?? throw new DoesNotExistException("ServiceFees Doesn't Exist");
 
 
-        await _checkApplicationExistenceService.CheckApplicationExistence(entity);
+            await _checkApplicationExistenceService.CheckApplicationExistence(entity);
 
-        var applicationIsCreated = (await _createApplicationEntity.CreateNewApplication(entity, applicationFees))
-            ?? throw new FailedToCreateException();
+            var applicationIsCreated = (await _createApplicationEntity.CreateNewApplication(entity, applicationFees))
+                ?? throw new FailedToCreateException();
 
-        var applicationDToForUser = _mapper.Map<ApplicationDTOForUser>(applicationIsCreated)
-                                    ?? throw new AutoMapperMappingException();
+            //var applicationDToForUser = _mapper.Map<ApplicationDTOForUser?>(applicationIsCreated);
 
-        return applicationDToForUser;
+            var applicationDToForUser = new ApplicationDTOForUser
+            {
+                ApplicationId = applicationIsCreated.ApplicationId,
+                ApplicationDate = applicationIsCreated.ApplicationDate,
+                ApplicationStatus = (byte)applicationIsCreated.ApplicationStatus,
+                LastStatusDate = applicationIsCreated.LastStatusDate,
+                PaidFees = applicationIsCreated.PaidFees,   /// Get it and add it from the service fees table
+                ServiceCategoryId = entity.ServiceCategoryId,
+                ServicePurposeId = entity.ServicePurposeId,
+                UserId = applicationIsCreated.UserId
+            };
+
+
+            if (applicationDToForUser is null)
+                throw new AutoMapperMappingException();
+
+            return applicationDToForUser;
+        }
+        catch (DoesNotExistException ex)
+        {
+            throw;
+        }
+        catch (AutoMapperMappingException ex)
+        {
+            _logger.LogError(ex, "AutoMapper mapping failed.");
+            throw;
+        }
+        catch (FailedToCreateException ex)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An unexpected error occurred.");
+
+            throw;
+        }
+
     }
 }

@@ -403,20 +403,20 @@ namespace DataConfigurations.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Applicataions", x => x.ApplicationId);
+                    table.PrimaryKey("PK_Applications", x => x.ApplicationId);
                     table.ForeignKey(
-                        name: "FK_Applicataions_AspNetUsers_UserId",
+                        name: "FK_Applications_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_Applicataions_Employees_UpdatedByEmployeeId",
+                        name: "FK_Applications_Employees_UpdatedByEmployeeId",
                         column: x => x.UpdatedByEmployeeId,
                         principalTable: "Employees",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Applicataions_ServicesFees_ServicePurposeId_ServiceCategoryId",
+                        name: "FK_Applications_ServicesFees_ServicePurposeId_ServiceCategoryId",
                         columns: x => new { x.ServicePurposeId, x.ServiceCategoryId },
                         principalTable: "ServicesFees",
                         principalColumns: new[] { "ServicePurposeId", "ServiceCategoryId" },
@@ -463,7 +463,7 @@ namespace DataConfigurations.Migrations
                 {
                     table.PrimaryKey("PK_LocalDrivingLicenseApplications", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LocalDrivingLicenseApplications_Applicataions_ApplicationId",
+                        name: "FK_LocalDrivingLicenseApplications_Applications_ApplicationId",
                         column: x => x.ApplicationId,
                         principalTable: "Applications",
                         principalColumn: "ApplicationId",
@@ -547,7 +547,7 @@ namespace DataConfigurations.Migrations
                 {
                     table.PrimaryKey("PK_Bookings", x => x.BookinId);
                     table.ForeignKey(
-                        name: "FK_Bookings_Applicataions_RetakeTestApplicationId",
+                        name: "FK_Bookings_Applications_RetakeTestApplicationId",
                         column: x => x.RetakeTestApplicationId,
                         principalTable: "Applications",
                         principalColumn: "ApplicationId",
@@ -593,7 +593,7 @@ namespace DataConfigurations.Migrations
                 {
                     table.PrimaryKey("PK_DetainedLicenses", x => x.DetainedLicenseId);
                     table.ForeignKey(
-                        name: "FK_DetainedLicenses_Applicataions_ApplicationId",
+                        name: "FK_DetainedLicenses_Applications_ApplicationId",
                         column: x => x.ApplicationId,
                         principalTable: "Applications",
                         principalColumn: "ApplicationId",
@@ -632,7 +632,7 @@ namespace DataConfigurations.Migrations
                 {
                     table.PrimaryKey("PK_InternationalDrivingLicenseApplications", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_InternationalDrivingLicenseApplications_Applicataions_ApplicationId",
+                        name: "FK_InternationalDrivingLicenseApplications_Applications_ApplicationId",
                         column: x => x.ApplicationId,
                         principalTable: "Applications",
                         principalColumn: "ApplicationId",
@@ -1037,17 +1037,17 @@ namespace DataConfigurations.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Applicataions_ServicePurposeId_ServiceCategoryId",
+                name: "IX_Applications_ServicePurposeId_ServiceCategoryId",
                 table: "Applications",
                 columns: new[] { "ServicePurposeId", "ServiceCategoryId" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Applicataions_UpdatedByEmployeeId",
+                name: "IX_Applications_UpdatedByEmployeeId",
                 table: "Applications",
                 column: "UpdatedByEmployeeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Applicataions_UserId",
+                name: "IX_Applications_UserId",
                 table: "Applications",
                 column: "UserId");
 

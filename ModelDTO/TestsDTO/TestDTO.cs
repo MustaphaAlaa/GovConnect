@@ -34,7 +34,7 @@ public class TestDTO
     /// The forign key for the Local Driving License Application Id
     /// The field is required
     /// </summary>
-    public int LDLApplicationId { get; set; }
+    public int LocalDrivingLicenseApplicationId { get; set; }
 
     /// <summary>
     /// if there any notes about the result

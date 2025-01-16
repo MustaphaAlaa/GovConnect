@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataConfigurations.Migrations
 {
     [DbContext(typeof(GovConnectDbContext))]
-    [Migration("20250113072009_Rename_Applicataions_to_Applications_Table")]
-    partial class Rename_Applicataions_to_Applications_Table
+    [Migration("20250113072009_Rename_Applications_to_Applications_Table")]
+    partial class Rename_Applications_to_Applications_Table
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

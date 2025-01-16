@@ -25,10 +25,5 @@ namespace DataConfigurations
 
             return result;
         }
-
-
-
-
-
     }
 }

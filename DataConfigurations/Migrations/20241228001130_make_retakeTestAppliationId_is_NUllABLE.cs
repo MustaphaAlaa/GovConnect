@@ -11,7 +11,7 @@ namespace DataConfigurations.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Bookings_Applicataions_RetakeTestApplicationId",
+                name: "FK_Bookings_Applications_RetakeTestApplicationId",
                 table: "Bookings");
 
             migrationBuilder.AlterColumn<int>(
@@ -23,7 +23,7 @@ namespace DataConfigurations.Migrations
                 oldType: "int");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Bookings_Applicataions_RetakeTestApplicationId",
+                name: "FK_Bookings_Applications_RetakeTestApplicationId",
                 table: "Bookings",
                 column: "RetakeTestApplicationId",
                 principalTable: "Applications",
@@ -34,7 +34,7 @@ namespace DataConfigurations.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Bookings_Applicataions_RetakeTestApplicationId",
+                name: "FK_Bookings_Applications_RetakeTestApplicationId",
                 table: "Bookings");
 
             migrationBuilder.AlterColumn<int>(
@@ -48,7 +48,7 @@ namespace DataConfigurations.Migrations
                 oldNullable: true);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Bookings_Applicataions_RetakeTestApplicationId",
+                name: "FK_Bookings_Applications_RetakeTestApplicationId",
                 table: "Bookings",
                 column: "RetakeTestApplicationId",
                 principalTable: "Applications",

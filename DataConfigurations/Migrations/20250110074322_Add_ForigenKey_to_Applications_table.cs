@@ -11,7 +11,7 @@ namespace DataConfigurations.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddForeignKey(
-                name: "FK_Applicataions_ServicesPurposes_ServicePurposeId",
+                name: "FK_Applications_ServicesPurposes_ServicePurposeId",
                 table: "Applications",
                 column: "ServicePurposeId",
                 principalTable: "ServicesPurposes",
@@ -23,7 +23,7 @@ namespace DataConfigurations.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Applicataions_ServicesPurposes_ServicePurposeId",
+                name: "FK_Applications_ServicesPurposes_ServicePurposeId",
                 table: "Applications");
         }
     }

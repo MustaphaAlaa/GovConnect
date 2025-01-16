@@ -36,10 +36,11 @@ using DataConfigurations.TVFs.ITVFs;
 using IServices.IBookingServices;
 using Services.BookingServices;
 using IServices.ITests.ITestTypes;
-using IServices.ITests;
 using Services.TestTypeServices;
 using IServices.ITests.ILDLApplicationsAllowedToRetakeATestServices;
 using Services.LDLApplicationsAllowedToRetakeATestServices;
+using IServices.ITests.ITest;
+using Services.TestServices;
 
 namespace Web;
 
@@ -133,11 +134,16 @@ public class Program
 
         // Register ServiceFees Services
         builder.Services.AddScoped<ICreateServiceFees, CreateServiceFeesService>();
+        builder.Services.AddScoped<IUpdateServiceFees, UpdateServiceFeesService>();
+        builder.Services.AddScoped<IDeleteServiceFees, DeleteServiceFeesService>();
         builder.Services.AddScoped<IServiceFeeRetrieverService, GetServiceFeesService>();
+
 
         // Register Tests Services
         builder.Services.AddScoped<ITestTypeRetrievalService, GetTestTypesService>();
         builder.Services.AddScoped<IAsyncAllTestTypesRetrieverService, GetAllTestTypesService>();
+        builder.Services.AddScoped<ITestCreationService, TestCreatorService>();
+        builder.Services.AddScoped<ICreateTestValidator, CreateTestValidator>();
 
         // Register Appointment Service
         builder.Services.AddScoped<ICreateAppointmentService, CreateAppointmentsService>();

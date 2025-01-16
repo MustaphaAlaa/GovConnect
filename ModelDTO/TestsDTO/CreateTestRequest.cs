@@ -29,6 +29,6 @@ public class CreateTestRequest
     /// The forign key for the employee created this result.
     /// The field is required
     /// </summary>
-    [Required] public int CreatedByEmployeeId { get; set; }
+    [Required] public Guid CreatedByEmployeeId { get; set; }
 
 }

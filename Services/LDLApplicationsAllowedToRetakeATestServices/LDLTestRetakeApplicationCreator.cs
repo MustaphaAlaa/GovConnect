@@ -30,24 +30,22 @@ public class LDLTestRetakeApplicationCreator : LDLTestRetakeApplicationCreatorBa
 
     }
 
-
-
     protected override async Task CreateAsync(object? sender, TestDTO e)
     {
         _logger.LogInformation($"{this.GetType().Name} -- CreateAsync");
 
         if (e.TestResult)
         {
-            _logger.LogWarning($"It's not allowed for this LDL Applcation with id {e.LDLApplicationId} to retake a test type: {e.TestTypeId}");
+            _logger.LogWarning($"It's not allowed for this LDL Applcation with id {e.LocalDrivingLicenseApplicationId} to retake a test type: {e.TestTypeId}");
             return;
 
         }
 
-        var isValid = await _lDLTestRetakeApplicationCreationValidator.IsValid(e.LDLApplicationId, e.TestTypeId);
+        var isValid = await _lDLTestRetakeApplicationCreationValidator.IsValid(e.LocalDrivingLicenseApplicationId, e.TestTypeId);
 
         if (!isValid)
         {
-            _logger.LogWarning($"It's not allowed for this LDL Applcation with id {e.LDLApplicationId} to retake a test type: {e.TestTypeId}");
+            _logger.LogWarning($"It's not allowed for this LDL Applcation with id {e.LocalDrivingLicenseApplicationId} to retake a test type: {e.TestTypeId}");
 
             return;
         }
@@ -59,7 +57,7 @@ public class LDLTestRetakeApplicationCreator : LDLTestRetakeApplicationCreatorBa
             {
 
                 IsAllowedToRetakeATest = true,
-                LocalDrivingApplicationId = e.LDLApplicationId,
+                LocalDrivingApplicationId = e.LocalDrivingLicenseApplicationId,
                 TestTypeId = e.TestTypeId
             };
 

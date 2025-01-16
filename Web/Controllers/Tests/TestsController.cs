@@ -1,6 +1,10 @@
-﻿using IServices.ITests.ITestTypes;
+﻿using IServices.ITests.ILDLApplicationsAllowedToRetakeATestServices;
+using IServices.ITests.ITest;
+using IServices.ITests.ITestTypes;
 using Microsoft.AspNetCore.Mvc;
+using ModelDTO.TestsDTO;
 using Models.Tests;
+using Services.TestServices;
 
 namespace Web.Controllers.Tests
 {
@@ -22,13 +26,21 @@ namespace Web.Controllers.Tests
     {
 
         private readonly ITestTypeRetrievalService _getTestTypes;
+        private readonly ITestCreationService _testCreationService;
+        private readonly LDLTestRetakeApplicationCreatorBase _lDLTestRetake;
         private readonly IAsyncAllTestTypesRetrieverService _getAllTestTypesService;
         private readonly ILogger<TestType> _logger;
 
-        public TestsController(ITestTypeRetrievalService getTestTypes, IAsyncAllTestTypesRetrieverService getAllTestTypesService, ILogger<TestType> logger)
+        public TestsController(ITestTypeRetrievalService getTestTypes,
+            IAsyncAllTestTypesRetrieverService getAllTestTypesService,
+            ITestCreationService testCreationService,
+            LDLTestRetakeApplicationCreatorBase lDLTestRetakeApplicationCreatorBase,
+            ILogger<TestType> logger)
         {
             _getTestTypes = getTestTypes;
             _logger = logger;
+            _testCreationService = testCreationService;
+            _lDLTestRetake = lDLTestRetakeApplicationCreatorBase;
             _getAllTestTypesService = getAllTestTypesService;
         }
 
@@ -49,7 +61,6 @@ namespace Web.Controllers.Tests
         }
 
 
-
         [HttpGet("/types/{TypeId}/available-days")]
         public IActionResult GetTypeDays()
         {
@@ -60,6 +71,17 @@ namespace Web.Controllers.Tests
         public IActionResult GetTypeAppointment(/*Dummy parameters*/int TypeId, int day)
         {
             return Ok("Hello World");
+        }
+
+
+
+        [HttpPost("CreateTestResult")]
+        public async Task<IActionResult> CreateTestResult(CreateTestRequest req)
+        {
+            req.CreatedByEmployeeId = Guid.Empty;
+            var test = await _testCreationService.CreateAsync(req);
+
+            return Ok(test);
         }
 
 

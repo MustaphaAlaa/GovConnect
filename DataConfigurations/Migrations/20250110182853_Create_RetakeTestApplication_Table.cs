@@ -24,7 +24,7 @@ namespace DataConfigurations.Migrations
                 {
                     table.PrimaryKey("PK_RetakeTestApplications", x => x.RetakeTestApplicationId);
                     table.ForeignKey(
-                        name: "FK_RetakeTestApplications_Applicataions_ApplicationId",
+                        name: "FK_RetakeTestApplications_Applications_ApplicationId",
                         column: x => x.ApplicationId,
                         principalTable: "Applications",
                         principalColumn: "ApplicationId",

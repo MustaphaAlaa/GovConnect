@@ -48,7 +48,7 @@ public class GovConnectMapperConfig : Profile
         CreateMap<CreateServiceCategoryRequest, ServiceCategory>().ReverseMap();
 
         // ServiceFees mappings
-        CreateMap<ServiceFeesDTO, ServiceCategory>().ReverseMap();
+        CreateMap<ServiceFeesDTO, ServiceFees>().ReverseMap();
 
         // DrivingLicenseApplication mappings
         CreateMap<CreateLocalDrivingLicenseApplicationRequest, LocalDrivingLicenseApplication>().ReverseMap();

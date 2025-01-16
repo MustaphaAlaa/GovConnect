@@ -37,7 +37,11 @@ namespace Services.TestServices
         }
 
 
-        public event EventHandler<TestDTO> TestCreated = delegate { };
+
+
+        public event Func<object?, TestDTO, Task> TestCreated;
+
+
 
         public async Task<TestDTO> CreateAsync(CreateTestRequest entity)
         {

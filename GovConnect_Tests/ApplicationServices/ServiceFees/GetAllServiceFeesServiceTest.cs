@@ -58,7 +58,7 @@ namespace GovConnect_Tests.ApplicationServices
                 .Select(appFees => new ServiceFeesDTO
                 {
                     ServiceCategoryId = appFees.ServiceCategoryId,
-                    ApplicationPuropseId = appFees.ServicePurposeId,
+                    ServicePurposeId = appFees.ServicePurposeId,
                     Fees = appFees.Fees,
                     LastUpdate = appFees.LastUpdate
                 }).ToList();
@@ -70,7 +70,7 @@ namespace GovConnect_Tests.ApplicationServices
                 .Returns((ServiceFees source) => new ServiceFeesDTO
                 {
                     ServiceCategoryId = source.ServiceCategoryId,
-                    ApplicationPuropseId = source.ServicePurposeId,
+                    ServicePurposeId = source.ServicePurposeId,
                     Fees = source.Fees,
                     LastUpdate = source.LastUpdate
                 });
@@ -116,7 +116,7 @@ namespace GovConnect_Tests.ApplicationServices
                 .Select(appFees => new ServiceFeesDTO()
                 {
                     ServiceCategoryId = appFees.ServiceCategoryId,
-                    ApplicationPuropseId = appFees.ServicePurposeId,
+                    ServicePurposeId = appFees.ServicePurposeId,
                     Fees = appFees.Fees,
                     LastUpdate = appFees.LastUpdate
                 }).AsQueryable();
@@ -125,7 +125,7 @@ namespace GovConnect_Tests.ApplicationServices
                 .Returns((ServiceFees source) => new ServiceFeesDTO
                 {
                     ServiceCategoryId = source.ServiceCategoryId,
-                    ApplicationPuropseId = source.ServicePurposeId,
+                    ServicePurposeId = source.ServicePurposeId,
                     Fees = source.Fees,
                     LastUpdate = source.LastUpdate
 

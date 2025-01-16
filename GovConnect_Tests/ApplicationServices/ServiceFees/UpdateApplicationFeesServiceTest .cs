@@ -49,7 +49,7 @@ public class UpdateeApplicationFeesServiceTEST
     {
         //Arrange
         ServiceFeesDTO updateRequest = _fixture.Build<ServiceFeesDTO>()
-            .With(app => app.ApplicationPuropseId, id)
+            .With(app => app.ServicePurposeId, id)
             .Create();
 
         //Act
@@ -124,7 +124,7 @@ public class UpdateeApplicationFeesServiceTEST
         };
 
         ServiceFeesDTO updateRequest = _fixture.Build<ServiceFeesDTO>()
-            .With(appFees => appFees.ApplicationPuropseId, existServiceFees.ServicePurposeId)
+            .With(appFees => appFees.ServicePurposeId, existServiceFees.ServicePurposeId)
             .With(appFees => appFees.ServiceCategoryId, existServiceFees.ServiceCategoryId)
             .With(appFees => appFees.LastUpdate, existServiceFees.LastUpdate - TimeSpan.FromDays(10))
             .Create();
@@ -154,7 +154,7 @@ public class UpdateeApplicationFeesServiceTEST
 
         ServiceFeesDTO updateRequest = new()
         {
-            ApplicationPuropseId = existServiceFees.ServicePurposeId,
+            ServicePurposeId = existServiceFees.ServicePurposeId,
             ServiceCategoryId = existServiceFees.ServiceCategoryId,
             Fees = 120,
             LastUpdate = DateTime.Now,
@@ -210,7 +210,7 @@ public class UpdateeApplicationFeesServiceTEST
         //Arrange
         ServiceFeesDTO updateRequest = new()
         {
-            ApplicationPuropseId = 1,
+            ServicePurposeId = 1,
             ServiceCategoryId = 5,
             Fees = 80,
             LastUpdate = DateTime.Now
@@ -231,7 +231,7 @@ public class UpdateeApplicationFeesServiceTEST
             .Returns((ServiceFeesDTO source) => new ServiceFees
             {
                 ServiceCategoryId = source.ServiceCategoryId,
-                ServicePurposeId = source.ApplicationPuropseId,
+                ServicePurposeId = source.ServicePurposeId,
                 Fees = source.Fees,
                 LastUpdate = source.LastUpdate
             });
@@ -239,7 +239,7 @@ public class UpdateeApplicationFeesServiceTEST
         _updateRepository.Setup(temp => temp.UpdateAsync(It.IsAny<ServiceFees>()))
             .ReturnsAsync(new ServiceFees()
             {
-                ServicePurposeId = updateRequest.ApplicationPuropseId,
+                ServicePurposeId = updateRequest.ServicePurposeId,
                 ServiceCategoryId = updateRequest.ServiceCategoryId,
                 Fees = updateRequest.Fees,
                 LastUpdate = updateRequest.LastUpdate
@@ -263,14 +263,14 @@ public class UpdateeApplicationFeesServiceTEST
         //Arrange
         ServiceFeesDTO updateRequest = new()
         {
-            ApplicationPuropseId = 1,
+            ServicePurposeId = 1,
             ServiceCategoryId = 5,
             Fees = 80,
             LastUpdate = DateTime.Now
         };
         ServiceFees existServiceFees = new ServiceFees()
         {
-            ServicePurposeId = updateRequest.ApplicationPuropseId,
+            ServicePurposeId = updateRequest.ServicePurposeId,
             ServiceCategoryId = updateRequest.ServiceCategoryId,
             Fees = 102,
             LastUpdate = updateRequest.LastUpdate - TimeSpan.FromDays(2)
@@ -283,7 +283,7 @@ public class UpdateeApplicationFeesServiceTEST
             .Returns((ServiceFeesDTO source) => new ServiceFees
             {
                 ServiceCategoryId = source.ServiceCategoryId,
-                ServicePurposeId = source.ApplicationPuropseId,
+                ServicePurposeId = source.ServicePurposeId,
                 Fees = source.Fees,
                 LastUpdate = source.LastUpdate
             });
@@ -291,7 +291,7 @@ public class UpdateeApplicationFeesServiceTEST
         _updateRepository.Setup(temp => temp.UpdateAsync(It.IsAny<ServiceFees>()))
             .ReturnsAsync(new ServiceFees()
             {
-                ServicePurposeId = updateRequest.ApplicationPuropseId,
+                ServicePurposeId = updateRequest.ServicePurposeId,
                 ServiceCategoryId = updateRequest.ServiceCategoryId,
                 Fees = updateRequest.Fees,
                 LastUpdate = updateRequest.LastUpdate
@@ -302,7 +302,7 @@ public class UpdateeApplicationFeesServiceTEST
            .Returns((ServiceFees source) => new ServiceFeesDTO
            {
                ServiceCategoryId = source.ServiceCategoryId,
-               ApplicationPuropseId = source.ServicePurposeId,
+               ServicePurposeId = source.ServicePurposeId,
                Fees = source.Fees,
                LastUpdate = source.LastUpdate
            });
