@@ -1,17 +1,20 @@
 ﻿using AutoMapper;
+using DataConfigurations.TVFs.ITVFs;
 using IRepository;
 using IServices.ITests.ILDLApplicationsAllowedToRetakeATestServices;
 using IServices.ITests.ITest;
 using Microsoft.Extensions.Logging;
 using ModelDTO.TestsDTO;
 using Models.Tests;
+using Services.Execptions;
 
 namespace Services.LDLApplicationsAllowedToRetakeATestServices;
 
-public class LDLTestRetakeApplicationCreator : LDLTestRetakeApplicationCreatorBase
+public class LDLTestRetakeApplicationCreator : ILDLTestRetakeApplicationCreator
 {
     private readonly ICreateRepository<LDLApplicationsAllowedToRetakeATest> _createRepository;
     private readonly ILDLTestRetakeApplicationCreationValidator _lDLTestRetakeApplicationCreationValidator;
+    private readonly ITVF_GetTestResultForABookingId _tVF_GetTestResultForABookingId;
     private readonly ITestCreationService _testCreationService;
     private readonly ILogger<LDLTestRetakeApplicationCreator> _logger;
     private readonly IMapper _mapper;
@@ -19,18 +22,20 @@ public class LDLTestRetakeApplicationCreator : LDLTestRetakeApplicationCreatorBa
                     ILDLTestRetakeApplicationCreationValidator lDLTestRetakeApplicationCreationValidator,
         ITestCreationService testCreationService,
         ILogger<LDLTestRetakeApplicationCreator> logger,
+        ITVF_GetTestResultForABookingId tVF_GetTestResultForABookingId,
         IMapper mapper)
     {
         _createRepository = createRepository;
         _testCreationService = testCreationService;
         _lDLTestRetakeApplicationCreationValidator = lDLTestRetakeApplicationCreationValidator;
+        _testCreationService.TestCreated += CreateAsync;
+        _tVF_GetTestResultForABookingId = tVF_GetTestResultForABookingId;
         _logger = logger;
         _mapper = mapper;
-        _testCreationService.TestCreated += CreateAsync;
 
     }
 
-    protected override async Task CreateAsync(object? sender, TestDTO e)
+    public async Task CreateAsync(object? sender, TestDTO e)
     {
         _logger.LogInformation($"{this.GetType().Name} -- CreateAsync");
 
@@ -41,7 +46,15 @@ public class LDLTestRetakeApplicationCreator : LDLTestRetakeApplicationCreatorBa
 
         }
 
-        var isValid = await _lDLTestRetakeApplicationCreationValidator.IsValid(e.LocalDrivingLicenseApplicationId, e.TestTypeId);
+        var testDTO = await _tVF_GetTestResultForABookingId.GetTestResultForABookingId(e.BookingId);
+
+        if (testDTO is null)
+        {
+            _logger.LogError("booking id doesn't exist in booking table");
+            throw new DoesNotExistException("Booking Id is not exist");
+        }
+
+        var isValid = await _lDLTestRetakeApplicationCreationValidator.IsValid(testDTO.LocalDrivingLicenseApplicationId, testDTO.TestTypeId); //////lkfldsnglstengestd
 
         if (!isValid)
         {
@@ -57,7 +70,7 @@ public class LDLTestRetakeApplicationCreator : LDLTestRetakeApplicationCreatorBa
             {
 
                 IsAllowedToRetakeATest = true,
-                LocalDrivingApplicationId = e.LocalDrivingLicenseApplicationId,
+                LocalDrivingLicenseApplicationId = e.LocalDrivingLicenseApplicationId,
                 TestTypeId = e.TestTypeId
             };
 
@@ -70,4 +83,6 @@ public class LDLTestRetakeApplicationCreator : LDLTestRetakeApplicationCreatorBa
         }
 
     }
+
+
 }

@@ -18,12 +18,30 @@ namespace DataConfigurations
     {
         public async Task<LDLApplicationsAllowedToRetakeATestDTO?> GetLDLAppsAllowedToRetakATest(int LDLApplicationId, int TestTypeId)
         {
-            SqlParameter[] parameters = new[] { new SqlParameter("@TestTypeId", TestTypeId),
-                                                 new SqlParameter("@LDLAppId", LDLApplicationId) };
+            SqlParameter[] parameters = new SqlParameter[] { new SqlParameter("@TestTypeId", TestTypeId),
+                                                             new SqlParameter("@LDLAppId", LDLApplicationId) };
+            try
+            {
+                var result = await Database.SqlQueryRaw<LDLApplicationsAllowedToRetakeATest?>(@"SELECT * FROM GetLDLAppsAllowedToRetakATest(@LDLAppId,@TestTypeId)", parameters).FirstOrDefaultAsync();
 
-            var result = await Database.SqlQueryRaw<LDLApplicationsAllowedToRetakeATestDTO?>(@"SELECT * FROM GetLDLAppsAllowedToRetakATest(@TestTypeId,@LDLAppId)", parameters).FirstOrDefaultAsync();
 
-            return result;
+
+                if (result == null)
+                    return null;
+
+                LDLApplicationsAllowedToRetakeATestDTO reDTO = new()
+                {
+                    Id = result.Id,
+                    TestTypeId = result.TestTypeId,
+                    IsAllowedToRetakeATest = result.IsAllowedToRetakeATest,
+                    LocalDrivingLicenseApplicationId = result.LocalDrivingLicenseApplicationId
+                };
+                return reDTO;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
     }
 }

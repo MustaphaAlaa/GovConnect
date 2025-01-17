@@ -26,7 +26,7 @@ namespace Models.Tests
         /// </summary>
         [Required]
         [ForeignKey("LocalDrivingLicenseApplication")]
-        public int LocalDrivingApplicationId { get; set; }
+        public int LocalDrivingLicenseApplicationId { get; set; }
 
         /// <summary>
         /// The foreign key referencing the associated local driving license application.
@@ -44,7 +44,9 @@ namespace Models.Tests
         /// <summary>
         /// Navigation property for the associated local driving license application.
         /// </summary>
+        [NotMapped]
         public LocalDrivingLicenseApplication LocalDrivingLicenseApplication { get; set; }
+        [NotMapped]
         public TestType TestType { get; set; }
     }
 }

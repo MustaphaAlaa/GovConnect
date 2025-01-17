@@ -160,7 +160,7 @@ public class Program
         builder.Services.AddScoped<IFirstTimeBookingAnAppointment, FirstTimeBookingAnAppointment>();
 
         //Register RetakeTest Service
-        builder.Services.AddScoped<LDLTestRetakeApplicationCreatorBase, LDLTestRetakeApplicationCreator>();
+        builder.Services.AddScoped<ILDLTestRetakeApplicationCreator, LDLTestRetakeApplicationCreator>();
         builder.Services.AddScoped<ILDLTestRetakeApplicationCreationValidator, LDLTestRetakeApplicationValidator>();
 
 

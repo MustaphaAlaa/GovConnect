@@ -10,7 +10,7 @@ namespace IServices.ITests.ILDLApplicationsAllowedToRetakeATestServices;
 /// <summary>
 /// Interface for inserting records into the LDLApplicationsAllowedToRetakeATest table.
 /// </summary>
-public abstract class LDLTestRetakeApplicationCreatorBase
+public interface ILDLTestRetakeApplicationCreator
 {
-    protected abstract Task CreateAsync(object? sender, TestDTO e);
+    Task CreateAsync(object? sender, TestDTO e);
 }

@@ -20,8 +20,17 @@ public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Gu
     {
         SqlParameter parameter = new SqlParameter("@BookingId", BookingId);
 
-        var result = await Database.SqlQueryRaw<TestDTO?>(@"SELECT * FROM GetTestResultForABookingId(@BookingId)", parameter).FirstOrDefaultAsync();
+        try
+        {
+            var result = await Database.SqlQueryRaw<TestDTO?>(@"SELECT * FROM GetTestResultForABookingId(@BookingId)", parameter).FirstOrDefaultAsync();
 
-        return result;
+            return result;
+        }
+        catch (Exception ex)
+        {
+
+            throw new Exception(ex.Message, ex);
+
+        }
     }
 }

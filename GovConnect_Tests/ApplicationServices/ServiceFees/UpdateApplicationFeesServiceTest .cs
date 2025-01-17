@@ -1,8 +1,10 @@
 ﻿using AutoFixture;
 using AutoMapper;
+using Castle.Core.Logging;
 using FluentAssertions;
 using IRepository;
 using IServices.IApplicationServices.Fees;
+using Microsoft.Extensions.Logging;
 using ModelDTO.ApplicationDTOs.Fees;
 using Models.ApplicationModels;
 using Moq;
@@ -18,7 +20,7 @@ public class UpdateeApplicationFeesServiceTEST
 
     private readonly Mock<IGetRepository<ServiceFees>> _getRepository;
     private readonly Mock<IUpdateRepository<ServiceFees>> _updateRepository;
-
+    private readonly Mock<ILogger<UpdateServiceFeesService>> _logger;
     private readonly IUpdateServiceFees _iUpdateServiceFees;
 
     public UpdateeApplicationFeesServiceTEST()
@@ -28,8 +30,8 @@ public class UpdateeApplicationFeesServiceTEST
 
         _getRepository = new Mock<IGetRepository<ServiceFees>>();
         _updateRepository = new Mock<IUpdateRepository<ServiceFees>>();
-
-        _iUpdateServiceFees = new UpdateServiceFeesService(_mapper.Object, _updateRepository.Object, _getRepository.Object);
+        _logger = new Mock<ILogger<UpdateServiceFeesService>>();
+        _iUpdateServiceFees = new UpdateServiceFeesService(_mapper.Object, _updateRepository.Object, _logger.Object, _getRepository.Object);
     }
 
     [Fact]

@@ -207,8 +207,8 @@ public class UpdateApplicationByUserTEST
         ApplicationDTOForUser applicationDTOForUser = new ApplicationDTOForUser()
         {
             ApplicationId = updateRequest.Id,
-            ApplicantUserId = updatedApplication.UserId,
-            ApplicationPurposeId = updatedApplication.ServicePurposeId,
+            UserId = updatedApplication.UserId,
+            ServicePurposeId = updatedApplication.ServicePurposeId,
             ServiceCategoryId = updatedApplication.ServiceCategoryId,
             LastStatusDate = updatedApplication.LastStatusDate,
             ApplicationStatus = (byte)updatedApplication.ApplicationStatus,

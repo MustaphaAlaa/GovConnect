@@ -2068,7 +2068,7 @@ namespace DataConfigurations.Migrations
                     b.Property<bool>("IsAllowedToRetakeATest")
                         .HasColumnType("bit");
 
-                    b.Property<int>("LocalDrivingApplicationId")
+                    b.Property<int>("LocalDrivingLicenseApplicationId")
                         .HasColumnType("int");
 
                     b.Property<int>("LocalDrivingLicenseApplicationId")

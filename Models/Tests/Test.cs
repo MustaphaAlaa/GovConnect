@@ -36,7 +36,7 @@ public class Test
     /// <summary>
     /// The Employee who create the result
     /// </summary>
-    [Required][ForeignKey("Employee")] public Guid CreatedByEmployee { get; set; }
+    [Required][ForeignKey("Employee")] public Guid CreatedByEmployeeId { get; set; }
 
     /// <summary>
     /// Navigation property for CreatedByEmployee

@@ -63,7 +63,15 @@ namespace Services.TestServices
 
                 var test = await _createRepository.CreateAsync(testReq);
 
-                TestDTO testDTO = _mapper.Map<TestDTO>(test);
+                //TestDTO testDTO = _mapper.Map<TestDTO>(test);
+
+                var testDTO = new TestDTO
+                {
+                    TestId = test.TestId,
+                    BookingId = test.BookingId,
+                    TestResult = test.TestResult,
+                    Notes = test.Notes,
+                };
 
                 TestCreated?.Invoke(this, testDTO);
 

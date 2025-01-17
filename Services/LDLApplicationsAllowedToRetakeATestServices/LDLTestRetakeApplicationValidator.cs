@@ -25,10 +25,20 @@ public class LDLTestRetakeApplicationValidator : ILDLTestRetakeApplicationCreati
     {
         _logger.LogInformation($"{this.GetType().Name} -- IsValid");
 
-        var isExist = await _tVF_GetLDLAppsAllowedToRetakATest.GetLDLAppsAllowedToRetakATest(LDLApplicationId, TestTypeId);
 
-        return isExist != null;
+        try
+        {
+            var isExist = await _tVF_GetLDLAppsAllowedToRetakATest.GetLDLAppsAllowedToRetakATest(LDLApplicationId, TestTypeId);
 
+
+            Thread.Sleep(10000);
+
+            return isExist != null;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message, ex);
+        }
     }
 
 

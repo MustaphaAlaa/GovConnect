@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataConfigurations.Migrations
 {
     [DbContext(typeof(GovConnectDbContext))]
-    [Migration("20250116064632_Fix_LDLApplicationsAllowedToRetakATest_Foreign_Columns")]
-    partial class Fix_LDLApplicationsAllowedToRetakATest_Foreign_Columns
+    [Migration("20250117012556_Inserting_Updating_Admins_and_Employees_records_Table")]
+    partial class Inserting_Updating_Admins_and_Employees_records_Table
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -2094,7 +2094,7 @@ namespace DataConfigurations.Migrations
                     b.Property<int>("BookingId")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("CreatedByEmployee")
+                    b.Property<Guid>("CreatedByEmployeeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Notes")
@@ -2108,7 +2108,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasIndex("BookingId");
 
-                    b.HasIndex("CreatedByEmployee");
+                    b.HasIndex("CreatedByEmployeeId");
 
                     b.ToTable("Tests");
                 });
@@ -2388,6 +2388,22 @@ namespace DataConfigurations.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Admins");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("123e4567-e89b-12d3-a456-426614174000"),
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsEmployee = true,
+                            UserId = new Guid("11111111-1111-1111-1111-111111111111")
+                        },
+                        new
+                        {
+                            Id = new Guid("550e8400-e29b-41d4-a716-446655440000"),
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsEmployee = false,
+                            UserId = new Guid("22222222-2222-2222-2222-222222222222")
+                        });
                 });
 
             modelBuilder.Entity("Models.Users.Driver", b =>
@@ -2439,6 +2455,32 @@ namespace DataConfigurations.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Employees");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("f47ac10b-58cc-4372-a567-0e02b2c3d479"),
+                            HiredByAdmin = new Guid("550e8400-e29b-41d4-a716-446655440000"),
+                            HiredDate = new DateTime(2025, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = true,
+                            UserId = new Guid("11111111-1111-1111-1111-111111111111")
+                        },
+                        new
+                        {
+                            Id = new Guid("6ba7b810-9dad-11d1-80b4-00c04fd430c8"),
+                            HiredByAdmin = new Guid("123e4567-e89b-12d3-a456-426614174000"),
+                            HiredDate = new DateTime(2026, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = true,
+                            UserId = new Guid("22222222-2222-2222-2222-222222222222")
+                        },
+                        new
+                        {
+                            Id = new Guid("1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed"),
+                            HiredByAdmin = new Guid("123e4567-e89b-12d3-a456-426614174000"),
+                            HiredDate = new DateTime(2023, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = true,
+                            UserId = new Guid("22222222-2222-2222-2222-222222222222")
+                        });
                 });
 
             modelBuilder.Entity("Models.Users.User", b =>
@@ -3045,7 +3087,7 @@ namespace DataConfigurations.Migrations
 
                     b.HasOne("Models.Users.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("CreatedByEmployee")
+                        .HasForeignKey("CreatedByEmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

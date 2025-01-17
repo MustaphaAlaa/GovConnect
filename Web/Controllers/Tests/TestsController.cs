@@ -27,14 +27,14 @@ namespace Web.Controllers.Tests
 
         private readonly ITestTypeRetrievalService _getTestTypes;
         private readonly ITestCreationService _testCreationService;
-        private readonly LDLTestRetakeApplicationCreatorBase _lDLTestRetake;
+        private readonly ILDLTestRetakeApplicationCreator _lDLTestRetake;
         private readonly IAsyncAllTestTypesRetrieverService _getAllTestTypesService;
         private readonly ILogger<TestType> _logger;
 
         public TestsController(ITestTypeRetrievalService getTestTypes,
             IAsyncAllTestTypesRetrieverService getAllTestTypesService,
             ITestCreationService testCreationService,
-            LDLTestRetakeApplicationCreatorBase lDLTestRetakeApplicationCreatorBase,
+            ILDLTestRetakeApplicationCreator lDLTestRetakeApplicationCreatorBase,
             ILogger<TestType> logger)
         {
             _getTestTypes = getTestTypes;
@@ -78,7 +78,7 @@ namespace Web.Controllers.Tests
         [HttpPost("CreateTestResult")]
         public async Task<IActionResult> CreateTestResult(CreateTestRequest req)
         {
-            req.CreatedByEmployeeId = Guid.Empty;
+            //req.CreatedByEmployeeId = Guid.Empty;
             var test = await _testCreationService.CreateAsync(req);
 
             return Ok(test);

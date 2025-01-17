@@ -17,7 +17,7 @@ public class LDLApplicationsAllowedToRetakeATestDTO
     /// The foreign key referencing the associated local driving license application.
     /// </summary>
     [Required]
-    public int LocalDrivingApplicationId { get; set; }
+    public int LocalDrivingLicenseApplicationId { get; set; }
 
     /// <summary>
     /// The foreign key referencing the associated local driving license application.

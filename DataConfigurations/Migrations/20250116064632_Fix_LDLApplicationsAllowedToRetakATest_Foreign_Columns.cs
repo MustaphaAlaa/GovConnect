@@ -25,12 +25,12 @@ namespace DataConfigurations.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_LDLApplicationsAllowedToRetakeATests_LocalDrivingApplicationId",
                 table: "LDLApplicationsAllowedToRetakeATests",
-                column: "LocalDrivingApplicationId");
+                column: "LocalDrivingLicenseApplicationId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_LDLApplicationsAllowedToRetakeATests_LocalDrivingLicenseApplications_LocalDrivingApplicationId",
                 table: "LDLApplicationsAllowedToRetakeATests",
-                column: "LocalDrivingApplicationId",
+                column: "LocalDrivingLicenseApplicationId",
                 principalTable: "LocalDrivingLicenseApplications",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);

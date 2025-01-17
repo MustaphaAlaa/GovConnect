@@ -21,7 +21,7 @@ namespace DataConfigurations.Migrations
                 (
                     SELECT *
                     FROM LDLApplicationsAllowedToRetakeATests R
-                    WHERE R.LocalDrivingApplicationId = @LDLAppId
+                    WHERE R.LocalDrivingLicenseApplicationId = @LDLAppId
                           AND R.TestTypeId = @TestTypeId
                 );";
 
