@@ -1,6 +1,6 @@
 ﻿using ModelDTO.TestsDTO;
 
-namespace DataConfigurations.TVFs.ITVFs;
+namespace IRepository.ITVFs;
 
 /// <summary>
 /// Interface for the table-valued function GetLDLAppsAllowedToRetakATest.

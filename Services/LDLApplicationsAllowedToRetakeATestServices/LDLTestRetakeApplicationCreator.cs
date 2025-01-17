@@ -37,34 +37,36 @@ public class LDLTestRetakeApplicationCreator : ILDLTestRetakeApplicationCreator
 
     public async Task CreateAsync(object? sender, TestDTO e)
     {
-        _logger.LogInformation($"{this.GetType().Name} -- CreateAsync");
-
-        if (e.TestResult)
-        {
-            _logger.LogWarning($"It's not allowed for this LDL Applcation with id {e.LocalDrivingLicenseApplicationId} to retake a test type: {e.TestTypeId}");
-            return;
-
-        }
-
-        var testDTO = await _tVF_GetTestResultForABookingId.GetTestResultForABookingId(e.BookingId);
-
-        if (testDTO is null)
-        {
-            _logger.LogError("booking id doesn't exist in booking table");
-            throw new DoesNotExistException("Booking Id is not exist");
-        }
-
-        var isValid = await _lDLTestRetakeApplicationCreationValidator.IsValid(testDTO.LocalDrivingLicenseApplicationId, testDTO.TestTypeId); //////lkfldsnglstengestd
-
-        if (!isValid)
-        {
-            _logger.LogWarning($"It's not allowed for this LDL Applcation with id {e.LocalDrivingLicenseApplicationId} to retake a test type: {e.TestTypeId}");
-
-            return;
-        }
-
         try
         {
+            _logger.LogInformation($"{this.GetType().Name} -- CreateAsync");
+
+            if (e.TestResult)
+            {
+                _logger.LogWarning($"It's not allowed for this LDL Applcation with id {e.LocalDrivingLicenseApplicationId} to retake a test type: {e.TestTypeId}");
+                return;
+
+            }
+
+            var testDTO = await _tVF_GetTestResultForABookingId.GetTestResultForABookingId(e.BookingId);
+
+
+            if (testDTO is null)
+            {
+                _logger.LogError("booking id doesn't exist in booking table");
+                throw new DoesNotExistException("Booking Id is not exist");
+            }
+
+            var isValid = await _lDLTestRetakeApplicationCreationValidator.IsValid(testDTO.LocalDrivingLicenseApplicationId, testDTO.TestTypeId);
+            //after this line dbcontext is disposed
+
+            if (!isValid)
+            {
+                _logger.LogWarning($"It's not allowed for this LDL Applcation with id {e.LocalDrivingLicenseApplicationId} to retake a test type: {e.TestTypeId}");
+
+                return;
+            }
+
 
             var allowedToRetakeATest = new LDLApplicationsAllowedToRetakeATest()
             {
@@ -74,6 +76,7 @@ public class LDLTestRetakeApplicationCreator : ILDLTestRetakeApplicationCreator
                 TestTypeId = e.TestTypeId
             };
 
+            //when i reach here the dbcontext is dispose
             var createdObj = await _createRepository.CreateAsync(allowedToRetakeATest);
 
         }

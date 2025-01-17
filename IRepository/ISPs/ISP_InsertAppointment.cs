@@ -1,6 +1,6 @@
 ﻿using Models.Tests;
 
-namespace DataConfigurations;
+namespace IRepository.ISPs;
 
 /// <summary>
 /// Interface for stored procedure SP_InsertAppointment

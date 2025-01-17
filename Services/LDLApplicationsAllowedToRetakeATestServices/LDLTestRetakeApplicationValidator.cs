@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DataConfigurations.TVFs.ITVFs;
+using IRepository.ITVFs;
 using IServices.ITests.ILDLApplicationsAllowedToRetakeATestServices;
 using Microsoft.Extensions.Logging;
 
@@ -31,15 +32,13 @@ public class LDLTestRetakeApplicationValidator : ILDLTestRetakeApplicationCreati
             var isExist = await _tVF_GetLDLAppsAllowedToRetakATest.GetLDLAppsAllowedToRetakATest(LDLApplicationId, TestTypeId);
 
 
-            Thread.Sleep(10000);
+            //  Thread.Sleep(1000);
 
-            return isExist != null;
+            return isExist == null;
         }
         catch (Exception ex)
         {
             throw new Exception(ex.Message, ex);
         }
     }
-
-
 }

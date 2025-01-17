@@ -8,6 +8,8 @@ namespace ModelDTO.TestsDTO;
 public class LDLApplicationsAllowedToRetakeATestDTO
 {
 
+
+
     /// <summary>
     /// The unique identifier for the record.
     /// </summary> 

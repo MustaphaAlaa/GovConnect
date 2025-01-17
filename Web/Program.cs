@@ -41,6 +41,12 @@ using IServices.ITests.ILDLApplicationsAllowedToRetakeATestServices;
 using Services.LDLApplicationsAllowedToRetakeATestServices;
 using IServices.ITests.ITest;
 using Services.TestServices;
+using Microsoft.Extensions.Configuration;
+using IRepository.ITVFs;
+using Repositorties.TVFs;
+using Repositorties.SPs;
+using IRepository.ISPs;
+using Models.Tests;
 
 namespace Web;
 
@@ -72,17 +78,23 @@ public class Program
 
         // Configure DbContext
         builder.Services.AddDbContext<GovConnectDbContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("default")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("default")), ServiceLifetime.Scoped);
+
+
+
+
+        /////////   builder.Services.AddScoped<ICreateRepository<LDLApplicationsAllowedToRetakeATest>, CreateRepository<LDLApplicationsAllowedToRetakeATest>>();
+        /////// Other service registrations
 
         // Register StoredProcedure 
-        builder.Services.AddScoped<ISP_InsertAppointment, GovConnectDbContext>();
+        builder.Services.AddScoped<ISP_InsertAppointment, SPInsertAppointment>();
 
         // Register Function
-        builder.Services.AddScoped<ITVF_GetTestTypeDayTimeInterval, GovConnectDbContext>();
-        builder.Services.AddScoped<ITVF_GetAvailableDays, GovConnectDbContext>();
-        builder.Services.AddScoped<ITVF_GetTestResult, GovConnectDbContext>();
-        builder.Services.AddScoped<ITVF_GetTestResultForABookingId, GovConnectDbContext>();
-        builder.Services.AddScoped<ITVF_GetLDLAppsAllowedToRetakATest, GovConnectDbContext>();
+        builder.Services.AddScoped<ITVF_GetTestTypeDayTimeInterval, TVFGetTestTypeDayTimeInterva>();
+        builder.Services.AddScoped<ITVF_GetAvailableDays, TVFGetAvailableDays>();
+        builder.Services.AddScoped<ITVF_GetTestResult, TVFGetTestResult>();
+        builder.Services.AddScoped<ITVF_GetTestResultForABookingId, TVFGetTestResultForABookingId>();
+        builder.Services.AddScoped<ITVF_GetLDLAppsAllowedToRetakATest, TVFGetLDLAppsAllowedToRetakATest>();
 
 
         // Register Repositories

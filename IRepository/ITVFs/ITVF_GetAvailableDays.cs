@@ -1,4 +1,4 @@
-﻿namespace DataConfigurations.TVFs.ITVFs;
+﻿namespace IRepository.ITVFs;
 
 
 /// <summary>

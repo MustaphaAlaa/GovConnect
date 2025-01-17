@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using DataConfigurations;
+using IRepository.ISPs;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -6,14 +8,22 @@ using Models;
 using Models.Tests;
 using Models.Users;
 
-namespace DataConfigurations;
+namespace Repositorties.SPs;
 
 
 /// <summary>
 /// Represents the database context for the GovConnect application, including identity and custom entities.
 /// </summary>
-public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Guid>, ISP_InsertAppointment
+//public class SPInsertAppointment : SPBase, ISP_InsertAppointment
+public class SPInsertAppointment : ISP_InsertAppointment
 {
+
+    private readonly GovConnectDbContext _context;
+    public SPInsertAppointment(GovConnectDbContext context)
+    {
+        _context = context;
+    }
+
     /// <inheritdoc />
 
     public async Task<int> SP_InsertAppointment(Appointment appointment)
@@ -26,7 +36,7 @@ public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Gu
             new SqlParameter("@TimeIntervalId", appointment.TimeIntervalId)
         };
 
-        var exec = await Database.ExecuteSqlRawAsync(@"EXECUTE SP_InsertAppointment  
+        var exec = await _context.Database.ExecuteSqlRawAsync(@"EXECUTE SP_InsertAppointment  
                                                      @Day
                                                     ,@TestTypeId
                                                     ,@TimeIntervalId"
