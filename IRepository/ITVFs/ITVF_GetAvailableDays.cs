@@ -1,4 +1,6 @@
-﻿namespace IRepository.ITVFs;
+﻿using ModelDTO.TestsDTO;
+
+namespace IRepository.ITVFs;
 
 
 /// <summary>

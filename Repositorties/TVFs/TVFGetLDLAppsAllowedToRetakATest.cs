@@ -31,12 +31,7 @@ public class TVFGetLDLAppsAllowedToRetakATest : ITVF_GetLDLAppsAllowedToRetakATe
     {
         try
         {
-            SqlParameter[] parameters = new SqlParameter[] { new SqlParameter("@TestTypeId", TestTypeId),
-                                                             new SqlParameter("@LDLAppId", LDLApplicationId) };
-
-
-            var result = await _context.Database.SqlQueryRaw<LDLApplicationsAllowedToRetakeATestDTO?>(@"SELECT * FROM GetLDLAppsAllowedToRetakATest(@LDLAppId,@TestTypeId)", parameters).FirstOrDefaultAsync();
-
+            var result = await _context.GetLDLAppsAllowedToRetakATest(LDLApplicationId, TestTypeId).FirstOrDefaultAsync();
 
             return result;
         }

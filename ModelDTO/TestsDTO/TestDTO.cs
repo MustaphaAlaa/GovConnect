@@ -16,7 +16,7 @@ public class TestDTO
     /// <summary>
     /// the unique identifier for the test
     /// </summary>
-    public int TestId { get; set; }
+    [Key] public int TestId { get; set; }
 
     /// <summary>
     /// The result of the test, it's onlt can be true (for pass) or false (for failure)

@@ -25,8 +25,8 @@ public class TVFGetTestResultForABookingId : ITVF_GetTestResultForABookingId
         try
         {
 
-            SqlParameter parameter = new SqlParameter("@BookingId", BookingId);
-            var result = await _context.Database.SqlQueryRaw<TestDTO?>(@"SELECT * FROM GetTestResultForABookingId(@BookingId)", parameter).FirstOrDefaultAsync();
+            //SqlParameter parameter = new SqlParameter("@BookingId", BookingId);
+            var result = await _context.GetTestResultForABookingId(BookingId).FirstOrDefaultAsync();  //await _context.Database.SqlQueryRaw<TestDTO?>(@"SELECT * FROM GetTestResultForABookingId(@BookingId)", parameter).FirstOrDefaultAsync();
 
             return result;
         }

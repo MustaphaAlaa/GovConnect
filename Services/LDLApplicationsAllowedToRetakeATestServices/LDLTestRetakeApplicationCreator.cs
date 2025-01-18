@@ -13,8 +13,10 @@ namespace Services.LDLApplicationsAllowedToRetakeATestServices;
 public class LDLTestRetakeApplicationCreator : ILDLTestRetakeApplicationCreator
 {
     private readonly ICreateRepository<LDLApplicationsAllowedToRetakeATest> _createRepository;
+
     private readonly ILDLTestRetakeApplicationCreationValidator _lDLTestRetakeApplicationCreationValidator;
     private readonly ITVF_GetTestResultForABookingId _tVF_GetTestResultForABookingId;
+
     private readonly ITestCreationService _testCreationService;
     private readonly ILogger<LDLTestRetakeApplicationCreator> _logger;
     private readonly IMapper _mapper;
@@ -86,6 +88,4 @@ public class LDLTestRetakeApplicationCreator : ILDLTestRetakeApplicationCreator
         }
 
     }
-
-
 }

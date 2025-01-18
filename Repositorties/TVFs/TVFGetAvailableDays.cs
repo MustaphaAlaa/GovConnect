@@ -2,6 +2,7 @@
 using IRepository.ITVFs;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using ModelDTO.TestsDTO;
 
 namespace Repositorties.TVFs;
 
@@ -24,9 +25,8 @@ public class TVFGetAvailableDays : ITVF_GetAvailableDays
     {
         try
         {
-            SqlParameter parameter = new SqlParameter("@TestTypeId", TestTypeId);
 
-            var result = await _context.Database.SqlQueryRaw<DateOnly>(@"SELECT * FROM GetAvailableDays(@TestTypeId)", parameter).ToListAsync();
+            var result = await _context.GetAvailableDays(TestTypeId).Select(t => t.AppointmentDay).ToListAsync();
 
             return result;
         }
