@@ -173,6 +173,8 @@ public class Program
 
         //Register RetakeTest Service
         builder.Services.AddScoped<ILDLTestRetakeApplicationCreator, LDLTestRetakeApplicationCreator>();
+
+
         builder.Services.AddScoped<ILDLTestRetakeApplicationCreationValidator, LDLTestRetakeApplicationValidator>();
 
 

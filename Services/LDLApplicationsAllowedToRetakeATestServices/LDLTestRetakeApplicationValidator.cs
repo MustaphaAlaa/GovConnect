@@ -32,7 +32,6 @@ public class LDLTestRetakeApplicationValidator : ILDLTestRetakeApplicationCreati
             var isExist = await _tVF_GetLDLAppsAllowedToRetakATest.GetLDLAppsAllowedToRetakATest(LDLApplicationId, TestTypeId);
 
 
-            //  Thread.Sleep(1000);
 
             return isExist == null;
         }
