@@ -32,7 +32,6 @@ namespace Services.BookingServices.Validators
         {
             try
             {
-
                 var LDL = await _lDLRetrievalService.GetByAsync(ldl => ldl.LocalDrivingLicenseApplicationId == request.LocalDrivingLicenseApplicationId);
 
                 if (LDL != null)
@@ -41,6 +40,7 @@ namespace Services.BookingServices.Validators
 
                     throw new AlreadyExistException("The local driving license is already exists.");
                 }
+
                 var testpassed = await _IsTestTypePassed.IsTestTypePassed(request.LocalDrivingLicenseApplicationId, request.TestTypeId);
 
                 if (testpassed)
@@ -48,6 +48,7 @@ namespace Services.BookingServices.Validators
                     _logger.LogError($"This test type is already exist and passed.");
                     throw new AlreadyExistException("This test type is already exist and passed.");
                 }
+
                 await _testOrder.CheckTheOrder(request);
             }
             catch (Exception ex)
