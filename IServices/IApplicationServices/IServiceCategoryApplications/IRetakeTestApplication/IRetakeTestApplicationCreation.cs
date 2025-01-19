@@ -7,7 +7,7 @@ namespace IServices.IApplicationServices.IServiceCategoryApplications.IRetakeTes
 /// <summary>
 /// Interface for service responsible of inserting records in retake test application.
 /// </summary>
-public interface IRetakeTestApplicationCreator : ICreateService<CreateRetakeTestApplicationRequest, RetakeTestApplication>
+public interface IRetakeTestApplicationCreation : ICreateService<CreateRetakeTestApplicationRequest, RetakeTestApplication>
 {
 
 }

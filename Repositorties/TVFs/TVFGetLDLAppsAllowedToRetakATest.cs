@@ -31,7 +31,7 @@ public class TVFGetLDLAppsAllowedToRetakATest : ITVF_GetLDLAppsAllowedToRetakATe
     {
         try
         {
-            var result = await _context.GetLDLAppsAllowedToRetakATest(LDLApplicationId, TestTypeId).FirstOrDefaultAsync();
+            LDLApplicationsAllowedToRetakeATestDTO? result = await _context.GetLDLAppsAllowedToRetakATest(LDLApplicationId, TestTypeId).FirstOrDefaultAsync();
 
             return result;
         }

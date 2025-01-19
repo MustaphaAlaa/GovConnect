@@ -41,12 +41,16 @@ using IServices.ITests.ILDLApplicationsAllowedToRetakeATestServices;
 using Services.LDLApplicationsAllowedToRetakeATestServices;
 using IServices.ITests.ITest;
 using Services.TestServices;
-using Microsoft.Extensions.Configuration;
 using IRepository.ITVFs;
 using Repositorties.TVFs;
 using Repositorties.SPs;
 using IRepository.ISPs;
-using Models.Tests;
+using Repositorties.SFs;
+using IRepository.ISFs;
+using IServices.IValidators.BookingValidators;
+using Services.BookingServices.Validators;
+using IServices.ILicencesServices;
+using Services.LicensesServices;
 
 namespace Web;
 
@@ -95,6 +99,7 @@ public class Program
         builder.Services.AddScoped<ITVF_GetTestResult, TVFGetTestResult>();
         builder.Services.AddScoped<ITVF_GetTestResultForABookingId, TVFGetTestResultForABookingId>();
         builder.Services.AddScoped<ITVF_GetLDLAppsAllowedToRetakATest, TVFGetLDLAppsAllowedToRetakATest>();
+        builder.Services.AddScoped<ISF_IsTestTypePassed, CFIsTestTypePassed>();
 
 
         // Register Repositories
@@ -139,6 +144,8 @@ public class Program
         builder.Services.AddScoped<IReplacementForLostLocalDrivingLicenseApplicationValidator, ReplacementForLostLocalDrivingLicenseApplicationValidator>();
         builder.Services.AddScoped<IReleaseLocalDrivingLicenseApplicationValidator, ReleaseLocalDrivingLicenseApplicationValidator>();
         builder.Services.AddScoped<IGetDetainLicense, GetDetainedLicense>();
+        builder.Services.AddScoped<ILocalLicenseRetrieveService, LocalDrivingLicenseRetrievalService>();
+
 
         // Register Application Services
         builder.Services.AddScoped<ICreateApplicationService, CreateApplicationService>();
@@ -170,6 +177,9 @@ public class Program
 
         // Register Booking Service
         builder.Services.AddScoped<IFirstTimeBookingAnAppointment, FirstTimeBookingAnAppointment>();
+        builder.Services.AddScoped<IBookingCreationValidators, BookingCreationValidator>();
+        builder.Services.AddScoped<ITestTypeOrder, BookingTestTypeOrder>();
+        builder.Services.AddScoped<IBookingRetrieveService, BookingRetrivalService>();
 
         //Register RetakeTest Service
         builder.Services.AddScoped<ILDLTestRetakeApplicationCreator, LDLTestRetakeApplicationCreator>();

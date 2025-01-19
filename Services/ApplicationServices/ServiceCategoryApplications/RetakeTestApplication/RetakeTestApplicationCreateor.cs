@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Services.ApplicationServices.ServiceCategoryApplications.RetakeTestApplication;
-public class RetakeTestApplicationCreateor : IRetakeTestApplicationCreator
+public class RetakeTestApplicationCreateor : IRetakeTestApplicationCreation
 {
     public Task<Models.Applications.RetakeTestApplication> CreateAsync(CreateRetakeTestApplicationRequest entity)
     {

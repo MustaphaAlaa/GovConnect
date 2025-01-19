@@ -17,39 +17,39 @@ namespace DataConfigurations;
 public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Guid>
 {
     //@@Users
-    public DbSet<Employee> Employees { get; set; }
-    public DbSet<Admin> Admins { get; set; }
+    public DbSet<Employee> Employees { get; set; } = null!;
+    public DbSet<Admin> Admins { get; set; } = null!;
 
-    public DbSet<Driver> Drivers { get; set; }
+    public DbSet<Driver> Drivers { get; set; } = null!;
 
     //@@Types
-    public DbSet<EmployeeType> EmployeeTypes { get; set; }
-    public DbSet<Country> Countries { get; set; }
-    public DbSet<LicenseClass> LicenseClasses { get; set; }
+    public DbSet<EmployeeType> EmployeeTypes { get; set; } = null!;
+    public DbSet<Country> Countries { get; set; } = null!;
+    public DbSet<LicenseClass> LicenseClasses { get; set; } = null!;
 
     //@@DrivingLicenseApplication
-    public DbSet<ServicePurpose> ServicesPurposes { get; set; }
-    public DbSet<ServiceCategory> ServiceCategories { get; set; }
-    public DbSet<ServiceFees> ServicesFees { get; set; }
+    public DbSet<ServicePurpose> ServicesPurposes { get; set; } = null!;
+    public DbSet<ServiceCategory> ServiceCategories { get; set; } = null!;
+    public DbSet<ServiceFees> ServicesFees { get; set; } = null!;
 
     //@@Test
-    public DbSet<Test> Tests { get; set; }
-    public DbSet<TestType> TestTypes { get; set; }
-    public DbSet<RetakeTestApplication> RetakeTestApplications { get; set; }
-    public DbSet<LDLApplicationsAllowedToRetakeATest> LDLApplicationsAllowedToRetakeATests { get; set; }
+    public DbSet<Test> Tests { get; set; } = null!;
+    public DbSet<TestType> TestTypes { get; set; } = null!;
+    public DbSet<RetakeTestApplication> RetakeTestApplications { get; set; } = null!;
+    public DbSet<LDLApplicationsAllowedToRetakeATest> LDLApplicationsAllowedToRetakeATests { get; set; } = null!;
     //@@Appointments
-    public DbSet<Appointment> TestAppointments { get; set; }
-    public DbSet<Booking> Bookings { get; set; }
+    public DbSet<Appointment> TestAppointments { get; set; } = null!;
+    public DbSet<Booking> Bookings { get; set; } = null!;
 
     //@@LicensesServices
-    public DbSet<LocalDrivingLicense> LocalDrivingLicenses { get; set; }
-    public DbSet<InternationalDrivingLicense> InternationalDrivingLicenses { get; set; }
-    public DbSet<LicenseType> LicenseTypes { get; set; }
-    public DbSet<DetainedLicense> DetainedLicenses { get; set; }
+    public DbSet<LocalDrivingLicense> LocalDrivingLicenses { get; set; } = null!;
+    public DbSet<InternationalDrivingLicense> InternationalDrivingLicenses { get; set; } = null!;
+    public DbSet<LicenseType> LicenseTypes { get; set; } = null!;
+    public DbSet<DetainedLicense> DetainedLicenses { get; set; } = null!;
 
     //@@DrivingLicenseApplication
-    public DbSet<Application> Applications { get; set; }
-    public DbSet<LocalDrivingLicenseApplication> LocalDrivingLicenseApplications { get; set; }
-    public DbSet<InternationalDrivingLicenseApplication> InternationalDrivingLicenseApplications { get; set; }
+    public DbSet<Application> Applications { get; set; } = null!;
+    public DbSet<LocalDrivingLicenseApplication> LocalDrivingLicenseApplications { get; set; } = null!;
+    public DbSet<InternationalDrivingLicenseApplication> InternationalDrivingLicenseApplications { get; set; } = null!;
 }
 

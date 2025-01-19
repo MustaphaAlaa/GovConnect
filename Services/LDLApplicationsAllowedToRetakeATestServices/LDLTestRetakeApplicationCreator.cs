@@ -22,22 +22,7 @@ public class LDLTestRetakeApplicationCreator : ILDLTestRetakeApplicationCreator,
     private readonly ITestCreationService _testCreationService;
     private readonly ILogger<LDLTestRetakeApplicationCreator> _logger;
     private readonly IMapper _mapper;
-    //public LDLTestRetakeApplicationCreator(ICreateRepository<LDLApplicationsAllowedToRetakeATest> createRepository,
-    //                ILDLTestRetakeApplicationCreationValidator lDLTestRetakeApplicationCreationValidator,
-    //    ITestCreationService testCreationService,
-    //    ILogger<LDLTestRetakeApplicationCreator> logger,
-    //    ITVF_GetTestResultForABookingId tVF_GetTestResultForABookingId,
-    //    IMapper mapper)
-    //{
-    //    _createRepository = createRepository;
-    //    _testCreationService = testCreationService;
-    //    _lDLTestRetakeApplicationCreationValidator = lDLTestRetakeApplicationCreationValidator;
-    //    _testCreationService.TestCreated += CreateAsync;
-    //    _tVF_GetTestResultForABookingId = tVF_GetTestResultForABookingId;
-    //    _logger = logger;
-    //    _mapper = mapper;
 
-    //}
 
     IServiceScopeFactory _serviceScopeFactory;
     public LDLTestRetakeApplicationCreator(IServiceScopeFactory serviceScopeFactory,
@@ -85,7 +70,7 @@ public class LDLTestRetakeApplicationCreator : ILDLTestRetakeApplicationCreator,
                     _logger.LogError("booking id doesn't exist in booking table");
                     throw new DoesNotExistException("Booking Id is not exist");
                 }
-                 
+
                 var isValid = await validator.IsValid(testDTO.LocalDrivingLicenseApplicationId, testDTO.TestTypeId);
                 //after this line dbcontext is disposed
 

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using IRepository;
 using IServices.IBookingServices;
+using IServices.IValidators.BookingValidators;
 using Microsoft.Extensions.Logging;
 using ModelDTO.BookingDTOs;
 using Models.Tests;
@@ -22,16 +23,19 @@ public class CreateBookingService : ICreateBookingService
     private readonly ICreateRepository<Booking> _createBookingRepository;
     private readonly ILogger<Booking> _logger;
     private readonly IMapper _mapper;
+    private readonly IBookingCreationValidators _bookingCreationValidators;
 
     public CreateBookingService(IFirstTimeBookingAnAppointment firstTimeBookingAnAppointment,
                                 IGetRepository<TestType> getTestTypeRepository,
                                 ICreateRepository<Booking> createBookingRepository,
+                                IBookingCreationValidators bookingCreationValidators,
                                 ILogger<Booking> logger,
                                 IMapper mapper)
     {
         _firstTimeBookingAnAppointment = firstTimeBookingAnAppointment;
         _getTestTypeRepository = getTestTypeRepository;
         _createBookingRepository = createBookingRepository;
+        _bookingCreationValidators = bookingCreationValidators;
         _logger = logger;
         _mapper = mapper;
     }
@@ -42,6 +46,8 @@ public class CreateBookingService : ICreateBookingService
 
 
         //step 1: validate the test type order
+
+        await _bookingCreationValidators.IsValid(entity);
 
         //step 2: check if it first time to book an appointemnt
         var isFirstTime = await _firstTimeBookingAnAppointment.IsFirstTime(entity);
@@ -77,16 +83,12 @@ public class CreateBookingService : ICreateBookingService
         }
 
 
-
-        //step 3: valiadte if it already pass
-
-
-
-
         //step 4: Validate The RetakeTestApplication
 
         _logger.LogInformation($"{this.GetType().Name} ---- CreateAsync --- RetakeTestValidation");
-
+        if (entity.RetakeTestApplicationId is null || entity.RetakeTestApplicationId <= 0)
+        { }
+        //
         //is exist
         // not included in any Booking
 

@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Models.Countries;
 using Models.Users;
 using Models.License;
+using Models.ApplicationModels;
 
 namespace Models.LicenseModels;
 
@@ -23,9 +24,10 @@ public class LocalDrivingLicense
 
     [Required][ForeignKey("Employee")] public Guid CreatedByEmployee { get; set; }
     [Required][ForeignKey("Country")] public int CountryId { get; set; }
+
     [Required]
-    [ForeignKey("DrivingLicenseApplication")]
-    public int ApplicationId { get; set; }
+    [ForeignKey("LocalDrivingLicenseApplication")]
+    public int LocalDrivingLicenseApplicationId { get; set; }
     [Required][ForeignKey("Driver")] public Guid DriverId { get; set; }
     [Required]
     [ForeignKey("LicenseClass")]
@@ -34,6 +36,6 @@ public class LocalDrivingLicense
     public Country Country { get; set; }
     public Employee Employee { get; set; }
     public Driver Driver { get; set; }
-    public LocalDrivingLicense DrivingLicenseApplication { get; set; }
+    public LocalDrivingLicenseApplication LocalDrivingLicenseApplication { get; set; }
     public LicenseClass LicenseClass { get; set; }
 }

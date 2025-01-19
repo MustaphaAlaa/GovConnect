@@ -5,7 +5,6 @@ using IServices.ITests.ILDLApplicationsAllowedToRetakeATestServices;
 using Microsoft.Extensions.Logging;
 
 namespace Services.LDLApplicationsAllowedToRetakeATestServices;
-
 public class LDLTestRetakeApplicationValidator : ILDLTestRetakeApplicationCreationValidator
 {
 

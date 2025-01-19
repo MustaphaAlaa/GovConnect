@@ -4,6 +4,7 @@ using DataConfigurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataConfigurations.Migrations
 {
     [DbContext(typeof(GovConnectDbContext))]
-    partial class GovConnectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250119045636_Create_IsTestTypePassed")]
+    partial class Create_IsTestTypePassed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1938,6 +1941,9 @@ namespace DataConfigurations.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LocalDrivingLicenseId"));
 
+                    b.Property<int>("ApplicationId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CountryId")
                         .HasColumnType("int");
 
@@ -1965,14 +1971,13 @@ namespace DataConfigurations.Migrations
                     b.Property<int>("LicenseStatus")
                         .HasColumnType("int");
 
-                    b.Property<int>("LocalDrivingLicenseApplicationId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Notes")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("LocalDrivingLicenseId");
+
+                    b.HasIndex("ApplicationId");
 
                     b.HasIndex("CountryId");
 
@@ -1981,8 +1986,6 @@ namespace DataConfigurations.Migrations
                     b.HasIndex("DriverId");
 
                     b.HasIndex("LicenseClassId");
-
-                    b.HasIndex("LocalDrivingLicenseApplicationId");
 
                     b.ToTable("LocalDrivingLicenses");
                 });
@@ -2965,6 +2968,12 @@ namespace DataConfigurations.Migrations
 
             modelBuilder.Entity("Models.LicenseModels.LocalDrivingLicense", b =>
                 {
+                    b.HasOne("Models.LicenseModels.LocalDrivingLicense", "DrivingLicenseApplication")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Models.Countries.Country", "Country")
                         .WithMany("localDrivingLicenses")
                         .HasForeignKey("CountryId")
@@ -2989,21 +2998,15 @@ namespace DataConfigurations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.ApplicationModels.LocalDrivingLicenseApplication", "LocalDrivingLicenseApplication")
-                        .WithMany()
-                        .HasForeignKey("LocalDrivingLicenseApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Country");
 
                     b.Navigation("Driver");
 
+                    b.Navigation("DrivingLicenseApplication");
+
                     b.Navigation("Employee");
 
                     b.Navigation("LicenseClass");
-
-                    b.Navigation("LocalDrivingLicenseApplication");
                 });
 
             modelBuilder.Entity("Models.Tests.Appointment", b =>

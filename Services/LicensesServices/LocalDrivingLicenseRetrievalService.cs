@@ -10,9 +10,9 @@ using Models.Users;
 
 namespace Services.LicensesServices;
 
-public class GetLocalLicenseServices : IGetLocalLicenseService
+public class LocalDrivingLicenseRetrievalService : ILocalLicenseRetrieveService
 {
-    public GetLocalLicenseServices(IGetAllRepository<Driver> getAllDriversRepository,
+    public LocalDrivingLicenseRetrievalService(IGetAllRepository<Driver> getAllDriversRepository,
         IGetRepository<LocalDrivingLicense> getLocalLicenseRepository,
         IGetAllRepository<LocalDrivingLicense> getAllLocalLicensesRepository, IMapper mapper)
     {
@@ -33,5 +33,5 @@ public class GetLocalLicenseServices : IGetLocalLicenseService
 
         return localLicnese is null ? null : _mapper.Map<LocalDrivingLicenseDTO>(localLicnese);
     }
- 
+
 }
