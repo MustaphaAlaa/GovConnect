@@ -30,7 +30,7 @@ namespace DataConfigurations.Migrations
                 column: "LocalDrivingLicenseApplicationId",
                 principalTable: "LocalDrivingLicenseApplications",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
         }
 
         /// <inheritdoc />
@@ -56,7 +56,7 @@ namespace DataConfigurations.Migrations
                 column: "ApplicationId",
                 principalTable: "LocalDrivingLicenses",
                 principalColumn: "LocalDrivingLicenseId",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
         }
     }
 }
