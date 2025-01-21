@@ -134,9 +134,9 @@ public class CreateAppointmentsService : ICreateAppointmentService
                     appointmentResult.Status = "Success";
                     response.CreatedAppointments.Add(appointmentResult);
                 }
-                catch (Exception ex)
+                catch (System.Exception ex)
                 {
-                    throw new Exception($"Failed to create Appointment : {ex.Message}");
+                    throw new System.Exception($"Failed to create Appointment : {ex.Message}");
                 }
             }
         }

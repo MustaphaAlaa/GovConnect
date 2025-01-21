@@ -8,7 +8,7 @@ using Models.ApplicationModels;
 using Models.Users;
 using Moq;
 using Services.IApplicationServices.Services.UserAppServices;
-using Services.Execptions;
+using Services.Exceptions;
 using System.Linq.Expressions;
 
 namespace GovConnect_Tests.IApplicationServices.Services.UserTests;

@@ -24,12 +24,14 @@ public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Gu
 
 
     }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(GovConnectDbContext).Assembly);
 
         modelBuilder.Entity<AvailableDay>().HasNoKey().ToView(null);
+        modelBuilder.Entity<TestTypeResult>().HasNoKey().ToView(null);
 
 
         if (!this.IsMigration())
@@ -38,6 +40,7 @@ public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Gu
         }
 
     }
+
 
     //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //{

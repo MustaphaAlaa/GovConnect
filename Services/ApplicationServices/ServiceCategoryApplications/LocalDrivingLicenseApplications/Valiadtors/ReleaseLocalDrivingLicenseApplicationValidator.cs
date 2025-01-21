@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using ModelDTO.ApplicationDTOs.User;
 using Models.ApplicationModels;
 using Services.ApplicationServices.Services.UserAppServices;
-using Services.Execptions;
+using Services.Exceptions;
 
 namespace Services.ApplicationServices.ServiceCategoryApplications;
 
@@ -35,7 +35,7 @@ public class ReleaseLocalDrivingLicenseApplicationValidator : CreateApplicationS
     public override async Task ValidateRequest(CreateApplicationRequest request)
     {
 
-        _logger.LogInformation("---------------- Validation processes for creating release local driving license application is starting");
+        _logger.LogInformation("---------------- Validate processes for creating release local driving license application is starting");
 
         try
         {
@@ -79,7 +79,7 @@ public class ReleaseLocalDrivingLicenseApplicationValidator : CreateApplicationS
                 throw new DetainedLicenseException("license is not detained");
             }
         }
-        catch (Exception ex)
+        catch (System.Exception ex)
         {
             _logger.LogError(ex.Message, "!!! Error in release local driving license application validation");
         }

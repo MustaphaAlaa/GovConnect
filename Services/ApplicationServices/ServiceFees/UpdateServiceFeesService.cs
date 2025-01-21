@@ -52,7 +52,7 @@ namespace Services.ApplicationServices.Fees
                 if (applicationFees == null)
                 {
                     _logger.LogError("ServiceFees not found for ApplicationPurposeId: {ServicePurposeId} and ServiceCategoryId: {ServiceCategoryId}", updateRequest.ServicePurposeId, updateRequest.ServiceCategoryId);
-                    throw new Exception("ServiceFees doesn't exist.");
+                    throw new System.Exception("ServiceFees doesn't exist.");
                 }
                 if (updateRequest.LastUpdate < applicationFees.LastUpdate)
                 {
@@ -66,7 +66,7 @@ namespace Services.ApplicationServices.Fees
                 ServiceFees updatedObject = await _updateRepository.UpdateAsync(toUpdateObject);
 
                 if (updatedObject is null)
-                    throw new Exception("Does not updated");
+                    throw new System.Exception("Does not updated");
 
                 ServiceFeesDTO serviceFeesDto = _mapper.Map<ServiceFeesDTO>(updatedObject)
                         ?? throw new AutoMapperMappingException();
@@ -90,7 +90,7 @@ namespace Services.ApplicationServices.Fees
                 _logger.LogError(ex, "AutoMapperMappingException occurred while updating ServiceFees.");
                 throw;
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 _logger.LogError(ex, "An unexpected error occurred while updating ServiceFees.");
                 throw;

@@ -2,7 +2,7 @@
 using IRepository;
 using ModelDTO.ApplicationDTOs.User;
 using Models.ApplicationModels;
-using Services.Execptions;
+using Services.Exceptions;
 
 namespace Services.ApplicationServices.Services.UserAppServices;
 
@@ -22,6 +22,12 @@ public class CreateApplicationEntity : ICreateApplicationEntity
 
     public async Task<Application> CreateNewApplication(CreateApplicationRequest request, ServiceFees serviceFees)
     {
+
+        if (serviceFees is null)
+        {
+            throw new ArgumentNullException();
+        }
+
         var newApplication = _mapper.Map<Application>(request)
                              ?? throw new AutoMapperMappingException();
 

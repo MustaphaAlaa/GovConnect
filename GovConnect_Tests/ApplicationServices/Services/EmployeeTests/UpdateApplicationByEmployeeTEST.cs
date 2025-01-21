@@ -8,7 +8,7 @@ using ModelDTO.ApplicationDTOs.Employee;
 using Models.ApplicationModels;
 using Moq;
 using Services.ApplicationServices.Services.EmployeeAppService;
-using Services.Execptions;
+using Services.Exceptions;
 using System.Linq.Expressions;
 
 

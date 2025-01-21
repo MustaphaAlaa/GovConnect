@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.Extensions.Logging;
 using ModelDTO.TestsDTO;
 using Models.Tests;
-using Services.Execptions;
+using Services.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,11 +78,11 @@ namespace Services.TestServices
                 return testDTO;
             }
 
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 _logger.LogInformation($"{this.GetType().Name} -- CreateAsync -- exception is throwed.");
 
-                throw new Exception(ex.Message, ex);
+                throw new System.Exception(ex.Message, ex);
             }
         }
     }

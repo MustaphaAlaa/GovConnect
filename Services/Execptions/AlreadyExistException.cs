@@ -1,6 +1,6 @@
-﻿namespace Services.Execptions;
+﻿namespace Services.Exceptions;
 
-public class AlreadyExistException : Exception
+public class AlreadyExistException : System.Exception
 {
     public AlreadyExistException()
     {
@@ -10,7 +10,7 @@ public class AlreadyExistException : Exception
     {
     }
 
-    public AlreadyExistException(string? message, Exception? innerException) : base(message, innerException)
+    public AlreadyExistException(string? message, System.Exception? innerException) : base(message, innerException)
     {
     }
 }

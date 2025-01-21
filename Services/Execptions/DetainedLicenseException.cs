@@ -1,6 +1,6 @@
-namespace Services.Execptions;
+namespace Services.Exceptions;
 
-public class DetainedLicenseException : Exception
+public class DetainedLicenseException : System.Exception
 {
     public DetainedLicenseException()
     {
@@ -10,7 +10,7 @@ public class DetainedLicenseException : Exception
     {
     }
 
-    public DetainedLicenseException(string? message, Exception? innerException) : base(message, innerException)
+    public DetainedLicenseException(string? message, System.Exception? innerException) : base(message, innerException)
     {
     }
 }

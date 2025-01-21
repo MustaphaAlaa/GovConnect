@@ -77,7 +77,7 @@ public class AppointmentController : ControllerBase
     public IActionResult GetTypeAppointments(int TypeId, string day)
     {
         _logger.LogInformation($"Get Appointments for TestType by id:{TypeId} and day:{day}");
-        //validate for get and create
+        //Validate for get and create
 
         if (!Enum.IsDefined(typeof(EnTestTypes), TypeId))
         {

@@ -9,7 +9,7 @@ using Models.ApplicationModels;
 using Models.Users;
 using Moq;
 using Services.ApplicationServices.Services.UserAppServices;
-using Services.Execptions;
+using Services.Exceptions;
 using System.Linq.Expressions;
 
 namespace GovConnect_Tests.ApplicationServices.Services.UserTests;

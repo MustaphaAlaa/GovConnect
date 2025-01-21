@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IServices.ITests.ILDLApplicationsAllowedToRetakeATestServices
 {
-    public interface ILDLTestRetakeApplicationRetrieve : IRetrieveByTypeService<LDLApplicationsAllowedToRetakeATest, LDLApplicationsAllowedToRetakeATestDTO>
+    public interface ILDLTestRetakeApplicationRetrieve : IAsyncRetrieveService<LDLApplicationsAllowedToRetakeATest, LDLApplicationsAllowedToRetakeATestDTO>
     {
     }
 }

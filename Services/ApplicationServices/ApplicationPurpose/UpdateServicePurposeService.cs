@@ -33,14 +33,14 @@ public class UpdateServicePurposeService : IUpdateServicePurpose
 
         var type = await _getRepository.GetAsync(type => type.ServicePurposeId == updateRequest.ServicePurposeId);
         if (type == null)
-            throw new Exception($"ServicePurpose With ID {updateRequest.ServicePurposeId} Doesn't exist");
+            throw new System.Exception($"ServicePurpose With ID {updateRequest.ServicePurposeId} Doesn't exist");
 
         type.Purpose = updateRequest.Purpose;
 
         ServicePurpose updatedPurpose = await _updateRepository.UpdateAsync(type);
 
         if (updatedPurpose == null)
-            throw new Exception($"Failed to update");
+            throw new System.Exception($"Failed to update");
 
         var updatedDTO = _mapper.Map<ServicePurposeDTO>(updatedPurpose);
 

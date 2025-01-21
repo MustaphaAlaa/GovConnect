@@ -1,6 +1,8 @@
-﻿namespace IServices.IApplicationServices.IServiceCategoryApplications.ILocalDrivingLicenseApplication;
+﻿using Models.ApplicationModels;
 
-public interface IGetLocalDrivingLicenseApplication
+namespace IServices.IApplicationServices.IServiceCategoryApplications.ILocalDrivingLicenseApplication;
+
+public interface IGetLocalDrivingLicenseApplication : IAsyncRetrieveService<LocalDrivingLicenseApplication, LocalDrivingLicenseApplication?>
 {
 
 }

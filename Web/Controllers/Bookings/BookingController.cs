@@ -3,9 +3,11 @@ using IServices.ITimeIntervalService;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ModelDTO.API;
 using ModelDTO.Appointments;
 using ModelDTO.BookingDTOs;
 using Models.Tests.Enums;
+using System.Net;
 
 namespace Web.Controllers.Bookingss
 {
@@ -25,16 +27,18 @@ namespace Web.Controllers.Bookingss
         private readonly IGetTimeIntervalService _getTimeIntervalService;
         private readonly ILogger<BookingController> _logger;
         private readonly IFirstTimeBookingAnAppointment _firstTimeBookingAnAppointment;
-
+        private readonly ICreateBookingService _createBookingService;
 
         public BookingController(IGetTimeIntervalService getTimeIntervalService,
                          IGetAllTimeIntervalService getAllTimeIntervalService,
                          IFirstTimeBookingAnAppointment firstTimeBookingAnAppointment,
+                         ICreateBookingService createBookingService,
                          ILogger<BookingController> logger)
         {
             _getTimeIntervalService = getTimeIntervalService;
             _getAllTimeIntervalService = getAllTimeIntervalService;
             _firstTimeBookingAnAppointment = firstTimeBookingAnAppointment;
+            _createBookingService = createBookingService;
             _logger = logger;
         }
 
@@ -44,10 +48,21 @@ namespace Web.Controllers.Bookingss
         [HttpPost("create-dub-luba")]
         public async Task<IActionResult> BookingAnAppointment([FromBody] CreateBookingRequest createBookingRequest)
         {
+            ApiResponse res = new ApiResponse();
+            try
+            {
+                var booked = await _createBookingService.CreateAsync(createBookingRequest);
+                res.StatusCode = HttpStatusCode.OK;
+                res.Result = booked;
+            }
+            catch (Exception ex)
+            {
+                res.ErrorMessages.Add(ex.Message);
+                res.Result = null;
+                res.StatusCode = HttpStatusCode.NotAcceptable;
+            }
 
-            var isFirstTime = await _firstTimeBookingAnAppointment.IsFirstTime(createBookingRequest);
-
-            return Ok($"-is first time?/n-{isFirstTime}");
+            return Ok(res);
         }
 
         [HttpGet("TimeInterval/{id:int}")]

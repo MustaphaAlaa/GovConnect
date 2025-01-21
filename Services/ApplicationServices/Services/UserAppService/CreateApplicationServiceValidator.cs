@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using ModelDTO.ApplicationDTOs.User;
 using Models.ApplicationModels;
-using Services.Execptions;
+using Services.Exceptions;
 
 namespace Services.ApplicationServices.Services.UserAppServices;
 
@@ -30,7 +30,7 @@ public abstract class CreateApplicationServiceValidator : ICreateApplicationServ
     /// <exception cref="DoesNotExistException"></exception>
     public virtual Task ValidateRequest(CreateApplicationRequest request)
     {
-        _logger.LogInformation("---------------- Validation processes for creating new application is starting ");
+        _logger.LogInformation("---------------- Validate processes for creating new application is starting ");
         try
         {
             if (request is null)
@@ -45,9 +45,9 @@ public abstract class CreateApplicationServiceValidator : ICreateApplicationServ
             if (!(Enum.IsDefined(typeof(EnServicePurpose), (int)request.ServiceCategoryId)))
                 throw new DoesNotExistException("ServiceCategoryId must be contained in enum EnServicePurpose");
         }
-        catch (Exception ex)
+        catch (System.Exception ex)
         {
-            _logger.LogError(ex, "!!! Create Application Request Validation Faild");
+            _logger.LogError(ex, "!!! Create Application Request Validate Faild");
             throw;
         }
 

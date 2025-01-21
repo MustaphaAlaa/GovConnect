@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IServices.IValidators
 {
-    public interface IRetakeTestApplicationValidation
+    public interface ICreateRetakeTestApplicationValidation
     {
         Task Validate(CreateRetakeTestApplicationRequest request);
     }

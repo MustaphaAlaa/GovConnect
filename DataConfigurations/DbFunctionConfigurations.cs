@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataConfigurations.Migrations;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace DataConfigurations;
@@ -27,7 +28,6 @@ public static class DbFunctionConfigurations
 
         modelBuilder.HasDbFunction(() => new GovConnectDbContext(null!).GetTestTypeDayTimeInterval(default, default))
            .HasName("GetTestTypeDayTimeInterval");
-
 
     }
 }

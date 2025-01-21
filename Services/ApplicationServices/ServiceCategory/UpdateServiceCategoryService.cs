@@ -41,7 +41,7 @@ public class UpdateServiceCategoryService : IUpdateServiceCategory
         ServiceCategory updatedFor = await _updateRepository.UpdateAsync(applicationFor);
 
         if (updatedFor == null)
-            throw new Exception($"Failed to update");
+            throw new System.Exception($"Failed to update");
 
         ServiceCategoryDTO updatedDto = _mapper.Map<ServiceCategoryDTO>(updatedFor);
 

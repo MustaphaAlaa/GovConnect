@@ -3,7 +3,7 @@ using IServices.IApplicationServices.User;
 using ModelDTO.ApplicationDTOs.User;
 using Models.ApplicationModels;
 using Models.Users;
-using Services.Execptions;
+using Services.Exceptions;
 
 namespace Services.ApplicationServices.Services.UserAppServices
 {

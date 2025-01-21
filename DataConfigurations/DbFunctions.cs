@@ -3,6 +3,7 @@ using Models;
 using Models.Users;
 using ModelDTO.TestsDTO;
 using Microsoft.EntityFrameworkCore;
+using Models.Tests;
 
 
 namespace DataConfigurations;
@@ -45,13 +46,4 @@ public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Gu
         return FromExpression(() => GetTestTypeDayTimeInterval(testTypeId, day));
     }
 
-
-
-    public async Task<bool> IsTestTypePassed(int LDLApplicationId, int TestTypeId)
-    {
-        var result = await Database
-            .ExecuteSqlRawAsync("SELECT dbo.IsTestTypePassed(@p0, @p1)", LDLApplicationId, TestTypeId);
-
-        return result > 0;
-    }
 }

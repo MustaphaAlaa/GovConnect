@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Models;
 using Models.Users;
-using Repositorties;
 using Services.ApplicationServices.Purpose;
 using Services.CountryServices;
 using Web.Mapper;
@@ -45,12 +44,13 @@ using IRepository.ITVFs;
 using Repositorties.TVFs;
 using Repositorties.SPs;
 using IRepository.ISPs;
-using Repositorties.SFs;
-using IRepository.ISFs;
 using IServices.IValidators.BookingValidators;
 using Services.BookingServices.Validators;
 using IServices.ILicencesServices;
 using Services.LicensesServices;
+using Repositorties.GenericRepostiory;
+using Repositorties.TestRepos;
+using Services.ApplicationServices.ServiceCategoryApplications.LocalDrivingLicenseApplications;
 
 namespace Web;
 
@@ -66,7 +66,7 @@ public class Program
         // Configure Serilog
         Log.Logger = new LoggerConfiguration()
             // .WriteTo.Console() // Write logs to the console
-            .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day, outputTemplate: "+_+_+_+_+_[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext}: {Message:lj}{NewLine}{Exception}") // Write logs to a file
+            .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day, outputTemplate: "+_+_+_+_+_[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext}: {Message:lj}{NewLine}{Exceptions}") // Write logs to a file
 
             .CreateLogger();
 
@@ -99,7 +99,7 @@ public class Program
         builder.Services.AddScoped<ITVF_GetTestResult, TVFGetTestResult>();
         builder.Services.AddScoped<ITVF_GetTestResultForABookingId, TVFGetTestResultForABookingId>();
         builder.Services.AddScoped<ITVF_GetLDLAppsAllowedToRetakATest, TVFGetLDLAppsAllowedToRetakATest>();
-        builder.Services.AddScoped<ISF_IsTestTypePassed, CFIsTestTypePassed>();
+        builder.Services.AddScoped<ITestTypePassedChecker, TestTypePassedChecker>();
 
 
         // Register Repositories
@@ -145,6 +145,7 @@ public class Program
         builder.Services.AddScoped<IReleaseLocalDrivingLicenseApplicationValidator, ReleaseLocalDrivingLicenseApplicationValidator>();
         builder.Services.AddScoped<IGetDetainLicense, GetDetainedLicense>();
         builder.Services.AddScoped<ILocalLicenseRetrieveService, LocalDrivingLicenseRetrievalService>();
+        builder.Services.AddScoped<IGetLocalDrivingLicenseApplication, GetLocalDriveLiecenseApplication>();
 
 
         // Register Application Services
@@ -180,10 +181,11 @@ public class Program
         builder.Services.AddScoped<IBookingCreationValidators, BookingCreationValidator>();
         builder.Services.AddScoped<ITestTypeOrder, BookingTestTypeOrder>();
         builder.Services.AddScoped<IBookingRetrieveService, BookingRetrivalService>();
+        builder.Services.AddScoped<ICreateBookingService, BookingAnAppointmentService>();
 
         //Register RetakeTest Service
         builder.Services.AddScoped<ILDLTestRetakeApplicationCreator, LDLTestRetakeApplicationCreator>();
-
+        builder.Services.AddScoped<IRetakeTestApplicationValidator, RetakeTestApplicationValidator>();
 
         builder.Services.AddScoped<ILDLTestRetakeApplicationCreationValidator, LDLTestRetakeApplicationValidator>();
 

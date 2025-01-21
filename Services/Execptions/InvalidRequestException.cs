@@ -1,5 +1,5 @@
-namespace Services.Execptions;
-public class InvalidRequestException : Exception
+namespace Services.Exceptions;
+public class InvalidRequestException : System.Exception
 {
     public InvalidRequestException()
     {
@@ -9,7 +9,7 @@ public class InvalidRequestException : Exception
     {
     }
 
-    public InvalidRequestException(string? message, Exception? innerException) : base(message, innerException)
+    public InvalidRequestException(string? message, System.Exception? innerException) : base(message, innerException)
     {
     }
 }

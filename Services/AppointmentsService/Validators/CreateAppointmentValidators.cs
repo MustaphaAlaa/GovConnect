@@ -56,7 +56,7 @@ public class CreateAppointmentValidators : ICreateAppointmentValidator
                 {
                     await _createAppointmentValidator.Validate(entity.TestTypeId, day.ToString("d"));
                 }
-                catch (Exception ex)
+                catch (Exceptions ex)
                 {
                     invalidAppointments.Add(entity);
                 }
@@ -65,7 +65,7 @@ public class CreateAppointmentValidators : ICreateAppointmentValidator
             }
         }
 
-        throw new Exception();
+        throw new Exceptions();
     }
 
 

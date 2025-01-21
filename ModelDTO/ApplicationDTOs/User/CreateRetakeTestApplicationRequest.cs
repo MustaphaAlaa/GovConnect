@@ -11,6 +11,12 @@ public class CreateRetakeTestApplicationRequest : CreateApplicationRequest
     [Required] public int TestTypeId { get; set; }
 
     public int ApplicationId { get; set; }
+
+    /// <summary>
+    /// Foreign Key to accoicated Local Driving License Application
+    /// </summary>
+    [Required] public int LocalDrivingLicenseApplicationId { get; set; }
+
     public override short ServiceCategoryId
     {
         get { return _serviceCategoryId; }

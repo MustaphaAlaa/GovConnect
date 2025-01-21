@@ -10,5 +10,4 @@ namespace ModelDTO.TestsDTO
     {
         public DateOnly AppointmentDay { get; set; }
     }
-
 }

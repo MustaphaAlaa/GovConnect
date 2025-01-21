@@ -27,9 +27,9 @@ public class GetAppointmentValidators : IGetAppointmentValidator
 
 
         }
-        catch (Exception ex)
+        catch (System.Exception ex)
         {
-            throw new Exception(ex.Message, ex);
+            throw new System.Exception(ex.Message, ex);
         }
         return date;
     }

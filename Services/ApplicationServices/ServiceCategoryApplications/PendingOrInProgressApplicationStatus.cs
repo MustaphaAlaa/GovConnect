@@ -1,6 +1,6 @@
 ﻿using IServices.IApplicationServices.User;
 using Models.ApplicationModels;
-using Services.Execptions;
+using Services.Exceptions;
 
 namespace Services.ApplicationServices.ServiceCategoryApplications;
 

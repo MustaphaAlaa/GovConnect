@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using ModelDTO.ApplicationDTOs.User;
 using Models.ApplicationModels;
 using Services.ApplicationServices.Services.UserAppServices;
-using Services.Execptions;
+using Services.Exceptions;
 
 namespace Services.ApplicationServices.ServiceCategoryApplications;
 
@@ -80,9 +80,9 @@ public class RenewLocalDrivingLicenseApplicationValidator : CreateApplicationSer
 
             }
         }
-        catch (Exception ex)
+        catch (System.Exception ex)
         {
-            _logger.LogError(ex.Message, "!!! Request Validation Faild");
+            _logger.LogError(ex.Message, "!!! Request Validate Faild");
             throw new InvalidRequestException();
         }
 

@@ -3,7 +3,7 @@ using IRepository;
 using IServices.IApplicationServices.User;
 using ModelDTO.ApplicationDTOs.User;
 using Models.ApplicationModels;
-using Services.Execptions;
+using Services.Exceptions;
 using System.Linq.Expressions;
 using System.Reflection.Emit;
 using System.Reflection.Metadata.Ecma335;
@@ -11,6 +11,7 @@ using IServices.IApplicationServices.Category;
 using Models.LicenseModels;
 using Models.Users;
 using Microsoft.Extensions.Logging;
+using IServices.IApplicationServices.Fees;
 
 namespace Services.ApplicationServices.Services.UserAppServices;
 
@@ -53,7 +54,6 @@ public class CreateApplicationService : ICreateApplicationService
             var applicationIsCreated = (await _createApplicationEntity.CreateNewApplication(entity, applicationFees))
                 ?? throw new FailedToCreateException();
 
-            //var applicationDToForUser = _mapper.Map<ApplicationDTOForUser?>(applicationIsCreated);
 
             var applicationDToForUser = new ApplicationDTOForUser
             {
@@ -61,7 +61,7 @@ public class CreateApplicationService : ICreateApplicationService
                 ApplicationDate = applicationIsCreated.ApplicationDate,
                 ApplicationStatus = (byte)applicationIsCreated.ApplicationStatus,
                 LastStatusDate = applicationIsCreated.LastStatusDate,
-                PaidFees = applicationIsCreated.PaidFees,   /// Get it and add it from the service fees table
+                PaidFees = applicationIsCreated.PaidFees,
                 ServiceCategoryId = entity.ServiceCategoryId,
                 ServicePurposeId = entity.ServicePurposeId,
                 UserId = applicationIsCreated.UserId
@@ -86,7 +86,7 @@ public class CreateApplicationService : ICreateApplicationService
         {
             throw;
         }
-        catch (Exception ex)
+        catch (System.Exception ex)
         {
             _logger.LogError(ex, "An unexpected error occurred.");
 

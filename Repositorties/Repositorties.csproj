@@ -9,6 +9,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\DataConfigurations\DataConfigurations.csproj" />
 		<ProjectReference Include="..\IRepository\IRepository.csproj" />
+		<ProjectReference Include="..\IServices\IServices.csproj" />
 	</ItemGroup>
 
 </Project>

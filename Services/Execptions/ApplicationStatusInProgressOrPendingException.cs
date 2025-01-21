@@ -1,6 +1,6 @@
-﻿namespace Services.Execptions;
+﻿namespace Services.Exceptions;
 
-public class ApplicationStatusInProgressOrPendingException : Exception
+public class ApplicationStatusInProgressOrPendingException : System.Exception
 {
     public ApplicationStatusInProgressOrPendingException()
     {
@@ -10,7 +10,7 @@ public class ApplicationStatusInProgressOrPendingException : Exception
     {
     }
 
-    public ApplicationStatusInProgressOrPendingException(string? message, Exception? innerException) : base(message, innerException)
+    public ApplicationStatusInProgressOrPendingException(string? message, System.Exception? innerException) : base(message, innerException)
     {
     }
 }

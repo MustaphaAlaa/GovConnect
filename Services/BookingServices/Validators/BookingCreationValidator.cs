@@ -1,30 +1,35 @@
 ﻿using AutoMapper;
-using IRepository.ISFs;
+using IServices.IAppointments;
 using IServices.ILicencesServices;
+using IServices.ITests.ITest;
 using IServices.IValidators;
 using IServices.IValidators.BookingValidators;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Microsoft.Extensions.Logging;
 using ModelDTO.BookingDTOs;
-using Services.Execptions;
+using Services.AppointmentsService;
+using Services.Exceptions;
 
 namespace Services.BookingServices.Validators
 {
     public class BookingCreationValidator : IBookingCreationValidators
     {
         private readonly ITestTypeOrder _testOrder;
-        private readonly ISF_IsTestTypePassed _IsTestTypePassed;
+        private readonly ITestTypePassedChecker _IsTestTypePassed;
         private readonly ILocalLicenseRetrieveService _lDLRetrievalService;
+        private readonly IGetAppointmentService _getAppointmentService;
         private readonly ILogger<BookingCreationValidator> _logger;
 
         public BookingCreationValidator(ITestTypeOrder testOrder,
-            ISF_IsTestTypePassed isTestTypePassed,
+            ITestTypePassedChecker isTestTypePassed,
             ILocalLicenseRetrieveService getLocalLicense,
+            IGetAppointmentService getAppointmentService,
             ILogger<BookingCreationValidator> logger)
         {
             _testOrder = testOrder;
             _IsTestTypePassed = isTestTypePassed;
             _lDLRetrievalService = getLocalLicense;
+            _getAppointmentService = getAppointmentService;
             _logger = logger;
         }
 
@@ -50,8 +55,25 @@ namespace Services.BookingServices.Validators
                 }
 
                 await _testOrder.CheckTheOrder(request);
+
+                var appointment = await _getAppointmentService.GetByAsync(appointment => appointment.AppointmentId == request.AppointmentId);
+
+                if (appointment == null)
+                {
+                    _logger.LogError($"Appointment does not exists.");
+                    throw new AlreadyExistException(" appointment does not exists");
+
+                }
+
+                if (!appointment.IsAvailable)
+                {
+                    _logger.LogError($"Appointment is not available.");
+                    throw new InvalidRequestException("appointment is not available.");
+
+                }
+
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 _logger.LogError($"{ex.Message}", ex);
                 throw;

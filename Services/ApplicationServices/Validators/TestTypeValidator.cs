@@ -1,6 +1,6 @@
 ﻿using IServices.IValidators;
 using Models.Tests;
-using Services.Execptions;
+using Services.Exceptions;
 
 namespace Services.ApplicationServices.Validators;
 

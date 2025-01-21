@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ModelDTO.TestsDTO;
 using Models.Tests;
-using Services.Execptions;
+using Services.Exceptions;
 
 namespace Services.LDLApplicationsAllowedToRetakeATestServices;
 
@@ -59,7 +59,7 @@ public class LDLTestRetakeApplicationCreator : ILDLTestRetakeApplicationCreator,
                 if (e.TestResult)
                 {
                     _logger.LogError("cannot be allowed to retake the test because he is already passed it");
-                    throw new ValidationExecption("Test Type Is Passed");
+                    throw new ValidationException("Test Type Is Passed");
                 }
 
                 var testDTO = await testResultService.GetTestResultForABookingId(e.BookingId);
@@ -94,9 +94,9 @@ public class LDLTestRetakeApplicationCreator : ILDLTestRetakeApplicationCreator,
                 var createdObj = await creation.CreateAsync(allowedToRetakeATest);
 
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
-                throw new Exception(ex.Message, ex);
+                throw new System.Exception(ex.Message, ex);
             }
 
         }

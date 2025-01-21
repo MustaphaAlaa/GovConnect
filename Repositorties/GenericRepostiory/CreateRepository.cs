@@ -2,7 +2,7 @@
 using IRepository;
 using Microsoft.EntityFrameworkCore;
 
-namespace Repositorties;
+namespace Repositorties.GenericRepostiory;
 
 /// <summary>
 /// Repository for creating an entity in the database
@@ -33,7 +33,7 @@ public class CreateRepository<TEntity> : RepositoryDbContext,
     public async Task<TEntity> CreateAsync(TEntity entity)
     {
         await _entity.AddAsync(entity);
-        await this.SaveChangesAsync();
+        await SaveChangesAsync();
         return entity;
     }
 }

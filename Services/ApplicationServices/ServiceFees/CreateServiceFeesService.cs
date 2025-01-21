@@ -41,7 +41,7 @@ public class CreateServiceFeesService : ICreateServiceFees
               appFees.ServicePurposeId == entity.ServicePurposeId && appFees.ServiceCategoryId == entity.ServicePurposeId);
 
         if (applicationFees != null)
-            throw new Exception("ServiceFees is already exist you cannot recreate it only update it");
+            throw new System.Exception("ServiceFees is already exist you cannot recreate it only update it");
 
         ServiceFees createReq = _mapper.Map<ServiceFees>(entity)
              ?? throw new AutoMapperMappingException();
@@ -51,7 +51,7 @@ public class CreateServiceFeesService : ICreateServiceFees
         var createdAppFees = await _createRepository.CreateAsync(createReq);
 
         if (createdAppFees is null)
-            throw new Exception();
+            throw new System.Exception();
 
         var AppFeesDTO = _mapper.Map<ServiceFeesDTO>(createdAppFees);
 

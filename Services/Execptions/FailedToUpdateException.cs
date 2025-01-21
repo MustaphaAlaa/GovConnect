@@ -1,6 +1,6 @@
-﻿namespace Services.Execptions
+﻿namespace Services.Exceptions
 {
-    public class FailedToUpdateException : Exception
+    public class FailedToUpdateException : System.Exception
     {
         public FailedToUpdateException()
         {
@@ -10,7 +10,7 @@
         {
         }
 
-        public FailedToUpdateException(string? message, Exception? innerException) : base(message, innerException)
+        public FailedToUpdateException(string? message, System.Exception? innerException) : base(message, innerException)
         {
         }
     }

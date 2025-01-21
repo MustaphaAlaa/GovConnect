@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Execptions
+namespace Services.Exceptions
 {
-    public class InvalidOrderException : Exception
+    public class InvalidOrderException : System.Exception
     {
         public InvalidOrderException()
         {
@@ -16,7 +16,7 @@ namespace Services.Execptions
         {
         }
 
-        public InvalidOrderException(string? message, Exception? innerException) : base(message, innerException)
+        public InvalidOrderException(string? message, System.Exception? innerException) : base(message, innerException)
         {
         }
     }

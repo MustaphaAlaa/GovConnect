@@ -34,9 +34,9 @@ public class LDLTestRetakeApplicationValidator : ILDLTestRetakeApplicationCreati
 
             return isExist == null;
         }
-        catch (Exception ex)
+        catch (System.Exception ex)
         {
-            throw new Exception(ex.Message, ex);
+            throw new System.Exception(ex.Message, ex);
         }
     }
 }

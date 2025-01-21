@@ -4,7 +4,7 @@ using IServices.IValidators.BookingValidators;
 using Microsoft.Extensions.Logging;
 using ModelDTO.BookingDTOs;
 using Models.Tests.Enums;
-using Services.Execptions;
+using Services.Exceptions;
 
 namespace Services.BookingServices;
 
