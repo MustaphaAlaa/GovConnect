@@ -13,10 +13,11 @@ namespace DataConfigurations.Migrations
             string sql = @"
                   Create Procedure SP_MarkExpiredAppointmentsAsUnavailable 
                   AS BEGIN
-                    UPDATE dbo.Appointments 
-                    SET IsAvailable = 0
-                    WHERE AppointmentDay   <=   Cast(GETDATE() as Date);
-                 END";
+                           UPDATE dbo.Appointments 
+                            SET IsAvailable = 0
+                            WHERE AppointmentDay   <=   Cast(GETDATE() as Date)
+                            AND IsAvailable = 1;     
+                        END";
 
             migrationBuilder.Sql(sql);
         }
