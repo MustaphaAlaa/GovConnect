@@ -2,7 +2,6 @@
 using AutoMapper;
 using Azure.Core;
 using FluentAssertions;
-using IRepository;
 using ModelDTO.ApplicationDTOs.Purpose;
 using Models.ApplicationModels;
 using Moq;
@@ -10,6 +9,7 @@ using Services.ApplicationServices.Purpose;
 using System.Linq.Expressions;
 using IServices.IApplicationServices.IPurpose;
 using Web.Mapper;
+using IRepository.IGenericRepositories;
 
 
 namespace GovConnect_Tests.ApplicationServices

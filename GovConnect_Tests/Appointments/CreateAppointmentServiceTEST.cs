@@ -1,19 +1,15 @@
 ﻿using AutoMapper;
-using Azure;
 using FluentAssertions;
-using IRepository;
+using IRepository.IGenericRepositories;
 using IServices.IAppointments;
 using IServices.ITimeIntervalService;
 using IServices.IValidators;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Logging;
 using ModelDTO.Appointments;
 using Models;
 using Models.Tests;
 using Moq;
-using Services.ApplicationServices.Validators;
 using Services.AppointmentsService;
-using Services.TimeIntervalServices;
 using System.Linq.Expressions;
 
 namespace GovConnect_Tests.Appointments;

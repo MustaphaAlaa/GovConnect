@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DataConfigurations.Migrations;
 using DataConfigurations.TVFs.ITVFs;
-using IRepository;
+using IRepository.IGenericRepositories;
 using IServices.ITests.ILDLApplicationsAllowedToRetakeATestServices;
 using IServices.ITests.ITest;
 using Microsoft.Extensions.DependencyInjection;

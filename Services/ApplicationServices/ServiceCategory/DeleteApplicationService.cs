@@ -1,4 +1,4 @@
-﻿using IRepository;
+﻿using IRepository.IGenericRepositories;
 using IServices.IApplicationServices.Category;
 using Models.ApplicationModels;
 

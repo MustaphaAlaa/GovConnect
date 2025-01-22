@@ -1,5 +1,5 @@
 ﻿using DataConfigurations;
-using IRepository.ISPs;
+using IRepository.ISPs.IAppointmentProcedures;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +8,7 @@ using Models;
 using Models.Tests;
 using Models.Users;
 
-namespace Repositorties.SPs;
+namespace Repositorties.SPs.AppointmentReps;
 
 
 /// <summary>
@@ -26,7 +26,7 @@ public class SPInsertAppointment : ISP_InsertAppointment
 
     /// <inheritdoc />
 
-    public async Task<int> SP_InsertAppointment(Appointment appointment)
+    public async Task<int> Exec(Appointment appointment)
     {
 
         SqlParameter[] parameters = new SqlParameter[]
@@ -36,7 +36,7 @@ public class SPInsertAppointment : ISP_InsertAppointment
             new SqlParameter("@TimeIntervalId", appointment.TimeIntervalId)
         };
 
-        var exec = await _context.Database.ExecuteSqlRawAsync(@"EXECUTE SP_InsertAppointment  
+        var exec = await _context.Database.ExecuteSqlRawAsync(@"EXECUTE Exec  
                                                      @Day
                                                     ,@TestTypeId
                                                     ,@TimeIntervalId"

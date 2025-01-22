@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using FluentAssertions;
-using IRepository;
+using IRepository.IGenericRepositories;
 using IServices.ITests.ITestTypes;
 using Microsoft.Extensions.Logging;
 using ModelDTO.TestsDTOs;

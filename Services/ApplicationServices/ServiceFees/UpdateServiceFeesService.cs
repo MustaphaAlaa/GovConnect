@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using IRepository;
+using IRepository.IGenericRepositories;
 using IServices.IApplicationServices.Fees;
 using Microsoft.Extensions.Logging;
 using ModelDTO.ApplicationDTOs.Fees;

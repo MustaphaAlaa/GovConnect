@@ -2,7 +2,7 @@ using AutoFixture;
 using AutoMapper;
 using DataConfigurations;
 using FluentAssertions;
-using IRepository;
+using IRepository.IGenericRepositories;
 using IServices.ICountryServices;
 using Models.Countries;
 using Moq;

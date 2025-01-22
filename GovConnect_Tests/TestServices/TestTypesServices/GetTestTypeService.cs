@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using FluentAssertions;
-using IRepository;
 using IServices.ICountryServices;
 using Microsoft.Extensions.Logging;
 using ModelDTO.TestsDTOs;
@@ -12,6 +11,7 @@ using System.Linq.Expressions;
 using Services.TestServices;
 using IServices.ITests.ITestTypes;
 using Services.TestTypeServices;
+using IRepository.IGenericRepositories;
 
 namespace GovConnect_Tests.TestServices.TestTypesServices;
 

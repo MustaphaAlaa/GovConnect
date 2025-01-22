@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using FluentAssertions;
-using IRepository;
+using IRepository.IGenericRepositories;
 using ModelDTO.ApplicationDTOs.Employee;
 using Models.ApplicationModels;
 using Moq;

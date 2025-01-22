@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
 using AutoMapper;
 using FluentAssertions;
-using IRepository;
+using IRepository.IGenericRepositories;
 using IServices.IApplicationServices.User;
 using Microsoft.AspNetCore.Routing.Template;
 using ModelDTO.ApplicationDTOs.User;

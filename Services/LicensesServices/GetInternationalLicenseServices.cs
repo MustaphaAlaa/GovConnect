@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 using AutoMapper;
-using IRepository;
+using IRepository.IGenericRepositories;
 using IServices.ILicencesServices;
 using ModelDTO.LicenseDTOs;
 using Models.LicenseModels;

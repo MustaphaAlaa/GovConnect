@@ -2,15 +2,15 @@ using AutoFixture;
 using AutoMapper;
 using DataConfigurations;
 using FluentAssertions;
-using IRepository; 
-using IServices.ICountryServices; 
+using IServices.ICountryServices;
 using Models.Users;
-using Moq; 
-using Services.CountryServices; 
+using Moq;
+using Services.CountryServices;
 using System.Linq.Expressions;
 using Models.Countries;
 using Models.LicenseModels;
 using Web.Mapper;
+using IRepository.IGenericRepositories;
 namespace GovConnect_Tests.CountryServices
 {
     public class DeleteCountrySeviceTest

@@ -1,4 +1,4 @@
-﻿namespace IServices.ITests.ITest;
+﻿namespace IRepository.ITestRepos;
 
 public interface ITestTypePassedChecker
 {

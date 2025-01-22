@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using IRepository;
 using IServices.IApplicationServices.User;
 using ModelDTO.ApplicationDTOs.User;
 using Models.ApplicationModels;
@@ -12,6 +11,7 @@ using Models.LicenseModels;
 using Models.Users;
 using Microsoft.Extensions.Logging;
 using IServices.IApplicationServices.Fees;
+using IRepository.IGenericRepositories;
 
 namespace Services.ApplicationServices.Services.UserAppServices;
 

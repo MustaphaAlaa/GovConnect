@@ -1,4 +1,4 @@
-﻿using IRepository;
+﻿using IRepository.IGenericRepositories;
 using IServices.IAppointments;
 using IServices.IBookingServices;
 using Microsoft.Extensions.Logging;

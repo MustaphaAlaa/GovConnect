@@ -2,7 +2,7 @@
 using AutoMapper;
 using Castle.Core.Logging;
 using FluentAssertions;
-using IRepository;
+using IRepository.IGenericRepositories;
 using IServices.IApplicationServices.Fees;
 using Microsoft.Extensions.Logging;
 using ModelDTO.ApplicationDTOs.Fees;

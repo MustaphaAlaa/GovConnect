@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using FluentAssertions;
-using IRepository;
+using IRepository.IGenericRepositories;
 using IServices.IAppointments;
 using IServices.IValidtors.ILocalDrivingLicenseApplications;
 using Microsoft.Extensions.Logging;

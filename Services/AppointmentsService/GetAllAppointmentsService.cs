@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using IRepository;
+using IRepository.IGenericRepositories;
 using IServices.IAppointments;
 using Microsoft.Extensions.Logging;
 using ModelDTO.Appointments;

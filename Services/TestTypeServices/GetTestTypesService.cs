@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using IRepository;
 using Microsoft.Extensions.Logging;
 using ModelDTO.TestsDTOs;
 using Models.Tests;
@@ -12,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Metadata;
 using IServices.ITests.ITestTypes;
 using IServices.ITests;
+using IRepository.IGenericRepositories;
 
 namespace Services.TestTypeServices;
 public class GetTestTypesService : ITestTypeRetrievalService

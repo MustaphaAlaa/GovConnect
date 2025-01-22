@@ -12,4 +12,8 @@
 		<ProjectReference Include="..\IServices\IServices.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="AppointmentReps\" />
+	</ItemGroup>
+
 </Project>

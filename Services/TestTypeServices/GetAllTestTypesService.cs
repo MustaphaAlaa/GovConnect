@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using IRepository;
+using IRepository.IGenericRepositories;
 using IServices;
 using IServices.ITests.ITestTypes;
 using Microsoft.Extensions.Logging;

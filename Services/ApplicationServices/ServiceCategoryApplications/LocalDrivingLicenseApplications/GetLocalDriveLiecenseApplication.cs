@@ -1,4 +1,4 @@
-﻿using IRepository;
+﻿using IRepository.IGenericRepositories;
 using IServices.IApplicationServices.IServiceCategoryApplications.ILocalDrivingLicenseApplication;
 using Microsoft.Extensions.Logging;
 using Models.ApplicationModels;

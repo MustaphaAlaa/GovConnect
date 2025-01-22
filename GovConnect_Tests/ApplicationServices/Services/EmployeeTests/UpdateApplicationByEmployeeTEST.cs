@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
 using AutoMapper;
 using FluentAssertions;
-using IRepository;
+using IRepository.IGenericRepositories;
 using IServices.IApplicationServices.Employee;
 using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using ModelDTO.ApplicationDTOs.Employee;

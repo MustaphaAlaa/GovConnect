@@ -1,5 +1,5 @@
 ﻿using DataConfigurations;
-using IRepository;
+using IRepository.IGenericRepositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repositorties.GenericRepostiory;

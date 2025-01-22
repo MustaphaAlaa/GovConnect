@@ -1,4 +1,4 @@
-﻿using IRepository;
+﻿using IRepository.IGenericRepositories;
 using IServices.IApplicationServices.IServiceCategoryApplications.ILocalDrivingLicenseApplication;
 using IServices.IApplicationServices.User;
 using IServices.IValidtors.ILocalDrivingLicenseApplications;
@@ -52,13 +52,13 @@ public class NewLocalDrivingLicenseApplicationValidator : CreateApplicationServi
 
             if (application != null)
             {
-                //var lc = await _getLocalDrivingLicenseApplication.GetByAsync(ldl => ldl.LicenseClassId == localDrivingLicenseApplicationRequest.LicenseClassId);
+                var lc = await _getLocalDrivingLicenseApplication.GetByAsync(ldl => ldl.LicenseClassId == localDrivingLicenseApplicationRequest.LicenseClassId);
 
-                //if (lc is not null)
-                //{
-                _logger.LogWarning("!-!-!-! there is already an application");
-                _pendingOrInProgressApplicationStatus.CheckApplicationStatus((EnApplicationStatus)application.ApplicationStatus);
-                //}
+                if (lc is not null)
+                {
+                    _logger.LogWarning("!-!-!-! there is already an application");
+                    _pendingOrInProgressApplicationStatus.CheckApplicationStatus((EnApplicationStatus)application.ApplicationStatus);
+                }
             }
 
 
@@ -83,7 +83,8 @@ public class NewLocalDrivingLicenseApplicationValidator : CreateApplicationServi
         catch (System.Exception ex)
         {
             _logger.LogError(ex.Message, "!!! Request Validate Failed");
-            throw new InvalidRequestException("Request Validate Failed");
+            //throw new InvalidRequestException("Request Validate Failed");
+            throw;
         }
 
 

@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 using DataConfigurations;
-using IRepository;
+using IRepository.IGenericRepositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 

@@ -1,4 +1,4 @@
-﻿namespace IRepository;
+﻿namespace IRepository.IGenericRepositories;
 
 public interface ICreateRepository<T>
 {

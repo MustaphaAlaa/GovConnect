@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using AutoMapper;
 using GovConnect.IServices.ILicensesServices.IDetainLicenses;
-using IRepository;
+using IRepository.IGenericRepositories;
 using ModelDTO.LicenseDTOs;
 using Models.LicenseModels;
 

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using FluentAssertions;
-using IRepository;
+using IRepository.IGenericRepositories;
 using IServices.IApplicationServices.Category;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Models.ApplicationModels;

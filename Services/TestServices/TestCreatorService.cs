@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using IRepository;
+using IRepository.IGenericRepositories;
 using IServices.ITests.ITest;
 using IServices.IValidators;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;

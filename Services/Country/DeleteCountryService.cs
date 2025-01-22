@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using IRepository;
-using IServices.ICountryServices; 
+using IRepository.IGenericRepositories;
+using IServices.ICountryServices;
 using Models.Countries;
 
 namespace Services.CountryServices;

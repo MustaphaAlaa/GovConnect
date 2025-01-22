@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using FluentAssertions;
-using IRepository;
 using Models.ApplicationModels;
 using Moq;
 using Services.ApplicationServices.Purpose;
 using System.Linq.Expressions;
 using IServices.IApplicationServices.IPurpose;
+using IRepository.IGenericRepositories;
 
 namespace GovConnect_Tests.ApplicationServices
 {

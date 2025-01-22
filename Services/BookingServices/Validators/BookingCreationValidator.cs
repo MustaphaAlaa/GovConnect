@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using IRepository.ITestRepos;
 using IServices.IAppointments;
 using IServices.ILicencesServices;
 using IServices.ITests.ITest;
@@ -6,6 +7,7 @@ using IServices.IValidators;
 using IServices.IValidators.BookingValidators;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Microsoft.Extensions.Logging;
+using ModelDTO.Appointments;
 using ModelDTO.BookingDTOs;
 using Services.AppointmentsService;
 using Services.Exceptions;
@@ -62,14 +64,19 @@ namespace Services.BookingServices.Validators
                 {
                     _logger.LogError($"Appointment does not exists.");
                     throw new AlreadyExistException(" appointment does not exists");
-
                 }
 
                 if (!appointment.IsAvailable)
                 {
                     _logger.LogError($"Appointment is not available.");
                     throw new InvalidRequestException("appointment is not available.");
+                }
 
+                if (appointment.AppointmentDay < DateOnly.FromDateTime(DateTime.Now))
+                {
+                    string logMsg = $"Appointment is Outdated.";
+                    _logger.LogError(logMsg);
+                    throw new ArgumentOutOfRangeException(logMsg);
                 }
 
             }

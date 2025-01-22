@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
 using AutoMapper;
 using FluentAssertions;
-using IRepository;
+using IRepository.IGenericRepositories;
 using IServices.IApplicationServices.Category;
 using ModelDTO.ApplicationDTOs.Category;
 using Models.ApplicationModels;

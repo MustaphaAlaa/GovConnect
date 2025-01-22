@@ -1,7 +1,6 @@
 ﻿using AutoFixture;
 using AutoMapper;
 using FluentAssertions;
-using IRepository;
 using IServices.IApplicationServices.Employee;
 using IServices.IApplicationServices.Category;
 using ModelDTO.ApplicationDTOs.Employee;
@@ -16,6 +15,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using IRepository.IGenericRepositories;
 
 namespace GovConnect_Tests.ApplicationServices.Services.EmployeeTests;
 

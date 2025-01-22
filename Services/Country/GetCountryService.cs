@@ -1,8 +1,8 @@
 ﻿using System.Linq.Expressions;
 using AutoMapper;
-using IRepository; 
+using IRepository.IGenericRepositories;
 using IServices.ICountryServices;
-using Models.Countries; 
+using Models.Countries;
 
 namespace Services.CountryServices;
 

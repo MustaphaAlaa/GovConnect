@@ -1,7 +1,7 @@
 using AutoFixture;
 using AutoMapper;
 using FluentAssertions;
-using IRepository; 
+using IRepository.IGenericRepositories;
 using IServices.ICountryServices;
 using ModelDTO.CountryDTOs;
 using Models.Countries;

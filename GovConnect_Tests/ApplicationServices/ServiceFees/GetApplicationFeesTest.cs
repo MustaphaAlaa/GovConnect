@@ -1,7 +1,7 @@
 ﻿
 using AutoMapper;
 using FluentAssertions;
-using IRepository;
+using IRepository.IGenericRepositories;
 using IServices.IApplicationServices.Fees;
 using Models.ApplicationModels;
 using Moq;

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using IRepository;
+using IRepository.IGenericRepositories;
 using IServices.IValidators.BookingValidators;
 using Microsoft.Extensions.Logging;
 using ModelDTO.BookingDTOs;

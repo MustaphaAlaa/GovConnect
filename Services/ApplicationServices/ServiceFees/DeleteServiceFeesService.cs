@@ -1,4 +1,4 @@
-﻿using IRepository;
+﻿using IRepository.IGenericRepositories;
 using IServices.IApplicationServices.Fees;
 using ModelDTO.ApplicationDTOs.Fees;
 using Models.ApplicationModels;

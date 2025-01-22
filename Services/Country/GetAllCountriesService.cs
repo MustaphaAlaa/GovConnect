@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 using AutoMapper;
-using IRepository;
+using IRepository.IGenericRepositories;
 using IServices.ICountryServices;
 using ModelDTO.CountryDTOs;
 using Models.Countries;

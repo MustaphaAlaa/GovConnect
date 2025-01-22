@@ -34,16 +34,24 @@ public class CreateLocalLicenseApplicationOrchestrator : ICreateLocalDrivingLice
     /// <param name="entity">The request object containing the details for the new local driving license application.</param>
     /// <param name="validator">Validator for the local driving license application service purpose (purposes like, new, renew, ...etc).</param>
     /// <returns>The created <see cref="LocalDrivingLicenseApplication"/>.</returns>
-    public async Task<LocalDrivingLicenseApplication> Create(CreateLocalDrivingLicenseApplicationRequest entity, ILocalDrivingLicenseApplicationServicePurposeValidator validator)
+    public
+       async Task<LocalDrivingLicenseApplication> Create(CreateLocalDrivingLicenseApplicationRequest entity, ILocalDrivingLicenseApplicationServicePurposeValidator validator)
     {
-        await validator.ValidateRequest(entity);
+        try
+        {
+            await validator.ValidateRequest(entity);
 
-        var application = await _createApplicationService.CreateAsync(entity);
+            var application = await _createApplicationService.CreateAsync(entity);
 
-        entity.ApplicationId = application.ApplicationId;
+            entity.ApplicationId = application.ApplicationId;
 
-        var ldlApplication = await _createLocalDrivingLicenseApplication.CreateAsync(entity);
+            var ldlApplication = await _createLocalDrivingLicenseApplication.CreateAsync(entity);
 
-        return ldlApplication;
+            return ldlApplication;
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
 }

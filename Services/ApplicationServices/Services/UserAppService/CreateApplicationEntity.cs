@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using IRepository;
+using IRepository.IGenericRepositories;
 using ModelDTO.ApplicationDTOs.User;
 using Models.ApplicationModels;
 using Services.Exceptions;

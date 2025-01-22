@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using IRepository;
+using IRepository.IGenericRepositories;
+using IRepository.ISPs.IAppointmentProcedures;
 using IServices.IApplicationServices.Fees;
 using IServices.IBookingServices;
 using IServices.ITests.ITestTypes;
@@ -28,6 +29,7 @@ public class BookingAnAppointmentService : ICreateBookingService
     private readonly IBookingCreationValidators _bookingCreationValidators;
     private readonly IRetakeTestApplicationValidator _retakeTestApplicationValidator;
     private readonly ITestTypeRetrievalService _testTypeRetrievalService;
+    private readonly ISP_MarkExpiredAppointmentsAsUnavailable _markExpiredAppointmentsAsUnavailable;
     private readonly ILogger<Booking> _logger;
     private readonly IMapper _mapper;
 
@@ -37,6 +39,7 @@ public class BookingAnAppointmentService : ICreateBookingService
                                         IBookingCreationValidators bookingCreationValidators,
                                         IRetakeTestApplicationValidator retakeTestApplicationValidator,
                                         ITestTypeRetrievalService testTypeRetrievalService,
+                                        ISP_MarkExpiredAppointmentsAsUnavailable _markExpiredAppointmentsAsUnavailable,
                                         ILogger<Booking> logger,
                                         IMapper mapper)
     {
@@ -48,6 +51,8 @@ public class BookingAnAppointmentService : ICreateBookingService
         _testTypeRetrievalService = testTypeRetrievalService;
         _logger = logger;
         _mapper = mapper;
+
+
     }
 
     public event Func<object, BookingDTO, Task> AppointmentIsBooked;
@@ -55,7 +60,7 @@ public class BookingAnAppointmentService : ICreateBookingService
     public async Task<BookingDTO?> CreateAsync(CreateBookingRequest entity)
     {
         _logger.LogInformation($"{this.GetType().Name} ---- CreateAsync");
-
+        var affectedRows = await _markExpiredAppointmentsAsUnavailable.Exec();
         try
         {
 

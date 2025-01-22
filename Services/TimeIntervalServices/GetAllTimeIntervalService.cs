@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 using AutoMapper;
-using IRepository;
+using IRepository.IGenericRepositories;
 using IServices.ITimeIntervalService;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

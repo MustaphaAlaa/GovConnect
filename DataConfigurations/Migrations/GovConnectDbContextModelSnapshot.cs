@@ -135,6 +135,16 @@ namespace DataConfigurations.Migrations
                     b.ToView(null, (string)null);
                 });
 
+            modelBuilder.Entity("ModelDTO.TestsDTO.TestTypeResult", b =>
+                {
+                    b.Property<bool>("IsPassed")
+                        .HasColumnType("bit");
+
+                    b.ToTable((string)null);
+
+                    b.ToView(null, (string)null);
+                });
+
             modelBuilder.Entity("Models.ApplicationModels.Application", b =>
                 {
                     b.Property<int>("ApplicationId")

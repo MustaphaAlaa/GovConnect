@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Azure.Core;
-using IRepository;
+using IRepository.IGenericRepositories;
 using IServices.IApplicationServices.Fees;
 using IServices.IApplicationServices.IServiceCategoryApplications.ILocalDrivingLicenseApplication;
 using IServices.IApplicationServices.IServiceCategoryApplications.IRetakeTestApplication;

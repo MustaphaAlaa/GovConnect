@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using IRepository;
 using IServices.IAppointments;
 using Microsoft.Extensions.Logging;
 using ModelDTO.Appointments;
@@ -7,6 +6,7 @@ using Models.Tests;
 using IServices.ITimeIntervalService;
 using IServices.IValidators;
 using IServices.IValidtors.IAppointments;
+using IRepository.IGenericRepositories;
 
 namespace Services.AppointmentsService;
 

@@ -4,6 +4,7 @@ using IServices.IValidtors.ILocalDrivingLicenseApplications;
 using Microsoft.AspNetCore.Mvc;
 using ModelDTO.API;
 using ModelDTO.ApplicationDTOs.User;
+using Services.BookingServices;
 
 namespace Web.Controllers.Applications.LocalLicenseApplications;
 
@@ -54,16 +55,27 @@ public class LocalLicenseApplicationController : ControllerBase
 
         //request.UserId = Guid.NewGuid();
         request.UserId = Guid.Parse("11111111-1111-1111-1111-111111111111"); //for testing purpose
-        request.ApplicationId = 0;
-        var ldlApp = await _createLocalDrivingLicenseApplicationService.Create(request, _newLocalDrivingLicenseApplicationValidator);
-
         var apiResponse = new ApiResponse();
-        apiResponse.ErrorMessages = null;
-        apiResponse.IsSuccess = true;
-        apiResponse.StatusCode = HttpStatusCode.Created;
-        apiResponse.Result = ldlApp;
+        request.ApplicationId = 0;
+        try
+        {
+            var ldlApp = await _createLocalDrivingLicenseApplicationService.Create(request, _newLocalDrivingLicenseApplicationValidator);
 
-        return Ok(apiResponse);
+
+            apiResponse.ErrorMessages = null;
+            apiResponse.IsSuccess = true;
+            apiResponse.StatusCode = HttpStatusCode.Created;
+            apiResponse.Result = ldlApp;
+            return Ok(apiResponse);
+        }
+        catch (Exception ex)
+        {
+            apiResponse.ErrorMessages.Add(ex.Message);
+            apiResponse.StatusCode = HttpStatusCode.BadRequest;
+            apiResponse.Result = null;
+            apiResponse.IsSuccess = false;
+            return BadRequest(apiResponse);
+        }
     }
 
     [HttpPost("renew")]

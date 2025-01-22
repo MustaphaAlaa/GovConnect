@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace IRepository;
+namespace IRepository.IGenericRepositories;
 
 public interface IDeleteRepository<T>
 {

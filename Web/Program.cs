@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using DataConfigurations;
-using IRepository;
 using IServices.IApplicationServices.IPurpose;
 using IServices.ICountryServices;
 using IServices.IApplicationServices.Category;
@@ -42,8 +41,6 @@ using IServices.ITests.ITest;
 using Services.TestServices;
 using IRepository.ITVFs;
 using Repositorties.TVFs;
-using Repositorties.SPs;
-using IRepository.ISPs;
 using IServices.IValidators.BookingValidators;
 using Services.BookingServices.Validators;
 using IServices.ILicencesServices;
@@ -51,6 +48,10 @@ using Services.LicensesServices;
 using Repositorties.GenericRepostiory;
 using Repositorties.TestRepos;
 using Services.ApplicationServices.ServiceCategoryApplications.LocalDrivingLicenseApplications;
+using IRepository.IGenericRepositories;
+using IRepository.ITestRepos;
+using IRepository.ISPs.IAppointmentProcedures;
+using Repositorties.SPs.AppointmentReps;
 
 namespace Web;
 
@@ -85,13 +86,9 @@ public class Program
             options.UseSqlServer(builder.Configuration.GetConnectionString("default")), ServiceLifetime.Scoped);
 
 
-
-
-        /////////   builder.Services.AddScoped<ICreateRepository<LDLApplicationsAllowedToRetakeATest>, CreateRepository<LDLApplicationsAllowedToRetakeATest>>();
-        /////// Other service registrations
-
         // Register StoredProcedure 
         builder.Services.AddScoped<ISP_InsertAppointment, SPInsertAppointment>();
+        builder.Services.AddScoped<ISP_MarkExpiredAppointmentsAsUnavailable, SPMarkExpiredAppointmentsAsUnavailable>();
 
         // Register Function
         builder.Services.AddScoped<ITVF_GetTestTypeDayTimeInterval, TVFGetTestTypeDayTimeInterva>();
