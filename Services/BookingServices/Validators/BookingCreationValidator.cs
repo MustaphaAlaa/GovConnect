@@ -1,15 +1,11 @@
-﻿using AutoMapper;
-using IRepository.ITestRepos;
+﻿using IRepository.ITestRepos;
 using IServices.IAppointments;
+using IServices.IBookingServices;
 using IServices.ILicencesServices;
-using IServices.ITests.ITest;
 using IServices.IValidators;
 using IServices.IValidators.BookingValidators;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Microsoft.Extensions.Logging;
-using ModelDTO.Appointments;
 using ModelDTO.BookingDTOs;
-using Services.AppointmentsService;
 using Services.Exceptions;
 
 namespace Services.BookingServices.Validators
@@ -26,7 +22,9 @@ namespace Services.BookingServices.Validators
             ITestTypePassedChecker isTestTypePassed,
             ILocalLicenseRetrieveService getLocalLicense,
             IGetAppointmentService getAppointmentService,
-            ILogger<BookingCreationValidator> logger)
+            IFirstTimeBookingAnAppointmentValidation firstTimeBookingAnAppointment,
+        IRetakeTestApplicationBookingValidator retakeTestApplicationValidator,
+        ILogger<BookingCreationValidator> logger)
         {
             _testOrder = testOrder;
             _IsTestTypePassed = isTestTypePassed;
@@ -35,7 +33,7 @@ namespace Services.BookingServices.Validators
             _logger = logger;
         }
 
-        public async Task IsValid(CreateBookingRequest request)
+        public async Task IsValid(CreateBookingRequest request, IBookingCreationTypeValidation bookingTypeValidation)
         {
             try
             {
@@ -79,6 +77,8 @@ namespace Services.BookingServices.Validators
                     throw new ArgumentOutOfRangeException(logMsg);
                 }
 
+                await bookingTypeValidation.Validate(request);
+
             }
             catch (System.Exception ex)
             {
@@ -90,5 +90,4 @@ namespace Services.BookingServices.Validators
 
 
 }
-
 

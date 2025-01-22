@@ -5,11 +5,11 @@ using ModelDTO.BookingDTOs;
 using Services.Exceptions;
 namespace Services.ApplicationServices.ServiceCategoryApplications;
 
-public class RetakeTestApplicationValidator : IRetakeTestApplicationValidator
+public class RetakeTestApplicationBookingValidator : IRetakeTestApplicationBookingValidator
 {
     private readonly IBookingRetrieveService _bookingRetrieve;
-    private readonly ILogger<RetakeTestApplicationValidator> _logger;
-    public RetakeTestApplicationValidator(IBookingRetrieveService bookingRetrieve, ILogger<RetakeTestApplicationValidator> logger)
+    private readonly ILogger<RetakeTestApplicationBookingValidator> _logger;
+    public RetakeTestApplicationBookingValidator(IBookingRetrieveService bookingRetrieve, ILogger<RetakeTestApplicationBookingValidator> logger)
     {
         _bookingRetrieve = bookingRetrieve;
         _logger = logger;
@@ -17,6 +17,8 @@ public class RetakeTestApplicationValidator : IRetakeTestApplicationValidator
 
     public async Task Validate(CreateBookingRequest retakeTestApplication)
     {
+        _logger.LogInformation($"{this.GetType().Name} ---- Validate --- Booking by RetakeTestValidation");
+
         var booking = await _bookingRetrieve.GetByAsync(booking => booking.RetakeTestApplicationId == retakeTestApplication.RetakeTestApplicationId);
 
         if (booking != null)

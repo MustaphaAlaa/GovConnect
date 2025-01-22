@@ -1,9 +1,11 @@
 ﻿using IRepository.IGenericRepositories;
 using IServices.IAppointments;
 using IServices.IBookingServices;
+using IServices.IValidators.BookingValidators;
 using Microsoft.Extensions.Logging;
 using ModelDTO.BookingDTOs;
 using Models.Tests;
+using Services.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +18,7 @@ namespace Services.BookingServices;
 /// <summary>
 /// Service for handling first-time booking of an appointment.
 /// </summary>
-public class FirstTimeBookingAnAppointment : IFirstTimeBookingAnAppointment
+public class FirstTimeBookingAnAppointment : IFirstTimeBookingAnAppointmentValidation
 {
     private readonly IGetRepository<Booking> _getBookingRepository;
     private readonly IGetRepository<Appointment> _getAppointmentRepository;
@@ -42,14 +44,22 @@ public class FirstTimeBookingAnAppointment : IFirstTimeBookingAnAppointment
     /// </summary>
     /// <param name="createBookingRequest">The booking request details.</param>
     /// <returns>True if it is the first time booking, otherwise false.</returns>
-    public async Task<bool> IsFirstTime(CreateBookingRequest createBookingRequest)
+    public async Task Validate(CreateBookingRequest createBookingRequest)
     {
+        _logger.LogInformation($"{this.GetType().Name} ---- Validate --- FirstTime");
+
         Booking? booking = await _getBookingRepository.GetAsync(BookingAppointment =>
             BookingAppointment.LocalDrivingLicenseApplicationId == createBookingRequest.LocalDrivingLicenseApplicationId
             && BookingAppointment.UserId == createBookingRequest.UserId
             && BookingAppointment.TestTypeId == createBookingRequest.TestTypeId
         );
 
-        return booking is null;
+        if (booking is not null)
+        {
+            string msg = "The user has already booked an appointment for this test type.";
+            _logger.LogError(msg);
+            throw new AlreadyExistException(msg);
+        }
+
     }
 }

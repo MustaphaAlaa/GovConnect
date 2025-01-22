@@ -22,32 +22,19 @@ namespace Services.BookingServices;
 
 public class BookingAnAppointmentService : ICreateBookingService
 {
-
-    private readonly IFirstTimeBookingAnAppointment _firstTimeBookingAnAppointment;
-    private readonly IGetRepository<TestType> _getTestTypeRepository;
     private readonly ICreateRepository<Booking> _createBookingRepository;
-    private readonly IBookingCreationValidators _bookingCreationValidators;
-    private readonly IRetakeTestApplicationValidator _retakeTestApplicationValidator;
+
     private readonly ITestTypeRetrievalService _testTypeRetrievalService;
-    private readonly ISP_MarkExpiredAppointmentsAsUnavailable _markExpiredAppointmentsAsUnavailable;
+
     private readonly ILogger<Booking> _logger;
     private readonly IMapper _mapper;
 
-    public BookingAnAppointmentService(IFirstTimeBookingAnAppointment firstTimeBookingAnAppointment,
-                                        IGetRepository<TestType> getTestTypeRepository,
-                                        ICreateRepository<Booking> createBookingRepository,
-                                        IBookingCreationValidators bookingCreationValidators,
-                                        IRetakeTestApplicationValidator retakeTestApplicationValidator,
-                                        ITestTypeRetrievalService testTypeRetrievalService,
-                                        ISP_MarkExpiredAppointmentsAsUnavailable _markExpiredAppointmentsAsUnavailable,
-                                        ILogger<Booking> logger,
-                                        IMapper mapper)
+    public BookingAnAppointmentService(ICreateRepository<Booking> createBookingRepository,
+                                         ITestTypeRetrievalService testTypeRetrievalService,
+                                         ILogger<Booking> logger,
+                                         IMapper mapper)
     {
-        _firstTimeBookingAnAppointment = firstTimeBookingAnAppointment;
-        _getTestTypeRepository = getTestTypeRepository;
         _createBookingRepository = createBookingRepository;
-        _bookingCreationValidators = bookingCreationValidators;
-        _retakeTestApplicationValidator = retakeTestApplicationValidator;
         _testTypeRetrievalService = testTypeRetrievalService;
         _logger = logger;
         _mapper = mapper;
@@ -60,36 +47,8 @@ public class BookingAnAppointmentService : ICreateBookingService
     public async Task<BookingDTO?> CreateAsync(CreateBookingRequest entity)
     {
         _logger.LogInformation($"{this.GetType().Name} ---- CreateAsync");
-        var affectedRows = await _markExpiredAppointmentsAsUnavailable.Exec();
         try
         {
-
-            await _bookingCreationValidators.IsValid(entity);
-
-
-            if (entity.RetakeTestApplicationId > 0 || entity.RetakeTestApplicationId is not null)
-            {
-                _logger.LogInformation($"{this.GetType().Name} ---- CreateAsync --- RetakeTestValidation");
-                await _retakeTestApplicationValidator.Validate(entity);
-
-            }
-            else
-            {
-
-                _logger.LogInformation($"{this.GetType().Name} ---- CreateAsync --- FirstTime");
-
-                var isFirstTime = await _firstTimeBookingAnAppointment.IsFirstTime(entity);
-
-                if (!isFirstTime)
-                {
-                    string logMsg = $"An Appointment is booked before for test type: {entity.TestTypeId}.";
-                    _logger.LogError(logMsg);
-                    throw new InvalidOperationException(logMsg);
-
-                }
-            }
-
-
             var testType = await _testTypeRetrievalService.GetByAsync(tt => tt.TestTypeId == entity.TestTypeId);
 
             if (testType == null)

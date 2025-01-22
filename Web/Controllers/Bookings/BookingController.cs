@@ -1,12 +1,18 @@
-﻿using IServices.IBookingServices;
+﻿using IRepository.ISPs.IAppointmentProcedures;
+using IServices.IBookingServices;
 using IServices.ITimeIntervalService;
+using IServices.IValidators;
+using IServices.IValidators.BookingValidators;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using ModelDTO.API;
 using ModelDTO.Appointments;
 using ModelDTO.BookingDTOs;
 using Models.Tests.Enums;
+using Repositorties.SPs.AppointmentReps;
+using Services.BookingServices.Validators;
 using System.Net;
 
 namespace Web.Controllers.Bookingss
@@ -26,18 +32,26 @@ namespace Web.Controllers.Bookingss
         private readonly IGetAllTimeIntervalService _getAllTimeIntervalService;
         private readonly IGetTimeIntervalService _getTimeIntervalService;
         private readonly ILogger<BookingController> _logger;
-        private readonly IFirstTimeBookingAnAppointment _firstTimeBookingAnAppointment;
+        private readonly IFirstTimeBookingAnAppointmentValidation _firstTimeBookingAnAppointment;
+        private readonly IRetakeTestApplicationBookingValidator _retakeTestApplicationBookingValidator;
+        private readonly ISP_MarkExpiredAppointmentsAsUnavailable _markExpiredAppointmentsAsUnavailable;
         private readonly ICreateBookingService _createBookingService;
-
+        private readonly IBookingCreationValidators _bookingCreationValidators;
         public BookingController(IGetTimeIntervalService getTimeIntervalService,
                          IGetAllTimeIntervalService getAllTimeIntervalService,
-                         IFirstTimeBookingAnAppointment firstTimeBookingAnAppointment,
-                         ICreateBookingService createBookingService,
+                         IFirstTimeBookingAnAppointmentValidation firstTimeBookingAnAppointment,
+                         IRetakeTestApplicationBookingValidator retakeTestApplicationBookingValidator,
+                         IBookingCreationValidators bookingCreationValidators,
+                         ISP_MarkExpiredAppointmentsAsUnavailable markExpiredAppointmentsAsUnavailable,
+        ICreateBookingService createBookingService,
                          ILogger<BookingController> logger)
         {
             _getTimeIntervalService = getTimeIntervalService;
             _getAllTimeIntervalService = getAllTimeIntervalService;
             _firstTimeBookingAnAppointment = firstTimeBookingAnAppointment;
+            _retakeTestApplicationBookingValidator = retakeTestApplicationBookingValidator;
+            _markExpiredAppointmentsAsUnavailable = markExpiredAppointmentsAsUnavailable;
+            _bookingCreationValidators = bookingCreationValidators;
             _createBookingService = createBookingService;
             _logger = logger;
         }
@@ -45,13 +59,31 @@ namespace Web.Controllers.Bookingss
 
 
 
-        [HttpPost("create-dub-luba")]
-        public async Task<IActionResult> BookingAnAppointment([FromBody] CreateBookingRequest createBookingRequest)
+        [HttpPost("Appointment/firsttime")]
+        public async Task<IActionResult> FirstTimeBookingAppointment([FromBody] CreateBookingRequest createBookingRequest)
+        {
+            IActionResult actionResult = await BookingAnAppointment(createBookingRequest, _firstTimeBookingAnAppointment);
+            return actionResult;
+        }
+
+        [HttpPost("Appointment/retakeatest")]
+        public async Task<IActionResult> RetakeTestBookingAppointment([FromBody] CreateBookingRequest createBookingRequest)
+        {
+            IActionResult actionResult = await BookingAnAppointment(createBookingRequest, _retakeTestApplicationBookingValidator);
+            return actionResult;
+        }
+
+        private async Task<IActionResult> BookingAnAppointment(CreateBookingRequest createBookingRequest, IBookingCreationTypeValidation bookingTypeValidation)
         {
             ApiResponse res = new ApiResponse();
             try
             {
+                var affectedRows = await _markExpiredAppointmentsAsUnavailable.Exec();
+
+                await _bookingCreationValidators.IsValid(createBookingRequest, bookingTypeValidation);
+
                 var booked = await _createBookingService.CreateAsync(createBookingRequest);
+
                 res.StatusCode = HttpStatusCode.OK;
                 res.Result = booked;
             }
@@ -61,7 +93,6 @@ namespace Web.Controllers.Bookingss
                 res.Result = null;
                 res.StatusCode = HttpStatusCode.NotAcceptable;
             }
-
             return Ok(res);
         }
 

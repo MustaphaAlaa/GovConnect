@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IServices.IValidators.BookingValidators
+namespace IServices.IValidators.BookingValidators;
+
+public interface IBookingCreationValidators
 {
-    public interface IBookingCreationValidators
-    {
-        Task IsValid(CreateBookingRequest request);
-    }
+    Task IsValid(CreateBookingRequest request, IBookingCreationTypeValidation bookingTypeValidation);
 }
