@@ -83,6 +83,10 @@ public class GovConnectMapperConfig : Profile
         CreateMap<Booking, CreateBookingRequest>().ReverseMap();
         CreateMap<Booking, BookingDTO>().ReverseMap();
 
+        //LDLApplicationsAllowedToRetakeATest mappings
+        CreateMap<LDLApplicationsAllowedToRetakeATest, LDLApplicationsAllowedToRetakeATestDTO>().ReverseMap();
+
+
 
     }
 }

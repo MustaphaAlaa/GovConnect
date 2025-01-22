@@ -52,6 +52,7 @@ using IRepository.IGenericRepositories;
 using IRepository.ITestRepos;
 using IRepository.ISPs.IAppointmentProcedures;
 using Repositorties.SPs.AppointmentReps;
+using IServices.IApplicationServices.IServiceCategoryApplications.IRetakeTestApplication;
 
 namespace Web;
 
@@ -143,7 +144,7 @@ public class Program
         builder.Services.AddScoped<IGetDetainLicense, GetDetainedLicense>();
         builder.Services.AddScoped<ILocalLicenseRetrieveService, LocalDrivingLicenseRetrievalService>();
         builder.Services.AddScoped<IGetLocalDrivingLicenseApplication, GetLocalDriveLiecenseApplication>();
-
+        builder.Services.AddScoped<ICreateRetakeTestApplicationValidation, CreateRetakeTestApplicationValidator>();
 
         // Register Application Services
         builder.Services.AddScoped<ICreateApplicationService, CreateApplicationService>();
@@ -174,7 +175,7 @@ public class Program
         builder.Services.AddScoped<ITestTypeValidator, TestTypeValidator>();
 
         // Register Booking Service
-        builder.Services.AddScoped<IFirstTimeBookingAnAppointment, FirstTimeBookingAnAppointment>();
+        builder.Services.AddScoped<IFirstTimeBookingAnAppointmentValidation, FirstTimeBookingAnAppointment>();
         builder.Services.AddScoped<IBookingCreationValidators, BookingCreationValidator>();
         builder.Services.AddScoped<ITestTypeOrder, BookingTestTypeOrder>();
         builder.Services.AddScoped<IBookingRetrieveService, BookingRetrivalService>();
@@ -183,8 +184,10 @@ public class Program
         //Register RetakeTest Service
         builder.Services.AddScoped<ILDLTestRetakeApplicationCreator, LDLTestRetakeApplicationCreator>();
         builder.Services.AddScoped<IRetakeTestApplicationBookingValidator, RetakeTestApplicationBookingValidator>();
+        builder.Services.AddScoped<IRetakeTestApplicationCreation, RetakeTestApplicationCreateor>();
 
         builder.Services.AddScoped<ILDLTestRetakeApplicationCreationValidator, LDLTestRetakeApplicationValidator>();
+        builder.Services.AddScoped<ILDLTestRetakeApplicationRetrieve, LDLTestRetakeApplicationRetrival>();
 
 
         // Add services to the container

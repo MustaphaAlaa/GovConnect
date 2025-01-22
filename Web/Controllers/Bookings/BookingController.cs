@@ -86,14 +86,16 @@ namespace Web.Controllers.Bookingss
 
                 res.StatusCode = HttpStatusCode.OK;
                 res.Result = booked;
+                return Ok(res);
+
             }
             catch (Exception ex)
             {
                 res.ErrorMessages.Add(ex.Message);
                 res.Result = null;
                 res.StatusCode = HttpStatusCode.NotAcceptable;
+                return BadRequest(res);
             }
-            return Ok(res);
         }
 
         [HttpGet("TimeInterval/{id:int}")]

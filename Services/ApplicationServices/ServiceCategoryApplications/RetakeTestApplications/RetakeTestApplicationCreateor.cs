@@ -27,11 +27,30 @@ public class RetakeTestApplicationCreateor : IRetakeTestApplicationCreation
     private readonly ILogger<RetakeTestApplicationCreateor> _logger;
     private readonly IMapper _mapper;
 
+    public RetakeTestApplicationCreateor(ICreateRetakeTestApplicationValidation retakeTestValiadtion,
+        ITestTypeRetrievalService testTypeRetrievalService,
+        ICreateRepository<RetakeTestApplication> createRepository,
+        IGetLocalDrivingLicenseApplication localDrivingLicenseApplication,
+        ICreateApplicationEntity createApplicationEntity,
+        IServiceFeeRetrieverService serviceFeeRetrieverService,
+        ILogger<RetakeTestApplicationCreateor> logger,
+        IMapper mapper)
+    {
+        _retakeTestValiadtion = retakeTestValiadtion;
+        _testTypeRetrievalService = testTypeRetrievalService;
+        _createRepository = createRepository;
+        _localDrivingLicenseApplication = localDrivingLicenseApplication;
+        _createApplicationEntity = createApplicationEntity;
+        _serviceFeeRetrieverService = serviceFeeRetrieverService;
+        _logger = logger;
+        _mapper = mapper;
+    }
+
     public async Task<RetakeTestApplication> CreateAsync(CreateRetakeTestApplicationRequest entity)
     {
         try
         {
-            await _retakeTestValiadtion.Validate(entity);
+            //await _retakeTestValiadtion.Validate(entity);
 
             //var testType = await _testTypeRetrievalService.GetByAsync(tt => tt.TestTypeId == entity.TestTypeId);
 
@@ -71,7 +90,7 @@ public class RetakeTestApplicationCreateor : IRetakeTestApplicationCreation
         catch (Exception ex)
         {
             _logger.LogError(ex.Message, ex);
-            throw new Exception();
+            throw;
         }
 
     }

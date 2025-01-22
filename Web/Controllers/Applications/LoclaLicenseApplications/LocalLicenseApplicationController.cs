@@ -1,9 +1,14 @@
 ﻿using System.Net;
 using IServices.IApplicationServices.IServiceCategoryApplications.ILocalDrivingLicenseApplication;
+using IServices.IApplicationServices.IServiceCategoryApplications.IRetakeTestApplication;
+using IServices.IBookingServices;
+using IServices.IValidators;
 using IServices.IValidtors.ILocalDrivingLicenseApplications;
 using Microsoft.AspNetCore.Mvc;
 using ModelDTO.API;
 using ModelDTO.ApplicationDTOs.User;
+using ModelDTO.BookingDTOs;
+using Repositorties.SPs.AppointmentReps;
 using Services.BookingServices;
 
 namespace Web.Controllers.Applications.LocalLicenseApplications;
@@ -25,25 +30,35 @@ public class LocalLicenseApplicationController : ControllerBase
 {
 
     private readonly ICreateLocalDrivingLicenseApplicationOrchestrator _createLocalDrivingLicenseApplicationService;
+    private readonly IRetakeTestApplicationCreation _retakeTestApplicationCreation;
+    //LDL Purpose Validators
     private readonly INewLocalDrivingLicenseApplicationValidator _newLocalDrivingLicenseApplicationValidator;
     private readonly IRenewLocalDrivingLicenseApplicationValidator _renewLocalDrivingLicenseApplicationValidator;
     private readonly IReleaseLocalDrivingLicenseApplicationValidator _releaseLocalDrivingLicenseApplicationValidator;
     private readonly IReplacementForLostLocalDrivingLicenseApplicationValidator _replacementForLostLocalDrivingLicenseApplicationValidator;
     private readonly IReplacementForDamageLocalDrivingLicenseApplicationValidator _replacementForDamageLocalDrivingLicenseApplicationValidator;
 
+    private readonly ICreateRetakeTestApplicationValidation _createRetakeTestApplicationValidation;
+
     public LocalLicenseApplicationController(ICreateLocalDrivingLicenseApplicationOrchestrator createLocalDrivingLicenseApplicationService,
         INewLocalDrivingLicenseApplicationValidator newLocalDrivingLicenseApplicationValidator,
         IRenewLocalDrivingLicenseApplicationValidator renewLocalDrivingLicenseApplicationValidator,
         IReleaseLocalDrivingLicenseApplicationValidator releaseLocalDrivingLicenseApplicationValidator,
         IReplacementForLostLocalDrivingLicenseApplicationValidator replacementForLostLocalDrivingLicenseApplicationValidator,
-        IReplacementForDamageLocalDrivingLicenseApplicationValidator replacementForDamageLocalDrivingLicenseApplicationValidator)
+        IReplacementForDamageLocalDrivingLicenseApplicationValidator replacementForDamageLocalDrivingLicenseApplicationValidator,
+    ICreateRetakeTestApplicationValidation createRetakeTestApplicationValidation,
+    IRetakeTestApplicationCreation retakeTestApplicationCreation)
     {
         _createLocalDrivingLicenseApplicationService = createLocalDrivingLicenseApplicationService;
+        //LDL Purpose Validators
         _newLocalDrivingLicenseApplicationValidator = newLocalDrivingLicenseApplicationValidator;
         _renewLocalDrivingLicenseApplicationValidator = renewLocalDrivingLicenseApplicationValidator;
         _releaseLocalDrivingLicenseApplicationValidator = releaseLocalDrivingLicenseApplicationValidator;
         _replacementForLostLocalDrivingLicenseApplicationValidator = replacementForLostLocalDrivingLicenseApplicationValidator;
         _replacementForDamageLocalDrivingLicenseApplicationValidator = replacementForDamageLocalDrivingLicenseApplicationValidator;
+
+        _createRetakeTestApplicationValidation = createRetakeTestApplicationValidation;
+        _retakeTestApplicationCreation = retakeTestApplicationCreation;
     }
 
 
@@ -116,9 +131,27 @@ public class LocalLicenseApplicationController : ControllerBase
     }
 
     [HttpPost("retakeTest")]
-    public async Task<ActionResult> RetakeTheTest(CreateLocalDrivingLicenseApplicationRequest request)
+    public async Task<ActionResult> RetakeTheTest(CreateRetakeTestApplicationRequest request)
     {
-        throw new NotImplementedException();
+        ApiResponse res = new ApiResponse();
+        try
+        {
+            await _createRetakeTestApplicationValidation.Validate(request);
+
+            var booked = await _retakeTestApplicationCreation.CreateAsync(request);
+
+            res.StatusCode = HttpStatusCode.OK;
+            res.Result = booked;
+            return Ok(res);
+
+        }
+        catch (Exception ex)
+        {
+            res.ErrorMessages.Add(ex.Message);
+            res.Result = null;
+            res.StatusCode = HttpStatusCode.NotAcceptable;
+            return BadRequest(res);
+        }
     }
 
 }

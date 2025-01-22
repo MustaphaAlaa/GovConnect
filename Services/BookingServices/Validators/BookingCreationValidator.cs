@@ -37,25 +37,6 @@ namespace Services.BookingServices.Validators
         {
             try
             {
-                var LDL = await _lDLRetrievalService.GetByAsync(ldl => ldl.LocalDrivingLicenseApplicationId == request.LocalDrivingLicenseApplicationId);
-
-                if (LDL != null)
-                {
-                    _logger.LogError($"The local driving license is already exists. ");
-
-                    throw new AlreadyExistException("The local driving license is already exists.");
-                }
-
-                var testpassed = await _IsTestTypePassed.IsTestTypePassed(request.LocalDrivingLicenseApplicationId, request.TestTypeId);
-
-                if (testpassed)
-                {
-                    _logger.LogError($"This test type is already exist and passed.");
-                    throw new AlreadyExistException("This test type is already exist and passed.");
-                }
-
-                await _testOrder.CheckTheOrder(request);
-
                 var appointment = await _getAppointmentService.GetByAsync(appointment => appointment.AppointmentId == request.AppointmentId);
 
                 if (appointment == null)
@@ -76,6 +57,28 @@ namespace Services.BookingServices.Validators
                     _logger.LogError(logMsg);
                     throw new ArgumentOutOfRangeException(logMsg);
                 }
+
+
+                var LDL = await _lDLRetrievalService.GetByAsync(ldl => ldl.LocalDrivingLicenseApplicationId == request.LocalDrivingLicenseApplicationId);
+
+                if (LDL != null)
+                {
+                    _logger.LogError($"The local driving license is already exists. ");
+
+                    throw new AlreadyExistException("The local driving license is already exists.");
+                }
+
+                var testpassed = await _IsTestTypePassed.IsTestTypePassed(request.LocalDrivingLicenseApplicationId, request.TestTypeId);
+
+                if (testpassed)
+                {
+                    _logger.LogError($"This test type is already exist and passed.");
+                    throw new AlreadyExistException("This test type is already exist and passed.");
+                }
+
+                await _testOrder.CheckTheOrder(request);
+
+
 
                 await bookingTypeValidation.Validate(request);
 
