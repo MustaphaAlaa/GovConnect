@@ -1,4 +1,5 @@
 ﻿using ModelDTO.TestsDTO;
+using Models.Tests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace IServices.ILDLApplicationsAllowedToRetakeATestServices;
 /// Interface for inserting records into the LDLApplicationsAllowedToRetakeATest table.
 /// </summary>
 public interface ILDLTestRetakeApplicationCreator
+//: ICreateService<TestDTO, LDLApplicationsAllowedToRetakeATestDTO>
 {
-    Task CreateAsync(object? sender, TestDTO e);
+    Task CreateAsync(TestDTO testDTO);
 }

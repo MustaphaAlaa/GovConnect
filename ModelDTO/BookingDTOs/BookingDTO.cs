@@ -45,6 +45,12 @@ public class BookingDTO
     [Required] public int LocalDrivingLicenseApplicationId { get; set; }
 
     /// <summary>
+    /// Foreign key reference to the test type table that appointment is booked for.
+    /// the field is required.
+    /// </summary>
+    [Required] public int TestTypeId { get; set; }
+
+    /// <summary>
     /// 
     /// </summary>
 

@@ -52,8 +52,8 @@ namespace Services.TestServices
 
             if (!isValid)
             {
-                _logger.LogInformation($"{this.GetType().Name} -- CreateAsync -- creating request is valid.");
-                throw new AlreadyExistException();
+                _logger.LogError($"{this.GetType().Name} -- CreateAsync -- invalid reqeust.");
+                throw new AlreadyExistException("the booking id is used before");
             }
             Test testReq = _mapper.Map<Test>(entity);
 
@@ -74,6 +74,11 @@ namespace Services.TestServices
                 };
 
                 TestCreated?.Invoke(this, testDTO);
+
+                //if first time invoke the one is responsible for creating new record in allowed table
+                //if not invoke the method that will update it in th record
+
+
 
                 return testDTO;
             }

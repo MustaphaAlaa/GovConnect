@@ -136,6 +136,8 @@ public class LocalLicenseApplicationController : ControllerBase
         ApiResponse res = new ApiResponse();
         try
         {
+            //should marked as not allowed if it already created;
+
             await _createRetakeTestApplicationValidation.Validate(request);
 
             var booked = await _retakeTestApplicationCreation.CreateAsync(request);

@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using IRepository.ITestRepos;
 using IServices.IValidators;
 using IServices.IValidators.BookingValidators;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ModelDTO.BookingDTOs;
+using ModelDTO.TestsDTO;
 using Models.Tests.Enums;
 using Services.Exceptions;
 
@@ -10,17 +13,16 @@ namespace Services.BookingServices;
 
 public class BookingTestTypeOrder : ITestTypeOrder
 {
-    private readonly IBookingRetrieveService _getBooking;
-    private readonly ILogger<BookingTestTypeOrder> _logger;
-    private readonly IMapper _mapper;
 
-    public BookingTestTypeOrder(IBookingRetrieveService getBooking,
-        ILogger<BookingTestTypeOrder> logger,
-        IMapper mapper)
+    private readonly ILogger<BookingTestTypeOrder> _logger;
+
+    private readonly ITestResultInfoRetrieve _testResultInfoRetrieve;
+
+    public BookingTestTypeOrder(ITestResultInfoRetrieve testResultInfoRetrieve,
+        ILogger<BookingTestTypeOrder> logger)
     {
-        _getBooking = getBooking;
+        _testResultInfoRetrieve = testResultInfoRetrieve;
         _logger = logger;
-        _mapper = mapper;
     }
 
     public async Task CheckTheOrder(CreateBookingRequest request)
@@ -28,27 +30,34 @@ public class BookingTestTypeOrder : ITestTypeOrder
         _logger.LogInformation($"{GetType().Name} -- CheckTheOrder");
 
         BookingDTO? booking;
-
+        TestResultInfo? testResultInfo;
         switch ((EnTestTypes)request.TestTypeId)
         {
             case EnTestTypes.Vision:
                 return;
             case EnTestTypes.Written_Theory:
-                booking = await _getBooking.GetByAsync(booking =>
-                                  booking.TestTypeId == (int)EnTestTypes.Vision
-                                  && booking.LocalDrivingLicenseApplicationId == request.LocalDrivingLicenseApplicationId);
-                if (booking != null)
+
+                testResultInfo = await _testResultInfoRetrieve
+                    .GetTestResultInfo(request.LocalDrivingLicenseApplicationId, (int)EnTestTypes.Vision)
+                    .FirstOrDefaultAsync(t => t.Test.TestResult == true);
+
+                if (testResultInfo == null || !testResultInfo.Test.TestResult)
                 {
                     throw new InvalidOrderException($"Invalid Order {EnTestTypes.Vision.ToString()} must be before it.");
                 }
+
                 break;
             case EnTestTypes.Practical_Street:
-                booking = await _getBooking.GetByAsync(booking =>
-                               booking.TestTypeId == (int)EnTestTypes.Written_Theory
-                               && booking.LocalDrivingLicenseApplicationId == request.LocalDrivingLicenseApplicationId);
-                if (booking != null)
+
+
+                testResultInfo = await _testResultInfoRetrieve
+                    .GetTestResultInfo(request.LocalDrivingLicenseApplicationId, (int)EnTestTypes.Written_Theory)
+                   .FirstOrDefaultAsync(t => t.Test.TestResult == true);
+
+
+                if (testResultInfo == null || !testResultInfo.Test.TestResult)
                 {
-                    throw new InvalidOrderException($"Invalid Order {EnTestTypes.Written_Theory.ToString()} must be before it.");
+                    throw new InvalidOrderException($"Invalid Order {EnTestTypes.Vision.ToString()} must be before it.");
                 }
 
                 break;

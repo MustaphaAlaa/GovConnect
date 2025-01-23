@@ -30,8 +30,7 @@ public partial class GovConnectDbContext : IdentityDbContext<User, UserRoles, Gu
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(GovConnectDbContext).Assembly);
 
-        modelBuilder.Entity<AvailableDay>().HasNoKey().ToView(null);
-        modelBuilder.Entity<TestTypeResult>().HasNoKey().ToView(null);
+        modelBuilder.Entity<AvailableDay>().HasNoKey().ToView(null); 
 
 
         if (!this.IsMigration())

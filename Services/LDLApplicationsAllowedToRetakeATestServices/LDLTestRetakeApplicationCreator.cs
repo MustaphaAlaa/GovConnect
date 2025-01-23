@@ -2,6 +2,7 @@
 using DataConfigurations.Migrations;
 using DataConfigurations.TVFs.ITVFs;
 using IRepository.IGenericRepositories;
+using IServices;
 using IServices.ILDLApplicationsAllowedToRetakeATestServices;
 using IServices.ITests.ITest;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,98 +13,73 @@ using Services.Exceptions;
 
 namespace Services.LDLApplicationsAllowedToRetakeATestServices;
 
-public class LDLTestRetakeApplicationCreator : ILDLTestRetakeApplicationCreator, IDisposable
+public class LDLTestRetakeApplicationCreator : ILDLTestRetakeApplicationCreator
 {
     private readonly ICreateRepository<LDLApplicationsAllowedToRetakeATest> _createRepository;
+    private readonly ILDLTestRetakeApplicationCreationValidator _validator;
 
-    private readonly ILDLTestRetakeApplicationCreationValidator _lDLTestRetakeApplicationCreationValidator;
-    private readonly ITVF_GetTestResultForABookingId _tVF_GetTestResultForABookingId;
-
-    private readonly ITestCreationService _testCreationService;
     private readonly ILogger<LDLTestRetakeApplicationCreator> _logger;
     private readonly IMapper _mapper;
 
 
-    IServiceScopeFactory _serviceScopeFactory;
-    public LDLTestRetakeApplicationCreator(IServiceScopeFactory serviceScopeFactory,
-        ITestCreationService testCreationService,
+
+    public LDLTestRetakeApplicationCreator(
+         ICreateRepository<LDLApplicationsAllowedToRetakeATest> createRepository,
+         ILDLTestRetakeApplicationCreationValidator validator,
         ILogger<LDLTestRetakeApplicationCreator> logger,
-        ITVF_GetTestResultForABookingId tVF_GetTestResultForABookingId,
+
         IMapper mapper)
     {
-        _serviceScopeFactory = serviceScopeFactory;
-        _testCreationService = testCreationService;
-        _testCreationService.TestCreated += CreateAsync;
-        _tVF_GetTestResultForABookingId = tVF_GetTestResultForABookingId;
+
+        _createRepository = createRepository;
+        _validator = validator;
         _logger = logger;
         _mapper = mapper;
 
     }
 
-    public async Task CreateAsync(object? sender, TestDTO e)
+    public async Task CreateAsync(TestDTO testDTO)
     {
         _logger.LogInformation($"{this.GetType().Name} -- CreateAsync");
-        _logger.LogDebug($"TestDTO => Local Driving License Application Id: {e.LocalDrivingLicenseApplicationId} -- Test Type Id: {e.TestTypeId} -- Booking id: {e.BookingId}");
-        using (var scope = _serviceScopeFactory.CreateScope())
+        _logger.LogDebug($"TestDTO => Local Driving License Application Id: {testDTO.LocalDrivingLicenseApplicationId} -- Test Type Id: {testDTO.TestTypeId} -- Booking id: {testDTO.BookingId}");
+
+
+        try
         {
+            _logger.LogInformation($"{this.GetType().Name} -- CreateAsync");
 
-            var validator = scope.ServiceProvider.GetRequiredService<ILDLTestRetakeApplicationCreationValidator>();
-            var testResultService = scope.ServiceProvider.GetRequiredService<ITVF_GetTestResultForABookingId>();
 
-            var creation = scope.ServiceProvider.GetRequiredService<ICreateRepository<LDLApplicationsAllowedToRetakeATest>>();
 
-            try
+            //var isValid = await validator.IsValid(testDTO.LocalDrivingLicenseApplicationId, testDTO.TestTypeId);
+            var isValid = await _validator.IsValid(testDTO);
+
+
+            if (!isValid)
             {
-                _logger.LogInformation($"{this.GetType().Name} -- CreateAsync");
+                _logger.LogWarning($"It's not allowed for this LDL Application with id {testDTO.LocalDrivingLicenseApplicationId} to retake a test type: {testDTO.TestTypeId}");
 
-                if (e.TestResult)
-                {
-                    _logger.LogError("cannot be allowed to retake the test because he is already passed it");
-                    throw new ValidationException("Test Type Is Passed");
-                }
-
-                var testDTO = await testResultService.GetTestResultForABookingId(e.BookingId);
-
-
-                if (testDTO is null)
-                {
-                    _logger.LogError("booking id doesn't exist in booking table");
-                    throw new DoesNotExistException("Booking Id is not exist");
-                }
-
-                var isValid = await validator.IsValid(testDTO.LocalDrivingLicenseApplicationId, testDTO.TestTypeId);
-                //after this line dbcontext is disposed
-
-                if (!isValid)
-                {
-                    _logger.LogWarning($"It's not allowed for this LDL Applcation with id {e.LocalDrivingLicenseApplicationId} to retake a test type: {e.TestTypeId}");
-
-                    return;
-                }
-
-
-                var allowedToRetakeATest = new LDLApplicationsAllowedToRetakeATest()
-                {
-                    // here the 
-                    IsAllowedToRetakeATest = true,
-                    LocalDrivingLicenseApplicationId = testDTO.LocalDrivingLicenseApplicationId,
-                    TestTypeId = testDTO.TestTypeId
-                };
-
-                //when i reach here the dbcontext is dispose
-                var createdObj = await creation.CreateAsync(allowedToRetakeATest);
-
+                return;
             }
-            catch (System.Exception ex)
+
+
+            var allowedToRetakeATest = new LDLApplicationsAllowedToRetakeATest()
             {
-                throw new System.Exception(ex.Message, ex);
-            }
+                // here the 
+                IsAllowedToRetakeATest = true,
+                LocalDrivingLicenseApplicationId = testDTO.LocalDrivingLicenseApplicationId,
+                TestTypeId = testDTO.TestTypeId
+            };
+
+
+            var createdObj = await _createRepository.CreateAsync(allowedToRetakeATest);
 
         }
-    }
+        catch (System.Exception ex)
+        {
+            throw new System.Exception(ex.Message, ex);
+        }
 
-    public void Dispose()
-    {
-        _testCreationService.TestCreated -= CreateAsync;
     }
 }
+
+

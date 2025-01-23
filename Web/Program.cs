@@ -53,6 +53,7 @@ using IRepository.ISPs.IAppointmentProcedures;
 using Repositorties.SPs.AppointmentReps;
 using IServices.IApplicationServices.IServiceCategoryApplications.IRetakeTestApplication;
 using IServices.ILDLApplicationsAllowedToRetakeATestServices;
+using GovConnect.Services.LDLApplicationsAllowedToRetakeATestServices;
 
 namespace Web;
 
@@ -162,6 +163,7 @@ public class Program
         builder.Services.AddScoped<IAsyncAllTestTypesRetrieverService, GetAllTestTypesService>();
         builder.Services.AddScoped<ITestCreationService, TestCreatorService>();
         builder.Services.AddScoped<ICreateTestValidator, CreateTestValidator>();
+        builder.Services.AddScoped<ITestResultInfoRetrieve, TestResultInfoRetrieve>();
 
         // Register Appointment Service
         builder.Services.AddScoped<ICreateAppointmentService, CreateAppointmentsService>();
@@ -185,9 +187,12 @@ public class Program
         builder.Services.AddScoped<ILDLTestRetakeApplicationCreator, LDLTestRetakeApplicationCreator>();
         builder.Services.AddScoped<IRetakeTestApplicationBookingValidator, RetakeTestApplicationBookingValidator>();
         builder.Services.AddScoped<IRetakeTestApplicationCreation, RetakeTestApplicationCreateor>();
+        builder.Services.AddScoped<IRetakeTestApplicationRetriever, RetakeTestApplicationRetriever>();
 
-        builder.Services.AddScoped<ILDLTestRetakeApplicationCreationValidator, LDLTestRetakeApplicationValidator>();
+
+        builder.Services.AddScoped<ILDLTestRetakeApplicationCreationValidator, LDLApplicationAllowedToRetakeTestCreationValidator>();
         builder.Services.AddScoped<ILDLTestRetakeApplicationRetrieve, LDLTestRetakeApplicationRetrival>();
+        builder.Services.AddScoped<ILDLTestRetakeApplicationSubscriber, LDLTestRetakeApplicationSubscriber>();
 
 
         // Add services to the container

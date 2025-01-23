@@ -1,11 +1,14 @@
-﻿using IRepository.ISPs.IAppointmentProcedures;
+﻿using GovConnect.Services.LDLApplicationsAllowedToRetakeATestServices;
+using IRepository.ISPs.IAppointmentProcedures;
 using IServices.IBookingServices;
+using IServices.ILDLApplicationsAllowedToRetakeATestServices;
 using IServices.ITimeIntervalService;
 using IServices.IValidators;
 using IServices.IValidators.BookingValidators;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Microsoft.IdentityModel.Tokens;
 using ModelDTO.API;
 using ModelDTO.Appointments;
@@ -37,6 +40,7 @@ namespace Web.Controllers.Bookingss
         private readonly ISP_MarkExpiredAppointmentsAsUnavailable _markExpiredAppointmentsAsUnavailable;
         private readonly ICreateBookingService _createBookingService;
         private readonly IBookingCreationValidators _bookingCreationValidators;
+        private readonly ILDLTestRetakeApplicationSubscriber _lDLTestRetakeApplicationSubscriber;
         public BookingController(IGetTimeIntervalService getTimeIntervalService,
                          IGetAllTimeIntervalService getAllTimeIntervalService,
                          IFirstTimeBookingAnAppointmentValidation firstTimeBookingAnAppointment,
@@ -44,6 +48,7 @@ namespace Web.Controllers.Bookingss
                          IBookingCreationValidators bookingCreationValidators,
                          ISP_MarkExpiredAppointmentsAsUnavailable markExpiredAppointmentsAsUnavailable,
         ICreateBookingService createBookingService,
+                     ILDLTestRetakeApplicationSubscriber lDLTestRetakeApplicationSubscriber,
                          ILogger<BookingController> logger)
         {
             _getTimeIntervalService = getTimeIntervalService;
@@ -53,6 +58,7 @@ namespace Web.Controllers.Bookingss
             _markExpiredAppointmentsAsUnavailable = markExpiredAppointmentsAsUnavailable;
             _bookingCreationValidators = bookingCreationValidators;
             _createBookingService = createBookingService;
+            _lDLTestRetakeApplicationSubscriber = lDLTestRetakeApplicationSubscriber;
             _logger = logger;
         }
 
@@ -62,6 +68,7 @@ namespace Web.Controllers.Bookingss
         [HttpPost("Appointment/firsttime")]
         public async Task<IActionResult> FirstTimeBookingAppointment([FromBody] CreateBookingRequest createBookingRequest)
         {
+            createBookingRequest.RetakeTestApplicationId = null;
             IActionResult actionResult = await BookingAnAppointment(createBookingRequest, _firstTimeBookingAnAppointment);
             return actionResult;
         }

@@ -11,3 +11,9 @@ public interface IRetakeTestApplicationCreation : ICreateService<CreateRetakeTes
 {
 
 }
+
+
+public interface IRetakeTestApplicationRetriever : IAsyncRetrieveService<RetakeTestApplication, RetakeTestApplication>
+{
+
+}

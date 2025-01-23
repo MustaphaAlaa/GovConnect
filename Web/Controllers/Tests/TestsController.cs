@@ -28,6 +28,7 @@ namespace Web.Controllers.Tests
         private readonly ITestTypeRetrievalService _getTestTypes;
         private readonly ITestCreationService _testCreationService;
         private readonly ILDLTestRetakeApplicationCreator _lDLTestRetake;
+        private readonly ILDLTestRetakeApplicationSubscriber _lDLTestRetakeApplicationSubscriber;
         private readonly IAsyncAllTestTypesRetrieverService _getAllTestTypesService;
         private readonly ILogger<TestType> _logger;
 
@@ -35,8 +36,10 @@ namespace Web.Controllers.Tests
             IAsyncAllTestTypesRetrieverService getAllTestTypesService,
             ITestCreationService testCreationService,
             ILDLTestRetakeApplicationCreator lDLTestRetakeApplicationCreatorBase,
+            ILDLTestRetakeApplicationSubscriber  lDLTestRetakeApplicationSubscriber,
             ILogger<TestType> logger)
         {
+            _lDLTestRetakeApplicationSubscriber = lDLTestRetakeApplicationSubscriber;
             _getTestTypes = getTestTypes;
             _logger = logger;
             _testCreationService = testCreationService;

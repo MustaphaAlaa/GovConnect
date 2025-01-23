@@ -1,0 +1,5 @@
+namespace IServices.ILDLApplicationsAllowedToRetakeATestServices;
+
+public interface ILDLTestRetakeApplicationSubscriber
+{ 
+}

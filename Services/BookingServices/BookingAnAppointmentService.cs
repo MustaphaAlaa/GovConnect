@@ -59,7 +59,7 @@ public class BookingAnAppointmentService : ICreateBookingService
             bookingReq.PaidFees = testType.TestTypeFees;
             bookingReq.BookingDate = DateTime.Now;
             bookingReq.BookingStatus = EnBookingStatus.Pendeing.ToString();
-            bookingReq.RetakeTestApplicationId = null;
+            bookingReq.RetakeTestApplicationId = entity.RetakeTestApplicationId;
 
 
             var booking = await _createBookingRepository.CreateAsync(bookingReq);

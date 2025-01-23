@@ -10,9 +10,13 @@ public class TestTypePassedChecker : ITestTypePassedChecker
 
     private readonly GovConnectDbContext _govConnectDbContext;
     private readonly ILogger<TestTypePassedChecker> _logger;
-    public TestTypePassedChecker(GovConnectDbContext govConnectDbContext, ILogger<TestTypePassedChecker> logger)
+    private readonly  ITestResultInfoRetrieve _testResultInfoRetrieve;
+    public TestTypePassedChecker(GovConnectDbContext govConnectDbContext,
+     ILogger<TestTypePassedChecker> logger,
+     ITestResultInfoRetrieve testResultInfoRetrieve)
     {
         _govConnectDbContext = govConnectDbContext;
+        _testResultInfoRetrieve = testResultInfoRetrieve;
         _logger = logger;
     }
 
@@ -20,14 +24,10 @@ public class TestTypePassedChecker : ITestTypePassedChecker
     {
         _logger.LogInformation($"{this.GetType().Name} -- IsTestTypePassed");
 
-        var res = await _govConnectDbContext.Tests
-            .Join(_govConnectDbContext.Bookings,
-                    test => test.BookingId,
-                    booking => booking.BookingId,
-                    (test, booking) => new { test, booking })
-            .AnyAsync(x => x.booking.LocalDrivingLicenseApplicationId == LDLApplicationId &&
-                            x.booking.TestTypeId == TestTypeId
-                            && x.test.TestResult == true);
+        var res = await _testResultInfoRetrieve.GetTestResultInfo(LDLApplicationId, TestTypeId)
+            .AnyAsync(x => x.Booking.LocalDrivingLicenseApplicationId == LDLApplicationId &&
+                            x.Booking.TestTypeId == TestTypeId
+                            && x.Test.TestResult == true);
 
         return res;
     }

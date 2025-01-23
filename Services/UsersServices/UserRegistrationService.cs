@@ -6,7 +6,7 @@ using Models.Users;
 
 namespace Services.UsersServices;
 
-public class UserRegistrationService 
+public class UserRegistrationService
 {
     private UserManager<User> _userManager;
 
@@ -18,29 +18,29 @@ public class UserRegistrationService
 
     public async Task<bool> ValidateRegisterAsync(RegisterDTO register, ApiResponse response, ModelStateDictionary modelState)
     {
-        
+
         if (!modelState.IsValid)
         {
-             response.StatusCode = System.Net.HttpStatusCode.Conflict;
-             response.IsSuccess = false;
+            response.StatusCode = System.Net.HttpStatusCode.Conflict;
+            response.IsSuccess = false;
 
             modelState.Values
                 .SelectMany(v => v.Errors)
-                .ToList().ForEach(v =>  response.ErrorMessages.Add(v.ErrorMessage));
+                .ToList().ForEach(v => response.ErrorMessages.Add(v.ErrorMessage));
 
             return false;
         }
-        
-        
+
+
         if (register == null)
         {
             response.StatusCode = System.Net.HttpStatusCode.BadRequest;
             response.IsSuccess = false;
             response.ErrorMessages.Add("Cannot work without a register.");
-            
-            return false; 
+
+            return false;
         }
-  
+
         var age = (int)((DateTime.Now - register.BirthDate).TotalDays) / 365;
 
         if (age < 18)
@@ -49,7 +49,7 @@ public class UserRegistrationService
             response.IsSuccess = false;
             response.ErrorMessages.Add("Minimum age must be at least 18 years old.");
 
-            return false; 
+            return false;
         }
 
 
@@ -60,10 +60,10 @@ public class UserRegistrationService
             response.StatusCode = System.Net.HttpStatusCode.Conflict;
             response.IsSuccess = false;
             response.ErrorMessages.Add("Email Is Already Exist.");
-            
-            return false; 
+
+            return false;
         }
 
-        return true; 
+        return true;
     }
 }
