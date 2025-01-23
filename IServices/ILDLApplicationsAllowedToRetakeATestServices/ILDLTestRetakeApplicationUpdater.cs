@@ -1,6 +1,6 @@
 ﻿using ModelDTO.TestsDTO;
 
-namespace IServices.ITests.ILDLApplicationsAllowedToRetakeATestServices;
+namespace IServices.ILDLApplicationsAllowedToRetakeATestServices;
 
 /// <summary>
 /// Interface for updating records in the LDLApplicationsAllowedToRetakeATest table.

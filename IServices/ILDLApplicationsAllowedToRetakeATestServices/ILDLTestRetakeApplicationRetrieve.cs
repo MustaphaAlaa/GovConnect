@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IServices.ITests.ILDLApplicationsAllowedToRetakeATestServices
+namespace IServices.ILDLApplicationsAllowedToRetakeATestServices
 {
     public interface ILDLTestRetakeApplicationRetrieve : IAsyncRetrieveService<LDLApplicationsAllowedToRetakeATest, LDLApplicationsAllowedToRetakeATestDTO>
     {

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DataConfigurations.TVFs.ITVFs;
 using IRepository.ITVFs;
-using IServices.ITests.ILDLApplicationsAllowedToRetakeATestServices;
+using IServices.ILDLApplicationsAllowedToRetakeATestServices;
 using Microsoft.Extensions.Logging;
 
 namespace Services.LDLApplicationsAllowedToRetakeATestServices;

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IServices.ITests.ILDLApplicationsAllowedToRetakeATestServices;
+namespace IServices.ILDLApplicationsAllowedToRetakeATestServices;
 
 /// <summary>
 /// Interface for inserting records into the LDLApplicationsAllowedToRetakeATest table.

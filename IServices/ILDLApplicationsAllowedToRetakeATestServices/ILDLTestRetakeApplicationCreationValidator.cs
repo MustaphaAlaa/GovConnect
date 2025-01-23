@@ -1,4 +1,4 @@
-﻿namespace IServices.ITests.ILDLApplicationsAllowedToRetakeATestServices;
+﻿namespace IServices.ILDLApplicationsAllowedToRetakeATestServices;
 
 /// <summary>
 /// abstract class for valdating the inserting object request befor insrting into the LDLApplicationsAllowedToRetakeATest table.

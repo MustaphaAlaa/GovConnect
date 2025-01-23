@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using IRepository.IGenericRepositories;
-using IServices.ITests.ILDLApplicationsAllowedToRetakeATestServices;
+using IServices.ILDLApplicationsAllowedToRetakeATestServices;
 using Microsoft.Extensions.Logging;
 using ModelDTO.TestsDTO;
 using Models.Tests;

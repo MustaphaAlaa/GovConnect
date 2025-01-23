@@ -2,7 +2,7 @@
 using DataConfigurations.Migrations;
 using DataConfigurations.TVFs.ITVFs;
 using IRepository.IGenericRepositories;
-using IServices.ITests.ILDLApplicationsAllowedToRetakeATestServices;
+using IServices.ILDLApplicationsAllowedToRetakeATestServices;
 using IServices.ITests.ITest;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
