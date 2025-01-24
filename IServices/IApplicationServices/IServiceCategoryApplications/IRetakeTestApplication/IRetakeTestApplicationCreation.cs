@@ -1,4 +1,5 @@
 ﻿using ModelDTO.ApplicationDTOs.User;
+using ModelDTO.TestsDTO;
 using Models.Applications;
 
 namespace IServices.IApplicationServices.IServiceCategoryApplications.IRetakeTestApplication;
@@ -9,11 +10,5 @@ namespace IServices.IApplicationServices.IServiceCategoryApplications.IRetakeTes
 /// </summary>
 public interface IRetakeTestApplicationCreation : ICreateService<CreateRetakeTestApplicationRequest, RetakeTestApplication>
 {
-
-}
-
-
-public interface IRetakeTestApplicationRetriever : IAsyncRetrieveService<RetakeTestApplication, RetakeTestApplication>
-{
-
+    event Func<object, TestDTO, Task> RetakeTestApplicationCreated;
 }

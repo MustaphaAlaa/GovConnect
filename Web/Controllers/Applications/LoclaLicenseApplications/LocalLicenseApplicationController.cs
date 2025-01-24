@@ -2,6 +2,7 @@
 using IServices.IApplicationServices.IServiceCategoryApplications.ILocalDrivingLicenseApplication;
 using IServices.IApplicationServices.IServiceCategoryApplications.IRetakeTestApplication;
 using IServices.IBookingServices;
+using IServices.ILDLApplicationsAllowedToRetakeATestServices;
 using IServices.IValidators;
 using IServices.IValidtors.ILocalDrivingLicenseApplications;
 using Microsoft.AspNetCore.Mvc;
@@ -37,8 +38,11 @@ public class LocalLicenseApplicationController : ControllerBase
     private readonly IReleaseLocalDrivingLicenseApplicationValidator _releaseLocalDrivingLicenseApplicationValidator;
     private readonly IReplacementForLostLocalDrivingLicenseApplicationValidator _replacementForLostLocalDrivingLicenseApplicationValidator;
     private readonly IReplacementForDamageLocalDrivingLicenseApplicationValidator _replacementForDamageLocalDrivingLicenseApplicationValidator;
-
     private readonly ICreateRetakeTestApplicationValidation _createRetakeTestApplicationValidation;
+
+
+    //for events 
+    private readonly ILDLTestRetakeApplicationSubscriber _lDLTestRetakeApplicationSubscriber;
 
     public LocalLicenseApplicationController(ICreateLocalDrivingLicenseApplicationOrchestrator createLocalDrivingLicenseApplicationService,
         INewLocalDrivingLicenseApplicationValidator newLocalDrivingLicenseApplicationValidator,
@@ -46,8 +50,9 @@ public class LocalLicenseApplicationController : ControllerBase
         IReleaseLocalDrivingLicenseApplicationValidator releaseLocalDrivingLicenseApplicationValidator,
         IReplacementForLostLocalDrivingLicenseApplicationValidator replacementForLostLocalDrivingLicenseApplicationValidator,
         IReplacementForDamageLocalDrivingLicenseApplicationValidator replacementForDamageLocalDrivingLicenseApplicationValidator,
-    ICreateRetakeTestApplicationValidation createRetakeTestApplicationValidation,
-    IRetakeTestApplicationCreation retakeTestApplicationCreation)
+        ICreateRetakeTestApplicationValidation createRetakeTestApplicationValidation,
+        IRetakeTestApplicationCreation retakeTestApplicationCreation,
+        ILDLTestRetakeApplicationSubscriber lDLTestRetakeApplicationSubscriber)
     {
         _createLocalDrivingLicenseApplicationService = createLocalDrivingLicenseApplicationService;
         //LDL Purpose Validators
@@ -59,6 +64,8 @@ public class LocalLicenseApplicationController : ControllerBase
 
         _createRetakeTestApplicationValidation = createRetakeTestApplicationValidation;
         _retakeTestApplicationCreation = retakeTestApplicationCreation;
+
+        _lDLTestRetakeApplicationSubscriber = lDLTestRetakeApplicationSubscriber;
     }
 
 

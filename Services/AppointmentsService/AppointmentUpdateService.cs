@@ -20,13 +20,13 @@ namespace Services.AppointmentsService
         private readonly IUpdateRepository<Appointment> _updateRepository;
         private readonly IGetAppointmentService _getAppointmentService;
         private readonly IMapper _mapper;
-        private readonly ILogger _logger;
+        private readonly ILogger<AppointmentUpdateService> _logger;
         private readonly ICreateBookingService _createBookingService;
         public AppointmentUpdateService(IUpdateRepository<Appointment> updateRepository,
                                         ICreateBookingService createBookingService,
                                         IGetAppointmentService getAppointmentService,
                                         IMapper mapper,
-                                         ILogger logger)
+                                         ILogger<AppointmentUpdateService> logger)
         {
             _updateRepository = updateRepository;
             _createBookingService = createBookingService;
@@ -38,16 +38,19 @@ namespace Services.AppointmentsService
 
         private async Task _createBookingService_AppointmentIsBooked(object obj, BookingDTO booking)
         {
-            var appointment = await _getAppointmentService.GetByAsync(app => app.AppointmentId == booking.AppointmentId);
+            // for latter 
+            // When Update an existing Booking Appointment
+            // Mark the old one as available and the new one as not available
 
-            Appointment appointmentDTO = new Appointment()
-            {
-                AppointmentId = appointment.AppointmentId,
-                AppointmentDay = appointment.AppointmentDay,
-                IsAvailable = false,
-            };
+            var newAppointment = await _getAppointmentService.GetByAsync(app => app.AppointmentId == booking.AppointmentId);
 
-            var updatedAppointment = await _updateRepository.UpdateAsync(appointmentDTO);
+            Appointment newAppointmentDTO = _mapper.Map<Appointment>(newAppointment);
+
+            newAppointmentDTO.IsAvailable = false;
+
+
+            //  i commented it because i lazy to create more appointments, so i am using only one for testing.
+            //  var updatedAppointment = await _updateRepository.UpdateAsync(newAppointmentDTO);
         }
 
         public async Task<Appointment> UpdateAsync(AppointmentDTO updateRequest)

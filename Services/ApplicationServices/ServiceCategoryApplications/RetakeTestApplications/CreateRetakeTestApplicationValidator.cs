@@ -27,8 +27,8 @@ public class CreateRetakeTestApplicationValidator : CreateApplicationServiceVali
 
         await base.ValidateRequest(request);
 
-        var lDLAllowed = await _lDLTestRetakeApplicationRetrieve.GetByAsync(ldl => ldl.LocalDrivingLicenseApplicationId
-                                                             == request.LocalDrivingLicenseApplicationId);
+        var lDLAllowed = await _lDLTestRetakeApplicationRetrieve.GetByAsync(ldl => ldl.LocalDrivingLicenseApplicationId == request.LocalDrivingLicenseApplicationId
+                                                             && ldl.TestTypeId == request.TestTypeId);
 
 
         if (lDLAllowed == null || !lDLAllowed.IsAllowedToRetakeATest)

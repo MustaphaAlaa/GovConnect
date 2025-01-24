@@ -1,6 +1,7 @@
 using AutoMapper;
 using DataConfigurations.TVFs.ITVFs;
 using IRepository.ITestRepos;
+using IServices.IApplicationServices.IServiceCategoryApplications.IRetakeTestApplication;
 using IServices.ILDLApplicationsAllowedToRetakeATestServices;
 using IServices.ITests.ITest;
 using IServices.IValidators.BookingValidators;
@@ -14,6 +15,7 @@ public class LDLTestRetakeApplicationSubscriber : ILDLTestRetakeApplicationSubsc
 {
 
     private readonly ITestCreationService _testCreationService;
+    private readonly IRetakeTestApplicationCreation _retakeTestApplicationCreation;
     private readonly IServiceScopeFactory _serviceScopeFactory;
 
     private readonly ILogger<LDLTestRetakeApplicationSubscriber> _logger;
@@ -22,19 +24,24 @@ public class LDLTestRetakeApplicationSubscriber : ILDLTestRetakeApplicationSubsc
 
 
     // Constructor
-    public LDLTestRetakeApplicationSubscriber(ILogger<LDLTestRetakeApplicationSubscriber> logger,
-     IMapper mapper,
-    ITestCreationService testCreationService, IServiceScopeFactory serviceScopeFactory)
+    public LDLTestRetakeApplicationSubscriber(
+    ITestCreationService testCreationService,
+    IRetakeTestApplicationCreation retakeTestApplicationCreation,
+    IServiceScopeFactory serviceScopeFactory,
+        ILogger<LDLTestRetakeApplicationSubscriber> logger,
+     IMapper mapper)
     {
         _logger = logger;
         _mapper = mapper;
         _testCreationService = testCreationService;
         _serviceScopeFactory = serviceScopeFactory;
+        _retakeTestApplicationCreation = retakeTestApplicationCreation;
 
-        _testCreationService.TestCreated += OnTestCreation;
+        _testCreationService.TestCreated += OnCreation;
+        _retakeTestApplicationCreation.RetakeTestApplicationCreated += OnUpdate;
     }
 
-    private async Task OnTestCreation(object? arg1, TestDTO testDTO)
+    private async Task OnCreation(object? arg1, TestDTO testDTO)
     {
         try
         {
@@ -57,14 +64,62 @@ public class LDLTestRetakeApplicationSubscriber : ILDLTestRetakeApplicationSubsc
                      && tr.Booking.LocalDrivingLicenseApplicationId == booking.LocalDrivingLicenseApplicationId);
 
 
-
-
                 if (isFirstTime)
                 {
                     var createLDLTestAllowed = scope.ServiceProvider.GetRequiredService<ILDLTestRetakeApplicationCreator>();
                     await createLDLTestAllowed.CreateAsync(testDTO);
                     return;
                 }
+
+
+                var updateLDLTestAllowed = scope.ServiceProvider.GetRequiredService<ILDLTestRetakeApplicationUpdater>();
+
+                LDLApplicationsAllowedToRetakeATestDTO allowedToRetakeATestDTO = new()
+                {
+                    IsAllowedToRetakeATest = testDTO.TestResult,
+                    LocalDrivingLicenseApplicationId = testDTO.LocalDrivingLicenseApplicationId,
+                    TestTypeId = testDTO.TestTypeId
+
+                };
+
+                var updatedObj = await updateLDLTestAllowed.UpdateAsync(allowedToRetakeATestDTO);
+
+            }
+
+
+            // await OnUpdate(arg1, testDTO);
+
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            throw;
+        }
+
+    }
+
+
+    private async Task OnUpdate(object? arg1, TestDTO testDTO)
+    {
+        try
+        {
+            using (var scope = _serviceScopeFactory.CreateScope())
+            {
+
+                var bookingRetrieve = scope.ServiceProvider.GetRequiredService<IBookingRetrieveService>();
+
+                //Booking's TestTypeID
+
+
+                /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                 * !!!!!!!!!!!!!!!!!!!
+                
+                 * For Not it's only retake test application who uses this method so i'am sure there's a ldl id and test type id
+                */
+
+                //testDTO.TestTypeId = booking.TestTypeId;
+                //testDTO.LocalDrivingLicenseApplicationId = booking.LocalDrivingLicenseApplicationId;
 
                 var updateLDLTestAllowed = scope.ServiceProvider.GetRequiredService<ILDLTestRetakeApplicationUpdater>();
 

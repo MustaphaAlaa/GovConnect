@@ -1,16 +1,29 @@
+using AutoMapper;
 using IRepository.IGenericRepositories;
 using IServices.ILDLApplicationsAllowedToRetakeATestServices;
 using Microsoft.Extensions.Logging;
 using ModelDTO.TestsDTO;
+using Models.Tests;
 
 namespace DefaultNamespace;
 
 public class LDLTestRetakeApplicationUpdater : ILDLTestRetakeApplicationUpdater
 {
 
-    IGetRepository<LDLApplicationsAllowedToRetakeATestDTO> _getRepo;
-    IUpdateRepository<LDLApplicationsAllowedToRetakeATestDTO> _updateRepo;
-    ILogger<LDLTestRetakeApplicationUpdater> _logger;
+    private readonly IGetRepository<LDLApplicationsAllowedToRetakeATest> _getRepo;
+    private readonly IUpdateRepository<LDLApplicationsAllowedToRetakeATest> _updateRepo;
+    private readonly ILogger<LDLTestRetakeApplicationUpdater> _logger;
+    private readonly IMapper _mapper;
+    public LDLTestRetakeApplicationUpdater(IGetRepository<LDLApplicationsAllowedToRetakeATest> getRepo,
+        IUpdateRepository<LDLApplicationsAllowedToRetakeATest> updateRepo,
+        ILogger<LDLTestRetakeApplicationUpdater> logger,
+        IMapper mapper)
+    {
+        _getRepo = getRepo;
+        _updateRepo = updateRepo;
+        _logger = logger;
+        _mapper = mapper;
+    }
 
     public async Task<LDLApplicationsAllowedToRetakeATestDTO> UpdateAsync(LDLApplicationsAllowedToRetakeATestDTO updateRequest)
     {
@@ -33,12 +46,14 @@ public class LDLTestRetakeApplicationUpdater : ILDLTestRetakeApplicationUpdater
 
             var updatedObj = await _updateRepo.UpdateAsync(AllowedToRetakeATestObj);
 
-            return updatedObj;
+            var lDLAppAllowedToRetakeATestDTO = _mapper.Map<LDLApplicationsAllowedToRetakeATestDTO>(updatedObj);
+
+            return lDLAppAllowedToRetakeATestDTO;
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error updating LDLApplicationsAllowedToRetakeATestDTO object");
             throw;
         }
-}
+    }
 }

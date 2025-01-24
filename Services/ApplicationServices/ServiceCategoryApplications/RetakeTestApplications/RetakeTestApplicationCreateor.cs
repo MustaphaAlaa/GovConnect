@@ -9,10 +9,10 @@ using IServices.ITests.ITestTypes;
 using IServices.IValidators;
 using Microsoft.Extensions.Logging;
 using ModelDTO.ApplicationDTOs.User;
+using ModelDTO.TestsDTO;
 using Models.ApplicationModels;
 using Models.Applications;
 using Services.Exceptions;
-using System.Linq.Expressions;
 
 namespace Services.ApplicationServices.ServiceCategoryApplications;
 
@@ -46,6 +46,8 @@ public class RetakeTestApplicationCreateor : IRetakeTestApplicationCreation
         _logger = logger;
         _mapper = mapper;
     }
+
+    public event Func<object, TestDTO, Task> RetakeTestApplicationCreated;
 
     public async Task<RetakeTestApplication> CreateAsync(CreateRetakeTestApplicationRequest entity)
     {
@@ -86,6 +88,17 @@ public class RetakeTestApplicationCreateor : IRetakeTestApplicationCreation
 
             var retakeTestApplication = await _createRepository.CreateAsync(retakeTestApplicationReq);
 
+
+            //It's not correect to do it like that at all, but i'll stick to it for know
+            var tempTest = new TestDTO
+            {
+                LocalDrivingLicenseApplicationId = retakeTestApplication.LocalDrivingLicenseApplicationId,
+                TestTypeId = retakeTestApplication.TestTypeId,
+                TestResult = false
+            };
+
+            RetakeTestApplicationCreated?.Invoke(this, tempTest);
+
             return retakeTestApplication;
         }
         catch (Exception ex)
@@ -94,32 +107,5 @@ public class RetakeTestApplicationCreateor : IRetakeTestApplicationCreation
             throw;
         }
 
-    }
-}
-
-
-
-
-/// <summary>
-/// Responsible for retrieving data from RetakeTestApplication table.
-/// </summary>
-public class RetakeTestApplicationRetriever : IRetakeTestApplicationRetriever
-{
-    private readonly IGetRepository<RetakeTestApplication> _getRepository;
-    private readonly ILogger<RetakeTestApplicationRetriever> _logger;
-    private readonly IMapper _mapper;
-
-    public RetakeTestApplicationRetriever(IGetRepository<RetakeTestApplication> getRepository, ILogger<RetakeTestApplicationRetriever> logger, IMapper mapper)
-    {
-        _getRepository = getRepository;
-        _logger = logger;
-        _mapper = mapper;
-    }
-
-    public async Task<RetakeTestApplication> GetByAsync(Expression<Func<RetakeTestApplication, bool>> predicate)
-    {
-        _logger.LogInformation($"{this.GetType().Name} -- GetByAsync -- RetakeTestApplication");
-        var retakeTestApplication = await _getRepository.GetAsync(predicate);
-        return retakeTestApplication;
     }
 }

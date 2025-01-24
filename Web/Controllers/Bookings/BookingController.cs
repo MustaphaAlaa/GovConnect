@@ -1,5 +1,6 @@
 ﻿using GovConnect.Services.LDLApplicationsAllowedToRetakeATestServices;
 using IRepository.ISPs.IAppointmentProcedures;
+using IServices.IAppointments;
 using IServices.IBookingServices;
 using IServices.ILDLApplicationsAllowedToRetakeATestServices;
 using IServices.ITimeIntervalService;
@@ -41,6 +42,8 @@ namespace Web.Controllers.Bookingss
         private readonly ICreateBookingService _createBookingService;
         private readonly IBookingCreationValidators _bookingCreationValidators;
         private readonly ILDLTestRetakeApplicationSubscriber _lDLTestRetakeApplicationSubscriber;
+        private readonly IAppointmentUpdateService _appointmentUpdate;
+
         public BookingController(IGetTimeIntervalService getTimeIntervalService,
                          IGetAllTimeIntervalService getAllTimeIntervalService,
                          IFirstTimeBookingAnAppointmentValidation firstTimeBookingAnAppointment,
@@ -48,6 +51,7 @@ namespace Web.Controllers.Bookingss
                          IBookingCreationValidators bookingCreationValidators,
                          ISP_MarkExpiredAppointmentsAsUnavailable markExpiredAppointmentsAsUnavailable,
         ICreateBookingService createBookingService,
+        IAppointmentUpdateService appointmentUpdate,
                      ILDLTestRetakeApplicationSubscriber lDLTestRetakeApplicationSubscriber,
                          ILogger<BookingController> logger)
         {
@@ -58,8 +62,11 @@ namespace Web.Controllers.Bookingss
             _markExpiredAppointmentsAsUnavailable = markExpiredAppointmentsAsUnavailable;
             _bookingCreationValidators = bookingCreationValidators;
             _createBookingService = createBookingService;
-            _lDLTestRetakeApplicationSubscriber = lDLTestRetakeApplicationSubscriber;
             _logger = logger;
+
+            //for events
+            _appointmentUpdate = appointmentUpdate;
+            _lDLTestRetakeApplicationSubscriber = lDLTestRetakeApplicationSubscriber;
         }
 
 
