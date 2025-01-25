@@ -76,9 +76,7 @@ public class GovConnectMapperConfig : Profile
         CreateMap<Appointment, AppointmentDTO>().ReverseMap();
         CreateMap<Appointment, CreateAppointmentsRequest>().ReverseMap();
         CreateMap<TimeInterval, TimeIntervalDTO>().ReverseMap();
-
-
-
+ 
         // Booking mappings
         CreateMap<Booking, CreateBookingRequest>().ReverseMap();
         CreateMap<Booking, BookingDTO>().ReverseMap();
@@ -86,7 +84,8 @@ public class GovConnectMapperConfig : Profile
         //LDLApplicationsAllowedToRetakeATest mappings
         CreateMap<LDLApplicationsAllowedToRetakeATest, LDLApplicationsAllowedToRetakeATestDTO>().ReverseMap();
 
-
+        //Driver mappings
+        CreateMap<Driver, DriverDTO>().ReverseMap();
 
     }
 }

@@ -55,6 +55,10 @@ using IServices.IApplicationServices.IServiceCategoryApplications.IRetakeTestApp
 using IServices.ILDLApplicationsAllowedToRetakeATestServices;
 using GovConnect.Services.LDLApplicationsAllowedToRetakeATestServices;
 using DefaultNamespace;
+using IServices.IDriverServices;
+using IServices.IValidators.DriverValidators;
+using Services.DriverServices;
+using Services.DriverServices.Validators;
 
 namespace Web;
 
@@ -158,6 +162,12 @@ public class Program
         builder.Services.AddScoped<IDeleteServiceFees, DeleteServiceFeesService>();
         builder.Services.AddScoped<IServiceFeeRetrieverService, GetServiceFeesService>();
 
+        //Register Driver Services
+        builder.Services.AddScoped<IDriverRetrieveService, DriverRetrievalService>();
+        builder.Services.AddScoped<IDriverCreationValidator,  DriverCreatorValidator>();
+        builder.Services.AddScoped<IDriverCreatorService, DriverCreatorService>();
+        builder.Services.AddScoped<IDriverUpdateService, DriverUpdateService>();
+        
 
         // Register Tests Services
         builder.Services.AddScoped<ITestTypeRetrievalService, GetTestTypesService>();
