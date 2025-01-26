@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using AutoMapper;
 using IRepository.IGenericRepositories;
-using IServices.ILicencesServices;
+using IServices.ILicenseServices;
 using ModelDTO.ApplicationDTOs.User;
 using ModelDTO.LicenseDTOs;
 using Models.LicenseModels;
@@ -27,11 +27,11 @@ public class LocalDrivingLicenseRetrievalService : ILocalLicenseRetrieveService
     private readonly IGetAllRepository<LocalDrivingLicense> _getAllLocalLicensesRepository;
     private readonly IMapper _mapper;
 
-    public async Task<LocalDrivingLicenseDTO> GetByAsync(Expression<Func<LocalDrivingLicense, bool>> predicate)
+    public async Task<LocalDrivingLicenseDTO?> GetByAsync(Expression<Func<LocalDrivingLicense, bool>> predicate)
     {
-        var localLicnese = await _getLocalLicenseRepository.GetAsync(predicate);
+        var localLicense = await _getLocalLicenseRepository.GetAsync(predicate);
 
-        return localLicnese is null ? null : _mapper.Map<LocalDrivingLicenseDTO>(localLicnese);
+        return localLicense is null ? null : _mapper.Map<LocalDrivingLicenseDTO>(localLicense);
     }
 
 }

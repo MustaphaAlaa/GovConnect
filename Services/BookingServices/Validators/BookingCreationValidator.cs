@@ -1,7 +1,7 @@
 ﻿using IRepository.ITestRepos;
 using IServices.IAppointments;
 using IServices.IBookingServices;
-using IServices.ILicencesServices;
+using IServices.ILicenseServices;
 using IServices.IValidators;
 using IServices.IValidators.BookingValidators;
 using Microsoft.Extensions.Logging;

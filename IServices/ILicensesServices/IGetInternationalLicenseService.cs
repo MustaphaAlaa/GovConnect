@@ -1,7 +1,7 @@
 ﻿using ModelDTO.LicenseDTOs;
 using Models.LicenseModels;
 
-namespace IServices.ILicencesServices;
+namespace IServices.ILicenseServices;
 
 public interface IGetInternationalLicenseService : IAsyncRetrieveService<InternationalDrivingLicense,InternationalDrivingLicenseDTO>
 {

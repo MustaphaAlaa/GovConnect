@@ -1,9 +1,9 @@
 ﻿using ModelDTO.LicenseDTOs;
 using Models.LicenseModels;
 
-namespace IServices.ILicencesServices;
+namespace IServices.ILicenseServices;
 
-public interface ILocalLicenseRetrieveService : IAsyncRetrieveService<LocalDrivingLicense,LocalDrivingLicenseDTO>
+public interface ILocalLicenseRetrieveService : IAsyncRetrieveService<LocalDrivingLicense,LocalDrivingLicenseDTO?>
 {
     
 }

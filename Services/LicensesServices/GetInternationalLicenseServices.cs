@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using AutoMapper;
 using IRepository.IGenericRepositories;
-using IServices.ILicencesServices;
+using IServices.ILicenseServices;
 using ModelDTO.LicenseDTOs;
 using Models.LicenseModels;
 using Models.Users;
