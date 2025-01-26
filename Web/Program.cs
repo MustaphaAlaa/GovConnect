@@ -42,7 +42,7 @@ using IRepository.ITVFs;
 using Repositorties.TVFs;
 using IServices.IValidators.BookingValidators;
 using Services.BookingServices.Validators;
-using IServices.ILicencesServices;
+using IServices.ILicenseServices;
 using Services.LicensesServices;
 using Repositorties.GenericRepostiory;
 using Repositorties.TestRepos;
@@ -152,6 +152,10 @@ public class Program
         builder.Services.AddScoped<IGetLocalDrivingLicenseApplication, GetLocalDriveLiecenseApplication>();
         builder.Services.AddScoped<ICreateRetakeTestApplicationValidation, CreateRetakeTestApplicationValidator>();
 
+        //Register Local Driving License Services
+        builder.Services.AddScoped<ILocalDrivingLicenseCreationService,  LocalDrivingLicenseCreatorService>();
+        builder.Services.AddScoped<ILocalDrivingLicenseUpdateService,   LocalDrivingLicenseUpdateService>();
+        
         // Register Application Services
         builder.Services.AddScoped<ICreateApplicationService, CreateApplicationService>();
         builder.Services.AddScoped<ICreateApplicationEntity, CreateApplicationEntity>();
