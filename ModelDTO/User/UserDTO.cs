@@ -17,4 +17,5 @@ public class UserDTO
     public string PhoneNumber { get; set; }
 
     [Required] public int CountryId { get; set; }
+    [Required] public DateTime BirthDate { get; set; }
 }

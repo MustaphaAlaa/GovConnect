@@ -10,3 +10,11 @@
 //    SmallAndMediumMotorBus = 6,
 //    TruckAndHeavyVehicle = 7,
 //}
+
+public enum EnIssueReason{
+    New = 1,
+    Renewal = 2,
+    Lost = 3,
+    Damaged = 4,
+    ChangeOfDetails = 5,
+}

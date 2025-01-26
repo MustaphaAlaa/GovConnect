@@ -53,12 +53,15 @@ using IRepository.ISPs.IAppointmentProcedures;
 using Repositorties.SPs.AppointmentReps;
 using IServices.IApplicationServices.IServiceCategoryApplications.IRetakeTestApplication;
 using IServices.ILDLApplicationsAllowedToRetakeATestServices;
-using GovConnect.Services.LDLApplicationsAllowedToRetakeATestServices;
 using DefaultNamespace;
 using IServices.IDriverServices;
 using IServices.IValidators.DriverValidators;
 using Services.DriverServices;
 using Services.DriverServices.Validators;
+using Services.SubscriptionsServices.Tests;
+using IServices.ILicenseClassServices;
+using IServices.IUserServices;
+using Services.UsersServices;
 
 namespace Web;
 
@@ -149,13 +152,13 @@ public class Program
         builder.Services.AddScoped<IReleaseLocalDrivingLicenseApplicationValidator, ReleaseLocalDrivingLicenseApplicationValidator>();
         builder.Services.AddScoped<IGetDetainLicense, GetDetainedLicense>();
         builder.Services.AddScoped<ILocalLicenseRetrieveService, LocalDrivingLicenseRetrievalService>();
-        builder.Services.AddScoped<IGetLocalDrivingLicenseApplication, GetLocalDriveLiecenseApplication>();
+        builder.Services.AddScoped<ILocalDrivingLicenseApplicationRetrieve, GetLocalDriveLiecenseApplication>();
         builder.Services.AddScoped<ICreateRetakeTestApplicationValidation, CreateRetakeTestApplicationValidator>();
 
         //Register Local Driving License Services
-        builder.Services.AddScoped<ILocalDrivingLicenseCreationService,  LocalDrivingLicenseCreatorService>();
-        builder.Services.AddScoped<ILocalDrivingLicenseUpdateService,   LocalDrivingLicenseUpdateService>();
-        
+        builder.Services.AddScoped<ILocalDrivingLicenseCreationService, LocalDrivingLicenseCreatorService>();
+        builder.Services.AddScoped<ILocalDrivingLicenseUpdateService, LocalDrivingLicenseUpdateService>();
+
         // Register Application Services
         builder.Services.AddScoped<ICreateApplicationService, CreateApplicationService>();
         builder.Services.AddScoped<ICreateApplicationEntity, CreateApplicationEntity>();
@@ -168,10 +171,16 @@ public class Program
 
         //Register Driver Services
         builder.Services.AddScoped<IDriverRetrieveService, DriverRetrievalService>();
-        builder.Services.AddScoped<IDriverCreationValidator,  DriverCreatorValidator>();
+        builder.Services.AddScoped<IDriverCreationValidator, DriverCreatorValidator>();
         builder.Services.AddScoped<IDriverCreatorService, DriverCreatorService>();
         builder.Services.AddScoped<IDriverUpdateService, DriverUpdateService>();
-        
+
+        // Register User Services
+        builder.Services.AddScoped<IUserRetrieveService, UserRetrieveServices>();
+
+        // Register License Class Services
+        builder.Services.AddScoped<ILicenseClassRetrieve, LicenseClassRetrieve>();
+
 
         // Register Tests Services
         builder.Services.AddScoped<ITestTypeRetrievalService, GetTestTypesService>();
@@ -208,9 +217,10 @@ public class Program
 
 
         builder.Services.AddScoped<ILDLTestRetakeApplicationCreationValidator, LDLApplicationAllowedToRetakeTestCreationValidator>();
-        builder.Services.AddScoped<ILDLTestRetakeApplicationRetrieve, LDLTestRetakeApplicationRetrival>();
+        builder.Services.AddScoped<ILDLTestRetakeApplicationRetrieve, LDLTestRetakeApplicationRetrieval>();
         builder.Services.AddScoped<ILDLTestRetakeApplicationSubscriber, LDLTestRetakeApplicationSubscriber>();
 
+        builder.Services.AddScoped<IFinalTestSubscriber,  FinalTestPassedSubscriber>();
 
         builder.Services.AddScoped<IAppointmentUpdateService, AppointmentUpdateService>();
 

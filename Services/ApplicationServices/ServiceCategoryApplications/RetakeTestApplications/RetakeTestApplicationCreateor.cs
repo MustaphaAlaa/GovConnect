@@ -22,7 +22,7 @@ public class RetakeTestApplicationCreateor : IRetakeTestApplicationCreation
     private readonly ICreateRetakeTestApplicationValidation _retakeTestValiadtion;
     private readonly ITestTypeRetrievalService _testTypeRetrievalService;
     private readonly ICreateRepository<RetakeTestApplication> _createRepository;
-    private readonly IGetLocalDrivingLicenseApplication _localDrivingLicenseApplication;
+    private readonly ILocalDrivingLicenseApplicationRetrieve _localDrivingLicenseApplication;
     private readonly ICreateApplicationEntity _createApplicationEntity;
     private readonly IServiceFeeRetrieverService _serviceFeeRetrieverService;
     private readonly ILogger<RetakeTestApplicationCreateor> _logger;
@@ -31,7 +31,7 @@ public class RetakeTestApplicationCreateor : IRetakeTestApplicationCreation
     public RetakeTestApplicationCreateor(ICreateRetakeTestApplicationValidation retakeTestValiadtion,
         ITestTypeRetrievalService testTypeRetrievalService,
         ICreateRepository<RetakeTestApplication> createRepository,
-        IGetLocalDrivingLicenseApplication localDrivingLicenseApplication,
+        ILocalDrivingLicenseApplicationRetrieve localDrivingLicenseApplication,
         ICreateApplicationEntity createApplicationEntity,
         IServiceFeeRetrieverService serviceFeeRetrieverService,
         ILogger<RetakeTestApplicationCreateor> logger,

@@ -11,4 +11,5 @@ namespace IServices.ITests.ITest;
 public interface ITestCreationService : ICreateService<CreateTestRequest, TestDTO>
 {
     public event Func<object?, TestDTO, Task> TestCreated;
+    public event Func<object?, TestDTO, Task> OnFinalTestPassed;
 }

@@ -33,7 +33,7 @@ public class DriverCreatorService : IDriverCreatorService
                 _logger.LogError($"{this.GetType().Name} -- CreateAsync Entity -- null");
                 throw new ArgumentNullException(nameof(entity));
             }
-
+            entity.CreatedDate = DateTime.Now; 
             var driver = await _createRepository.CreateAsync(entity);
             var driverDTO = _mapper.Map<DriverDTO>(driver);
             return driverDTO;

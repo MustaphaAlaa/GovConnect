@@ -8,14 +8,14 @@ using System.Linq.Expressions;
 
 namespace Services.LDLApplicationsAllowedToRetakeATestServices;
 
-public class LDLTestRetakeApplicationRetrival : ILDLTestRetakeApplicationRetrieve
+public class LDLTestRetakeApplicationRetrieval : ILDLTestRetakeApplicationRetrieve
 {
     private readonly IGetRepository<LDLApplicationsAllowedToRetakeATest> _getRepository;
-    private readonly ILogger<LDLTestRetakeApplicationRetrival> _logger;
+    private readonly ILogger<LDLTestRetakeApplicationRetrieval> _logger;
     private readonly IMapper _mapper;
 
-    public LDLTestRetakeApplicationRetrival(IGetRepository<LDLApplicationsAllowedToRetakeATest> getRepository,
-        ILogger<LDLTestRetakeApplicationRetrival> logger,
+    public LDLTestRetakeApplicationRetrieval(IGetRepository<LDLApplicationsAllowedToRetakeATest> getRepository,
+        ILogger<LDLTestRetakeApplicationRetrieval> logger,
         IMapper mapper)
     {
         _getRepository = getRepository;

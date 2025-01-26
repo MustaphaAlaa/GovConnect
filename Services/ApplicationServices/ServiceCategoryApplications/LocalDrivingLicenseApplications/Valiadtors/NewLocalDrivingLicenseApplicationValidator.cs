@@ -17,14 +17,14 @@ public class NewLocalDrivingLicenseApplicationValidator : CreateApplicationServi
     private readonly ICheckApplicationExistenceService _checkApplicationExistenceService;
     private readonly IFirstTimeApplicationCheckable<CreateLocalDrivingLicenseApplicationRequest> _firstTimeChecker;
     private readonly IPendingOrInProgressApplicationStatus _pendingOrInProgressApplicationStatus;
-    private readonly IGetLocalDrivingLicenseApplication _getLocalDrivingLicenseApplication;
+    private readonly ILocalDrivingLicenseApplicationRetrieve _getLocalDrivingLicenseApplication;
     private readonly ILogger<INewLocalDrivingLicenseApplicationValidator> _logger;
 
     public NewLocalDrivingLicenseApplicationValidator(
         IGetRepository<Application> getApplicationRepository,
         IFirstTimeApplicationCheckable<CreateLocalDrivingLicenseApplicationRequest> firstTimeChecker,
         ICheckApplicationExistenceService checkApplicationExistenceService,
-        IGetLocalDrivingLicenseApplication getLocalDrivingLicenseApplication,
+        ILocalDrivingLicenseApplicationRetrieve getLocalDrivingLicenseApplication,
         IPendingOrInProgressApplicationStatus pendingOrInProgressApplicationStatus,
         ILogger<INewLocalDrivingLicenseApplicationValidator> logger) : base(logger)
     {

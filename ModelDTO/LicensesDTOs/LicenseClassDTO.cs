@@ -1,10 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Security.Cryptography;
-using Models.ApplicationModels;
+using System.ComponentModel.DataAnnotations;
 
-namespace Models.LicenseModels;
+namespace ModelDTO.LicenseDTOs;
 
-public class LicenseClass
+public class LicenseClassDTO
 {
     [Key]
     public short LicenseClassId { get; set; }
@@ -14,7 +12,5 @@ public class LicenseClass
     public ushort DefaultValidityLengthInMonths { get; set; } = 12;
     [Required] public decimal LicenseClassFees { get; set; }
 
-    public IEnumerable<LocalDrivingLicenseApplication> LocalDrivingLicenseApplications { get; set; }
-    public IEnumerable<LocalDrivingLicense> localDrivingLicenses { get; set; }
-
+ 
 }

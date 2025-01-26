@@ -87,5 +87,10 @@ public class GovConnectMapperConfig : Profile
         //Driver mappings
         CreateMap<Driver, DriverDTO>().ReverseMap();
 
+        //Users mappings
+        CreateMap<User, UserDTO>().ReverseMap();
+        CreateMap<LocalDrivingLicense, LocalDrivingLicenseDTO>().ReverseMap();
+        CreateMap<LicenseClass , LicenseClassDTO>().ReverseMap();
+
     }
 }

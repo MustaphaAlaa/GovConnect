@@ -10,7 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ModelDTO.TestsDTO;
 
-namespace GovConnect.Services.LDLApplicationsAllowedToRetakeATestServices;
+namespace Services.SubscriptionsServices.Tests;
+
 public class LDLTestRetakeApplicationSubscriber : ILDLTestRetakeApplicationSubscriber
 {
 

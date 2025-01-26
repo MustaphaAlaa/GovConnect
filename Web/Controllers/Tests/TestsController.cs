@@ -1,4 +1,5 @@
 ﻿using IServices.ILDLApplicationsAllowedToRetakeATestServices;
+using IServices.ILicenseClassServices;
 using IServices.ITests.ITest;
 using IServices.ITests.ITestTypes;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,7 @@ namespace Web.Controllers.Tests
         private readonly ILDLTestRetakeApplicationCreator _lDLTestRetake;
         private readonly ILDLTestRetakeApplicationSubscriber _lDLTestRetakeApplicationSubscriber;
         private readonly IAsyncAllTestTypesRetrieverService _getAllTestTypesService;
+        private readonly IFinalTestSubscriber _finalTestSubscriber;
         private readonly ILogger<TestType> _logger;
 
         public TestsController(ITestTypeRetrievalService getTestTypes,
@@ -37,6 +39,7 @@ namespace Web.Controllers.Tests
             ITestCreationService testCreationService,
             ILDLTestRetakeApplicationCreator lDLTestRetakeApplicationCreatorBase,
             ILDLTestRetakeApplicationSubscriber  lDLTestRetakeApplicationSubscriber,
+            IFinalTestSubscriber finalTestSubscriber,
             ILogger<TestType> logger)
         {
             _lDLTestRetakeApplicationSubscriber = lDLTestRetakeApplicationSubscriber;
@@ -45,6 +48,7 @@ namespace Web.Controllers.Tests
             _testCreationService = testCreationService;
             _lDLTestRetake = lDLTestRetakeApplicationCreatorBase;
             _getAllTestTypesService = getAllTestTypesService;
+            _finalTestSubscriber = finalTestSubscriber;
         }
 
         [HttpGet("/types/{TypeId:int}")]

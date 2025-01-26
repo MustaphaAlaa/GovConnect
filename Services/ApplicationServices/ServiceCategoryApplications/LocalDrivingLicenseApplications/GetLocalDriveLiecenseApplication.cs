@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Services.ApplicationServices.ServiceCategoryApplications.LocalDrivingLicenseApplications
 {
-    public class GetLocalDriveLiecenseApplication : IGetLocalDrivingLicenseApplication
+    public class GetLocalDriveLiecenseApplication : ILocalDrivingLicenseApplicationRetrieve
     {
         private readonly IGetRepository<LocalDrivingLicenseApplication> _getRepository;
         private readonly ILogger<GetLocalDriveLiecenseApplication> _logger;

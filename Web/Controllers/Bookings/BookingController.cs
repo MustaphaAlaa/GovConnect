@@ -1,5 +1,4 @@
-﻿using GovConnect.Services.LDLApplicationsAllowedToRetakeATestServices;
-using IRepository.ISPs.IAppointmentProcedures;
+﻿ using IRepository.ISPs.IAppointmentProcedures;
 using IServices.IAppointments;
 using IServices.IBookingServices;
 using IServices.ILDLApplicationsAllowedToRetakeATestServices;

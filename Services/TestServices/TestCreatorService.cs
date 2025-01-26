@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.Extensions.Logging;
 using ModelDTO.TestsDTO;
 using Models.Tests;
+using Models.Tests.Enums;
 using Services.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace Services.TestServices
 
 
         public event Func<object?, TestDTO, Task> TestCreated;
-
+        public event Func<object?, TestDTO, Task> OnFinalTestPassed;
 
 
         public async Task<TestDTO> CreateAsync(CreateTestRequest entity)
@@ -75,9 +76,14 @@ namespace Services.TestServices
 
                 TestCreated?.Invoke(this, testDTO);
 
-                //if first time invoke the one is responsible for creating new record in allowed table
-                //if not invoke the method that will update it in th record
+                _logger.LogInformation($"{this.GetType().Name} -- CreateAsync -- test is created.");
 
+                if(testDTO.TestTypeId == (int)EnTestTypes.Practical_Street && testDTO.TestResult  )
+                {
+                    _logger.LogInformation($"{this.GetType().Name} -- CreateAsync -- final test is created and it is practical street and pass.");
+                    OnFinalTestPassed?.Invoke(this, testDTO);
+                     
+                }
 
 
                 return testDTO;

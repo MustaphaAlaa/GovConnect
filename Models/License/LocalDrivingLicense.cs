@@ -15,7 +15,7 @@ public class LocalDrivingLicense
 
     public EnLicenseStatus LicenseStatus { get; set; } // 1: Active, 2: Expired, 3: Suspended, 4: Revoked, 5: Cancelled, 6: Detained
 
-    public byte IssueReason { get; set; } // 1: New, 2: Renewal, 3: Lost, 4: Damaged
+    public EnIssueReason IssueReason { get; set; } // 1: New, 2: Renewal, 3: Lost, 4: Damaged
 
     public DateTime IssuingDate { get; set; }
     public DateTime ExpiryDate { get; set; }

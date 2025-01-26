@@ -25,7 +25,8 @@ public class TestResultInfoRetrieve : ITestResultInfoRetrieve
             .Join(_govConnectDbContext.Bookings,
                     test => test.BookingId,
                     booking => booking.BookingId,
-                    (test, booking) => new TestResultInfo { Test = test, Booking =  booking });
+                    (test, booking) => new TestResultInfo { Test = test, Booking =  booking })
+                    ;
         return res;
     }
 }
