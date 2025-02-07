@@ -71,34 +71,6 @@ public class LocalLicenseApplicationController : ControllerBase
 
 
 
-    [HttpPost("new")]
-    public async Task<ActionResult> New(CreateLocalDrivingLicenseApplicationRequest request)
-    {
-
-        //request.UserId = Guid.NewGuid();
-        request.UserId = Guid.Parse("11111111-1111-1111-1111-111111111111"); //for testing purpose
-        var apiResponse = new ApiResponse();
-        request.ApplicationId = 0;
-        try
-        {
-            var ldlApp = await _createLocalDrivingLicenseApplicationService.Create(request, _newLocalDrivingLicenseApplicationValidator);
-
-
-            apiResponse.ErrorMessages = null;
-            apiResponse.IsSuccess = true;
-            apiResponse.StatusCode = HttpStatusCode.Created;
-            apiResponse.Result = ldlApp;
-            return Ok(apiResponse);
-        }
-        catch (Exception ex)
-        {
-            apiResponse.ErrorMessages.Add(ex.Message);
-            apiResponse.StatusCode = HttpStatusCode.BadRequest;
-            apiResponse.Result = null;
-            apiResponse.IsSuccess = false;
-            return BadRequest(apiResponse);
-        }
-    }
 
     [HttpPost("renew")]
     public async Task<ActionResult> Renew(CreateLocalDrivingLicenseApplicationRequest request)

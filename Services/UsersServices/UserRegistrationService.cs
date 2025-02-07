@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Net;
+using IServices.IUserServices;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using ModelDTO.API;
-using ModelDTO.User;
+using ModelDTO.Users;
 using Models.Users;
 
 namespace Services.UsersServices;
 
-public class UserRegistrationService
+public class UserRegistrationService : IUserRegistrationService
 {
     private UserManager<User> _userManager;
 
@@ -21,7 +23,7 @@ public class UserRegistrationService
 
         if (!modelState.IsValid)
         {
-            response.StatusCode = System.Net.HttpStatusCode.Conflict;
+            response.StatusCode = HttpStatusCode.Conflict;
             response.IsSuccess = false;
 
             modelState.Values
@@ -34,7 +36,7 @@ public class UserRegistrationService
 
         if (register == null)
         {
-            response.StatusCode = System.Net.HttpStatusCode.BadRequest;
+            response.StatusCode = HttpStatusCode.BadRequest;
             response.IsSuccess = false;
             response.ErrorMessages.Add("Cannot work without a register.");
 
@@ -45,7 +47,7 @@ public class UserRegistrationService
 
         if (age < 18)
         {
-            response.StatusCode = System.Net.HttpStatusCode.BadRequest;
+            response.StatusCode = HttpStatusCode.BadRequest;
             response.IsSuccess = false;
             response.ErrorMessages.Add("Minimum age must be at least 18 years old.");
 
@@ -57,7 +59,7 @@ public class UserRegistrationService
 
         if (UserExist != null)
         {
-            response.StatusCode = System.Net.HttpStatusCode.Conflict;
+            response.StatusCode = HttpStatusCode.BadRequest;
             response.IsSuccess = false;
             response.ErrorMessages.Add("Email Is Already Exist.");
 

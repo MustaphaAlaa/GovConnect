@@ -1,67 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using DataConfigurations;
-using IServices.IApplicationServices.IPurpose;
-using IServices.ICountryServices;
-using IServices.IApplicationServices.Category;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Models;
 using Models.Users;
-using Services.ApplicationServices.Purpose;
-using Services.CountryServices;
 using Web.Mapper;
-using IServices.IApplicationServices.Fees;
-using Services.ApplicationServices.Fees;
-using Services.ApplicationServices.For;
-using IServices.IApplicationServices.User;
-using ModelDTO.ApplicationDTOs.User;
-using Services.ApplicationServices.Services.UserAppServices.IsFirstTime;
-using Services.ApplicationServices.ServiceCategoryApplications;
-using Services.ApplicationServices.Services.UserAppServices;
-using IServices.IApplicationServices.IServiceCategoryApplications.ILocalDrivingLicenseApplication;
-using GovConnect.IServices.ILicensesServices.IDetainLicenses;
-using IServices.IAppointments;
-using Models.ApplicationModels;
 using Microsoft.AspNetCore.HttpLogging;
 using Serilog;
-using IServices.ITimeIntervalService;
-using IServices.IValidators;
-using Services.AppointmentsService;
-using Services.TimeIntervalServices;
-using IServices.IValidtors.ILocalDrivingLicenseApplications;
-using Services.ApplicationServices.Validators;
-using DataConfigurations.TVFs.ITVFs;
-using IServices.IBookingServices;
-using Services.BookingServices;
-using IServices.ITests.ITestTypes;
-using Services.TestTypeServices;
-using Services.LDLApplicationsAllowedToRetakeATestServices;
-using IServices.ITests.ITest;
-using Services.TestServices;
-using IRepository.ITVFs;
-using Repositorties.TVFs;
-using IServices.IValidators.BookingValidators;
-using Services.BookingServices.Validators;
-using IServices.ILicenseServices;
-using Services.LicensesServices;
-using Repositorties.GenericRepostiory;
-using Repositorties.TestRepos;
-using Services.ApplicationServices.ServiceCategoryApplications.LocalDrivingLicenseApplications;
-using IRepository.IGenericRepositories;
-using IRepository.ITestRepos;
-using IRepository.ISPs.IAppointmentProcedures;
-using Repositorties.SPs.AppointmentReps;
-using IServices.IApplicationServices.IServiceCategoryApplications.IRetakeTestApplication;
-using IServices.ILDLApplicationsAllowedToRetakeATestServices;
-using DefaultNamespace;
-using IServices.IDriverServices;
-using IServices.IValidators.DriverValidators;
-using Services.DriverServices;
-using Services.DriverServices.Validators;
-using Services.SubscriptionsServices.Tests;
-using IServices.ILicenseClassServices;
-using IServices.IUserServices;
-using Services.UsersServices;
 
 namespace Web;
 
@@ -95,144 +40,25 @@ public class Program
         builder.Services.AddDbContext<GovConnectDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("default")), ServiceLifetime.Scoped);
 
-
-        // Register StoredProcedure 
-        builder.Services.AddScoped<ISP_InsertAppointment, SPInsertAppointment>();
-        builder.Services.AddScoped<ISP_MarkExpiredAppointmentsAsUnavailable, SPMarkExpiredAppointmentsAsUnavailable>();
-
-        // Register Function
-        builder.Services.AddScoped<ITVF_GetTestTypeDayTimeInterval, TVFGetTestTypeDayTimeInterva>();
-        builder.Services.AddScoped<ITVF_GetAvailableDays, TVFGetAvailableDays>();
-        builder.Services.AddScoped<ITVF_GetTestResult, TVFGetTestResult>();
-        builder.Services.AddScoped<ITVF_GetTestResultForABookingId, TVFGetTestResultForABookingId>();
-        builder.Services.AddScoped<ITVF_GetLDLAppsAllowedToRetakATest, TVFGetLDLAppsAllowedToRetakATest>();
-        builder.Services.AddScoped<ITestTypePassedChecker, TestTypePassedChecker>();
-
-
-        // Register Repositories
-        builder.Services.AddScoped(typeof(IGetRepository<>), typeof(GetRepository<>));
-        builder.Services.AddScoped<IGetRepository<Application>, GetRepository<Application>>();
-        builder.Services.AddScoped(typeof(IGetAllRepository<>), typeof(GetAllRepository<>));
-        builder.Services.AddScoped(typeof(ICreateRepository<>), typeof(CreateRepository<>));
-        builder.Services.AddScoped(typeof(IUpdateRepository<>), typeof(UpdateRepository<>));
-        builder.Services.AddScoped(typeof(IDeleteRepository<>), typeof(DeleteRepository<>));
-
-        // Register Country Services
-        builder.Services.AddScoped<ICreateCountry, CreateCountryService>();
-        builder.Services.AddScoped<IGetCountry, GetCountryService>();
-        builder.Services.AddScoped<IGetAllCountries, GetAllCountriesService>();
-        builder.Services.AddScoped<IUpdateCountry, UpdateCountryService>();
-        builder.Services.AddScoped<IDeleteCountry, DeleteCountryService>();
-
-        // Register ServicePurpose Services
-        builder.Services.AddScoped<ICreateServicePurpose, CreateServicePurposeService>();
-        builder.Services.AddScoped<IGetServicePurpose, GetServicePurposeService>();
-        builder.Services.AddScoped<IGetAllServicePurpose, GetAllApplicationPurposesService>();
-        builder.Services.AddScoped<IUpdateServicePurpose, UpdateServicePurposeService>();
-        builder.Services.AddScoped<IDeleteServicePurpose, DeleteApplicationPurposeService>();
-
-        // Register ServiceCategory Services
-        builder.Services.AddScoped<ICreateServiceCategory, CreateServiceCategoryService>();
-        builder.Services.AddScoped<IGetServiceCategory, GetServiceCategoryService>();
-        builder.Services.AddScoped<IGetAllServiceCategory, GetAllServiceCategoryService>();
-        builder.Services.AddScoped<IUpdateServiceCategory, UpdateServiceCategoryService>();
-        builder.Services.AddScoped<IDeleteServiceCategory, DeleteServiceCategoryService>();
-
-        // Register Local Driving License Services
-        builder.Services.AddScoped<IFirstTimeApplicationCheckable<CreateLocalDrivingLicenseApplicationRequest>, FirstTimeLocalDrivingLicense>();
-        builder.Services.AddScoped<IPendingOrInProgressApplicationStatus, PendingOrInProgressApplicationStatus>();
-        builder.Services.AddScoped<ICheckApplicationExistenceService, CheckApplicationExistenceService>();
-        builder.Services.AddScoped<IGetLocalDrivingLicenseByUserId, GetLocalDrivingLicneseByUserId>();
-        builder.Services.AddScoped<INewLocalDrivingLicenseApplicationCreator, LocalDrivingLicenseApplicationCreator>();
-        builder.Services.AddScoped<ICreateLocalDrivingLicenseApplicationOrchestrator, CreateLocalLicenseApplicationOrchestrator>();
-        builder.Services.AddScoped<INewLocalDrivingLicenseApplicationValidator, NewLocalDrivingLicenseApplicationValidator>();
-        builder.Services.AddScoped<IRenewLocalDrivingLicenseApplicationValidator, RenewLocalDrivingLicenseApplicationValidator>();
-        builder.Services.AddScoped<IReplacementForDamageLocalDrivingLicenseApplicationValidator, ReplacementForDamageLocalDrivingLicenseApplicationValidator>();
-        builder.Services.AddScoped<IReplacementForLostLocalDrivingLicenseApplicationValidator, ReplacementForLostLocalDrivingLicenseApplicationValidator>();
-        builder.Services.AddScoped<IReleaseLocalDrivingLicenseApplicationValidator, ReleaseLocalDrivingLicenseApplicationValidator>();
-        builder.Services.AddScoped<IGetDetainLicense, GetDetainedLicense>();
-        builder.Services.AddScoped<ILocalLicenseRetrieveService, LocalDrivingLicenseRetrievalService>();
-        builder.Services.AddScoped<ILocalDrivingLicenseApplicationRetrieve, GetLocalDriveLiecenseApplication>();
-        builder.Services.AddScoped<ICreateRetakeTestApplicationValidation, CreateRetakeTestApplicationValidator>();
-
-        //Register Local Driving License Services
-        builder.Services.AddScoped<ILocalDrivingLicenseCreationService, LocalDrivingLicenseCreatorService>();
-        builder.Services.AddScoped<ILocalDrivingLicenseUpdateService, LocalDrivingLicenseUpdateService>();
-
-        // Register Application Services
-        builder.Services.AddScoped<ICreateApplicationService, CreateApplicationService>();
-        builder.Services.AddScoped<ICreateApplicationEntity, CreateApplicationEntity>();
-
-        // Register ServiceFees Services
-        builder.Services.AddScoped<ICreateServiceFees, CreateServiceFeesService>();
-        builder.Services.AddScoped<IUpdateServiceFees, UpdateServiceFeesService>();
-        builder.Services.AddScoped<IDeleteServiceFees, DeleteServiceFeesService>();
-        builder.Services.AddScoped<IServiceFeeRetrieverService, GetServiceFeesService>();
-
-        //Register Driver Services
-        builder.Services.AddScoped<IDriverRetrieveService, DriverRetrievalService>();
-        builder.Services.AddScoped<IDriverCreationValidator, DriverCreatorValidator>();
-        builder.Services.AddScoped<IDriverCreatorService, DriverCreatorService>();
-        builder.Services.AddScoped<IDriverUpdateService, DriverUpdateService>();
-
-        // Register User Services
-        builder.Services.AddScoped<IUserRetrieveService, UserRetrieveServices>();
-
-        // Register License Class Services
-        builder.Services.AddScoped<ILicenseClassRetrieve, LicenseClassRetrieve>();
-
-
-        // Register Tests Services
-        builder.Services.AddScoped<ITestTypeRetrievalService, GetTestTypesService>();
-        builder.Services.AddScoped<IAsyncAllTestTypesRetrieverService, GetAllTestTypesService>();
-        builder.Services.AddScoped<ITestCreationService, TestCreatorService>();
-        builder.Services.AddScoped<ICreateTestValidator, CreateTestValidator>();
-        builder.Services.AddScoped<ITestResultInfoRetrieve, TestResultInfoRetrieve>();
-
-        // Register Appointment Service
-        builder.Services.AddScoped<ICreateAppointmentService, CreateAppointmentsService>();
-        builder.Services.AddScoped<IGetAppointmentService, GetAppointmentService>();
-        builder.Services.AddScoped<IGetAllAppointmentsService, GetAllAppointmentsService>();
-        builder.Services.AddScoped<IGetTimeIntervalService, GetTimeIntervalService>();
-        builder.Services.AddScoped<IGetAllTimeIntervalService, GetAllTimeIntervalService>();
-
-        // Register Validators Service
-        builder.Services.AddScoped<IDateValidator, CreateDateValidator>();
-        builder.Services.AddScoped<ITestTypeValidator, TestTypeValidator>();
-
-        // Register Booking Service
-        builder.Services.AddScoped<IFirstTimeBookingAnAppointmentValidation, FirstTimeBookingAnAppointment>();
-        builder.Services.AddScoped<IBookingCreationValidators, BookingCreationValidator>();
-        builder.Services.AddScoped<ITestTypeOrder, BookingTestTypeOrder>();
-        builder.Services.AddScoped<IBookingRetrieveService, BookingRetrivalService>();
-        builder.Services.AddScoped<ICreateBookingService, BookingAnAppointmentService>();
-
-        //Register RetakeTest Service
-        builder.Services.AddScoped<ILDLTestRetakeApplicationCreator, LDLTestRetakeApplicationCreator>();
-        builder.Services.AddScoped<IRetakeTestApplicationBookingValidator, RetakeTestApplicationBookingValidator>();
-        builder.Services.AddScoped<IRetakeTestApplicationCreation, RetakeTestApplicationCreateor>();
-        builder.Services.AddScoped<IRetakeTestApplicationRetriever, RetakeTestApplicationRetriever>();
-        builder.Services.AddScoped<ILDLTestRetakeApplicationUpdater, LDLTestRetakeApplicationUpdater>();
-
-
-
-        builder.Services.AddScoped<ILDLTestRetakeApplicationCreationValidator, LDLApplicationAllowedToRetakeTestCreationValidator>();
-        builder.Services.AddScoped<ILDLTestRetakeApplicationRetrieve, LDLTestRetakeApplicationRetrieval>();
-        builder.Services.AddScoped<ILDLTestRetakeApplicationSubscriber, LDLTestRetakeApplicationSubscriber>();
-
-        builder.Services.AddScoped<IFinalTestSubscriber,  FinalTestPassedSubscriber>();
-
-        builder.Services.AddScoped<IAppointmentUpdateService, AppointmentUpdateService>();
-
+        builder.Services.AddConfigurationServices();
 
         // Add services to the container
         builder.Services.AddControllers();
 
         // Configure Identity
-        builder.Services.AddIdentity<User, UserRoles>()
+        builder.Services.AddIdentity<User, UserRoles>(options =>
+        {
+            options.Password.RequiredLength = 6;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = false;
+            options.Password.RequireLowercase = true;
+            options.Password.RequireDigit = true;
+        })
             .AddEntityFrameworkStores<GovConnectDbContext>()
             .AddDefaultTokenProviders()
-            .AddUserStore<UserStore<User, UserRoles, GovConnectDbContext, Guid>>();
+            .AddDefaultTokenProviders()
+            .AddUserStore<UserStore<User, UserRoles, GovConnectDbContext, Guid>>()
+            .AddRoleStore<RoleStore<UserRoles, GovConnectDbContext, Guid>>();
 
         // Configure AutoMapper
         builder.Services.AddAutoMapper(typeof(GovConnectMapperConfig));
@@ -245,13 +71,9 @@ public class Program
         {
             opt.LoggingFields = HttpLoggingFields.RequestPropertiesAndHeaders | HttpLoggingFields.ResponsePropertiesAndHeaders
                                 | HttpLoggingFields.ResponseBody | HttpLoggingFields.RequestBody;
-
         });
 
         var app = builder.Build();
-
-
-
 
         // Configure the HTTP request pipeline
         if (app.Environment.IsDevelopment())
@@ -259,10 +81,16 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+        app.UseRouting();
+        //app.UseCors();
+
         app.UseHttpLogging();
         Log.Information("----------------------------------Starting application");
         app.UseHttpsRedirection();
+
+        app.UseAuthentication();
         app.UseAuthorization();
+
         app.MapControllers();
         app.Run();
     }

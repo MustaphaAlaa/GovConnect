@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Models.Drivers;
 
-namespace ModelDTO.User;
+namespace ModelDTO.Users;
 
 public class UserDTO
 {

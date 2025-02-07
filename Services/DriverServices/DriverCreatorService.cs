@@ -2,7 +2,7 @@
 using IRepository.IGenericRepositories;
 using IServices.IDriverServices;
 using Microsoft.Extensions.Logging;
-using ModelDTO.User;
+using ModelDTO.Users;
 using Models.Users;
 
 namespace Services.DriverServices;

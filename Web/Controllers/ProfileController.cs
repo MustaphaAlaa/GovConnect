@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ModelDTO.API;
-using ModelDTO.User;
+using ModelDTO.Users;
 using Models.Users;
 
 namespace Web.Controllers;

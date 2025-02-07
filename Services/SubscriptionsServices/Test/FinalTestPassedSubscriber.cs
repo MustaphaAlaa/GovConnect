@@ -10,7 +10,7 @@ using IServices.IValidtors.ILocalDrivingLicenseApplications;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ModelDTO.TestsDTO;
-using ModelDTO.User;
+using ModelDTO.Users;
 using Models.Countries;
 using Models.License;
 using Models.LicenseModels;

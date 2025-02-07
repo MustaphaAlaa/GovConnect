@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ModelDTO.User;
+namespace ModelDTO.Users;
 
 public class DriverDTO
 {

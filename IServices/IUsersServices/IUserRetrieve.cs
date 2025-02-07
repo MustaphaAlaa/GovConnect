@@ -1,4 +1,6 @@
-using ModelDTO.User;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using ModelDTO.API;
+using ModelDTO.Users;
 using Models.Users;
 
 namespace IServices.IUserServices;
@@ -8,4 +10,10 @@ namespace IServices.IUserServices;
 /// </summary> 
 public interface IUserRetrieveService : IAsyncRetrieveService<User, UserDTO>
 {
+}
+
+
+public interface IUserRegistrationService
+{
+    Task<bool> ValidateRegisterAsync(RegisterDTO register, ApiResponse response, ModelStateDictionary modelState);
 }

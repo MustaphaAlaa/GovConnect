@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ModelDTO.API;
-using ModelDTO.User;
+using ModelDTO.Users;
 using Models.Users;
 using System.Text;
 using Services.UsersServices;
@@ -31,60 +31,6 @@ public class AuthController : ControllerBase
         _userRegistrationService = new UserRegistrationService(_userManager);
     }
 
-    [HttpPost("Register")]
-    public async Task<IActionResult> Register(RegisterDTO register)
-    {
-        /*
-         insted of typing the data everytime
-         {
-"firstName": "mostafa",
-"lastName": "alaa",
-        "Username":"MostafaAlaa2050",
-"nationalNo": "846531",
-"gender": 0,
-"address": "wedfvb",
-"imagePath": "strinSDFASD",
-"email": "string@er.com",
-"confirmEmail": "string@er.com",
-"phoneNumber": "01125043780",
-"birthDate": "1990-11-30T05:26:08.325Z",
-"password": "mM@123456",
-"confirmPassword": "mM@123456",
-"countryId": 1
-}
-         */
-        bool valid = await _userRegistrationService.ValidateRegisterAsync(register, _response, ModelState);
-
-        if (!valid)
-        {
-            return BadRequest(_response);
-        }
-
-        var user = _mapper.Map<User>(register);
-
-        var result = await _userManager.CreateAsync(user, register.Password);
-
-        if (result.Succeeded)
-        {
-            var UserDTO = _mapper.Map<UserDTO>(user);
-
-            _response.StatusCode = System.Net.HttpStatusCode.OK;
-            _response.IsSuccess = true;
-            _response.Result = UserDTO;
-            _response.ErrorMessages = null;
-            return Ok(_response);
-        }
-
-        _response.StatusCode = System.Net.HttpStatusCode.Forbidden;
-        _response.IsSuccess = false;
-
-        foreach (var err in result.Errors)
-        {
-            _response.ErrorMessages.Add(err.Description);
-        }
-
-        return BadRequest(_response);
-    }
 
     [HttpPost("Login")]
     public async Task<IActionResult> Login(LoginDTO login)
@@ -98,19 +44,19 @@ public class AuthController : ControllerBase
 
         if (result.Succeeded)
         {
-            /*   var user = await _userManager.FindByEmailAsync(login.Email);
-        if (user != null)
-        {
-            var u = await _userManager.IsInRoleAsync(user, "user");
-            _response.StatusCode = System.Net.HttpStatusCode.OK;
-            _response.IsSuccess = true;
-            _response.Result = _mapper.Map<UserDTO>(user);
-        }
-
-        _response.StatusCode = System.Net.HttpStatusCode.OK;
-        _response.IsSuccess = true;
-        _response.Result = _mapper.Map<UserDTO>(user);
-*/
+            var user = await _userManager.FindByEmailAsync(login.Email);
+            if (user == null)
+            {
+                _response.ErrorMessages.Add("Email not found");
+            }
+            if (user != null)
+            {
+                var u = await _userManager.IsInRoleAsync(user, "user");
+                _response.StatusCode = System.Net.HttpStatusCode.OK;
+                _response.IsSuccess = true;
+                _response.Result = _mapper.Map<UserDTO>(user);
+            } 
+            
             return Ok();
         }
 

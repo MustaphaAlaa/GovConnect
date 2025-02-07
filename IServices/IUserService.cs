@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using ModelDTO;
 using ModelDTO.CountryDTOs;
-using ModelDTO.User;
+using ModelDTO.Users;
 using Models.Users;
 
 namespace IServices;

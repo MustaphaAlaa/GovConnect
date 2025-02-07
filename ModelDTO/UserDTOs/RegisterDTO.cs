@@ -4,7 +4,7 @@ using System.Reflection.Emit;
 using Models.Drivers;
 using Models.Types;
 
-namespace ModelDTO.User;
+namespace ModelDTO.Users;
 
 public class RegisterDTO
 {

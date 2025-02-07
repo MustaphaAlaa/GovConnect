@@ -1,4 +1,4 @@
-﻿using ModelDTO.User;
+﻿using ModelDTO.Users;
 using Models.Users;
 
 namespace IServices.IDriverServices;
