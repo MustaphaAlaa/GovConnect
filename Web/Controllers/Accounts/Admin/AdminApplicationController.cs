@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Web.Controllers.Accounts.Admin;
+namespace Web.Controllers.Accounts.Stuff;
 
 /*
      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -13,7 +13,7 @@ namespace Web.Controllers.Accounts.Admin;
 
 
 [ApiController]
-[Route("Admin/DrivingLicenseApplication")]
+[Route("Stuff/DrivingLicenseApplication")]
 public class AdminApplicationController : ControllerBase
 {
 

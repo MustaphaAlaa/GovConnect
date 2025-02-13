@@ -4,6 +4,7 @@ using DataConfigurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataConfigurations.Migrations
 {
     [DbContext(typeof(GovConnectDbContext))]
-    partial class GovConnectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250213080656_LDL_IssueReasonColumn")]
+    partial class LDL_IssueReasonColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2374,29 +2377,6 @@ namespace DataConfigurations.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("87193e7e-f724-4215-ba54-684007edb662"),
-                            ConcurrencyStamp = "fd89f305-bf4e-45a5-9175-7776551bb622",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        },
-                        new
-                        {
-                            Id = new Guid("e53bc640-2c03-4d58-8aff-b5799fcca6d4"),
-                            ConcurrencyStamp = "b320e59d-4c38-4119-999b-cd9611e69c4e",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = new Guid("9e29e4b0-0e04-4aff-8631-3d6109b8887b"),
-                            ConcurrencyStamp = "def651c0-cff2-4580-8403-6117a93b7927",
-                            Name = "Employee",
-                            NormalizedName = "EMPLOYEE"
-                        });
                 });
 
             modelBuilder.Entity("Models.Users.Admin", b =>

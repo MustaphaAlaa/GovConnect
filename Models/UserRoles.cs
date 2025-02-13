@@ -4,5 +4,5 @@ namespace Models;
 
 public class UserRoles : IdentityRole<Guid>
 {
-    
+
 }

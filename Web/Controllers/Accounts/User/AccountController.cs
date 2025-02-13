@@ -159,7 +159,7 @@ namespace Web.Controllers.Accounts
         }
 
         [HttpGet("adminEmp")]
-        [Authorize(policy: "JWT", Roles = "Employee,Admin")]
+        [Authorize(policy: "JWT", Roles = "Employee,Stuff")]
         public IActionResult RoleTest()
         {
 
