@@ -18,4 +18,6 @@ public class UserDTO
 
     [Required] public int CountryId { get; set; }
     [Required] public DateTime BirthDate { get; set; }
+    public IList<string> Roles { get; set; }
+
 }

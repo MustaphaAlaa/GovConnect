@@ -1,12 +1,18 @@
+using System.Security.Claims;
+using System.Text;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
-using DataConfigurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Serilog;
+using DataConfigurations;
 using Models;
 using Models.Users;
 using Web.Mapper;
 using Microsoft.AspNetCore.HttpLogging;
-using Serilog;
+
 
 namespace Web;
 
@@ -16,7 +22,37 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        //Serilog
+        builder.Services.AddAuthentication(x =>
+        {
+            x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+            .AddJwtBearer(option =>
+            {
+                option.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ClockSkew = TimeSpan.Zero,
+                    ValidateIssuer = true,
+                    ValidIssuer = builder.Configuration["JWT:is"],
+                    ValidateAudience = true,
+                    ValidAudience = builder.Configuration["JWT:aud"],
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]!)),
+                };
+            });
+
+
+        builder.Services.AddAuthorization(options =>
+        {
+            options.AddPolicy("JWT", policy =>
+            {
+                policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
+                policy.RequireAuthenticatedUser();
+            });
+        });
+
 
         builder.Host.UseSerilog();
         // Configure Serilog
@@ -55,10 +91,9 @@ public class Program
             options.Password.RequireDigit = true;
         })
             .AddEntityFrameworkStores<GovConnectDbContext>()
-            .AddDefaultTokenProviders()
-            .AddDefaultTokenProviders()
             .AddUserStore<UserStore<User, UserRoles, GovConnectDbContext, Guid>>()
-            .AddRoleStore<RoleStore<UserRoles, GovConnectDbContext, Guid>>();
+            .AddRoleStore<RoleStore<UserRoles, GovConnectDbContext, Guid>>()
+            .AddDefaultTokenProviders();
 
         // Configure AutoMapper
         builder.Services.AddAutoMapper(typeof(GovConnectMapperConfig));
@@ -81,7 +116,7 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-        app.UseRouting();
+        //app.UseRouting();
         //app.UseCors();
 
         app.UseHttpLogging();
@@ -90,6 +125,46 @@ public class Program
 
         app.UseAuthentication();
         app.UseAuthorization();
+
+        app.Use(async (context, next) =>
+        {
+
+
+            Log.Information("!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            Log.Information($"{context?.User?.Identity?.IsAuthenticated}");
+            Log.Information("!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            await next();
+            Log.Information($"{context?.User?.Identity?.IsAuthenticated}");
+            Log.Information("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+
+        });
+
+        app.Use(async (context, next) =>
+        {
+            Log.Information("##############################################################");
+            Log.Information("##############################################################");
+            Log.Information("##############################################################");
+            Log.Information("##############################################################");
+            Log.Information("##############################################################");
+            Log.Information($"Request: {context.Request.Method} {context.Request.Path}");
+
+            if (context.Request.Headers.ContainsKey("Authorization"))
+            {
+                Log.Information($"Authorization Header: {context.Request.Headers["Authorization"]}");
+            }
+            else
+            {
+                Log.Information("Authorization header is missing.");
+            }
+            Log.Information("##############################################################");
+            Log.Information("##############################################################");
+            Log.Information("##############################################################");
+            Log.Information("##############################################################");
+
+            await next();
+        });
+
+
 
         app.MapControllers();
         app.Run();
