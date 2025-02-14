@@ -1,20 +1,18 @@
 ﻿using AutoMapper;
 using IServices.IAppointments;
-using Microsoft.AspNetCore.Mvc;
 using Models.Tests;
 using Models.Tests.Enums;
-using System.Globalization;
-using System.Net;
 using ModelDTO.API;
 using ModelDTO.Appointments;
-using DataConfigurations;
 using IServices.ITimeIntervalService;
-using DataConfigurations.TVFs.ITVFs;
 using IServices.ITests.ITestTypes;
-using IServices.ITests;
 using IRepository.ITVFs;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Services.TimeIntervalServices;
+using System.Net;
 
-namespace Web.Controllers.Appoinments;
+namespace Web.Controllers.Users;
 
 /*
      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -30,16 +28,16 @@ namespace Web.Controllers.Appoinments;
 [Route("api/Appointments")]
 public class AppointmentController : ControllerBase
 {
+    private ApiResponse _apiResponse;
     private readonly ILogger<Appointment> _logger;
     private readonly IMapper _mapper;
 
     private readonly IGetAppointmentService _getAppointmentService;
     private readonly IGetAllAppointmentsService _getAllAppointmentService;
-    private readonly ICreateAppointmentService _createAppointmentService;
 
     private readonly ITestTypeRetrievalService _getTestTypes;
     private readonly IAsyncAllTestTypesRetrieverService _getAllTestTypesService;
-
+    private readonly IGetTimeIntervalService _getTimeIntervalService;
     private readonly IGetAllTimeIntervalService _getAllTimeIntervalService;
     private readonly ITVF_GetTestTypeDayTimeInterval _TVF_GetTestTypeDayTimeInterval;
     private readonly ITVF_GetAvailableDays _TVF_GetAvailableDays;
@@ -74,6 +72,7 @@ public class AppointmentController : ControllerBase
     /// <param name="day">the date for which to retrive info. dd/mm/yyyy</param>
     /// <returns>A list of appointments scheduled for the specified test type and day.</returns>
     [HttpGet("type/{TypeId}")]
+    [Authorize(Policy = "JWT", Roles = "User,Employee")]
     public IActionResult GetTypeAppointments(int TypeId, string day)
     {
         _logger.LogInformation($"Get Appointments for TestType by id:{TypeId} and day:{day}");
@@ -89,7 +88,7 @@ public class AppointmentController : ControllerBase
         try
         {
             date = DateTime.ParseExact(day, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-            if ((date < DateTime.Now) || (date > DateTime.Now.AddDays(14)))
+            if (date < DateTime.Now || date > DateTime.Now.AddDays(14))
             {
                 return BadRequest("Invalid Date Range");
             }
@@ -104,71 +103,9 @@ public class AppointmentController : ControllerBase
     }
 
 
-    [HttpPost("type/{TypeId}/CreateAppointment")]
-    public async Task<IActionResult> CreateAppointment([FromRoute] int TypeId, [FromBody] CreateAppointmentsRequest req)
-    {
-        _logger.LogInformation($"Create Appointments for TestType by id: {TypeId}");
-
-        // Validate the request body
-        if (req == null)
-        {
-            return BadRequest(new ApiResponse
-            {
-                IsSuccess = false,
-                StatusCode = HttpStatusCode.BadRequest,
-                ErrorMessages = new List<string> { "Request body cannot be null." }
-            });
-        }
-
-        // Assign the TestTypeId from the route
-        req.TestTypeId = TypeId;
-
-        // Validate the model (e.g., required fields, valid DateTime formats)
-        if (!ModelState.IsValid)
-        {
-            var errors = ModelState.Values
-                .SelectMany(v => v.Errors)
-                .Select(e => e.ErrorMessage)
-                .ToList();
-
-            return BadRequest(new ApiResponse
-            {
-                IsSuccess = false,
-                StatusCode = HttpStatusCode.BadRequest,
-                ErrorMessages = errors
-            });
-        }
-
-        try
-        {
-            // Call the service to create the appointment
-            var res = await _createAppointmentService.CreateAsync(req);
-
-            // Return a success response
-            var response = new ApiResponse
-            {
-                Result = res,
-                StatusCode = HttpStatusCode.OK,
-                IsSuccess = true
-            };
-
-            return Ok(response);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "An error occurred while creating the appointment.");
-
-            // Return an error response
-            return StatusCode((int)HttpStatusCode.InternalServerError, new ApiResponse
-            {
-                IsSuccess = false,
-                StatusCode = HttpStatusCode.InternalServerError,
-                ErrorMessages = new List<string> { "An error occurred while processing your request." }
-            });
-        }
-    }
 
     [HttpGet("type/{TypeId}/available-days")]
+    [Authorize(Policy = "JWT", Roles = "User,Employee")]
     public async Task<IActionResult> GetDays([FromRoute] int TypeId)
     {
         _logger.LogInformation($"Get available days for appointments For TestTypeId: {TypeId}");
@@ -214,6 +151,7 @@ public class AppointmentController : ControllerBase
 
 
     [HttpGet("type/{TypeId:int}/Time-Interval")]
+    [Authorize(Policy = "JWT", Roles = "User,Employee")]
     public async Task<IActionResult> GetTimeIntervals([FromRoute] int TypeId, [FromQuery] DateOnly day)
     {
         _logger.LogInformation($"Get available days for appointments For TestTypeId: {TypeId}");
@@ -259,6 +197,86 @@ public class AppointmentController : ControllerBase
     }
 
 
+    [HttpGet("TimeInterval/{id:int}")]
+    [Authorize(Policy = "JWT", Roles = "User,Employee")]
 
+    public async Task<IActionResult> GetTimeInterval(int id)
+    {
+        _logger.LogInformation($"{this.GetType().Name} ---- GetTimeInterval By Id {id}");
+        try
+        {
+            var ti = await _getTimeIntervalService.GetByAsync(ti => ti.TimeIntervalId == id);
+            _apiResponse = new ApiResponse()
+            {
+                IsSuccess = true,
+                ErrorMessages = null,
+                Result = ti,
+                StatusCode = HttpStatusCode.OK,
+            };
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"{this.GetType().Name} -- {nameof(this.GetTimeInterval)}");
+
+            _apiResponse = new ApiResponse()
+            {
+                IsSuccess = false,
+                ErrorMessages = null,
+                Result = null,
+                StatusCode = HttpStatusCode.InternalServerError,
+            };
+            return StatusCode((int)HttpStatusCode.InternalServerError);
+        }
+    }
+
+    [HttpGet("TimeIntervals")]
+    [Authorize(Policy = "JWT", Roles = "User,Employee")]
+    public async Task<IActionResult> GetTimeIntervals(int hour = 0)
+    {
+        _logger.LogInformation($"{this.GetType().Name} ---- GetAllTimeInterval.");
+        try
+        {
+            if (hour == 1 || hour == 2)
+            {
+                hour += 12;
+            }
+
+            bool isHourExist = Enum.IsDefined(typeof(EnHour), hour);
+
+            _apiResponse = new ApiResponse()
+            {
+                ErrorMessages = null,
+                IsSuccess = true,
+                StatusCode = HttpStatusCode.OK,
+            };
+
+
+            if (hour == 0 || !isHourExist)
+            {
+                List<TimeIntervalDTO> timeIntervalDTOs = await _getAllTimeIntervalService.GetAllAsync();
+                _apiResponse.Result = await _getAllTimeIntervalService.GetAllAsync();
+            }
+            else
+            {
+
+                var ti = await _getAllTimeIntervalService.GetAllAsync(app => app.Hour == (EnHour)hour);
+
+                _apiResponse.Result = ti.ToList();
+            }
+
+            return Ok(_apiResponse);
+        }
+        catch (Exception ex)
+        {
+            _apiResponse = new ApiResponse();
+            _apiResponse.ErrorMessages.Add(ex.Message);
+            _apiResponse.IsSuccess = false;
+            _apiResponse.StatusCode = HttpStatusCode.InternalServerError;
+
+            return this.StatusCode((int)_apiResponse.StatusCode, _apiResponse);
+
+        }
+    }
 
 }

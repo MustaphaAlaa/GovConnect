@@ -1,10 +1,11 @@
-﻿ using IRepository.ISPs.IAppointmentProcedures;
+﻿using IRepository.ISPs.IAppointmentProcedures;
 using IServices.IAppointments;
 using IServices.IBookingServices;
 using IServices.ILDLApplicationsAllowedToRetakeATestServices;
 using IServices.ITimeIntervalService;
 using IServices.IValidators;
 using IServices.IValidators.BookingValidators;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,17 +19,12 @@ using Repositorties.SPs.AppointmentReps;
 using Services.BookingServices.Validators;
 using System.Net;
 
-namespace Web.Controllers.Bookingss
+namespace Web.Controllers.Users
 {
-    /*
-     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     !!!!!!!!!!!!!!!!!!!!!!!!!!
-     * I'll clean and and restructre all endpoints later these for testing purpose
-     *
-     */
-    [Route("api/Bookings")]
+    /// <summary>
+    /// Controller for handling booking-related operations.
+    /// </summary>
+    [Route("api/Booking")]
     [ApiController]
     public class BookingController : ControllerBase
     {
@@ -43,15 +39,28 @@ namespace Web.Controllers.Bookingss
         private readonly ILDLTestRetakeApplicationSubscriber _lDLTestRetakeApplicationSubscriber;
         private readonly IAppointmentUpdateService _appointmentUpdate;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BookingController"/> class.
+        /// </summary>
+        /// <param name="getTimeIntervalService">Service for retrieving time intervals.</param>
+        /// <param name="getAllTimeIntervalService">Service for retrieving all time intervals.</param>
+        /// <param name="firstTimeBookingAnAppointment">Validator for first-time booking appointments.</param>
+        /// <param name="retakeTestApplicationBookingValidator">Validator for retake test booking appointments.</param>
+        /// <param name="bookingCreationValidators">Validators for booking creation.</param>
+        /// <param name="markExpiredAppointmentsAsUnavailable">Service for marking expired appointments as unavailable.</param>
+        /// <param name="createBookingService">Service for creating bookings.</param>
+        /// <param name="appointmentUpdate">Service for updating appointments.</param>
+        /// <param name="lDLTestRetakeApplicationSubscriber">Subscriber for retake test applications.</param>
+        /// <param name="logger">Logger instance.</param>
         public BookingController(IGetTimeIntervalService getTimeIntervalService,
                          IGetAllTimeIntervalService getAllTimeIntervalService,
                          IFirstTimeBookingAnAppointmentValidation firstTimeBookingAnAppointment,
                          IRetakeTestApplicationBookingValidator retakeTestApplicationBookingValidator,
                          IBookingCreationValidators bookingCreationValidators,
                          ISP_MarkExpiredAppointmentsAsUnavailable markExpiredAppointmentsAsUnavailable,
-        ICreateBookingService createBookingService,
-        IAppointmentUpdateService appointmentUpdate,
-                     ILDLTestRetakeApplicationSubscriber lDLTestRetakeApplicationSubscriber,
+                         ICreateBookingService createBookingService,
+                         IAppointmentUpdateService appointmentUpdate,
+                         ILDLTestRetakeApplicationSubscriber lDLTestRetakeApplicationSubscriber,
                          ILogger<BookingController> logger)
         {
             _getTimeIntervalService = getTimeIntervalService;
@@ -68,10 +77,13 @@ namespace Web.Controllers.Bookingss
             _lDLTestRetakeApplicationSubscriber = lDLTestRetakeApplicationSubscriber;
         }
 
-
-
-
+        /// <summary>
+        /// Books an appointment for the first time.
+        /// </summary>
+        /// <param name="createBookingRequest">The booking request details.</param>
+        /// <returns>An <see cref="IActionResult"/> representing the result of the operation.</returns>
         [HttpPost("Appointment/firsttime")]
+        [Authorize(Policy = "JWT", Roles = "User")]
         public async Task<IActionResult> FirstTimeBookingAppointment([FromBody] CreateBookingRequest createBookingRequest)
         {
             createBookingRequest.RetakeTestApplicationId = null;
@@ -79,13 +91,25 @@ namespace Web.Controllers.Bookingss
             return actionResult;
         }
 
+        /// <summary>
+        /// Books an appointment for retaking a test.
+        /// </summary>
+        /// <param name="createBookingRequest">The booking request details.</param>
+        /// <returns>An <see cref="IActionResult"/> representing the result of the operation.</returns>
         [HttpPost("Appointment/retakeatest")]
+        [Authorize(Policy = "JWT", Roles = "User")]
         public async Task<IActionResult> RetakeTestBookingAppointment([FromBody] CreateBookingRequest createBookingRequest)
         {
             IActionResult actionResult = await BookingAnAppointment(createBookingRequest, _retakeTestApplicationBookingValidator);
             return actionResult;
         }
 
+        /// <summary>
+        /// Creates an appointment for a specific booking type.
+        /// </summary>
+        /// <param name="createBookingRequest">The booking request details.</param>
+        /// <param name="bookingTypeValidation">The booking type validation service.</param>
+        /// <returns>An <see cref="IActionResult"/> representing the result of the operation.</returns>
         private async Task<IActionResult> BookingAnAppointment(CreateBookingRequest createBookingRequest, IBookingCreationTypeValidation bookingTypeValidation)
         {
             ApiResponse res = new ApiResponse();
@@ -100,7 +124,6 @@ namespace Web.Controllers.Bookingss
                 res.StatusCode = HttpStatusCode.OK;
                 res.Result = booked;
                 return Ok(res);
-
             }
             catch (Exception ex)
             {
@@ -109,59 +132,6 @@ namespace Web.Controllers.Bookingss
                 res.StatusCode = HttpStatusCode.NotAcceptable;
                 return BadRequest(res);
             }
-        }
-
-        [HttpGet("TimeInterval/{id:int}")]
-        public async Task<IActionResult> GetTimeInterval(int id)
-        {
-            _logger.LogInformation($"{this.GetType().Name} ---- GetTimeInterval By Id {id}");
-            var ti = await _getTimeIntervalService.GetByAsync(ti => ti.TimeIntervalId == id);
-
-            return Ok(ti);
-        }
-
-        [HttpGet("TimeIntervals")]
-        public async Task<IActionResult> GetTimeIntervals(int hour = 0)
-        {
-            _logger.LogInformation($"{this.GetType().Name} ---- GetAllTimeInterval.");
-
-            List<TimeIntervalDTO> timeIntervalDTOs = new List<TimeIntervalDTO>();
-
-            if (hour == 1 || hour == 2)
-            {
-                hour += 12;
-            }
-
-            bool isHourExist = Enum.IsDefined(typeof(EnHour), hour);
-
-
-            if (hour == 0 || !isHourExist)
-            {
-                timeIntervalDTOs = await _getAllTimeIntervalService.GetAllAsync();
-            }
-            else
-            {
-
-                var ti = await _getAllTimeIntervalService.GetAllAsync(app => app.Hour == (EnHour)hour);
-                timeIntervalDTOs = ti.ToList();
-            }
-
-            return Ok(timeIntervalDTOs);
-        }
-
-        [HttpGet("Appointment")]
-        public IActionResult GetAppointments()
-        {
-
-
-            return Ok();
-        }
-
-
-        [HttpPost("Appointment")]
-        public IActionResult CreateAppointments(List<CreateAppointmentsRequest> appointmentsDTOs)
-        {
-            return Ok();
         }
     }
 }
