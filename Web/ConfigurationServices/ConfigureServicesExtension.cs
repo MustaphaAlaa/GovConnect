@@ -142,7 +142,7 @@ public static class ConfigureServicesExtension
 
         // Register User Services
         services.AddScoped<IUserRetrieveService, UserRetrieveServices>();
-        services.AddScoped<IUserRegistrationService, UserRegistrationService>();
+        services.AddScoped<IUserRegistrationService, UserRegistrationValidationService>();
 
         // Register License Class Services
         services.AddScoped<ILicenseClassRetrieve, LicenseClassRetrieve>();
