@@ -19,7 +19,7 @@ public class AuthController : ControllerBase
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signManager;
     private readonly IMapper _mapper;
-    private readonly UserRegistrationService _userRegistrationService;
+    private readonly UserRegistrationValidationService _userRegistrationService;
     private readonly ApiResponse _response;
 
     public AuthController(UserManager<User> userManager, IMapper mapper, SignInManager<User> signManager)
@@ -28,7 +28,7 @@ public class AuthController : ControllerBase
         _signManager = signManager;
         _mapper = mapper;
         _response = new ApiResponse();
-        _userRegistrationService = new UserRegistrationService(_userManager);
+        _userRegistrationService = new UserRegistrationValidationService(_userManager);
     }
 
 

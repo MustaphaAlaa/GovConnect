@@ -9,8 +9,8 @@ using IServices.ITests.ITestTypes;
 using IRepository.ITVFs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Services.TimeIntervalServices;
 using System.Net;
+using System.Globalization;
 
 namespace Web.Controllers.Users;
 
@@ -59,7 +59,6 @@ public class AppointmentController : ControllerBase
         _getAppointmentService = getAppointmentService;
         _getAllAppointmentService = getAllAppointmentService;
         _getAllTimeIntervalService = getAllTimeIntervalService;
-        _createAppointmentService = createAppointmentService;
         _TVF_GetTestTypeDayTimeInterval = TVF_GetTestTypeDayTimeInterval;
         _TVF_GetAvailableDays = TVF_GetAvailable;
     }

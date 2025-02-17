@@ -8,11 +8,11 @@ using Models.Users;
 
 namespace Services.UsersServices;
 
-public class UserRegistrationService : IUserRegistrationService
+public class UserRegistrationValidationService : IUserRegistrationService
 {
     private UserManager<User> _userManager;
 
-    public UserRegistrationService(UserManager<User> userManager)
+    public UserRegistrationValidationService(UserManager<User> userManager)
     {
         _userManager = userManager;
     }
